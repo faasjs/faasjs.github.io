@@ -1,0 +1,1 @@
+import{_ as e,o as s,a as t,F as r,b as a,e as c}from"./app.94778bae.js";const n={},o=a("h1",{id:"faasjs-aws",tabindex:"-1"},[a("a",{class:"header-anchor",href:"#faasjs-aws","aria-hidden":"true"},"#"),c(" @faasjs/aws")],-1),_=a("p",null,"\u5F85\u8865\u5145",-1);function d(l,f){return s(),t(r,null,[o,_],64)}var i=e(n,[["render",d],["__file","aws.html.vue"]]);export{i as default};
