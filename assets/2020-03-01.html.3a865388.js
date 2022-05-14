@@ -1,1 +1,0 @@
-const t={key:"v-0319384c",path:"/zh/blog/2020-03-01.html",title:"FaasJS \u8FD1\u671F\u66F4\u65B0\u901F\u89C8",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1651713098e3},filePathRelative:"zh/blog/2020-03-01.md"};export{t as data};

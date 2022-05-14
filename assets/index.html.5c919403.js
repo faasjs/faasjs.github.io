@@ -1,0 +1,1 @@
+const e={key:"v-2b4be8a5",path:"/zh/blog/",title:"FaasJS \u535A\u5BA2",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652515199e3},filePathRelative:"zh/blog/README.md"};export{e as data};

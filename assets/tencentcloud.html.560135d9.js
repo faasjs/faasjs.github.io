@@ -1,1 +1,0 @@
-const t={key:"v-689c08ec",path:"/zh/doc/tencentcloud.html",title:"@faasjs/tencentcloud",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1651713098e3},filePathRelative:"zh/doc/tencentcloud.md"};export{t as data};
