@@ -1,0 +1,1 @@
+const t={key:"v-12f329b0",path:"/zh/doc/eslint-config-react.html",title:"@faasjs/eslint-config-react",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652750486e3},filePathRelative:"zh/doc/eslint-config-react.md"};export{t as data};
