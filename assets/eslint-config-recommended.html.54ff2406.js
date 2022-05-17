@@ -1,1 +1,0 @@
-const e={key:"v-d27ef568",path:"/zh/doc/eslint-config-recommended.html",title:"@faasjs/eslint-config-recommended",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652515199e3},filePathRelative:"zh/doc/eslint-config-recommended.md"};export{e as data};

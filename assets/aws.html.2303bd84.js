@@ -1,0 +1,1 @@
+const t={key:"v-32bfb01b",path:"/zh/doc/aws.html",title:"@faasjs/aws",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1652750357e3},filePathRelative:"zh/doc/aws.md"};export{t as data};
