@@ -1,1 +1,0 @@
-const e={key:"v-8516de02",path:"/zh/guide/excel/env.html",title:"\u73AF\u5883\u53D8\u91CF",lang:"zh",frontmatter:{},excerpt:"",headers:[{level:2,title:"FaasEnv",slug:"faasenv",children:[]},{level:2,title:"FaasLog",slug:"faaslog",children:[]}],git:{updatedTime:1652750486e3},filePathRelative:"zh/guide/excel/env.md"};export{e as data};
