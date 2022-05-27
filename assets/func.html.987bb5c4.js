@@ -1,1 +1,0 @@
-const e={key:"v-ecf5af54",path:"/zh/doc/func.html",title:"@faasjs/func",lang:"zh",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u4F7F\u7528\u65B9\u6CD5",slug:"\u4F7F\u7528\u65B9\u6CD5",children:[]}],git:{updatedTime:1653611426e3},filePathRelative:"zh/doc/func.md"};export{e as data};
