@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-81d78f3a","path":"/doc/jest/","title":"@faasjs/jest","lang":"en","frontmatter":{},"excerpt":"","headers":[{"level":2,"title":"Install","slug":"install","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/jest/README.md"}');export{e as data};

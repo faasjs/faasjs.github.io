@@ -1,1 +1,0 @@
-const e={key:"v-18959b51",path:"/zh/blog/2019-07-26.html",title:"Serverless \u6700\u4F73\u5B9E\u8DF5\u4E4B\u4E91\u51FD\u6570\u7684\u751F\u547D\u5468\u671F",lang:"zh",frontmatter:{},excerpt:"",headers:[],git:{updatedTime:1653611681e3},filePathRelative:"zh/blog/2019-07-26.md"};export{e as data};
