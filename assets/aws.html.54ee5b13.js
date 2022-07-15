@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-32bfb01b","path":"/zh/doc/aws.html","title":"@faasjs/aws","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1657846329000},"filePathRelative":"zh/doc/aws.md"}');export{a as data};
