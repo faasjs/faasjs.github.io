@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-ff56a916","path":"/zh/guide/best-practice/lifecycle.html","title":"\u4F18\u5316\u4E91\u51FD\u6570\u7684\u521D\u59CB\u5316","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1660909948000},"filePathRelative":"zh/guide/best-practice/lifecycle.md"}');export{e as data};
