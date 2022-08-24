@@ -1,1 +1,0 @@
-const a=JSON.parse('{"key":"v-0aad4986","path":"/zh/doc/create-faas-app.html","title":"create-faas-app","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1661298131000},"filePathRelative":"zh/doc/create-faas-app.md"}');export{a as data};
