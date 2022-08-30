@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-0626db7f","path":"/doc/cli/","title":"@faasjs/cli","lang":"en","frontmatter":{},"excerpt":"","headers":[{"level":2,"title":"Install","slug":"install","children":[]},{"level":2,"title":"How to use?","slug":"how-to-use","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/cli/README.md"}');export{e as data};
