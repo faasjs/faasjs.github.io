@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-54f4ebd2","path":"/zh/blog/2019-04-22.html","title":"\u4ECE MVC \u5230 FaaS \u2014\u2014 \u5982\u4F55\u5F00\u53D1\u4F01\u4E1A\u7EA7 FaaS \u5E94\u7528","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1665370213000},"filePathRelative":"zh/blog/2019-04-22.md"}');export{e as data};
