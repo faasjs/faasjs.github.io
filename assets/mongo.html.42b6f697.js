@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-1ad4a0c4","path":"/zh/doc/mongo.html","title":"@faasjs/mongo","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1666930637000},"filePathRelative":"zh/doc/mongo.md"}');export{t as data};
