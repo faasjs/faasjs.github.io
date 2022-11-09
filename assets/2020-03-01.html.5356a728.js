@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-0319384c","path":"/zh/blog/2020-03-01.html","title":"FaasJS 近期更新速览","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1667954599000},"filePathRelative":"zh/blog/2020-03-01.md"}');export{t as data};

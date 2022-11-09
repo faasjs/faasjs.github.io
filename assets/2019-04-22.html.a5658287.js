@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-54f4ebd2","path":"/zh/blog/2019-04-22.html","title":"从 MVC 到 FaaS —— 如何开发企业级 FaaS 应用","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1667954599000},"filePathRelative":"zh/blog/2019-04-22.md"}');export{e as data};
