@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-ff56a916","path":"/zh/guide/best-practice/lifecycle.html","title":"优化云函数的初始化","lang":"zh","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1667955271000},"filePathRelative":"zh/guide/best-practice/lifecycle.md"}');export{e as data};
