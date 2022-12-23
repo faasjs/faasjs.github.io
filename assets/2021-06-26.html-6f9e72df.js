@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-354707d9","path":"/zh/blog/2021-06-26.html","title":"为什么 FaaS 系统的复杂性不会随着规模的增长而指数增长？","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1671174693000},"filePathRelative":"zh/blog/2021-06-26.md"}');export{t as data};
