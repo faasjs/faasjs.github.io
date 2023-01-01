@@ -1,1 +1,0 @@
-import{_ as a,p as s,q as t,R as e,t as n}from"./framework-8fa3e4ce.js";const c={},o=e("h1",{id:"faasjs-knex",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#faasjs-knex","aria-hidden":"true"},"#"),n(" @faasjs/knex")],-1),r=e("p",null,"待补充",-1),_=[o,r];function d(i,l){return s(),t("div",null,_)}const h=a(c,[["render",d],["__file","knex.html.vue"]]);export{h as default};
