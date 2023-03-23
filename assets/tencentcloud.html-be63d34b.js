@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-689c08ec","path":"/zh/doc/tencentcloud.html","title":"@faasjs/tencentcloud","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1678843085000},"filePathRelative":"zh/doc/tencentcloud.md"}');export{t as data};

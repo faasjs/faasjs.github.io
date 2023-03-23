@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-065f6e6c","path":"/zh/doc/logger.html","title":"@faasjs/logger","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1679576464000},"filePathRelative":"zh/doc/logger.md"}');export{e as data};
