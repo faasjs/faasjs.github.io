@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-39726980","path":"/SECURITY.html","title":"FaasJS Security Guide","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"SECURITY.md"}');export{e as data};

@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-12f329b0","path":"/zh/doc/eslint-config-react.html","title":"@faasjs/eslint-config-react","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1689738740000},"filePathRelative":"zh/doc/eslint-config-react.md"}');export{t as data};
