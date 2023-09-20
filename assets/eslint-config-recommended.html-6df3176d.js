@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-d27ef568","path":"/zh/doc/eslint-config-recommended.html","title":"@faasjs/eslint-config-recommended","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1694871613000},"filePathRelative":"zh/doc/eslint-config-recommended.md"}');export{e as data};
