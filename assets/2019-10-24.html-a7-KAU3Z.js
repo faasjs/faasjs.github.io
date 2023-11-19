@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-08d35baa","path":"/zh/blog/2019-10-24.html","title":"FaasJS vs MVC","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1700380976000},"filePathRelative":"zh/blog/2019-10-24.md"}');export{a as data};
