@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-5e62c781","path":"/doc/ant-design/modules/Form.Provider.html","title":"Namespace: Provider","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/modules/Form.Provider.md"}');export{e as data};

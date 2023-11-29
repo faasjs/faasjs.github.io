@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2ec338ec","path":"/doc/knex/modules/originKnex.html","title":"Namespace: originKnex","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/knex/modules/originKnex.md"}');export{e as data};
