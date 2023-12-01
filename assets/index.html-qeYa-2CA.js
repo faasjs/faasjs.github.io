@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-897c3062","path":"/doc/linter/","title":"@faasjs/linter","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Install","slug":"install","link":"#install","children":[]},{"level":2,"title":"Usage","slug":"usage","link":"#usage","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/linter/README.md"}');export{e as data};
