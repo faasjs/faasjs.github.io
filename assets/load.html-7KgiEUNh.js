@@ -1,1 +1,0 @@
-const a=JSON.parse('{"key":"v-3446e918","path":"/zh/doc/load.html","title":"@faasjs/load","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1702953202000},"filePathRelative":"zh/doc/load.md"}');export{a as data};
