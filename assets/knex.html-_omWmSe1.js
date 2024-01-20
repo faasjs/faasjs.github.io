@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-411e6df8","path":"/zh/doc/knex.html","title":"@faasjs/knex","lang":"zh","frontmatter":{},"headers":[],"git":{"updatedTime":1704586992000},"filePathRelative":"zh/doc/knex.md"}');export{e as data};
