@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-01b4ca0a","path":"/doc/logger/type-aliases/Level.html","title":"Type alias: Level","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/logger/type-aliases/Level.md"}');export{e as data};

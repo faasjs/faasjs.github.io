@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-492b5e02","path":"/doc/redis/functions/pipeline.html","title":"Function: pipeline()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/redis/functions/pipeline.md"}');export{e as data};

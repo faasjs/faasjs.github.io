@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-9c80f3b8","path":"/doc/ant-design/functions/useConfigContext.html","title":"Function: useConfigContext()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/functions/useConfigContext.md"}');export{t as data};

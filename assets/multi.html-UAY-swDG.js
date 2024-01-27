@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-22f88eb8","path":"/doc/redis/functions/multi.html","title":"Function: multi()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/redis/functions/multi.md"}');export{t as data};

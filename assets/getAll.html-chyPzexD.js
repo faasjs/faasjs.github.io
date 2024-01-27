@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-f2a02904","path":"/doc/server/functions/getAll.html","title":"Function: getAll()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/server/functions/getAll.md"}');export{e as data};

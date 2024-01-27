@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-5cbde910","path":"/doc/types/type-aliases/FaasAction.html","title":"Type alias: FaasAction","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/types/type-aliases/FaasAction.md"}');export{a as data};

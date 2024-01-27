@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-87c36e7a","path":"/doc/ant-design/type-aliases/ExtendFormItemProps.html","title":"Type alias: ExtendFormItemProps","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/type-aliases/ExtendFormItemProps.md"}');export{e as data};

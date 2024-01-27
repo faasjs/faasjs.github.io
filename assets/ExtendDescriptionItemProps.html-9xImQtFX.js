@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-df406ed6","path":"/doc/ant-design/type-aliases/ExtendDescriptionItemProps.html","title":"Type alias: ExtendDescriptionItemProps","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/type-aliases/ExtendDescriptionItemProps.md"}');export{e as data};
