@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as o,a as e}from"./app-iVp1-KPK.js";const t={},r=e("h1",{id:"faasjs-deployer",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#faasjs-deployer"},[e("span",null,"@faasjs/deployer")])],-1),c=e("p",null,"待补充",-1),l=[r,c];function n(_,d){return a(),o("div",null,l)}const p=s(t,[["render",n],["__file","deployer.html.vue"]]);export{p as default};

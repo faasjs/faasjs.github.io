@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as n,a as e}from"./app-iVp1-KPK.js";const t={},c=e("h1",{id:"faasjs-knex",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#faasjs-knex"},[e("span",null,"@faasjs/knex")])],-1),o=e("p",null,"待补充",-1),_=[c,o];function r(l,d){return a(),n("div",null,_)}const h=s(t,[["render",r],["__file","knex.html.vue"]]);export{h as default};
