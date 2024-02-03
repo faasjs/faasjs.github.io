@@ -1,1 +1,0 @@
-import{_ as s,o as a,c as o,a as e}from"./app-fkZxqJbk.js";const t={},r=e("h1",{id:"faasjs-logger",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#faasjs-logger"},[e("span",null,"@faasjs/logger")])],-1),c=e("p",null,"待补充",-1),l=[r,c];function n(_,d){return a(),o("div",null,l)}const g=s(t,[["render",n],["__file","logger.html.vue"]]);export{g as default};

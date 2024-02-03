@@ -1,1 +1,0 @@
-import{_ as c,o as t,c as n,a as e}from"./app-fkZxqJbk.js";const s={},o=e("h1",{id:"优化云函数的初始化",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#优化云函数的初始化"},[e("span",null,"优化云函数的初始化")])],-1),a=e("p",null,"writing..",-1),l=[o,a];function _(r,i){return t(),n("div",null,l)}const f=c(s,[["render",_],["__file","lifecycle.html.vue"]]);export{f as default};
