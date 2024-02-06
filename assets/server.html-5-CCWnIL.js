@@ -1,1 +1,0 @@
-import{_ as s,o as r,c as a,a as e}from"./app-4prM7q_v.js";const t={},c=e("h1",{id:"faasjs-server",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#faasjs-server"},[e("span",null,"@faasjs/server")])],-1),n=e("p",null,"待补充",-1),o=[c,n];function _(l,d){return r(),a("div",null,o)}const h=s(t,[["render",_],["__file","server.html.vue"]]);export{h as default};
