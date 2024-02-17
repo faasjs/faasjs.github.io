@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-0665cb9a","path":"/doc/ts-transform/variables/NodeBuiltinModules.html","title":"Variable: NodeBuiltinModules","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/ts-transform/variables/NodeBuiltinModules.md"}');export{e as data};

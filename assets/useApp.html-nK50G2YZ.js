@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-7ae04ae0","path":"/doc/ant-design/functions/useApp.html","title":"Function: useApp()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/functions/useApp.md"}');export{e as data};

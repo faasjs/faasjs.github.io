@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-361aac20","path":"/doc/server/functions/closeAll.html","title":"Function: closeAll()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/server/functions/closeAll.md"}');export{e as data};

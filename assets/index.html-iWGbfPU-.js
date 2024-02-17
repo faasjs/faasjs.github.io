@@ -1,1 +1,0 @@
-const l=JSON.parse('{"key":"v-8196a4ce","path":"/doc/load/","title":"@faasjs/load","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Install","slug":"install","link":"#install","children":[]},{"level":2,"title":"Functions","slug":"functions","link":"#functions","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/load/README.md"}');export{l as data};

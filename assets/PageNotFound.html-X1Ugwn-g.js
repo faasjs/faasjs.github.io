@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-1deb172c","path":"/doc/ant-design/functions/PageNotFound.html","title":"Function: PageNotFound()","lang":"en","frontmatter":{},"headers":[{"level":2,"title":"Returns","slug":"returns","link":"#returns","children":[]}],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/functions/PageNotFound.md"}');export{t as data};

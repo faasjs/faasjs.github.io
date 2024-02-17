@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-f9ba5494","path":"/doc/ant-design/type-aliases/FaasItemType.html","title":"Type alias: FaasItemType","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":null},"filePathRelative":"doc/ant-design/type-aliases/FaasItemType.md"}');export{e as data};
