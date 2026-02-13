@@ -70,12 +70,22 @@
 <h2 id="install" tabindex="-1">Install</h2>
 <pre><code class="hljs language-sh">npm install @faasjs/knex
 </code></pre>
+<h2 id="pglite-notes" tabindex="-1">PGlite Notes</h2>
+<ul>
+<li>Use <code>client: pglite</code> with string <code>connection</code>.</li>
+<li>If <code>connection</code> is missing, it defaults to an in-memory database.</li>
+<li>Install <code>@electric-sql/pglite</code> and <code>knex-pglite</code> in your project.</li>
+<li><code>pool</code> is ignored for PGlite, and parent directories are created automatically for path connections.</li>
+</ul>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
+<li><a href="/doc/knex/functions/createPgliteKnex.html">createPgliteKnex</a></li>
 <li><a href="/doc/knex/functions/initPostgresTypeParsers.html">initPostgresTypeParsers</a></li>
+<li><a href="/doc/knex/functions/mountFaasKnex.html">mountFaasKnex</a></li>
 <li><a href="/doc/knex/functions/query.html">query</a></li>
 <li><a href="/doc/knex/functions/raw.html">raw</a></li>
 <li><a href="/doc/knex/functions/transaction.html">transaction</a></li>
+<li><a href="/doc/knex/functions/unmountFaasKnex.html">unmountFaasKnex</a></li>
 <li><a href="/doc/knex/functions/useKnex.html">useKnex</a></li>
 </ul>
 <h2 id="classes" tabindex="-1">Classes</h2>
@@ -85,6 +95,7 @@
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
 <li><a href="/doc/knex/type-aliases/KnexConfig.html">KnexConfig</a></li>
+<li><a href="/doc/knex/type-aliases/MountFaasKnexOptions.html">MountFaasKnexOptions</a></li>
 </ul>
 <h2 id="variables" tabindex="-1">Variables</h2>
 <ul>

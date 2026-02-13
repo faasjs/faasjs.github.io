@@ -64,6 +64,30 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.6...v8.0.0-beta.7" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.7 (2026-02-14)</code></a></p>
+<ul>
+<li>
+<p><code>@faasjs/dev</code></p>
+<ul>
+<li>[Break] Remove PGlite helpers (<code>createPgliteKnex</code>, <code>mountFaasKnex</code>, <code>unmountFaasKnex</code>).</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/knex</code></p>
+<ul>
+<li>[Break] Move PGlite helpers from <code>@faasjs/dev</code> to <code>@faasjs/knex</code>.</li>
+<li>[Break] <code>client: pglite</code> only accepts <code>connection</code> as string (when provided) and rejects <code>connection_*</code> env fragments.</li>
+<li>[Feature] Add native <code>client: pglite</code> support.</li>
+<li>[Feature] Default <code>client: pglite</code> to in-memory when <code>connection</code> is missing, ignore <code>pool</code>, and create parent directories automatically for path connections.</li>
+</ul>
+</li>
+<li>
+<p><code>create-faas-app</code></p>
+<ul>
+<li>[Feature] Scaffold knex defaults with <code>production: pg</code>, <code>development: pglite</code> (persisted at <code>./.pglite_dev</code>), and <code>testing: pglite</code> in-memory.</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.5...v8.0.0-beta.6" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.6 (2026-02-13)</code></a></p>
 <ul>
 <li>

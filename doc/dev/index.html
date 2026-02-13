@@ -73,30 +73,17 @@
 <h2 id="features" tabindex="-1">Features</h2>
 <ul>
 <li>Vite integration for in-process FaasJS API during local development.</li>
-<li>PGlite helpers for lightweight database setup in tests.</li>
 <li>Test helpers to invoke and assert FaasJS functions.</li>
 </ul>
+<blockquote>
+<p>PGlite helpers are moved to <code>@faasjs/knex</code>.</p>
+</blockquote>
 <h2 id="usage%3A-vite-integration" tabindex="-1">Usage: Vite integration</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteFaasJsServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">viteFaasJsServer</span>()],
 })
-</code></pre>
-<h2 id="usage%3A-pglite-helpers" tabindex="-1">Usage: PGlite helpers</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> {
-  createPgliteKnex,
-  mountFaasKnex,
-  unmountFaasKnex,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-
-<span class="hljs-keyword">const</span> db = <span class="hljs-title function_">createPgliteKnex</span>()
-<span class="hljs-title function_">mountFaasKnex</span>(db)
-
-<span class="hljs-comment">// run tests...</span>
-
-<span class="hljs-keyword">await</span> db.<span class="hljs-title function_">destroy</span>()
-<span class="hljs-title function_">unmountFaasKnex</span>()
 </code></pre>
 <h2 id="usage%3A-test-helpers" tabindex="-1">Usage: Test helpers</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
@@ -111,21 +98,17 @@
 <h2 id="api" tabindex="-1">API</h2>
 <ul>
 <li>Vite: <a href="/doc/dev/functions/viteFaasJsServer.html">viteFaasJsServer</a></li>
-<li>PGlite: <a href="/doc/dev/functions/createPgliteKnex.html">createPgliteKnex</a>, <a href="/doc/dev/functions/mountFaasKnex.html">mountFaasKnex</a>, <a href="/doc/dev/functions/unmountFaasKnex.html">unmountFaasKnex</a>, <a href="/doc/dev/type-aliases/MountFaasKnexOptions.html">MountFaasKnexOptions</a></li>
 <li>Test: <a href="/doc/dev/functions/test.html">test</a>, <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a>, <a href="/doc/dev/functions/streamToString.html">streamToString</a></li>
 </ul>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
-<li><a href="/doc/dev/functions/createPgliteKnex.html">createPgliteKnex</a></li>
 <li><a href="/doc/dev/functions/defineFunc.html">defineFunc</a></li>
 <li><a href="/doc/dev/functions/generateFaasTypes.html">generateFaasTypes</a></li>
 <li><a href="/doc/dev/functions/isTypegenSourceFile.html">isTypegenSourceFile</a></li>
-<li><a href="/doc/dev/functions/mountFaasKnex.html">mountFaasKnex</a></li>
 <li><a href="/doc/dev/functions/nameFunc.html">nameFunc</a></li>
 <li><a href="/doc/dev/functions/parseFuncFilenameFromStack.html">parseFuncFilenameFromStack</a></li>
 <li><a href="/doc/dev/functions/streamToString.html">streamToString</a></li>
 <li><a href="/doc/dev/functions/test.html">test</a></li>
-<li><a href="/doc/dev/functions/unmountFaasKnex.html">unmountFaasKnex</a></li>
 <li><a href="/doc/dev/functions/useFunc.html">useFunc</a></li>
 <li><a href="/doc/dev/functions/usePlugin.html">usePlugin</a></li>
 <li><a href="/doc/dev/functions/viteFaasJsServer.html">viteFaasJsServer</a></li>
@@ -153,7 +136,6 @@
 <li><a href="/doc/dev/type-aliases/InvokeData.html">InvokeData</a></li>
 <li><a href="/doc/dev/type-aliases/LifeCycleKey.html">LifeCycleKey</a></li>
 <li><a href="/doc/dev/type-aliases/MountData.html">MountData</a></li>
-<li><a href="/doc/dev/type-aliases/MountFaasKnexOptions.html">MountFaasKnexOptions</a></li>
 <li><a href="/doc/dev/type-aliases/Next.html">Next</a></li>
 <li><a href="/doc/dev/type-aliases/NormalizePluginType.html">NormalizePluginType</a></li>
 <li><a href="/doc/dev/type-aliases/Plugin.html">Plugin</a></li>
