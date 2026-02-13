@@ -69,9 +69,23 @@
 <li>
 <p><code>@faasjs/dev</code></p>
 <ul>
+<li>[Break] Read local server config from <code>faas.yaml</code> (<code>&lt;staging&gt;.server</code>) and remove custom <code>viteFaasJsServer</code> options.</li>
+<li>[Break] Remove <code>faas-types</code> CLI options <code>--src</code>, <code>--output</code>, and <code>--staging</code>.</li>
 <li>[Feature] Add <code>generateFaasTypes</code> and <code>faas-types</code> CLI to generate action/event types from <code>.func.ts</code> routes and <code>faas.yaml</code>.</li>
 <li>[Feature] Add <code>types</code> option to <code>viteFaasJsServer</code> with startup generation and watched regeneration for <code>.func.ts</code> and <code>faas.yaml</code>.</li>
 <li>[Fix] Fix knex exporter.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/load</code></p>
+<ul>
+<li>[Feature] Validate <code>faas.yaml</code> key structure when loading config and reject removed <code>types</code> config.</li>
+</ul>
+</li>
+<li>
+<p><code>create-faas-app</code></p>
+<ul>
+<li>[Feature] Add default <code>server</code> section to scaffolded <code>src/faas.yaml</code>.</li>
 </ul>
 </li>
 <li>

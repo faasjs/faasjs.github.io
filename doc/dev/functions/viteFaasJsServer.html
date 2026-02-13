@@ -65,14 +65,11 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / viteFaasJsServer</p>
 <h1 id="function%3A-vitefaasjsserver()" tabindex="-1">Function: viteFaasJsServer()</h1>
 <blockquote>
-<p><strong>viteFaasJsServer</strong>(<code>options?</code>): <code>Plugin</code></p>
+<p><strong>viteFaasJsServer</strong>(): <code>Plugin</code></p>
 </blockquote>
 <p>Create a Vite plugin that proxies POST requests to an in-process FaasJS server.</p>
-<p>It resolves project root/base from Vite config and strips <code>base</code> from request URL
-before forwarding to <code>@faasjs/server</code>.</p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="options%3F" tabindex="-1">options?</h3>
-<p><code>Partial</code>&lt;<a href="/doc/dev/type-aliases/ViteFaasJsServerOptions.html"><code>ViteFaasJsServerOptions</code></a>&gt; &amp; <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; = <code>{}</code></p>
+<p>It resolves server root/base from <code>src/faas.yaml</code> and strips <code>base</code> from
+request URL before forwarding to <code>@faasjs/server</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Plugin</code></p>
 </div></div>
