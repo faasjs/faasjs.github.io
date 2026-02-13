@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / FaasActionPaths</p>
 <h1 id="type-alias%3A-faasactionpaths" tabindex="-1">Type Alias: FaasActionPaths</h1>
 <blockquote>
-<p><strong>FaasActionPaths</strong> = keyof <code>FaasActions</code></p>
+<p><strong>FaasActionPaths</strong> = <code>Exclude</code>&lt;<code>Extract</code>&lt;keyof <code>FaasActions</code>, <code>string</code>&gt;, <code>&quot;faasjsActionsPlaceholder&quot;</code>&gt;</p>
 </blockquote>
 <p>Paths of FaasJS actions.</p>
 </div></div>

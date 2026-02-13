@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useSplittingState</p>
 <h1 id="function%3A-usesplittingstate()" tabindex="-1">Function: useSplittingState()</h1>
 <blockquote>
-<p><strong>useSplittingState</strong>&lt;<code>T</code>&gt;(<code>initialStates</code>): <code>StatesWithSetters</code>&lt;<code>T</code>&gt;</p>
+<p><strong>useSplittingState</strong>&lt;<code>T</code>&gt;(<code>initialStates</code>): <a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
 <p>A hook that initializes and splits state variables and their corresponding setters.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -77,7 +77,7 @@
 <p><code>T</code></p>
 <p>An object containing the initial states.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>StatesWithSetters</code>&lt;<code>T</code>&gt;</p>
+<p><a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { count, setCount, name, setName } = <span class="hljs-title function_">useSplittingState</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span> });

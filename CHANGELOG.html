@@ -64,11 +64,45 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.5...v8.0.0-beta.6" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.6 (2026-02-12)</code></a></p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.5...v8.0.0-beta.6" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.6 (2026-02-13)</code></a></p>
 <ul>
-<li><code>@faasjs/dev</code>
+<li>
+<p><code>@faasjs/dev</code></p>
 <ul>
+<li>[Feature] Add <code>generateFaasTypes</code> and <code>faas-types</code> CLI to generate action/event types from <code>.func.ts</code> routes and <code>faas.yaml</code>.</li>
+<li>[Feature] Add <code>types</code> option to <code>viteFaasJsServer</code> with startup generation and watched regeneration for <code>.func.ts</code> and <code>faas.yaml</code>.</li>
 <li>[Fix] Fix knex exporter.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/func</code></p>
+<ul>
+<li>[Feature] Add <code>FaasPluginEventMap</code> and <code>InferPluginEvent</code> type utilities for plugin-driven event inference.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/http</code></p>
+<ul>
+<li>[Feature] Export <code>SessionContent</code> type.</li>
+<li>[Feature] Register <code>http</code> plugin event shape via <code>FaasPluginEventMap</code> augmentation.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/types</code></p>
+<ul>
+<li>[Feature] Add <code>FaasEvents</code>, <code>FaasEventPaths</code>, and <code>FaasEvent</code> for event type inference.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/react</code></p>
+<ul>
+<li>[Feature] Export <code>FormInput</code> and related helper types (<code>FormInputProps</code>, <code>InferFormInputProps</code>, <code>InferRuleOption</code>, <code>StateSetters</code>, <code>StatesWithSetters</code>).</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/request</code></p>
+<ul>
+<li>[Feature] Export <code>Mock</code> type for <code>setMock</code> handler signatures.</li>
 </ul>
 </li>
 </ul>
