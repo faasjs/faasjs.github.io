@@ -68,8 +68,8 @@
 <p><strong>detectNodeRuntime</strong>(): <a href="/doc/load/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
 </blockquote>
 <p>Detect current JavaScript runtime environment.</p>
-<p>This function checks for presence of <code>import.meta</code> and <code>require</code> to determine
-whether runtime is using ECMAScript modules (ESM) or CommonJS modules (CJS).</p>
+<p>This function checks for presence of <code>require</code> first, then falls back to Node.js
+ESM detection via <code>process.versions.node</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/load/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
 <ul>

@@ -65,16 +65,17 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/knex/">Documents</a> / <a href="/doc/knex/">@faasjs/knex</a> / createPgliteKnex</p>
 <h1 id="function%3A-createpgliteknex()" tabindex="-1">Function: createPgliteKnex()</h1>
 <blockquote>
-<p><strong>createPgliteKnex</strong>(<code>config?</code>, <code>connection?</code>): <code>Promise</code>&lt;<code>Knex</code>&gt;</p>
+<p><strong>createPgliteKnex</strong>(<code>config?</code>, <code>connection?</code>): <code>Promise</code>&lt;<code>Knex</code>&lt;<code>any</code>, <code>any</code>[]&gt;&gt;</p>
 </blockquote>
-<p>Create a knex instance backed by <code>knex-pglite</code>.</p>
+<p>Create a knex instance backed by <code>knex-pglite</code>.
+If connection is missing, it defaults to an in-memory database.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="config%3F" tabindex="-1">config?</h3>
 <p><code>Partial</code>&lt;<code>OriginKnex.Config</code>&gt; = <code>{}</code></p>
 <h3 id="connection%3F" tabindex="-1">connection?</h3>
 <p><code>string</code></p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Promise</code>&lt;<code>Knex</code>&gt;</p>
+<p><code>Promise</code>&lt;<code>Knex</code>&lt;<code>any</code>, <code>any</code>[]&gt;&gt;</p>
 </div></div>
           </div>
           
