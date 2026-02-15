@@ -70,8 +70,18 @@
 <h2 id="install" tabindex="-1">Install</h2>
 <p>Normally you don't need to install this package manually. It's a dependency of <code>@faasjs/func</code> and <code>@faasjs/browser</code>.</p>
 <h2 id="usage" tabindex="-1">Usage</h2>
-<h2 id="see" tabindex="-1">See</h2>
-<p><a href="/doc/types/type-aliases/InferFaasAction.html">InferFaasAction</a></p>
+<h3 id="typescript-config-presets" tabindex="-1">TypeScript config presets</h3>
+<p><code>@faasjs/types</code> also provides shared TypeScript presets under <code>tsconfig/</code>:</p>
+<ul>
+<li><code>@faasjs/types/tsconfig/base</code>: strict base options for common TypeScript projects.</li>
+<li><code>@faasjs/types/tsconfig/react</code>: base options with <code>jsx: &quot;react-jsx&quot;</code> for React projects.</li>
+<li><code>@faasjs/types/tsconfig/build</code>: build-oriented options for package development.</li>
+</ul>
+<p>In your tsconfig.json:</p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;extends&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@faasjs/types/tsconfig/build&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
 <li><a href="/doc/types/type-aliases/FaasAction.html">FaasAction</a></li>
@@ -82,6 +92,7 @@
 <li><a href="/doc/types/type-aliases/FaasEventPaths.html">FaasEventPaths</a></li>
 <li><a href="/doc/types/type-aliases/FaasParams.html">FaasParams</a></li>
 <li><a href="/doc/types/type-aliases/InferFaasAction.html">InferFaasAction</a></li>
+<li><a href="/doc/types/type-aliases/InferFaasFunc.html">InferFaasFunc</a></li>
 </ul>
 </div></div>
           </div>

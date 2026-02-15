@@ -66,7 +66,7 @@
 <h1 id="class%3A-errorboundary" tabindex="-1">Class: ErrorBoundary</h1>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
-<li><code>Component</code>&lt;<a href="/doc/react/interfaces/ErrorBoundaryProps.html"><code>ErrorBoundaryProps</code></a>, { <code>error?</code>: <code>Error</code>; <code>info?</code>: { <code>componentStack?</code>: <code>string</code>; }; }&gt;</li>
+<li><code>Component</code>&lt;<a href="/doc/react/interfaces/ErrorBoundaryProps.html"><code>ErrorBoundaryProps</code></a>, { <code>error</code>: <code>Error</code> | <code>null</code>; <code>info</code>: <code>ErrorInfo</code>; }&gt;</li>
 </ul>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
@@ -79,7 +79,7 @@
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>ErrorBoundary</code></p>
 <h4 id="overrides" tabindex="-1">Overrides</h4>
-<p><code>Component&lt; ErrorBoundaryProps, { error?: Error info?: { componentStack?: string } } &gt;.constructor</code></p>
+<p>Component&lt; ErrorBoundaryProps, { error: Error | null info: ErrorInfo } &gt;.constructor</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="componentdidcatch()" tabindex="-1">componentDidCatch()</h3>
 <blockquote>
@@ -91,17 +91,17 @@ the entire component tree to unmount.</p>
 <h5 id="error" tabindex="-1">error</h5>
 <p><code>Error</code></p>
 <h5 id="info" tabindex="-1">info</h5>
-<p><code>any</code></p>
+<p><code>ErrorInfo</code></p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h4 id="overrides-1" tabindex="-1">Overrides</h4>
 <p><code>Component.componentDidCatch</code></p>
 <h3 id="render()" tabindex="-1">render()</h3>
 <blockquote>
-<p><strong>render</strong>(): <code>string</code> | <code>number</code> | <code>bigint</code> | <code>boolean</code> | <code>Element</code> | <code>Iterable</code>&lt;<code>ReactNode</code>, <code>any</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>AwaitedReactNode</code>&gt;</p>
+<p><strong>render</strong>(): <code>string</code> | <code>number</code> | <code>bigint</code> | <code>boolean</code> | <code>Element</code> | <code>Iterable</code>&lt;<code>ReactNode</code>, <code>any</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>AwaitedReactNode</code>&gt; | <code>null</code></p>
 </blockquote>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
-<p><code>string</code> | <code>number</code> | <code>bigint</code> | <code>boolean</code> | <code>Element</code> | <code>Iterable</code>&lt;<code>ReactNode</code>, <code>any</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>AwaitedReactNode</code>&gt;</p>
+<p><code>string</code> | <code>number</code> | <code>bigint</code> | <code>boolean</code> | <code>Element</code> | <code>Iterable</code>&lt;<code>ReactNode</code>, <code>any</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>AwaitedReactNode</code>&gt; | <code>null</code></p>
 <h4 id="overrides-2" tabindex="-1">Overrides</h4>
 <p><code>Component.render</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>

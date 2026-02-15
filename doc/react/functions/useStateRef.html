@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useStateRef</p>
 <h1 id="function%3A-usestateref()" tabindex="-1">Function: useStateRef()</h1>
 <blockquote>
-<p><strong>useStateRef</strong>&lt;<code>T</code>&gt;(<code>initialValue?</code>): [<code>T</code>, <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<code>T</code>&gt;&gt;, <code>RefObject</code>&lt;<code>T</code>&gt;]</p>
+<p><strong>useStateRef</strong>&lt;<code>T</code>&gt;(<code>initialValue?</code>): [<code>T</code> | <code>null</code>, <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<code>T</code> | <code>null</code>&gt;&gt;, <code>RefObject</code>&lt;<code>T</code> | <code>null</code>&gt;]</p>
 </blockquote>
 <p>Custom hook that returns a stateful value and a ref to that value.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -77,7 +77,7 @@
 <p><code>T</code></p>
 <p>The initial value of the state.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p>[<code>T</code>, <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<code>T</code>&gt;&gt;, <code>RefObject</code>&lt;<code>T</code>&gt;]</p>
+<p>[<code>T</code> | <code>null</code>, <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<code>T</code> | <code>null</code>&gt;&gt;, <code>RefObject</code>&lt;<code>T</code> | <code>null</code>&gt;]</p>
 <ul>
 <li>The stateful value, a function to set the value, and a ref to the value.</li>
 </ul>

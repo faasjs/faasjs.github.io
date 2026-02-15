@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>loadPackage</strong>&lt;<code>T</code>&gt;(<code>name</code>, <code>defaultNames?</code>): <code>Promise</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Asynchronously loads a package by its name, supporting both ESM and CJS runtimes.</p>
+<p>Asynchronously loads a package by its name, supporting both ESM and CJS.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>unknown</code></p>
@@ -77,16 +77,11 @@
 <p><code>string</code></p>
 <p>The package name to load.</p>
 <h3 id="defaultnames%3F" tabindex="-1">defaultNames?</h3>
-<p><code>string</code> | <code>string</code>[]</p>
 <p>Preferred export keys used to resolve default values.</p>
+<p><code>string</code> | <code>string</code>[]</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>T</code>&gt;</p>
-<p>A promise that resolves to loaded module.</p>
-<h2 id="throws" tabindex="-1">Throws</h2>
-<p>If runtime is unknown.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myModule = <span class="hljs-keyword">await</span> loadPackage&lt;<span class="hljs-title class_">MyModuleType</span>&gt;(<span class="hljs-string">&#x27;my-module&#x27;</span>)
-</code></pre>
+<p>Loaded module or resolved default export.</p>
 </div></div>
           </div>
           

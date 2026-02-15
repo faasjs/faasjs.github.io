@@ -64,8 +64,27 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / defineFunc</p>
 <h1 id="function%3A-definefunc()" tabindex="-1">Function: defineFunc()</h1>
-<p>Create a cloud function with optional params schema validation.</p>
-<p>Plugins are auto-loaded from <code>func.config.plugins</code> and cannot be disabled.</p>
+<blockquote>
+<p><strong>defineFunc</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;(<code>options</code>): <code>Func</code>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Create a cloud function with optional Zod validation.</p>
+<p>Plugins are always auto-loaded from <code>func.config.plugins</code>.
+Plugin module exports must be either a named class (normalized from
+plugin type) or a default class export.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tschema" tabindex="-1">TSchema</h3>
+<p><code>TSchema</code> <em>extends</em> <code>ZodSchema</code> | <code>undefined</code> = <code>undefined</code></p>
+<h3 id="tevent" tabindex="-1">TEvent</h3>
+<p><code>TEvent</code> = <code>any</code></p>
+<h3 id="tcontext" tabindex="-1">TContext</h3>
+<p><code>TContext</code> = <code>any</code></p>
+<h3 id="tresult" tabindex="-1">TResult</h3>
+<p><code>TResult</code> = <code>any</code></p>
+<h2 id="parameters" tabindex="-1">Parameters</h2>
+<h3 id="options" tabindex="-1">options</h3>
+<p><a href="/doc/core/type-aliases/DefineFuncOptions.html"><code>DefineFuncOptions</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<h2 id="returns" tabindex="-1">Returns</h2>
+<p><code>Func</code>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 </div></div>
           </div>
           

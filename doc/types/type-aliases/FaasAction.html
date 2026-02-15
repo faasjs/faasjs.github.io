@@ -67,10 +67,16 @@
 <blockquote>
 <p><strong>FaasAction</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>T</code> : <code>string</code></p>
 </blockquote>
-<p>Infer the action type.</p>
+<p>Infer the action path type.</p>
+<p>Returns the original type when <code>T</code> is a known action path,
+otherwise falls back to <code>string</code>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-title class_">FaasAction</span>&lt;<span class="hljs-string">&#x27;demo&#x27;</span>&gt; <span class="hljs-comment">// &#x27;demo&#x27;</span>
+<span class="hljs-keyword">type</span> B = <span class="hljs-title class_">FaasAction</span>&lt;<span class="hljs-built_in">number</span>&gt; <span class="hljs-comment">// string</span>
+</code></pre>
 </div></div>
           </div>
           

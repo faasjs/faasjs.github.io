@@ -67,10 +67,13 @@
 <blockquote>
 <p><strong>FaasEvent</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasEventPaths.html"><code>FaasEventPaths</code></a> ? <code>FaasEvents</code>[<code>T</code>] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
 </blockquote>
-<p>Infer the event type.</p>
+<p>Infer event payload type by event path.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">DemoEvent</span> = <span class="hljs-title class_">FaasEvent</span>&lt;<span class="hljs-string">&#x27;demo&#x27;</span>&gt;
+</code></pre>
 </div></div>
           </div>
           

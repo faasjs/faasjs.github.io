@@ -116,12 +116,6 @@ server.<span class="hljs-title function_">listen</span>()
 <li>Do not use implicit rewrites such as <code>actions -&gt; api</code>.</li>
 <li>Do not place <code>*.func.ts</code> files in <code>components/</code>.</li>
 </ul>
-<h2 id="error-responses" tabindex="-1">Error responses</h2>
-<ul>
-<li>Unhandled server errors respond with <code>500</code> and plain text: <code>Internal Server Error</code>.</li>
-<li>Explicit business <code>500</code> errors (for example, throwing/returning an object with <code>statusCode: 500</code>) respond with JSON: <code>{ &quot;error&quot;: { &quot;message&quot;: &quot;...&quot; } }</code>.</li>
-<li>Invalid requests with missing <code>req.url</code> respond with <code>400</code> and plain text: <code>Bad Request: url is undefined</code>.</li>
-</ul>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/server/functions/closeAll.html">closeAll</a></li>

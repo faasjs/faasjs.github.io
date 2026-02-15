@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / Form</p>
 <h1 id="function%3A-form()" tabindex="-1">Function: Form()</h1>
 <blockquote>
-<p><strong>Form</strong>&lt;<code>Values</code>&gt;(<code>props</code>): <code>Element</code></p>
+<p><strong>Form</strong>&lt;<code>Values</code>&gt;(<code>props</code>): <code>Element</code> | <code>null</code></p>
 </blockquote>
 <p>Form component with Ant Design &amp; FaasJS</p>
 <ul>
@@ -73,12 +73,12 @@
 </ul>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
-<p><code>Values</code> = <code>any</code></p>
+<p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/FormProps.html"><code>FormProps</code></a>&lt;<code>Values</code>&gt;</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Element</code></p>
+<p><code>Element</code> | <code>null</code></p>
 </div></div>
           </div>
           

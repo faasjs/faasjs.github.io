@@ -68,18 +68,13 @@
 <p><strong>detectNodeRuntime</strong>(): <a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
 </blockquote>
 <p>Detect current JavaScript runtime environment.</p>
-<p>This function checks for presence of <code>require</code> first, then falls back to Node.js
-ESM detection via <code>process.versions.node</code>.</p>
+<p>This function checks for presence of <code>require</code> first, then falls back to
+Node.js ESM detection via <code>process.versions.node</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
-<ul>
-<li>Returns <code>module</code> if runtime is using ECMAScript modules,
-and <code>commonjs</code> if the runtime is using CommonJS modules.</li>
-</ul>
+<p>Returns <code>module</code> for ESM and <code>commonjs</code> for CJS.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
-<ul>
-<li>Throws an error if runtime cannot be determined.</li>
-</ul>
+<p>Throws an error if runtime cannot be determined.</p>
 </div></div>
           </div>
           
