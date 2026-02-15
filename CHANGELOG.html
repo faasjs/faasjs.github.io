@@ -64,12 +64,26 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.6...v8.0.0-beta.7" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.7 (2026-02-14)</code></a></p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.6...v8.0.0-beta.7" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.7 (2026-02-15)</code></a></p>
 <ul>
+<li>
+<p><code>faasjs</code></p>
+<ul>
+<li>[Break] Remove <code>@faasjs/load</code> and <code>@faasjs/deep_merge</code>, and merge their APIs into <code>@faasjs/node-utils</code>.</li>
+<li>[Break] Remove <code>faasjs</code>, all tsconfig files moved to <code>@faasjs/types</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Feature] Add Node-side utility package with <code>deepMerge</code>, load helpers, and stream helpers (<code>streamToText</code>, <code>streamToObject</code>, <code>streamToString</code>).</li>
+</ul>
+</li>
 <li>
 <p><code>@faasjs/dev</code></p>
 <ul>
 <li>[Break] Remove PGlite helpers (<code>createPgliteKnex</code>, <code>mountFaasKnex</code>, <code>unmountFaasKnex</code>).</li>
+<li>[Feature] Re-export stream helpers from <code>@faasjs/node-utils</code>.</li>
 </ul>
 </li>
 <li>
