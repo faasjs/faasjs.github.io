@@ -176,6 +176,7 @@
   "/doc/images/vscode/",
   "/doc/knex/",
   "/doc/knex/classes/Knex.html",
+  "/doc/knex/classes/KnexSchema.html",
   "/doc/knex/functions/createPgliteKnex.html",
   "/doc/knex/functions/initPostgresTypeParsers.html",
   "/doc/knex/functions/mountFaasKnex.html",

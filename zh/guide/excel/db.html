@@ -78,6 +78,31 @@
 </ul>
 </li>
 </ul>
+<h2 id="migration" tabindex="-1">Migration</h2>
+<ul>
+<li><code>@faasjs/knex</code> 提供 <code>KnexSchema</code>，用于显式执行 migration。</li>
+<li>推荐在测试 setup 或部署脚本中执行 migration，不建议放在请求链路自动执行。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">KnexSchema</span>, useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>
+
+<span class="hljs-keyword">const</span> knex = <span class="hljs-title function_">useKnex</span>({
+  <span class="hljs-attr">config</span>: {
+    <span class="hljs-attr">client</span>: <span class="hljs-string">&#x27;pg&#x27;</span>,
+    <span class="hljs-attr">connection</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">DATABASE_URL</span>,
+  },
+})
+
+<span class="hljs-keyword">await</span> knex.<span class="hljs-title function_">mount</span>()
+
+<span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KnexSchema</span>(knex)
+<span class="hljs-keyword">await</span> schema.<span class="hljs-title function_">migrateLatest</span>()
+
+<span class="hljs-keyword">await</span> knex.<span class="hljs-title function_">quit</span>()
+</code></pre>
+<ul>
+<li>默认 migration 目录：<code>./src/db/migrations</code></li>
+<li>默认生成扩展名：<code>ts</code></li>
+</ul>
 </div></div>
           </div>
           
