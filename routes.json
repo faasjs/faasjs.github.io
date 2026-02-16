@@ -186,6 +186,7 @@
   "/doc/knex/functions/unmountFaasKnex.html",
   "/doc/knex/functions/useKnex.html",
   "/doc/knex/type-aliases/KnexConfig.html",
+  "/doc/knex/type-aliases/MountedKnexAdapter.html",
   "/doc/knex/type-aliases/MountFaasKnexOptions.html",
   "/doc/knex/variables/originKnex.html",
   "/doc/lint/",
