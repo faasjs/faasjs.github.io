@@ -83,6 +83,23 @@
 <li><code>@faasjs/knex</code> 提供 <code>KnexSchema</code>，用于显式执行 migration。</li>
 <li>推荐在测试 setup 或部署脚本中执行 migration，不建议放在请求链路自动执行。</li>
 </ul>
+<h3 id="cli%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89" tabindex="-1">CLI（推荐）</h3>
+<p>安装 <code>@faasjs/dev</code> 后，可通过 <code>faas knex &lt;action&gt;</code> 执行 migration：</p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 执行待迁移</span>
+mise <span class="hljs-built_in">exec</span> -- npm run migrate:latest
+
+<span class="hljs-comment"># 回滚最近一次迁移批次</span>
+mise <span class="hljs-built_in">exec</span> -- npm run migrate:rollback
+
+<span class="hljs-comment"># 查看待迁移数量</span>
+mise <span class="hljs-built_in">exec</span> -- npm run migrate:status
+
+<span class="hljs-comment"># 查看当前迁移版本</span>
+mise <span class="hljs-built_in">exec</span> -- npm run migrate:current
+
+<span class="hljs-comment"># 创建 migration</span>
+mise <span class="hljs-built_in">exec</span> -- npm run migrate:make -- create_users
+</code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">KnexSchema</span>, useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>
 
 <span class="hljs-keyword">const</span> knex = <span class="hljs-title function_">useKnex</span>({
