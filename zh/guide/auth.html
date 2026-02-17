@@ -130,48 +130,34 @@
 <p>我们先手动创建云函数文件 <code>users/api/signup.func.ts</code>：</p>
 <p>然后在云函数文件中写业务代码：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signup.func.ts</span>
-<span class="hljs-keyword">import</span> { useFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>;
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> knex = <span class="hljs-title function_">useKnex</span>();
-  <span class="hljs-keyword">const</span> http = useHttp&lt;{
-    <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">password</span>: <span class="hljs-built_in">string</span>;
-  }&gt;({
-    <span class="hljs-attr">validator</span>: {
-      <span class="hljs-attr">params</span>: {
-        <span class="hljs-attr">whitelist</span>: <span class="hljs-string">&#x27;error&#x27;</span>,
-        <span class="hljs-attr">rules</span>: {
-          <span class="hljs-attr">username</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          },
-          <span class="hljs-attr">password</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          }
-        }
-      }
+<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>()
+}).<span class="hljs-title function_">required</span>();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+  schema,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
+    <span class="hljs-keyword">if</span> (!knex || !params) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
     }
-  });
 
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> knex.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
+    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
       .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>)
-      .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, http.<span class="hljs-property">params</span>.<span class="hljs-property">username</span>)
+      .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, params.<span class="hljs-property">username</span>)
       .<span class="hljs-title function_">first</span>();
 
     <span class="hljs-keyword">if</span> (!row) {
       <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>);
     }
 
-    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== http.<span class="hljs-property">params</span>.<span class="hljs-property">password</span>) {
+    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">password</span>) {
       <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>);
     }
 
-    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
   }
 });
 </code></pre>
@@ -221,107 +207,80 @@
 <h2 id="%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B" tabindex="-1">登录流程</h2>
 <p>先创建 <code>users/api/signin.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signin.func.ts</span>
-<span class="hljs-keyword">import</span> { useFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { useKnex, query } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>;
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-title function_">useKnex</span>();
-  <span class="hljs-keyword">const</span> http = <span class="hljs-title function_">useHttp</span>({
-    <span class="hljs-attr">validator</span>: {
-      <span class="hljs-attr">params</span>: {
-        <span class="hljs-attr">whitelist</span>: <span class="hljs-string">&#x27;error&#x27;</span>,
-        <span class="hljs-attr">rules</span>: {
-          <span class="hljs-attr">username</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          },
-          <span class="hljs-attr">password</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          }
-        }
-      }
+<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>()
+}).<span class="hljs-title function_">required</span>();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+  schema,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
+    <span class="hljs-keyword">if</span> (!knex || !params) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
     }
-  });
 
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
-      .<span class="hljs-title function_">where</span>({ <span class="hljs-attr">username</span>: http.<span class="hljs-property">params</span>.<span class="hljs-property">username</span> })
+    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
+      .<span class="hljs-title function_">where</span>({ <span class="hljs-attr">username</span>: params.<span class="hljs-property">username</span> })
       .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>)
       .<span class="hljs-title function_">first</span>();
     <span class="hljs-keyword">if</span> (!row) {
       <span class="hljs-comment">// 在云函数中，建议直接通过抛异常的方式来告知前端错误信息</span>
       <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>);
     }
-    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== http.<span class="hljs-property">params</span>.<span class="hljs-property">password</span>) {
+    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">password</span>) {
       <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>);
     }
 
-    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
   }
 });
 </code></pre>
 <h2 id="%E7%99%BB%E5%87%BA%E6%B5%81%E7%A8%8B" tabindex="-1">登出流程</h2>
 <p>先创建 <code>users/api/signout.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signout.func.ts</span>
-<span class="hljs-keyword">import</span> { useFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> http = <span class="hljs-title function_">useHttp</span>()
-
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-literal">null</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ session }</span>) {
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-literal">null</span>);
   }
 });
 </code></pre>
 <h2 id="%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E6%B5%81%E7%A8%8B" tabindex="-1">修改密码流程</h2>
 <p>先创建 <code>users/api/change-password.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/change-password.func.ts</span>
-<span class="hljs-keyword">import</span> { useFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { useKnex, query } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>;
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-title function_">useKnex</span>()
-  <span class="hljs-keyword">const</span> http = <span class="hljs-title function_">useHttp</span>({
-    <span class="hljs-attr">validator</span>: {
-      <span class="hljs-attr">session</span>: {
-        <span class="hljs-attr">rules</span>: {
-          <span class="hljs-attr">user_id</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;number&#x27;</span>
-          }
-        }
-      },
-      <span class="hljs-attr">params</span>: {
-        <span class="hljs-attr">whitelist</span>: <span class="hljs-string">&#x27;error&#x27;</span>,
-        <span class="hljs-attr">rules</span>: {
-          <span class="hljs-attr">new_password</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          },
-          <span class="hljs-attr">old_password</span>: {
-            <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>
-          }
-        }
-      }
+<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">new_password</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">old_password</span>: z.<span class="hljs-title function_">string</span>()
+}).<span class="hljs-title function_">required</span>();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+  schema,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
+    <span class="hljs-keyword">if</span> (!knex || !params) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
     }
-  });
 
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
-    .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;password&#x27;</span>)
-    .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, http.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>))
-    .<span class="hljs-title function_">first</span>();
-    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== http.<span class="hljs-property">params</span>.<span class="hljs-property">old_password</span>) {
+    <span class="hljs-keyword">const</span> userId = session.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> userId !== <span class="hljs-string">&#x27;number&#x27;</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;未登录&#x27;</span>);
+    }
+
+    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
+      .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;password&#x27;</span>)
+      .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, userId)
+      .<span class="hljs-title function_">first</span>();
+    <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">old_password</span>) {
       <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;旧密码错误&#x27;</span>);
     }
-    <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, http.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>)).<span class="hljs-title function_">update</span>({
-      <span class="hljs-attr">password</span>: http.<span class="hljs-property">params</span>.<span class="hljs-property">new_password</span>
-    })
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, userId).<span class="hljs-title function_">update</span>({
+      <span class="hljs-attr">password</span>: params.<span class="hljs-property">new_password</span>
+    });
   }
 });
 </code></pre>

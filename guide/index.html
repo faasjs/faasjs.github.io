@@ -63,9 +63,13 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="getting-started" tabindex="-1">Getting Started</h1>
+<h2 id="prerequisites" tabindex="-1">Prerequisites</h2>
+<p>FaasJS uses Node.js and npm managed by <a href="https://mise.jdx.dev/" target="_blank" rel="noopener noreferrer" class="external-link">mise</a>.</p>
+<pre><code class="hljs language-bash">mise install
+</code></pre>
 <h2 id="quick-start" tabindex="-1">Quick Start</h2>
 <h3 id="start-with-command-line" tabindex="-1">Start with Command Line</h3>
-<pre><code class="hljs language-bash">npx create-faas-app --name faasjs
+<pre><code class="hljs language-bash">mise <span class="hljs-built_in">exec</span> -- npx create-faas-app --name faasjs
 </code></pre>
 <h3 id="start-with-codespace" tabindex="-1">Start with Codespace</h3>
 <p><a href="https://github.com/faasjs/starter" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS Starter</a></p>

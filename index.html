@@ -105,15 +105,12 @@
 <h3 id="cloud-function's-file" tabindex="-1">Cloud function's file</h3>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// index.func.ts</span>
 <span class="hljs-comment">// all cloud function file should be ended with .func.ts</span>
-<span class="hljs-keyword">import</span> { useFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
+<span class="hljs-keyword">import</span> { defineFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-title function_">useHttp</span>() <span class="hljs-comment">// use http plugin</span>
-
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello, world&#x27;</span> <span class="hljs-comment">// response content</span>
-  }
+  },
 })
 </code></pre>
 <h3 id="unit-test's-file" tabindex="-1">Unit test's file</h3>

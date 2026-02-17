@@ -80,27 +80,6 @@
 <p>() =&gt; <a href="/doc/func/type-aliases/Handler.html"><code>Handler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/func/classes/Func.html"><code>Func</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// pure function</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello World&#x27;</span>
-  }
-})
-
-<span class="hljs-comment">// with http</span>
-<span class="hljs-keyword">import</span> { useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = useFunc&lt;{
-  <span class="hljs-attr">params</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }
-}&gt;(<span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-title function_">useHttp</span>()
-
-  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">{ event }</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello <span class="hljs-subst">${event.params.name}</span>`</span>
-  }
-})
-</code></pre>
 </div></div>
           </div>
           
