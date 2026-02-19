@@ -92,7 +92,12 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">ChildComponent</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { value, setValue } = <span class="hljs-title function_">use</span>()
 
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{value}<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setValue(1)}&gt;change value<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      {value}
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setValue(1)}&gt;change value<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
 }
 </code></pre>
 <h3 id="provider()" tabindex="-1">Provider()</h3>

@@ -84,14 +84,14 @@
     <span class="hljs-keyword">if</span> (!params) <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;params is required&#x27;</span>)
 
     <span class="hljs-keyword">return</span> params.<span class="hljs-property">number</span> + <span class="hljs-number">1</span>
-  }
+  },
 })
 
 <span class="hljs-comment">// declare the action type to FaasActions</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
     <span class="hljs-comment">// if &#x27;demo&#x27; is the action path</span>
-    <span class="hljs-string">&#x27;demo&#x27;</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-keyword">typeof</span> func&gt;
+    <span class="hljs-attr">demo</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-keyword">typeof</span> func&gt;
   }
 }
 </code></pre>

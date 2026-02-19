@@ -75,7 +75,9 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (url, options) =&gt; <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>({ <span class="hljs-attr">headers</span>: {}, <span class="hljs-attr">statusCode</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">body</span>: { <span class="hljs-attr">data</span>: <span class="hljs-string">&#x27;ok&#x27;</span> } }))
+<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (url, options) =&gt;
+  <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>({ <span class="hljs-attr">headers</span>: {}, <span class="hljs-attr">statusCode</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">body</span>: { <span class="hljs-attr">data</span>: <span class="hljs-string">&#x27;ok&#x27;</span> } }),
+)
 </code></pre>
 </div></div>
           </div>

@@ -103,7 +103,9 @@ If set to <code>false</code>, the middleware will do nothing.</p>
 <h4 id="example" tabindex="-1">Example</h4>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddleware, staticHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/server&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(<span class="hljs-title function_">staticHandler</span>({ <span class="hljs-attr">root</span>: __dirname + <span class="hljs-string">&#x27;/public&#x27;</span>, <span class="hljs-attr">stripPrefix</span>: <span class="hljs-string">&#x27;/public&#x27;</span> })) <span class="hljs-comment">// /public/index.html -&gt; /index.html</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(
+  <span class="hljs-title function_">staticHandler</span>({ <span class="hljs-attr">root</span>: __dirname + <span class="hljs-string">&#x27;/public&#x27;</span>, <span class="hljs-attr">stripPrefix</span>: <span class="hljs-string">&#x27;/public&#x27;</span> }),
+) <span class="hljs-comment">// /public/index.html -&gt; /index.html</span>
 </code></pre>
 </div></div>
           </div>

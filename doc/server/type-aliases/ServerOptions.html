@@ -85,10 +85,9 @@ It can be used for request preprocessing, authentication, logging, etc.</p>
   <span class="hljs-attr">beforeHandle</span>: <span class="hljs-title function_">async</span> (req, res) =&gt; {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Processing <span class="hljs-subst">${req.method}</span> request to <span class="hljs-subst">${req.url}</span>`</span>)
 
-    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> !== <span class="hljs-string">&#x27;POST&#x27;</span>)
-      res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">405</span>, { <span class="hljs-string">&#x27;Allow&#x27;</span>: <span class="hljs-string">&#x27;POST&#x27;</span> }) <span class="hljs-comment">// If you write response, it will finish the request</span>
-  }
-});
+    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> !== <span class="hljs-string">&#x27;POST&#x27;</span>) res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">405</span>, { <span class="hljs-title class_">Allow</span>: <span class="hljs-string">&#x27;POST&#x27;</span> }) <span class="hljs-comment">// If you write response, it will finish the request</span>
+  },
+})
 </code></pre>
 <h3 id="onclose()%3F" tabindex="-1">onClose()?</h3>
 <blockquote>
@@ -107,9 +106,9 @@ cleanup tasks or log server shutdown events.</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onClose</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
-    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server closed&#x27;</span>);
-  }
-});
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server closed&#x27;</span>)
+  },
+})
 </code></pre>
 <h3 id="onerror()%3F" tabindex="-1">onError()?</h3>
 <blockquote>
@@ -131,9 +130,9 @@ that occur during server operation.</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onError</span>: <span class="hljs-title function_">async</span> (error, { logger }) =&gt; {
-    logger.<span class="hljs-title function_">error</span>(error);
-  }
-});
+    logger.<span class="hljs-title function_">error</span>(error)
+  },
+})
 </code></pre>
 <h3 id="onstart()%3F" tabindex="-1">onStart()?</h3>
 <blockquote>
@@ -152,9 +151,9 @@ if an error occurs during its execution.</p>
 <h4 id="example-3" tabindex="-1">Example</h4>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onStart</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
-    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server started&#x27;</span>);
-  }
-});
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server started&#x27;</span>)
+  },
+})
 </code></pre>
 <h3 id="port%3F" tabindex="-1">port?</h3>
 <blockquote>

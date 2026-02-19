@@ -95,7 +95,7 @@
   <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-API-Key&#x27;</span>: <span class="hljs-string">&#x27;secret&#x27;</span> },
   <span class="hljs-attr">beforeRequest</span>: <span class="hljs-title function_">async</span> ({ action, params, headers }) =&gt; {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Calling <span class="hljs-subst">${action}</span> with params:`</span>, params)
-  }
+  },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> apiClient = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FaasBrowserClient</span>(<span class="hljs-string">&#x27;https://api.example.com/&#x27;</span>)
@@ -150,9 +150,9 @@ baseUrl override, and streaming mode.</p>
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FaasBrowserClient</span>(<span class="hljs-string">&#x27;https://api.example.com/&#x27;</span>, {
   <span class="hljs-attr">headers</span>: {
-    <span class="hljs-string">&#x27;Authorization&#x27;</span>: <span class="hljs-string">&#x27;Bearer token123&#x27;</span>,
-    <span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span>
-  }
+    <span class="hljs-title class_">Authorization</span>: <span class="hljs-string">&#x27;Bearer token123&#x27;</span>,
+    <span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span>,
+  },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FaasBrowserClient</span>(<span class="hljs-string">&#x27;https://api.example.com/&#x27;</span>, {
@@ -160,7 +160,7 @@ baseUrl override, and streaming mode.</p>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Requesting <span class="hljs-subst">${action}</span>`</span>, params)
     <span class="hljs-comment">// Modify headers before request</span>
     headers[<span class="hljs-string">&#x27;X-Timestamp&#x27;</span>] = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>().<span class="hljs-title function_">toString</span>()
-  }
+  },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span>
@@ -168,14 +168,14 @@ baseUrl override, and streaming mode.</p>
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FaasBrowserClient</span>(<span class="hljs-string">&#x27;/&#x27;</span>, {
   <span class="hljs-attr">request</span>: <span class="hljs-title function_">async</span> (url, options) =&gt; {
     <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> axios.<span class="hljs-title function_">post</span>(url, options.<span class="hljs-property">body</span>, {
-      <span class="hljs-attr">headers</span>: options.<span class="hljs-property">headers</span>
+      <span class="hljs-attr">headers</span>: options.<span class="hljs-property">headers</span>,
     })
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
       <span class="hljs-attr">status</span>: response.<span class="hljs-property">status</span>,
       <span class="hljs-attr">headers</span>: response.<span class="hljs-property">headers</span>,
-      <span class="hljs-attr">data</span>: response.<span class="hljs-property">data</span>
+      <span class="hljs-attr">data</span>: response.<span class="hljs-property">data</span>,
     })
-  }
+  },
 })
 </code></pre>
 <h4 id="throws-2" tabindex="-1">Throws</h4>
@@ -232,18 +232,26 @@ The data property is typed based on the PathOrData generic parameter.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;status&#x27;</span>)
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>.<span class="hljs-property">status</span>)
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;data&#x27;</span>, {
-  <span class="hljs-attr">limit</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>
-}, {
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> }
-})
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(
+  <span class="hljs-string">&#x27;data&#x27;</span>,
+  {
+    <span class="hljs-attr">limit</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>,
+  },
+  {
+    <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> },
+  },
+)
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;stream&#x27;</span>, {
-  <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;json&#x27;</span>
-}, {
-  <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>
-})
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(
+  <span class="hljs-string">&#x27;stream&#x27;</span>,
+  {
+    <span class="hljs-attr">format</span>: <span class="hljs-string">&#x27;json&#x27;</span>,
+  },
+  {
+    <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,
+  },
+)
 <span class="hljs-comment">// response is native fetch Response with streaming support</span>
 <span class="hljs-keyword">const</span> reader = response.<span class="hljs-property">body</span>.<span class="hljs-title function_">getReader</span>()
 </code></pre>
@@ -274,11 +282,11 @@ The data property is typed based on the PathOrData generic parameter.</p>
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> userId = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;createUser&#x27;</span>, {
   <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
-  <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;john@example.com&#x27;</span>
+  <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;john@example.com&#x27;</span>,
 })
 
 <span class="hljs-keyword">const</span> profile = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;getProfile&#x27;</span>, {
-  <span class="hljs-attr">userId</span>: userId.<span class="hljs-property">data</span>.<span class="hljs-property">id</span>
+  <span class="hljs-attr">userId</span>: userId.<span class="hljs-property">data</span>.<span class="hljs-property">id</span>,
 })
 </code></pre>
 <h2 id="properties" tabindex="-1">Properties</h2>

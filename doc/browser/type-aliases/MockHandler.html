@@ -110,7 +110,7 @@ Contains merged client defaults and per-request options.</p>
   <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;user&#x27;</span>) {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-      <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: params.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Mock User&#x27;</span> }
+      <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: params.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Mock User&#x27;</span> },
     }
   }
   <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;Not found&#x27;</span> } }

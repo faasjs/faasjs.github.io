@@ -72,8 +72,7 @@
 <span class="hljs-keyword">const</span> transport = <span class="hljs-title function_">getTransport</span>()
 
 transport.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;test&#x27;</span>, <span class="hljs-title function_">async</span> (messages) =&gt; {
- <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> { level, message } <span class="hljs-keyword">of</span> messages)
-   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(level, message)
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> { level, message } <span class="hljs-keyword">of</span> messages) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(level, message)
 })
 
 transport.<span class="hljs-title function_">config</span>({ <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;test&#x27;</span>, <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span> })
@@ -84,7 +83,7 @@ transport.<span class="hljs-title function_">insert</span>({
   <span class="hljs-attr">level</span>: <span class="hljs-string">&#x27;info&#x27;</span>,
   <span class="hljs-attr">labels</span>: [<span class="hljs-string">&#x27;server&#x27;</span>],
   <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;test message&#x27;</span>,
-  <span class="hljs-attr">timestamp</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
+  <span class="hljs-attr">timestamp</span>: <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>(),
 })
 
 process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {

@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Contributing | FaasJS</title>
+    <title>Contributing to FaasJS | FaasJS</title>
     <meta name="description" content="An atomic application framework built for the TypeScript developer." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,30 +62,126 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/starter" aria-label="Starter Template" rel="noopener noreferrer" target="_blank">Starter Template</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/CONTRIBUTING.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><h1 id="contributing" tabindex="-1">Contributing</h1>
-<p>There are many ways to support the development of FaasJS, including but not limited to:</p>
+            <div id="content"><div class="theme-default-content"><h1 id="contributing-to-faasjs" tabindex="-1">Contributing to FaasJS</h1>
+<p>Thanks for contributing to FaasJS.</p>
+<p>This project uses a GitHub-first workflow:</p>
+<p><code>Discussion -&gt; Issue -&gt; Pull Request -&gt; Review -&gt; Merge</code></p>
+<h2 id="quick-start" tabindex="-1">Quick Start</h2>
+<ol>
+<li>Check existing issues before creating a new one.</li>
+<li>Create an issue with the proper template (<code>Bug</code> or <code>Feature</code>).</li>
+<li>Create a branch from <code>main</code>.</li>
+<li>Open a PR that links the issue (<code>Closes #123</code>).</li>
+<li>Wait for CI + review, then merge with <strong>squash</strong>.</li>
+</ol>
+<h2 id="issue-guidelines" tabindex="-1">Issue Guidelines</h2>
 <ul>
-<li>Star or Watch on <a href="https://github.com/faasjs/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">Github</a></li>
-<li>Fork and Contribute on <a href="https://github.com/faasjs/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">Github</a></li>
-<li>Use FaasJS to build your own or enterprise applications.</li>
-<li>Share FaasJS with others and share your experience.</li>
-<li>Provide suggestions for improvement to <a href="https://faasjs.com" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS official website</a></li>
-<li>Write an article or record a video to share your FaasJS experience</li>
-<li>Fix the bug in FaasJS</li>
-<li>Add new features or new third-party adapter to FaasJS</li>
-<li><a href="https://github.com/sponsors/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">Be a sponsor to FaasJS</a></li>
+<li>Use issue templates and fill all required sections.</li>
+<li>Keep one issue focused on one problem or feature.</li>
+<li>Include reproducible steps for bugs.</li>
+<li>Include acceptance criteria for features.</li>
+<li>Security issues: use <a href="/SECURITY.html">SECURITY.md</a> guidance.</li>
 </ul>
-<h1 id="%E5%8F%82%E4%B8%8E%E8%B4%A1%E7%8C%AE" tabindex="-1">参与贡献</h1>
-<p>有多种方式可以支持 FaasJS 的发展，包括但不限于：</p>
+<h2 id="branch-naming" tabindex="-1">Branch Naming</h2>
 <ul>
-<li>给 <a href="https://github.com/faasjs/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS</a> Star 或 Watch</li>
-<li>使用 FaasJS 来构建自己或企业应用</li>
-<li>把 FaasJS 分享给其他人，并分享你的使用经验</li>
-<li>给 <a href="https://faasjs.com" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS 官网</a> 提供改进建议</li>
-<li>写文章或录制视频来分享你的 FaasJS 使用经验</li>
-<li>修复 FaasJS 中的 BUG</li>
-<li>给 FaasJS 添加新功能或新的第三方适配</li>
-<li><a href="https://github.com/sponsors/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">成为 FaasJS 的赞助人</a></li>
+<li><code>feat/&lt;feature-name&gt;</code></li>
+<li><code>fix/&lt;issue-description&gt;</code></li>
+<li><code>docs/&lt;topic&gt;</code></li>
+<li><code>chore/&lt;task&gt;</code></li>
+</ul>
+<p>Use lowercase and hyphens.</p>
+<h2 id="pull-request-guidelines" tabindex="-1">Pull Request Guidelines</h2>
+<ul>
+<li>Every PR must link an issue: <code>Closes #&lt;issue-id&gt;</code>.</li>
+<li>Keep PRs small and focused.</li>
+<li>Explain affected packages under <code>packages/*</code>.</li>
+<li>Mention breaking changes explicitly.</li>
+<li>Use <a href="https://www.conventionalcommits.org/" target="_blank" rel="noopener noreferrer" class="external-link">Conventional Commits</a>.</li>
+</ul>
+<h2 id="local-validation" tabindex="-1">Local Validation</h2>
+<p>Run checks before requesting review:</p>
+<pre><code class="hljs language-bash">mise <span class="hljs-built_in">exec</span> -- npm run lint
+mise <span class="hljs-built_in">exec</span> -- npm run <span class="hljs-built_in">test</span>
+</code></pre>
+<p>For docs-only changes, explain why tests are skipped in the PR.</p>
+<h2 id="review-and-merge-rules" tabindex="-1">Review and Merge Rules</h2>
+<ul>
+<li><code>main</code> only accepts PR merges.</li>
+<li>At least 1 approval is required.</li>
+<li>Required checks must pass (<code>Unit</code> and <code>Lint</code>).</li>
+<li>All review conversations must be resolved.</li>
+<li>Merge strategy: <strong>Squash and merge</strong>.</li>
+</ul>
+<h2 id="release" tabindex="-1">Release</h2>
+<p>Releases are handled by maintainers.
+Do not run release scripts in contributor PRs unless explicitly requested.</p>
+<h2 id="other-ways-to-help" tabindex="-1">Other Ways to Help</h2>
+<ul>
+<li>Star or Watch <a href="https://github.com/faasjs/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">faasjs/faasjs</a></li>
+<li>Share your FaasJS experience with articles or videos</li>
+<li>Improve docs at <a href="https://faasjs.com" target="_blank" rel="noopener noreferrer" class="external-link">faasjs.com</a></li>
+<li><a href="https://github.com/sponsors/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">Sponsor FaasJS</a></li>
+</ul>
+<hr>
+<h1 id="%E5%8F%82%E4%B8%8E-faasjs-%E8%B4%A1%E7%8C%AE" tabindex="-1">参与 FaasJS 贡献</h1>
+<p>感谢你为 FaasJS 做贡献。</p>
+<p>本项目采用 GitHub 优先协作流程：</p>
+<p><code>Discussion -&gt; Issue -&gt; Pull Request -&gt; Review -&gt; Merge</code></p>
+<h2 id="%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B" tabindex="-1">快速开始</h2>
+<ol>
+<li>提交前先搜索是否已有相同 issue。</li>
+<li>使用模板创建 issue（<code>Bug</code> 或 <code>Feature</code>）。</li>
+<li>从 <code>main</code> 拉分支开发。</li>
+<li>提交 PR，并关联 issue（<code>Closes #123</code>）。</li>
+<li>等待 CI 和评审通过后，用 <strong>squash</strong> 合并。</li>
+</ol>
+<h2 id="issue-%E8%A7%84%E8%8C%83" tabindex="-1">Issue 规范</h2>
+<ul>
+<li>必须使用 issue 模板并填写必填项。</li>
+<li>一个 issue 只描述一个问题或一个需求。</li>
+<li>Bug 需提供可复现步骤。</li>
+<li>Feature 需提供验收标准。</li>
+<li>安全问题请按 <a href="/SECURITY.html">SECURITY.md</a> 指引处理。</li>
+</ul>
+<h2 id="%E5%88%86%E6%94%AF%E5%91%BD%E5%90%8D" tabindex="-1">分支命名</h2>
+<ul>
+<li><code>feat/&lt;feature-name&gt;</code></li>
+<li><code>fix/&lt;issue-description&gt;</code></li>
+<li><code>docs/&lt;topic&gt;</code></li>
+<li><code>chore/&lt;task&gt;</code></li>
+</ul>
+<p>分支名统一小写，使用连字符。</p>
+<h2 id="pr-%E8%A7%84%E8%8C%83" tabindex="-1">PR 规范</h2>
+<ul>
+<li>每个 PR 必须关联 issue：<code>Closes #&lt;issue-id&gt;</code>。</li>
+<li>PR 保持小而聚焦，不要混入无关改动。</li>
+<li>说明影响的 <code>packages/*</code> 包。</li>
+<li>如有破坏性变更，必须明确说明。</li>
+<li>提交信息遵循 <a href="https://www.conventionalcommits.org/" target="_blank" rel="noopener noreferrer" class="external-link">Conventional Commits</a>。</li>
+</ul>
+<h2 id="%E6%9C%AC%E5%9C%B0%E9%AA%8C%E8%AF%81" tabindex="-1">本地验证</h2>
+<p>发起评审前请先执行：</p>
+<pre><code class="hljs language-bash">mise <span class="hljs-built_in">exec</span> -- npm run lint
+mise <span class="hljs-built_in">exec</span> -- npm run <span class="hljs-built_in">test</span>
+</code></pre>
+<p>仅文档改动可不跑测试，但需在 PR 里说明原因。</p>
+<h2 id="%E8%AF%84%E5%AE%A1%E4%B8%8E%E5%90%88%E5%B9%B6%E8%A7%84%E5%88%99" tabindex="-1">评审与合并规则</h2>
+<ul>
+<li><code>main</code> 仅允许通过 PR 合并。</li>
+<li>至少需要 1 个 reviewer 通过。</li>
+<li>必须通过必需检查（<code>Unit</code> 和 <code>Lint</code>）。</li>
+<li>所有 review 对话需先解决。</li>
+<li>合并方式固定为 <strong>Squash and merge</strong>。</li>
+</ul>
+<h2 id="%E5%8F%91%E7%89%88%E8%AF%B4%E6%98%8E" tabindex="-1">发版说明</h2>
+<p>发布由维护者负责。
+除非明确要求，贡献者 PR 不要执行发布脚本。</p>
+<h2 id="%E5%85%B6%E4%BB%96%E6%94%AF%E6%8C%81%E6%96%B9%E5%BC%8F" tabindex="-1">其他支持方式</h2>
+<ul>
+<li>给 <a href="https://github.com/faasjs/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">faasjs/faasjs</a> 点 Star 或 Watch</li>
+<li>分享使用经验（文章、视频）</li>
+<li>给 <a href="https://faasjs.com" target="_blank" rel="noopener noreferrer" class="external-link">faasjs.com</a> 提改进建议</li>
+<li><a href="https://github.com/sponsors/faasjs" target="_blank" rel="noopener noreferrer" class="external-link">赞助 FaasJS</a></li>
 </ul>
 </div></div>
           </div>

@@ -93,13 +93,15 @@
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>({
   <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">data</span>: { <span class="hljs-attr">result</span>: <span class="hljs-string">&#x27;success&#x27;</span> },
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> }
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> },
 })
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
-  <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">data</span>: { <span class="hljs-attr">result</span>: <span class="hljs-string">&#x27;success&#x27;</span> }
-}))
+<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(
+  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
+    <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
+    <span class="hljs-attr">data</span>: { <span class="hljs-attr">result</span>: <span class="hljs-string">&#x27;success&#x27;</span> },
+  }),
+)
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-literal">null</span>)
 <span class="hljs-comment">// or</span>

@@ -81,7 +81,10 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>PathOrData</code>&gt;&gt; &amp; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> <span class="hljs-title class_">MyComponent</span> = <span class="hljs-title function_">withFaasData</span>(<span class="hljs-function">(<span class="hljs-params">{ data }</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>, { <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;test&#x27;</span>, <span class="hljs-attr">params</span>: { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> } })
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> <span class="hljs-title class_">MyComponent</span> = <span class="hljs-title function_">withFaasData</span>(<span class="hljs-function">(<span class="hljs-params">{ data }</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>, {
+  <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;test&#x27;</span>,
+  <span class="hljs-attr">params</span>: { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> },
+})
 </code></pre>
 </div></div>
           </div>

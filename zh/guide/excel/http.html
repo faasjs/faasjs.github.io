@@ -63,7 +63,7 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="http%E3%80%81cookie-%E5%92%8C-session" tabindex="-1">Http、Cookie 和 Session</h1>
-<p><code>@faasjs/http</code> 提供了以下功能：</p>
+<p><code>@faasjs/core</code> 提供了以下 HTTP 相关功能：</p>
 <ul>
 <li>网络请求的入参校验</li>
 <li>规范化网络响应（基于 <a href="/zh/guide/excel/request-spec.html">HTTP 请求规范</a>）</li>
@@ -72,7 +72,7 @@
 </ul>
 <h2 id="%E6%A0%A1%E9%AA%8C%E7%A4%BA%E4%BE%8B" tabindex="-1">校验示例</h2>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
@@ -98,7 +98,7 @@
 </code></pre>
 <h2 id="cookie-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1">Cookie 使用示例</h2>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
@@ -121,7 +121,7 @@
 </code></pre>
 <h2 id="session-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1">Session 使用示例</h2>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
@@ -143,7 +143,7 @@
 })
 </code></pre>
 <h2 id="http-%E6%8F%92%E4%BB%B6%E6%96%87%E6%A1%A3" tabindex="-1">Http 插件文档</h2>
-<p>详细文档见 <a href="https://faasjs.com/doc/http/" target="_blank" rel="noopener noreferrer" class="external-link">Http 插件</a>。</p>
+<p>详细文档见 <a href="https://faasjs.com/doc/core/" target="_blank" rel="noopener noreferrer" class="external-link">Core 包</a>。</p>
 </div></div>
           </div>
           

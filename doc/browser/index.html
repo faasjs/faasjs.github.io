@@ -163,7 +163,7 @@ to test your application without making actual network requests.</p>
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;error&#x27;</span>) {
     <span class="hljs-comment">// Throw an error to test error handling</span>
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResponseError</span>(<span class="hljs-string">&#x27;Not found&#x27;</span>, <span class="hljs-number">404</span>, {
-      <span class="hljs-attr">body</span>: { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;User not found&#x27;</span> }
+      <span class="hljs-attr">body</span>: { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;User not found&#x27;</span> },
     })
   }
 })
