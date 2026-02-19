@@ -74,15 +74,15 @@
         <span class="hljs-attr">key:</span> <span class="hljs-string">value</span>
 </code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// demo.func.ts</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>
 
-<span class="hljs-keyword">const</span> plugin = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>();
+<span class="hljs-keyword">const</span> plugin = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>()
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [plugin],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){}
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {},
+})
 </code></pre>
 <h3 id="%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9A%E9%85%8D%E7%BD%AE" tabindex="-1">使用指定配置</h3>
 <pre><code class="hljs language-yaml"><span class="hljs-comment"># faas.yaml</span>
@@ -93,33 +93,33 @@
         <span class="hljs-attr">key:</span> <span class="hljs-string">value</span>
 </code></pre>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// demo.func.ts</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>
 
 <span class="hljs-keyword">const</span> plugin = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>({
-  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;special&#x27;</span>
-});
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;special&#x27;</span>,
+})
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [plugin],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){}
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {},
+})
 </code></pre>
 <h3 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE" tabindex="-1">自定义配置</h3>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// demo.func.ts</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fakePlugin&#x27;</span>
 
 <span class="hljs-keyword">const</span> plugin = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>({
   <span class="hljs-attr">config</span>: {
-    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;value&#x27;</span>
-  }
-});
+    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;value&#x27;</span>,
+  },
+})
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [plugin],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){}
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {},
+})
 </code></pre>
 <p>自定义配置也可以跟指定配置混合使用，覆盖指定配置中部分配置项。</p>
 <h2 id="%E9%85%8D%E7%BD%AE%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7" tabindex="-1">配置的优先级</h2>

@@ -69,7 +69,7 @@
 </blockquote>
 <p>Infer the FaasAction type from a Func.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InferFaasAction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span>
 
 <span class="hljs-keyword">const</span> schema = z
@@ -78,7 +78,7 @@
   })
   .<span class="hljs-title function_">required</span>()
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   schema,
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
     <span class="hljs-keyword">if</span> (!params) <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;params is required&#x27;</span>)

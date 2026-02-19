@@ -75,9 +75,9 @@
 <h2 id="%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B" tabindex="-1">代码示例</h2>
 <h3 id="%E4%BA%91%E5%87%BD%E6%95%B0%E6%96%87%E4%BB%B6" tabindex="-1">云函数文件</h3>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// index.func.ts 文件，云函数文件名都以 .func.ts 结尾</span>
-<span class="hljs-keyword">import</span> { defineFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello, world&#x27;</span> <span class="hljs-comment">// 返回的内容</span>
   },
@@ -94,7 +94,7 @@
 
     <span class="hljs-comment">// 模拟调用</span>
     <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> testFunc.<span class="hljs-property">JSONhandler</span>&lt;<span class="hljs-built_in">string</span>&gt;({
-      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;world&#x27;</span>
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;world&#x27;</span>,
     })
 
     <span class="hljs-comment">// 返回 200 状态</span>
@@ -138,7 +138,7 @@
     <a href="https://github.com/zfben" target="_blank">zfben</a>
     <p>FaasJS 基于以下开源项目（按字母排序）</p>
     <a href="https://www.apollographql.com/" target="_blank">Apollo</a>,
-    <a href="https://biomejs.dev/" target="_blank">Biome</a>,
+    <a href="https://oxc.rs/" target="_blank">Oxc</a>,
     <a href="https://vitest.dev/" target="_blank">Vitest</a>,
     <a href="https://knexjs.org/" target="_blank">Knex</a>,
     <a href="https://nodejs.org/" target="_blank">Node.js</a>,

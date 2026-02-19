@@ -71,8 +71,8 @@
 <li>Session 的校验和读写（Session 被加密储存在 Cookie 中）</li>
 </ul>
 <h2 id="%E6%A0%A1%E9%AA%8C%E7%A4%BA%E4%BE%8B" tabindex="-1">校验示例</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
@@ -83,64 +83,64 @@
           <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 配置 id 为必填项</span>
           <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;number&#x27;</span>, <span class="hljs-comment">// 配置 id 必须为数字类型</span>
           <span class="hljs-attr">in</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-comment">// status 的值必须为 0, 1, 2 中的一种</span>
-        }
-      }
-    }
-  }
-});
+        },
+      },
+    },
+  },
+})
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){
-    <span class="hljs-keyword">return</span> http.<span class="hljs-property">params</span>.<span class="hljs-property">id</span>; <span class="hljs-comment">// 返回传入的 id</span>
-  }
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> http.<span class="hljs-property">params</span>.<span class="hljs-property">id</span> <span class="hljs-comment">// 返回传入的 id</span>
+  },
+})
 </code></pre>
 <h2 id="cookie-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1">Cookie 使用示例</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
     <span class="hljs-attr">cookie</span>: {
       <span class="hljs-attr">rules</span>: {
         <span class="hljs-attr">distinct_id</span>: {
-          <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// 若 cookie 中没有 distinct_id 则报错</span>
-        }
-      }
-    }
-  }
-});
+          <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 若 cookie 中没有 distinct_id 则报错</span>
+        },
+      },
+    },
+  },
+})
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){
-    http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)); <span class="hljs-comment">// 将 cookie 中的 distinct_id 写入为 user_id</span>
-  }
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
+    http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 cookie 中的 distinct_id 写入为 user_id</span>
+  },
+})
 </code></pre>
 <h2 id="session-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1">Session 使用示例</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>;
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/func&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/http&#x27;</span>
 
 <span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
   <span class="hljs-attr">validator</span>: {
     <span class="hljs-attr">session</span>: {
       <span class="hljs-attr">rules</span>: {
         <span class="hljs-attr">distinct_id</span>: {
-          <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// 若 session 中没有 distinct_id 则报错</span>
-        }
-      }
-    }
-  }
-});
+          <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 若 session 中没有 distinct_id 则报错</span>
+        },
+      },
+    },
+  },
+})
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>){
-    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)); <span class="hljs-comment">// 将 session 中的 distinct_id 写入为 user_id</span>
-  }
-});
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
+    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 session 中的 distinct_id 写入为 user_id</span>
+  },
+})
 </code></pre>
 <h2 id="http-%E6%8F%92%E4%BB%B6%E6%96%87%E6%A1%A3" tabindex="-1">Http 插件文档</h2>
 <p>详细文档见 <a href="https://faasjs.com/doc/http/" target="_blank" rel="noopener noreferrer" class="external-link">Http 插件</a>。</p>

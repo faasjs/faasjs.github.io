@@ -70,28 +70,28 @@
 <li>引入插件</li>
 </ol>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// faas.ts</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasClient</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasClient</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-title class_">FaasClient</span>({
-  <span class="hljs-attr">domain</span>: <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-comment">// 这里填写云函数的服务地址</span>
-});
+  <span class="hljs-attr">domain</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-comment">// 这里填写云函数的服务地址</span>
+})
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> faas = client.<span class="hljs-property">faas</span>;
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useFaas = client.<span class="hljs-property">useFaas</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> faas = client.<span class="hljs-property">faas</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useFaas = client.<span class="hljs-property">useFaas</span>
 </code></pre>
 <h2 id="%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" tabindex="-1">使用方法</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-comment">// demo.tsx</span>
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
-<span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./faas&#x27;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+<span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./faas&#x27;</span>
 
 <span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> {
-  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Demo</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> user = useFaas&lt;<span class="hljs-title class_">User</span>&gt;(<span class="hljs-string">&#x27;user/current&#x27;</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Demo</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> user = useFaas&lt;<span class="hljs-title class_">User</span>&gt;(<span class="hljs-string">&#x27;user/current&#x27;</span>)
 
-  <span class="hljs-keyword">if</span> (!user.<span class="hljs-property">data</span>) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>载入中<span class="hljs-tag">&lt;/&gt;</span></span>;
+  <span class="hljs-keyword">if</span> (!user.<span class="hljs-property">data</span>) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>载入中<span class="hljs-tag">&lt;/&gt;</span></span>
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>ID: {user.data.id}<span class="hljs-tag">&lt;/&gt;</span></span>
 }

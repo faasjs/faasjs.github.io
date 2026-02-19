@@ -130,159 +130,164 @@
 <p>我们先手动创建云函数文件 <code>users/api/signup.func.ts</code>：</p>
 <p>然后在云函数文件中写业务代码：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signup.func.ts</span>
-<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
-  <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
-  <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>()
-}).<span class="hljs-title function_">required</span>();
+<span class="hljs-keyword">const</span> schema = z
+  .<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
+    <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>(),
+  })
+  .<span class="hljs-title function_">required</span>()
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   schema,
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
-    <span class="hljs-keyword">if</span> (!knex || !params) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
+    <span class="hljs-keyword">if</span> (!knex) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>)
     }
 
     <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
       .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>)
       .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, params.<span class="hljs-property">username</span>)
-      .<span class="hljs-title function_">first</span>();
+      .<span class="hljs-title function_">first</span>()
 
     <span class="hljs-keyword">if</span> (!row) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>)
     }
 
     <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">password</span>) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>)
     }
 
-    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
-  }
-});
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>)
+  },
+})
 </code></pre>
 <p>为了验证我们写的代码是否正确，我们需要写单元测试代码。</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/__tests__/signup.test.ts</span>
-<span class="hljs-keyword">import</span> { useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FuncWarper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>;
+<span class="hljs-keyword">import</span> { useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FuncWarper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;signin&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FuncWarper</span>(<span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;../signin.func&#x27;</span>));
+  <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FuncWarper</span>(<span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;../signin.func&#x27;</span>))
 
   <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">await</span> <span class="hljs-title function_">useKnex</span>().<span class="hljs-title function_">raw</span>(<span class="hljs-string">&#x27;INSERT INTO users (id,username,password) VALUES (1,\&#x27;hello\&#x27;,\&#x27;world\&#x27;)&#x27;</span>);
-  });
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">useKnex</span>().<span class="hljs-title function_">raw</span>(<span class="hljs-string">&quot;INSERT INTO users (id,username,password) VALUES (1,&#x27;hello&#x27;,&#x27;world&#x27;)&quot;</span>)
+  })
 
   <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;should work&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> func.<span class="hljs-title class_">JSON</span>handler({
       <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;hello&#x27;</span>,
-      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;world&#x27;</span>
-    });
+      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;world&#x27;</span>,
+    })
 
-    <span class="hljs-title function_">expect</span>(func.<span class="hljs-property">http</span>.<span class="hljs-property">session</span>.<span class="hljs-title function_">decode</span>(res.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;Set-Cookie&#x27;</span>][<span class="hljs-number">0</span>].<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/key=([^;]+)/</span>)[<span class="hljs-number">1</span>])).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">user_id</span>: <span class="hljs-number">1</span> });
-    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">204</span>);
-  });
+    <span class="hljs-title function_">expect</span>(func.<span class="hljs-property">http</span>.<span class="hljs-property">session</span>.<span class="hljs-title function_">decode</span>(res.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;Set-Cookie&#x27;</span>][<span class="hljs-number">0</span>].<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/key=([^;]+)/</span>)[<span class="hljs-number">1</span>])).<span class="hljs-title function_">toEqual</span>({
+      <span class="hljs-attr">user_id</span>: <span class="hljs-number">1</span>,
+    })
+    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">204</span>)
+  })
 
   <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;wrong username&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> func.<span class="hljs-title class_">JSON</span>handler({
       <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;&#x27;</span>,
-      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>
-    });
+      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+    })
 
-    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">500</span>);
-    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;{&quot;error&quot;:{&quot;message&quot;:&quot;用户名错误&quot;}}&#x27;</span>);
-  });
+    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">500</span>)
+    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;{&quot;error&quot;:{&quot;message&quot;:&quot;用户名错误&quot;}}&#x27;</span>)
+  })
 
   <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;wrong password&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
     <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> func.<span class="hljs-title class_">JSON</span>handler({
       <span class="hljs-attr">username</span>: <span class="hljs-string">&#x27;hello&#x27;</span>,
-      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>
-    });
+      <span class="hljs-attr">password</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+    })
 
-    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">500</span>);
-    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;{&quot;error&quot;:{&quot;message&quot;:&quot;用户名或密码错误&quot;}}&#x27;</span>);
-  });
-});
+    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">500</span>)
+    <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;{&quot;error&quot;:{&quot;message&quot;:&quot;用户名或密码错误&quot;}}&#x27;</span>)
+  })
+})
 </code></pre>
 <h2 id="%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B" tabindex="-1">登录流程</h2>
 <p>先创建 <code>users/api/signin.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signin.func.ts</span>
-<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
-  <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
-  <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>()
-}).<span class="hljs-title function_">required</span>();
+<span class="hljs-keyword">const</span> schema = z
+  .<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">username</span>: z.<span class="hljs-title function_">string</span>(),
+    <span class="hljs-attr">password</span>: z.<span class="hljs-title function_">string</span>(),
+  })
+  .<span class="hljs-title function_">required</span>()
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   schema,
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
-    <span class="hljs-keyword">if</span> (!knex || !params) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
+    <span class="hljs-keyword">if</span> (!knex) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>)
     }
 
     <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
       .<span class="hljs-title function_">where</span>({ <span class="hljs-attr">username</span>: params.<span class="hljs-property">username</span> })
       .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;password&#x27;</span>)
-      .<span class="hljs-title function_">first</span>();
+      .<span class="hljs-title function_">first</span>()
     <span class="hljs-keyword">if</span> (!row) {
       <span class="hljs-comment">// 在云函数中，建议直接通过抛异常的方式来告知前端错误信息</span>
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名错误&#x27;</span>)
     }
     <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">password</span>) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;用户名或密码错误&#x27;</span>)
     }
 
-    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>);
-  }
-});
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, row.<span class="hljs-property">id</span>)
+  },
+})
 </code></pre>
 <h2 id="%E7%99%BB%E5%87%BA%E6%B5%81%E7%A8%8B" tabindex="-1">登出流程</h2>
 <p>先创建 <code>users/api/signout.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/signout.func.ts</span>
-<span class="hljs-keyword">import</span> { defineFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ session }</span>) {
-    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-literal">null</span>);
-  }
-});
+    session.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, <span class="hljs-literal">null</span>)
+  },
+})
 </code></pre>
 <h2 id="%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E6%B5%81%E7%A8%8B" tabindex="-1">修改密码流程</h2>
 <p>先创建 <code>users/api/change-password.func.ts</code> 文件：</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/change-password.func.ts</span>
-<span class="hljs-keyword">import</span> { defineFunc, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>;
+<span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
-  <span class="hljs-attr">new_password</span>: z.<span class="hljs-title function_">string</span>(),
-  <span class="hljs-attr">old_password</span>: z.<span class="hljs-title function_">string</span>()
-}).<span class="hljs-title function_">required</span>();
+<span class="hljs-keyword">const</span> schema = z
+  .<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">new_password</span>: z.<span class="hljs-title function_">string</span>(),
+    <span class="hljs-attr">old_password</span>: z.<span class="hljs-title function_">string</span>(),
+  })
+  .<span class="hljs-title function_">required</span>()
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineFunc</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
   schema,
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ knex, params, session }</span>) {
-    <span class="hljs-keyword">if</span> (!knex || !params) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>);
+    <span class="hljs-keyword">if</span> (!knex) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;缺少插件配置&#x27;</span>)
     }
 
-    <span class="hljs-keyword">const</span> userId = session.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>);
+    <span class="hljs-keyword">const</span> userId = session.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>)
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> userId !== <span class="hljs-string">&#x27;number&#x27;</span>) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;未登录&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;未登录&#x27;</span>)
     }
 
-    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
-      .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;password&#x27;</span>)
-      .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, userId)
-      .<span class="hljs-title function_">first</span>();
+    <span class="hljs-keyword">const</span> row = <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;password&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, userId).<span class="hljs-title function_">first</span>()
     <span class="hljs-keyword">if</span> (row.<span class="hljs-property">password</span> !== params.<span class="hljs-property">old_password</span>) {
-      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;旧密码错误&#x27;</span>);
+      <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;旧密码错误&#x27;</span>)
     }
     <span class="hljs-keyword">await</span> <span class="hljs-title function_">knex</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>, userId).<span class="hljs-title function_">update</span>({
-      <span class="hljs-attr">password</span>: params.<span class="hljs-property">new_password</span>
-    });
-  }
-});
+      <span class="hljs-attr">password</span>: params.<span class="hljs-property">new_password</span>,
+    })
+  },
+})
 </code></pre>
 <h2 id="%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81" tabindex="-1">完整项目代码</h2>
 <p>完整的项目代码在 <a href="https://github.com/faasjs/faasjs/examples/tree/main/auth" target="_blank" rel="noopener noreferrer" class="external-link">https://github.com/faasjs/faasjs/examples/tree/main/auth</a> 其中还包括了完整的测试用例代码。</p>
