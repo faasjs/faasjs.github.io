@@ -165,7 +165,7 @@
 </code></pre>
 <p>为了验证我们写的代码是否正确，我们需要写单元测试代码。</p>
 <pre><code class="hljs language-typescript"><span class="hljs-comment">// users/api/__tests__/signup.test.ts</span>
-<span class="hljs-keyword">import</span> { useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>
+<span class="hljs-keyword">import</span> { useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">FuncWarper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;signin&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {

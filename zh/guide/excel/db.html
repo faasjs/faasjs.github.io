@@ -63,9 +63,9 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C" tabindex="-1">数据库操作</h1>
-<p>数据库插件没有内置在 <code>faasjs</code> 中，使用前需自行安装依赖。</p>
+<p>Knex 能力已内置在 <code>@faasjs/core</code> 中，但数据库驱动需按实际 client 自行安装。</p>
 <ul>
-<li><strong>@faasjs/knex</strong> 基于 Knex 封装的云函数插件。
+<li><strong>@faasjs/core</strong> 提供基于 Knex 封装的云函数插件能力。
 <ul>
 <li><code>client: pg</code>：使用 PostgreSQL（需自行安装 <code>pg</code>）。</li>
 <li><code>client: pglite</code>：使用 PGlite（需自行安装 <code>@electric-sql/pglite</code> 与 <code>knex-pglite</code>，并使用字符串 <code>connection</code>）。
@@ -80,7 +80,7 @@
 </ul>
 <h2 id="migration" tabindex="-1">Migration</h2>
 <ul>
-<li><code>@faasjs/knex</code> 提供 <code>KnexSchema</code>，用于显式执行 migration。</li>
+<li><code>@faasjs/core</code> 提供 <code>KnexSchema</code>，用于显式执行 migration。</li>
 <li>推荐在测试 setup 或部署脚本中执行 migration，不建议放在请求链路自动执行。</li>
 </ul>
 <h3 id="cli%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89" tabindex="-1">CLI（推荐）</h3>
@@ -100,7 +100,7 @@ mise <span class="hljs-built_in">exec</span> -- npm run migrate:current
 <span class="hljs-comment"># 创建 migration</span>
 mise <span class="hljs-built_in">exec</span> -- npm run migrate:make -- create_users
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">KnexSchema</span>, useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/knex&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">KnexSchema</span>, useKnex } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">const</span> knex = <span class="hljs-title function_">useKnex</span>({
   <span class="hljs-attr">config</span>: {
