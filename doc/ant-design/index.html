@@ -78,15 +78,11 @@
 <h2 id="usage" tabindex="-1">Usage</h2>
 <p>In <code>@faasjs/ant-design</code>, we use <code>FaasItemProps</code> to provide data structures for components.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasItemType</span> =
-  | <span class="hljs-string">&#x27;string&#x27;</span>
-  | <span class="hljs-string">&#x27;string[]&#x27;</span>
-  | <span class="hljs-string">&#x27;number&#x27;</span>
-  | <span class="hljs-string">&#x27;number[]&#x27;</span>
-  | <span class="hljs-string">&#x27;boolean&#x27;</span>
-  | <span class="hljs-string">&#x27;date&#x27;</span>
-  | <span class="hljs-string">&#x27;time&#x27;</span>
-  | <span class="hljs-string">&#x27;object&#x27;</span>
-  | <span class="hljs-string">&#x27;object[]&#x27;</span>
+  <span class="hljs-string">&#x27;string&#x27;</span> | <span class="hljs-string">&#x27;string[]&#x27;</span> |
+  <span class="hljs-string">&#x27;number&#x27;</span> | <span class="hljs-string">&#x27;number[]&#x27;</span> |
+  <span class="hljs-string">&#x27;boolean&#x27;</span> |
+  <span class="hljs-string">&#x27;date&#x27;</span> | <span class="hljs-string">&#x27;time&#x27;</span> |
+  <span class="hljs-string">&#x27;object&#x27;</span> | <span class="hljs-string">&#x27;object[]&#x27;</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasItemProps</span> = {
   <span class="hljs-attr">type</span>: <span class="hljs-title class_">FaasItemTypes</span>

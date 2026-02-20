@@ -130,7 +130,7 @@
     <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;age&#x27;</span>,
     <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;number&#x27;</span>, <span class="hljs-comment">// Number type in form, description and table</span>
     <span class="hljs-attr">options</span>: [<span class="hljs-string">&#x27;&lt; 18&#x27;</span>, <span class="hljs-string">&#x27;&gt;= 18&#x27;</span>], <span class="hljs-comment">// Options in form and table</span>
-  },
+  }
 ]
 
 <span class="hljs-keyword">const</span> data = {
@@ -140,13 +140,11 @@
 }
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Form</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> /&gt;</span> // Use in form
-      <span class="hljs-tag">&lt;<span class="hljs-name">Description</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{data}</span> /&gt;</span> // Use in description
-      <span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{[data]}</span> /&gt;</span> // Use in table
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Form</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> /&gt;</span> // Use in form
+    <span class="hljs-tag">&lt;<span class="hljs-name">Description</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{data}</span> /&gt;</span> // Use in description
+    <span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{item}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{[</span> <span class="hljs-attr">data</span> ]} /&gt;</span> // Use in table
+  <span class="hljs-tag">&lt;/&gt;</span></span>
 }
 </code></pre>
 <h2 id="extends" tabindex="-1">Extends</h2>

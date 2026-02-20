@@ -73,18 +73,12 @@ customizing request behavior, adding request hooks, and overriding defaults.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
 <blockquote>
-<p><code>optional</code> <strong>baseUrl</strong>: <code>BaseUrl</code></p>
+<p><code>optional</code> <strong>baseUrl</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
 </blockquote>
 <h3 id="beforerequest()%3F" tabindex="-1">beforeRequest()?</h3>
 <blockquote>
-<p><code>optional</code> <strong>beforeRequest</strong>: (`{</p>
+<p><code>optional</code> <strong>beforeRequest</strong>: (<code>{     action,     params,     options,     headers,   }</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<pre><code>action,
-params,
-options,
-headers,
-</code></pre>
-<p>}<code>) =&gt; </code>Promise<code>\&lt;</code>void`&gt;</p>
 <p>trigger before request</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="%7B" tabindex="-1">{</h5>
@@ -110,7 +104,7 @@ headers,
 </blockquote>
 <h3 id="request()%3F" tabindex="-1">request()?</h3>
 <blockquote>
-<p><code>optional</code> <strong>request</strong>: &lt;<code>PathOrData</code>&gt;(<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/interfaces/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>request</strong>: &lt;<code>PathOrData</code>&gt;(<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>custom request</p>
 <h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
@@ -122,7 +116,7 @@ headers,
 <h5 id="options-1" tabindex="-1">options</h5>
 <p><code>Options</code></p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;<a href="/doc/react/interfaces/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 <h3 id="stream%3F" tabindex="-1">stream?</h3>
 <blockquote>
 <p><code>optional</code> <strong>stream</strong>: <code>boolean</code></p>

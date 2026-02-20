@@ -72,21 +72,82 @@
 </code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
+<li><a href="/doc/core/functions/closeAll.html">closeAll</a></li>
+<li><a href="/doc/core/functions/createPgliteKnex.html">createPgliteKnex</a></li>
 <li><a href="/doc/core/functions/defineApi.html">defineApi</a></li>
+<li><a href="/doc/core/functions/getAll.html">getAll</a></li>
+<li><a href="/doc/core/functions/initPostgresTypeParsers.html">initPostgresTypeParsers</a></li>
+<li><a href="/doc/core/functions/mountFaasKnex.html">mountFaasKnex</a></li>
+<li><a href="/doc/core/functions/nameFunc.html">nameFunc</a></li>
+<li><a href="/doc/core/functions/parseFuncFilenameFromStack.html">parseFuncFilenameFromStack</a></li>
+<li><a href="/doc/core/functions/query.html">query</a></li>
+<li><a href="/doc/core/functions/raw.html">raw</a></li>
+<li><a href="/doc/core/functions/staticHandler.html">staticHandler</a></li>
+<li><a href="/doc/core/functions/transaction.html">transaction</a></li>
+<li><a href="/doc/core/functions/unmountFaasKnex.html">unmountFaasKnex</a></li>
+<li><a href="/doc/core/functions/useFunc.html">useFunc</a></li>
+<li><a href="/doc/core/functions/useHttp.html">useHttp</a></li>
+<li><a href="/doc/core/functions/useKnex.html">useKnex</a></li>
+<li><a href="/doc/core/functions/useMiddleware.html">useMiddleware</a></li>
+<li><a href="/doc/core/functions/useMiddlewares.html">useMiddlewares</a></li>
+<li><a href="/doc/core/functions/usePlugin.html">usePlugin</a></li>
 </ul>
-<h2 id="function-runtime" tabindex="-1">Function runtime</h2>
-<p>Function runtime helpers (<code>Func</code>, <code>useFunc</code>, <code>usePlugin</code>, <code>nameFunc</code>) are now exported from <code>@faasjs/core</code>.</p>
+<h2 id="classes" tabindex="-1">Classes</h2>
+<ul>
+<li><a href="/doc/core/classes/Cookie.html">Cookie</a></li>
+<li><a href="/doc/core/classes/Func.html">Func</a></li>
+<li><a href="/doc/core/classes/Http.html">Http</a></li>
+<li><a href="/doc/core/classes/HttpError.html">HttpError</a></li>
+<li><a href="/doc/core/classes/Knex.html">Knex</a></li>
+<li><a href="/doc/core/classes/KnexSchema.html">KnexSchema</a></li>
+<li><a href="/doc/core/classes/Server.html">Server</a></li>
+<li><a href="/doc/core/classes/Session.html">Session</a></li>
+</ul>
+<h2 id="interfaces" tabindex="-1">Interfaces</h2>
+<ul>
+<li><a href="/doc/core/interfaces/FaasPluginEventMap.html">FaasPluginEventMap</a></li>
+</ul>
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
+<li><a href="/doc/core/type-aliases/Config.html">Config</a></li>
+<li><a href="/doc/core/type-aliases/CookieOptions.html">CookieOptions</a></li>
 <li><a href="/doc/core/type-aliases/DefineApiData.html">DefineApiData</a></li>
 <li><a href="/doc/core/type-aliases/DefineApiOptions.html">DefineApiOptions</a></li>
+<li><a href="/doc/core/type-aliases/ExportedHandler.html">ExportedHandler</a></li>
+<li><a href="/doc/core/type-aliases/FuncConfig.html">FuncConfig</a></li>
+<li><a href="/doc/core/type-aliases/FuncEventType.html">FuncEventType</a></li>
+<li><a href="/doc/core/type-aliases/FuncReturnType.html">FuncReturnType</a></li>
+<li><a href="/doc/core/type-aliases/Handler.html">Handler</a></li>
+<li><a href="/doc/core/type-aliases/HttpConfig.html">HttpConfig</a></li>
+<li><a href="/doc/core/type-aliases/InferPluginEvent.html">InferPluginEvent</a></li>
+<li><a href="/doc/core/type-aliases/InvokeData.html">InvokeData</a></li>
+<li><a href="/doc/core/type-aliases/KnexConfig.html">KnexConfig</a></li>
+<li><a href="/doc/core/type-aliases/LifeCycleKey.html">LifeCycleKey</a></li>
+<li><a href="/doc/core/type-aliases/Middleware.html">Middleware</a></li>
+<li><a href="/doc/core/type-aliases/MiddlewareContext.html">MiddlewareContext</a></li>
+<li><a href="/doc/core/type-aliases/MiddlewareEvent.html">MiddlewareEvent</a></li>
+<li><a href="/doc/core/type-aliases/MountData.html">MountData</a></li>
+<li><a href="/doc/core/type-aliases/MountedKnexAdapter.html">MountedKnexAdapter</a></li>
+<li><a href="/doc/core/type-aliases/MountFaasKnexOptions.html">MountFaasKnexOptions</a></li>
+<li><a href="/doc/core/type-aliases/Next.html">Next</a></li>
+<li><a href="/doc/core/type-aliases/NormalizePluginType.html">NormalizePluginType</a></li>
+<li><a href="/doc/core/type-aliases/Plugin.html">Plugin</a></li>
+<li><a href="/doc/core/type-aliases/ResolvePluginEvent.html">ResolvePluginEvent</a></li>
+<li><a href="/doc/core/type-aliases/Response.html">Response</a></li>
+<li><a href="/doc/core/type-aliases/ServerHandlerOptions.html">ServerHandlerOptions</a></li>
+<li><a href="/doc/core/type-aliases/ServerOptions.html">ServerOptions</a></li>
+<li><a href="/doc/core/type-aliases/SessionContent.html">SessionContent</a></li>
+<li><a href="/doc/core/type-aliases/SessionOptions.html">SessionOptions</a></li>
+<li><a href="/doc/core/type-aliases/Simplify.html">Simplify</a></li>
+<li><a href="/doc/core/type-aliases/StaticHandlerOptions.html">StaticHandlerOptions</a></li>
+<li><a href="/doc/core/type-aliases/UnionToIntersection.html">UnionToIntersection</a></li>
+<li><a href="/doc/core/type-aliases/UseifyPlugin.html">UseifyPlugin</a></li>
 </ul>
-<h2 id="http-plugin" tabindex="-1">HTTP plugin</h2>
-<p>HTTP helpers (<code>Http</code>, <code>useHttp</code>, <code>HttpError</code>, <code>Cookie</code>, <code>Session</code>) are now exported from <code>@faasjs/core</code>.</p>
-<h2 id="knex-plugin" tabindex="-1">Knex plugin</h2>
-<p>Knex helpers (<code>Knex</code>, <code>useKnex</code>, <code>query</code>, <code>transaction</code>, <code>raw</code>, <code>KnexSchema</code>, <code>createPgliteKnex</code>) are exported from <code>@faasjs/core</code>.</p>
-<h2 id="server-runtime" tabindex="-1">Server runtime</h2>
-<p>Server helpers (<code>Server</code>, <code>closeAll</code>, <code>getAll</code>, <code>useMiddleware</code>, <code>useMiddlewares</code>, <code>staticHandler</code>) are exported from <code>@faasjs/core</code>.</p>
+<h2 id="variables" tabindex="-1">Variables</h2>
+<ul>
+<li><a href="/doc/core/variables/ContentType.html">ContentType</a></li>
+<li><a href="/doc/core/variables/originKnex.html">originKnex</a></li>
+</ul>
 </div></div>
           </div>
           

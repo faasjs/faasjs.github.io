@@ -91,7 +91,11 @@
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
-<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(process.<span class="hljs-title function_">cwd</span>(), __dirname + <span class="hljs-string">&#x27;/example.func.ts&#x27;</span>, <span class="hljs-string">&#x27;development&#x27;</span>)
+<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(
+  process.<span class="hljs-title function_">cwd</span>(),
+  __dirname + <span class="hljs-string">&#x27;/example.func.ts&#x27;</span>,
+  <span class="hljs-string">&#x27;development&#x27;</span>
+)
 
 <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>(event, context)
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)

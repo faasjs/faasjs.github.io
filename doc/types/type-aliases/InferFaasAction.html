@@ -84,20 +84,20 @@
     <span class="hljs-keyword">if</span> (!params) <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;params is required&#x27;</span>)
 
     <span class="hljs-keyword">return</span> params.<span class="hljs-property">number</span> + <span class="hljs-number">1</span>
-  },
+  }
 })
 
 <span class="hljs-comment">// declare the action type to FaasActions</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
     <span class="hljs-comment">// if &#x27;demo&#x27; is the action path</span>
-    <span class="hljs-attr">demo</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-keyword">typeof</span> func&gt;
+    <span class="hljs-string">&#x27;demo&#x27;</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-keyword">typeof</span> func&gt;
   }
 }
 </code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tfunc" tabindex="-1">TFunc</h3>
-<p><code>TFunc</code> <em>extends</em> <code>Func</code></p>
+<p><code>TFunc</code> <em>extends</em> <code>FaasFuncLike</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="data" tabindex="-1">Data</h3>
 <blockquote>

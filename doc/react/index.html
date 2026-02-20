@@ -67,7 +67,7 @@
 <p>React plugin for FaasJS.</p>
 <p><a href="https://github.com/faasjs/faasjs/blob/main/packages/react/LICENSE" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/l/@faasjs/react.svg" alt="License: MIT"></a>
 <a href="https://www.npmjs.com/package/@faasjs/react" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/v/@faasjs/react.svg" alt="NPM Version"></a></p>
-<p><code>@faasjs/react</code> now includes browser client utilities (<code>FaasBrowserClient</code>, <code>ResponseError</code>, <code>setMock</code>) and React helpers in one package.</p>
+<p>Includes browser client utilities (<code>FaasBrowserClient</code>, <code>ResponseError</code>, <code>setMock</code>) and React helpers.</p>
 <h2 id="features" tabindex="-1">Features</h2>
 <ul>
 <li>Support <a href="https://faasjs.com/guide/request-spec.html" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS Request Specifications</a>.</li>
@@ -123,8 +123,10 @@
 <li><a href="/doc/react/functions/Form.html">Form</a></li>
 <li><a href="/doc/react/functions/FormInput.html">FormInput</a></li>
 <li><a href="/doc/react/functions/FormItem.html">FormItem</a></li>
+<li><a href="/doc/react/functions/generateId.html">generateId</a></li>
 <li><a href="/doc/react/functions/getClient.html">getClient</a></li>
 <li><a href="/doc/react/functions/OptionalWrapper.html">OptionalWrapper</a></li>
+<li><a href="/doc/react/functions/setMock.html">setMock</a></li>
 <li><a href="/doc/react/functions/useConstant.html">useConstant</a></li>
 <li><a href="/doc/react/functions/useEqualCallback.html">useEqualCallback</a></li>
 <li><a href="/doc/react/functions/useEqualEffect.html">useEqualEffect</a></li>
@@ -141,18 +143,21 @@
 <h2 id="classes" tabindex="-1">Classes</h2>
 <ul>
 <li><a href="/doc/react/classes/ErrorBoundary.html">ErrorBoundary</a></li>
+<li><a href="/doc/react/classes/FaasBrowserClient.html">FaasBrowserClient</a></li>
+<li><a href="/doc/react/classes/Response.html">Response</a></li>
+<li><a href="/doc/react/classes/ResponseError.html">ResponseError</a></li>
 </ul>
 <h2 id="interfaces" tabindex="-1">Interfaces</h2>
 <ul>
 <li><a href="/doc/react/interfaces/ErrorBoundaryProps.html">ErrorBoundaryProps</a></li>
-<li><a href="/doc/react/interfaces/Response.html">Response</a></li>
-<li><a href="/doc/react/interfaces/ResponseError.html">ResponseError</a></li>
 </ul>
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
+<li><a href="/doc/react/type-aliases/BaseUrl.html">BaseUrl</a></li>
 <li><a href="/doc/react/type-aliases/ErrorChildrenProps.html">ErrorChildrenProps</a></li>
 <li><a href="/doc/react/type-aliases/FaasAction.html">FaasAction</a></li>
 <li><a href="/doc/react/type-aliases/FaasActionUnionType.html">FaasActionUnionType</a></li>
+<li><a href="/doc/react/type-aliases/FaasBrowserClientAction.html">FaasBrowserClientAction</a></li>
 <li><a href="/doc/react/type-aliases/FaasData.html">FaasData</a></li>
 <li><a href="/doc/react/type-aliases/FaasDataInjection.html">FaasDataInjection</a></li>
 <li><a href="/doc/react/type-aliases/FaasDataWrapperProps.html">FaasDataWrapperProps</a></li>
@@ -176,10 +181,13 @@
 <li><a href="/doc/react/type-aliases/InferFormInputProps.html">InferFormInputProps</a></li>
 <li><a href="/doc/react/type-aliases/InferFormRulesOptions.html">InferFormRulesOptions</a></li>
 <li><a href="/doc/react/type-aliases/InferRuleOption.html">InferRuleOption</a></li>
+<li><a href="/doc/react/type-aliases/MockHandler.html">MockHandler</a></li>
 <li><a href="/doc/react/type-aliases/OnError.html">OnError</a></li>
 <li><a href="/doc/react/type-aliases/OptionalWrapperProps.html">OptionalWrapperProps</a></li>
 <li><a href="/doc/react/type-aliases/Options.html">Options</a></li>
+<li><a href="/doc/react/type-aliases/ResponseErrorProps.html">ResponseErrorProps</a></li>
 <li><a href="/doc/react/type-aliases/ResponseHeaders.html">ResponseHeaders</a></li>
+<li><a href="/doc/react/type-aliases/ResponseProps.html">ResponseProps</a></li>
 <li><a href="/doc/react/type-aliases/StateSetters.html">StateSetters</a></li>
 <li><a href="/doc/react/type-aliases/StatesWithSetters.html">StatesWithSetters</a></li>
 <li><a href="/doc/react/type-aliases/useFaasOptions.html">useFaasOptions</a></li>
