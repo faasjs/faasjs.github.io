@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/node-utils/">Documents</a> / <a href="/doc/node-utils/">@faasjs/node-utils</a> / loadFunc</p>
 <h1 id="function%3A-loadfunc()" tabindex="-1">Function: loadFunc()</h1>
 <blockquote>
-<p><strong>loadFunc</strong>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;(<code>root</code>, <code>filename</code>, <code>staging</code>): <code>Promise</code>&lt;<code>ExportedHandler</code>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
+<p><strong>loadFunc</strong>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;(<code>root</code>, <code>filename</code>, <code>staging</code>): <code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/ExportedHandler.html"><code>ExportedHandler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
 </blockquote>
 <p>Load a FaasJS function and its configuration, returning the handler.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -86,7 +86,7 @@
 <p><code>string</code></p>
 <p>Staging directory name (used when locating config).</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Promise</code>&lt;<code>ExportedHandler</code>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
+<p><code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/ExportedHandler.html"><code>ExportedHandler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
 <p>A promise that resolves to the function handler.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
