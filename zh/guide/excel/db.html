@@ -85,6 +85,14 @@
 </ul>
 <h3 id="cli%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89" tabindex="-1">CLI（推荐）</h3>
 <p>安装 <code>@faasjs/dev</code> 后，可通过 <code>faas knex &lt;action&gt;</code> 执行 migration：</p>
+<ul>
+<li>命令执行前会自动读取 <code>.env</code>：
+<ul>
+<li>传入 <code>--root &lt;path&gt;</code> 时读取 <code>&lt;path&gt;/.env</code></li>
+<li>未传入 <code>--root</code> 时读取 <code>process.cwd()/.env</code></li>
+</ul>
+</li>
+</ul>
 <pre><code class="hljs language-bash"><span class="hljs-comment"># 执行待迁移</span>
 mise <span class="hljs-built_in">exec</span> -- npm run migrate:latest
 
