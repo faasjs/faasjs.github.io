@@ -98,6 +98,44 @@ process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasR
 
 server.<span class="hljs-title function_">listen</span>()
 </code></pre>
+<h2 id="optional%3A-run-cron-jobs-with-server" tabindex="-1">Optional: Run Cron Jobs with Server</h2>
+<p><code>@faasjs/core</code> provides a minimal built-in <code>CronJob</code> class. Create jobs with
+<code>createCronJob()</code>, and <code>Server.listen()</code> / <code>Server.close()</code> will manage their lifecycle
+automatically.</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { createCronJob, <span class="hljs-title class_">Server</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<span class="hljs-keyword">import</span> { fileURLToPath } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:url&#x27;</span>
+<span class="hljs-keyword">import</span> { dirname } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+
+<span class="hljs-keyword">const</span> __filename = <span class="hljs-title function_">fileURLToPath</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>)
+<span class="hljs-keyword">const</span> __dirname = <span class="hljs-title function_">dirname</span>(__filename)
+
+process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasRoot</span> = <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/`</span>
+
+<span class="hljs-title function_">createCronJob</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;heartbeat&#x27;</span>,
+  <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;*/5 * * * *&#x27;</span>,
+  <span class="hljs-attr">handler</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;heartbeat job executed&#x27;</span>)
+  },
+})
+
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasRoot</span>, {
+  <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
+})
+
+server.<span class="hljs-title function_">listen</span>()
+</code></pre>
+<p>If you need to disable cron lifecycle mounting for a server instance, set
+<code>cronJob: false</code>:</p>
+<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasRoot</span>, {
+  <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
+  <span class="hljs-attr">cronJob</span>: <span class="hljs-literal">false</span>,
+})
+</code></pre>
+<p>Cron expression currently uses 5 fields:</p>
+<pre><code class="hljs language-text">minute hour dayOfMonth month dayOfWeek
+</code></pre>
+<p>Supported syntax in each field is minimal: <code>*</code>, <code>*/n</code>, and <code>number</code>.</p>
 <h2 id="dockerfile" tabindex="-1">Dockerfile</h2>
 <p>The following is an example of a <code>Dockerfile</code> for a FaasJS application:</p>
 <pre><code class="hljs language-Dockerfile"><span class="hljs-keyword">FROM</span> faasjs/node
