@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Class: FuncWarper | FaasJS</title>
+    <title>Class: FuncWarper\&lt;TFunc\&gt; | FaasJS</title>
     <meta name="description" content="An atomic application framework built for the TypeScript developer." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,7 +63,7 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / FuncWarper</p>
-<h1 id="class%3A-funcwarper" tabindex="-1">Class: FuncWarper</h1>
+<h1 id="class%3A-funcwarper%3Ctfunc%3E" tabindex="-1">Class: FuncWarper&lt;TFunc&gt;</h1>
 <p>Test wrapper for a function.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FuncWarper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Func</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../demo.func.ts&#x27;</span>
@@ -72,29 +72,32 @@
 
 <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> func.<span class="hljs-title function_">handler</span>()).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;Hello, world&#x27;</span>)
 </code></pre>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tfunc" tabindex="-1">TFunc</h3>
+<p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt; = <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
 <h2 id="indexable" tabindex="-1">Indexable</h2>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new FuncWarper</strong>(<code>initBy</code>): <code>FuncWarper</code></p>
+<p><strong>new FuncWarper</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <code>FuncWarper</code>&lt;<code>TFunc</code>&gt;</p>
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="initby" tabindex="-1">initBy</h5>
-<p><a href="/doc/dev/classes/Func.html"><code>Func</code></a></p>
+<p><code>TFunc</code></p>
 <p>{Func} A FaasJS function</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FuncWarper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 
 <span class="hljs-keyword">new</span> <span class="hljs-title class_">FuncWarper</span>(__dirname + <span class="hljs-string">&#x27;/../demo.func.ts&#x27;</span>)
 </code></pre>
 <h4 id="returns" tabindex="-1">Returns</h4>
-<p><code>FuncWarper</code></p>
+<p><code>FuncWarper</code>&lt;<code>TFunc</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="handler()" tabindex="-1">handler()</h3>
 <blockquote>
 <p><strong>handler</strong>&lt;<code>TResult</code>&gt;(<code>event?</code>, <code>context?</code>): <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 </blockquote>
-<h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
+<h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="tresult" tabindex="-1">TResult</h5>
 <p><code>TResult</code> = <code>any</code></p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
@@ -108,12 +111,12 @@
 <blockquote>
 <p><strong>JSONhandler</strong>&lt;<code>TData</code>&gt;(<code>body?</code>, <code>options?</code>): <code>Promise</code>&lt;{ <code>body</code>: <code>any</code>; <code>cookie?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>data?</code>: <code>TData</code>; <code>error?</code>: { <code>message</code>: <code>string</code>; }; <code>headers</code>: {[<code>key</code>: <code>string</code>]: <code>string</code>; }; <code>session?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>statusCode</code>: <code>number</code>; }&gt;</p>
 </blockquote>
-<h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
+<h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="tdata" tabindex="-1">TData</h5>
 <p><code>TData</code> = <code>any</code></p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="body%3F" tabindex="-1">body?</h5>
-<p><code>string</code> | <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | <code>null</code></p>
+<p><code>JSONhandlerBody</code>&lt;<code>TFunc</code>&gt;</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <h6 id="cookie%3F" tabindex="-1">cookie?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
@@ -143,7 +146,7 @@
 </blockquote>
 <h3 id="func" tabindex="-1">func</h3>
 <blockquote>
-<p><code>readonly</code> <strong>func</strong>: <a href="/doc/dev/classes/Func.html"><code>Func</code></a></p>
+<p><code>readonly</code> <strong>func</strong>: <code>TFunc</code></p>
 </blockquote>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>

@@ -65,9 +65,13 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / DefineApiData</p>
 <h1 id="type-alias%3A-defineapidata%3Ctschema%2C-tevent%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineApiData&lt;TSchema, TEvent, TContext, TResult&gt;</h1>
 <blockquote>
-<p><strong>DefineApiData</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = <a href="/doc/core/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code></p>
+<p><strong>DefineApiData</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = <a href="/doc/core/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code> &amp; <code>DefineApiInject</code></p>
 </blockquote>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
+<h3 id="cookie" tabindex="-1">cookie</h3>
+<blockquote>
+<p><strong>cookie</strong>: <a href="/doc/core/classes/Cookie.html"><code>Cookie</code></a></p>
+</blockquote>
 <h3 id="knex" tabindex="-1">knex</h3>
 <blockquote>
 <p><strong>knex</strong>: <code>KnexQuery</code> | <code>undefined</code></p>
@@ -75,6 +79,10 @@
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
 <p><strong>params</strong>: <code>TSchema</code> <em>extends</em> <code>ZodSchema</code> ? <code>output</code>&lt;<code>NonNullable</code>&lt;<code>TSchema</code>&gt;&gt; : <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
+</blockquote>
+<h3 id="session" tabindex="-1">session</h3>
+<blockquote>
+<p><strong>session</strong>: <a href="/doc/core/classes/Session.html"><code>Session</code></a></p>
 </blockquote>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>

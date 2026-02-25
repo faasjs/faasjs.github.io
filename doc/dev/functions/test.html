@@ -65,12 +65,15 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / test</p>
 <h1 id="function%3A-test()" tabindex="-1">Function: test()</h1>
 <blockquote>
-<p><strong>test</strong>(<code>initBy</code>): <a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a></p>
+<p><strong>test</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
 </blockquote>
 <p>A simple way to wrap a FaasJS function.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tfunc" tabindex="-1">TFunc</h3>
+<p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initby" tabindex="-1">initBy</h3>
-<p><a href="/doc/dev/classes/Func.html"><code>Func</code></a></p>
+<p><code>TFunc</code></p>
 <p>{Func} Full file path or a FaasJs function</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Func</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../demo.func.ts&#x27;</span>
@@ -80,7 +83,7 @@
 <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> func.<span class="hljs-title function_">handler</span>()).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;Hello, world&#x27;</span>)
 </code></pre>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a></p>
+<p><a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
 </div></div>
           </div>
           

@@ -113,6 +113,7 @@
   "/doc/core/functions/useMiddleware.html",
   "/doc/core/functions/useMiddlewares.html",
   "/doc/core/functions/usePlugin.html",
+  "/doc/core/interfaces/DefineApiInject.html",
   "/doc/core/interfaces/FaasPluginEventMap.html",
   "/doc/core/type-aliases/Config.html",
   "/doc/core/type-aliases/CookieOptions.html",
