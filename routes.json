@@ -261,6 +261,7 @@
   "/doc/node-utils/type-aliases/FuncPluginConfig.html",
   "/doc/node-utils/type-aliases/Level.html",
   "/doc/node-utils/type-aliases/LoadEnvFileIfExistsOptions.html",
+  "/doc/node-utils/type-aliases/LoadPackageOptions.html",
   "/doc/node-utils/type-aliases/LoggerMessage.html",
   "/doc/node-utils/type-aliases/NodeRuntime.html",
   "/doc/node-utils/type-aliases/TransportHandler.html",
