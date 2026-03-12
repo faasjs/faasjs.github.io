@@ -77,15 +77,19 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowserRouter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">Routes</span> <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
-      {
-        <span class="hljs-attr">path:</span> &#x27;/&#x27;,
-        <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./pages/home&#x27;))
-      }
-    ]} /&gt;
-  <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>
+        <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
+          {
+            <span class="hljs-attr">path:</span> &#x27;/&#x27;,
+            <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./pages/home&#x27;)),
+          },
+        ]}
+      /&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+  )
 }
 </code></pre>
 </div></div>

@@ -77,9 +77,7 @@
 
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
-    <span class="hljs-attr">demo</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;
-      <span class="hljs-title class_">InferFaasFunc</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./functions/demo&#x27;</span>)&gt;
-    &gt;
+    <span class="hljs-attr">demo</span>: <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-title class_">InferFaasFunc</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./functions/demo&#x27;</span>)&gt;&gt;
   }
 }
 </code></pre>

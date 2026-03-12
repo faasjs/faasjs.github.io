@@ -85,8 +85,8 @@ All properties are optional with sensible defaults.</p>
   <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">data</span>: {
     <span class="hljs-attr">id</span>: <span class="hljs-number">123</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John Doe&#x27;</span>
-  }
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John Doe&#x27;</span>,
+  },
 })
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">status</span>) <span class="hljs-comment">// 200</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>.<span class="hljs-property">name</span>) <span class="hljs-comment">// &#x27;John Doe&#x27;</span>
@@ -101,8 +101,8 @@ All properties are optional with sensible defaults.</p>
   <span class="hljs-attr">data</span>: {
     <span class="hljs-attr">id</span>: <span class="hljs-number">123</span>,
     <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
-    <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;john@example.com&#x27;</span>
-  }
+    <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;john@example.com&#x27;</span>,
+  },
 })
 <span class="hljs-comment">// TypeScript knows response.data.name is a string</span>
 </code></pre>
@@ -112,14 +112,14 @@ All properties are optional with sensible defaults.</p>
   <span class="hljs-attr">headers</span>: {
     <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
     <span class="hljs-string">&#x27;X-Request-Id&#x27;</span>: <span class="hljs-string">&#x27;req-123&#x27;</span>,
-    <span class="hljs-string">&#x27;X-Cache-Key&#x27;</span>: <span class="hljs-string">&#x27;user-123&#x27;</span>
-  }
+    <span class="hljs-string">&#x27;X-Cache-Key&#x27;</span>: <span class="hljs-string">&#x27;user-123&#x27;</span>,
+  },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
   <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
   <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">custom</span>: <span class="hljs-string">&#x27;format&#x27;</span> }),
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span> }
+  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span> },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>()
@@ -130,16 +130,16 @@ All properties are optional with sensible defaults.</p>
   <span class="hljs-attr">data</span>: {
     <span class="hljs-attr">error</span>: {
       <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;User not found&#x27;</span>,
-      <span class="hljs-attr">code</span>: <span class="hljs-string">&#x27;USER_NOT_FOUND&#x27;</span>
-    }
-  }
+      <span class="hljs-attr">code</span>: <span class="hljs-string">&#x27;USER_NOT_FOUND&#x27;</span>,
+    },
+  },
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action, params) =&gt; {
   <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;user&#x27;</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
       <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-      <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: params.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Mock User&#x27;</span> }
+      <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: params.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Mock User&#x27;</span> },
     })
   }
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({ <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;Not found&#x27;</span> } })

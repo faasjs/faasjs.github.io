@@ -83,7 +83,7 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>Response</code>&lt;<code>FaasData</code>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts">faas&lt;{ <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;post/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
+<pre><code class="hljs language-ts">faas&lt;{ <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;post/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>.<span class="hljs-property">title</span>)
 })
 </code></pre>
