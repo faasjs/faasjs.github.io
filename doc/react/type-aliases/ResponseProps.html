@@ -90,25 +90,25 @@ or returned from mock handlers.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="body%3F" tabindex="-1">body?</h3>
 <blockquote>
-<p><code>optional</code> <strong>body</strong>: <code>any</code></p>
+<p><code>optional</code> <strong>body?</strong>: <code>any</code></p>
 </blockquote>
 <p>The raw response body as a string or object.
 Optional: if not provided, body is automatically populated from data using JSON.stringify.</p>
 <h3 id="data%3F" tabindex="-1">data?</h3>
 <blockquote>
-<p><code>optional</code> <strong>data</strong>: <code>T</code></p>
+<p><code>optional</code> <strong>data?</strong>: <code>T</code></p>
 </blockquote>
 <p>The parsed JSON data to include in the response.
 Optional: contains the response payload when JSON data is provided.</p>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
-<p><code>optional</code> <strong>headers</strong>: <a href="/doc/react/type-aliases/ResponseHeaders.html"><code>ResponseHeaders</code></a></p>
+<p><code>optional</code> <strong>headers?</strong>: <a href="/doc/react/type-aliases/ResponseHeaders.html"><code>ResponseHeaders</code></a></p>
 </blockquote>
 <p>The response headers as a key-value object.
 Optional: defaults to an empty object if not provided.</p>
 <h3 id="status%3F" tabindex="-1">status?</h3>
 <blockquote>
-<p><code>optional</code> <strong>status</strong>: <code>number</code></p>
+<p><code>optional</code> <strong>status?</strong>: <code>number</code></p>
 </blockquote>
 <p>The HTTP status code for the response.
 Optional: defaults to 200 if data or body is provided, 204 otherwise.</p>

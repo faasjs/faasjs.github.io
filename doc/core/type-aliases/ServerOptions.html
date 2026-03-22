@@ -71,7 +71,7 @@
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="beforehandle%3F" tabindex="-1">beforeHandle?</h3>
 <blockquote>
-<p><code>optional</code> <strong>beforeHandle</strong>: <a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a></p>
+<p><code>optional</code> <strong>beforeHandle?</strong>: <a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a></p>
 </blockquote>
 <p>Callback function that is invoked before handling each request.</p>
 <p>This function is executed asynchronously before the main request handling logic.
@@ -91,7 +91,7 @@ It can be used for request preprocessing, authentication, logging, etc.</p>
 </code></pre>
 <h3 id="cronjob%3F" tabindex="-1">cronJob?</h3>
 <blockquote>
-<p><code>optional</code> <strong>cronJob</strong>: <code>boolean</code></p>
+<p><code>optional</code> <strong>cronJob?</strong>: <code>boolean</code></p>
 </blockquote>
 <p>Whether to mount cron job lifecycle with this server instance.</p>
 <p>When enabled, <code>server.listen()</code> mounts registered cron jobs and
@@ -99,9 +99,9 @@ It can be used for request preprocessing, authentication, logging, etc.</p>
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
 </code></pre>
-<h3 id="onclose()%3F" tabindex="-1">onClose()?</h3>
+<h3 id="onclose%3F" tabindex="-1">onClose?</h3>
 <blockquote>
-<p><code>optional</code> <strong>onClose</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><code>optional</code> <strong>onClose?</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Callback function that is invoked when the server is closed.</p>
 <p>This function is executed asynchronously and can be used to perform
@@ -120,9 +120,9 @@ cleanup tasks or log server shutdown events.</p>
   },
 })
 </code></pre>
-<h3 id="onerror()%3F" tabindex="-1">onError()?</h3>
+<h3 id="onerror%3F" tabindex="-1">onError?</h3>
 <blockquote>
-<p><code>optional</code> <strong>onError</strong>: (<code>error</code>, <code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><code>optional</code> <strong>onError?</strong>: (<code>error</code>, <code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Callback function that is invoked when an error occurs.</p>
 <p>This function is executed asynchronously and allows handling of errors
@@ -144,9 +144,9 @@ that occur during server operation.</p>
   },
 })
 </code></pre>
-<h3 id="onstart()%3F" tabindex="-1">onStart()?</h3>
+<h3 id="onstart%3F" tabindex="-1">onStart?</h3>
 <blockquote>
-<p><code>optional</code> <strong>onStart</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><code>optional</code> <strong>onStart?</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Callback function that is invoked when the server starts.</p>
 <p>This function is executed asynchronously and will not interrupt the server
@@ -167,7 +167,7 @@ if an error occurs during its execution.</p>
 </code></pre>
 <h3 id="port%3F" tabindex="-1">port?</h3>
 <blockquote>
-<p><code>optional</code> <strong>port</strong>: <code>number</code></p>
+<p><code>optional</code> <strong>port?</strong>: <code>number</code></p>
 </blockquote>
 <p>The port on which the server will listen. Defaults to <code>3000</code> if not provided.</p>
 <h4 id="default-1" tabindex="-1">Default</h4>

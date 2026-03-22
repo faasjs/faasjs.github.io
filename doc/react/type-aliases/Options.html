@@ -73,11 +73,11 @@ customizing request behavior, adding request hooks, and overriding defaults.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
 <blockquote>
-<p><code>optional</code> <strong>baseUrl</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
+<p><code>optional</code> <strong>baseUrl?</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
 </blockquote>
-<h3 id="beforerequest()%3F" tabindex="-1">beforeRequest()?</h3>
+<h3 id="beforerequest%3F" tabindex="-1">beforeRequest?</h3>
 <blockquote>
-<p><code>optional</code> <strong>beforeRequest</strong>: (`{</p>
+<p><code>optional</code> <strong>beforeRequest?</strong>: (`{</p>
 </blockquote>
 <pre><code>action,
 params,
@@ -106,11 +106,11 @@ headers,
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
-<p><code>optional</code> <strong>headers</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;</p>
+<p><code>optional</code> <strong>headers?</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;</p>
 </blockquote>
-<h3 id="request()%3F" tabindex="-1">request()?</h3>
+<h3 id="request%3F" tabindex="-1">request?</h3>
 <blockquote>
-<p><code>optional</code> <strong>request</strong>: &lt;<code>PathOrData</code>&gt;(<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>request?</strong>: &lt;<code>PathOrData</code>&gt;(<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>custom request</p>
 <h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
@@ -125,7 +125,7 @@ headers,
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 <h3 id="stream%3F" tabindex="-1">stream?</h3>
 <blockquote>
-<p><code>optional</code> <strong>stream</strong>: <code>boolean</code></p>
+<p><code>optional</code> <strong>stream?</strong>: <code>boolean</code></p>
 </blockquote>
 <h2 id="remarks" tabindex="-1">Remarks</h2>
 <ul>
