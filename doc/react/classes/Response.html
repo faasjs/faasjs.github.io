@@ -67,19 +67,6 @@
 <p>Wrapper class for HTTP responses from FaasJS functions.</p>
 <p>Provides a consistent interface for handling server responses with status code, headers,
 body, and parsed data. Automatically handles JSON serialization and status code defaults.</p>
-<h2 id="param" tabindex="-1">Param</h2>
-<p>Response properties including status, headers, body, and data.
-All properties are optional with sensible defaults.</p>
-<p>Notes:</p>
-<ul>
-<li>status defaults to 200 if data or body is present, 204 otherwise</li>
-<li>body is automatically populated from data if not explicitly provided</li>
-<li>headers defaults to an empty object if not provided</li>
-<li>Use generic type parameter T for type-safe data access</li>
-<li>Commonly used as the return type from client.action() method</li>
-<li>Can be used in mock handlers to return structured responses</li>
-<li>The data property is optional and may be undefined for responses without data</li>
-</ul>
 <h2 id="examples" tabindex="-1">Examples</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Response</span>({
   <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
@@ -160,11 +147,14 @@ All properties are optional with sensible defaults.</p>
 <blockquote>
 <p><strong>new Response</strong>&lt;<code>T</code>&gt;(<code>props?</code>): <code>Response</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
+<p>Create a wrapped response object.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="props%3F" tabindex="-1">props?</h5>
 <p><a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&lt;<code>T</code>&gt; = <code>{}</code></p>
+<p>Response properties including status, headers, body, and data.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Response</code>&lt;<code>T</code>&gt;</p>
+<p>Wrapped response instance.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="body" tabindex="-1">body</h3>
 <blockquote>
@@ -178,6 +168,16 @@ If data is provided without body, body is automatically set to JSON.stringify(da
 </blockquote>
 <p>The parsed JSON data from the response.
 Optional property that contains the response payload when JSON is provided.</p>
+<p>Notes:</p>
+<ul>
+<li>status defaults to 200 if data or body is present, 204 otherwise</li>
+<li>body is automatically populated from data if not explicitly provided</li>
+<li>headers defaults to an empty object if not provided</li>
+<li>Use generic type parameter T for type-safe data access</li>
+<li>Commonly used as the return type from client.action() method</li>
+<li>Can be used in mock handlers to return structured responses</li>
+<li>The data property is optional and may be undefined for responses without data</li>
+</ul>
 <h3 id="headers" tabindex="-1">headers</h3>
 <blockquote>
 <p><code>readonly</code> <strong>headers</strong>: <a href="/doc/react/type-aliases/ResponseHeaders.html"><code>ResponseHeaders</code></a></p>

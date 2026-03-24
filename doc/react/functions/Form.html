@@ -67,8 +67,9 @@
 <blockquote>
 <p><strong>Form</strong>&lt;<code>Values</code>, <code>FormElements</code>, <code>Rules</code>&gt;(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>FormContainer component is a wrapper that provides context and state management for form elements.
-It initializes form states such as values, errors, submitting status, elements, language, and rules.</p>
+<p>Render a form with context, default elements, and validation state.</p>
+<p><code>FormContainer</code> merges provided elements, language strings, and rules with
+the package defaults, then exposes them through form context.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
@@ -82,10 +83,10 @@ It initializes form states such as values, errors, submitting status, elements, 
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/react/type-aliases/FormProps.html"><code>FormProps</code></a>&lt;<code>Values</code>, <code>FormElements</code>, <code>Rules</code>&gt;</p>
-<p>The properties for the FormContainer component.</p>
+<p>Form items and optional overrides for defaults, language, rules, and submit behavior.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
-<p>The FormContainer component.</p>
+<p>React form container with shared form context.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 

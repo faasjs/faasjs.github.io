@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>FaasReactClientOptions</strong> = <code>object</code></p>
 </blockquote>
+<p>Options for creating a <a href="/doc/ant-design/functions/FaasReactClient.html">FaasReactClient</a> instance.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
 <blockquote>
@@ -78,6 +79,7 @@
 <blockquote>
 <p><code>optional</code> <strong>onError?</strong>: <code>OnError</code></p>
 </blockquote>
+<p>Error hook invoked when <code>faas</code> or <code>useFaas</code> receives a failed response.</p>
 <h4 id="example" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (res) =&gt; {
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(action, params, res)
@@ -87,6 +89,7 @@
 <blockquote>
 <p><code>optional</code> <strong>options?</strong>: <code>Options</code></p>
 </blockquote>
+<p>Default request options forwarded to the underlying browser client.</p>
 </div></div>
           </div>
           

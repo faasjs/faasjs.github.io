@@ -77,18 +77,16 @@ Provides type-safe parameter and return value handling.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
 <p><a href="/doc/react/type-aliases/FaasAction.html"><code>FaasAction</code></a>&lt;<code>PathOrData</code>&gt;</p>
-<p>The function path to call</p>
+<p>The function path to call.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <p><a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
-<p>Optional parameters for the function</p>
+<p>Optional parameters for the function.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
-<p>Optional request options</p>
+<p>Optional request overrides.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
-<ul>
-<li>A Promise resolving to a Response object</li>
-</ul>
+<p>Promise resolving to the request response. In streaming mode the runtime returns the native fetch response.</p>
 <p>Notes:</p>
 <ul>
 <li>Used internally by FaasBrowserClient.action method</li>

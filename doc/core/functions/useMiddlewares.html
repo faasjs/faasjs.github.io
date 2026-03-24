@@ -71,10 +71,10 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handlers" tabindex="-1">handlers</h3>
 <p><a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a>[]</p>
-<p>An array of middleware functions to be applied.</p>
+<p>Middleware functions to run in order until one ends the response.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/core/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>any</code>, <code>any</code>&gt;&gt;</p>
-<p>A promise that resolves when all middleware functions have been applied.</p>
+<p>Wrapper that applies each middleware to the incoming event.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddlewares } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 

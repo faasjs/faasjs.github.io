@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>useSplittingState</strong>&lt;<code>T</code>&gt;(<code>initialStates</code>): <a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>A hook that initializes and splits state variables and their corresponding setters.</p>
+<p>Create local state entries and matching setters for each key in an object.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
@@ -75,9 +75,10 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initialstates" tabindex="-1">initialStates</h3>
 <p><code>T</code></p>
-<p>An object containing the initial states.</p>
+<p>Object whose keys become state values and <code>setXxx</code> setters.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
+<p>Object containing the original keys plus generated setter functions.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { count, setCount, name, setName } = <span class="hljs-title function_">useSplittingState</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span> })

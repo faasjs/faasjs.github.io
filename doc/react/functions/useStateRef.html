@@ -75,25 +75,24 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initialvalue%3F" tabindex="-1">initialValue?</h3>
 <p><code>T</code></p>
-<p>The initial value of the state.</p>
+<p>Initial state value. When omitted, state starts as <code>null</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p>[<code>T</code> | <code>null</code>, <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<code>T</code> | <code>null</code>&gt;&gt;, <code>RefObject</code>&lt;<code>T</code> | <code>null</code>&gt;]</p>
-<ul>
-<li>The stateful value, a function to set the value, and a ref to the value.</li>
-</ul>
+<p>Tuple containing the current state, the state setter, and a ref that always points at the latest state.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useStateRef } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
- <span class="hljs-keyword">const</span> [value, setValue, ref] = <span class="hljs-title function_">useStateRef</span>(<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">const</span> [value, setValue, ref] = <span class="hljs-title function_">useStateRef</span>(<span class="hljs-number">0</span>)
 
-<span class="hljs-keyword">return</span> (
-  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Value: {value}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setValue(value + 1)}&gt;Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> console.log(ref.current)}&gt;Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-)
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Value: {value}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setValue(value + 1)}&gt;Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> console.log(ref.current)}&gt;Submit<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

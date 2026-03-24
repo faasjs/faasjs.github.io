@@ -67,17 +67,21 @@
 <blockquote>
 <p><strong>getClient</strong>(<code>host?</code>): <a href="/doc/react/type-aliases/FaasReactClientInstance.html"><code>FaasReactClientInstance</code></a></p>
 </blockquote>
-<p>Get FaasReactClient instance</p>
+<p>Get a registered FaasReactClient instance.</p>
+<p>When <code>host</code> is omitted, the first registered client is returned. If no client
+has been created yet, a default client is initialized automatically.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="host%3F" tabindex="-1">host?</h3>
 <p><code>string</code></p>
-<p>{string} empty string for default host</p>
+<p>Registered base URL to look up. Omit it to use the default client.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/react/type-aliases/FaasReactClientInstance.html"><code>FaasReactClientInstance</code></a></p>
+<p>Registered or newly created FaasReactClient instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">getClient</span>()
-<span class="hljs-comment">// or</span>
-<span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;another-host&#x27;</span>)
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">getClient</span>()
+<span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;http://localhost:8080/api/&#x27;</span>)
 </code></pre>
 </div></div>
           </div>

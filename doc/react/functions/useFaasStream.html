@@ -67,29 +67,34 @@
 <blockquote>
 <p><strong>useFaasStream</strong>(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/react/type-aliases/UseFaasStreamResult.html"><code>UseFaasStreamResult</code></a></p>
 </blockquote>
-<p>Stream faas server response with React hook</p>
+<p>Stream a FaasJS response into React state.</p>
+<p>The hook sends a streaming request, appends decoded text chunks to <code>data</code>,
+and exposes reload helpers for retrying the same action.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
 <p><code>string</code></p>
-<p>{string} action name</p>
+<p>Action path to invoke.</p>
 <h3 id="defaultparams" tabindex="-1">defaultParams</h3>
 <p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
-<p>{object} initial action params</p>
+<p>Params used for the initial request and future reloads.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/UseFaasStreamOptions.html"><code>UseFaasStreamOptions</code></a> = <code>{}</code></p>
+<p>Optional hook configuration such as controlled data, debounce, and skip logic.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/react/type-aliases/UseFaasStreamResult.html"><code>UseFaasStreamResult</code></a></p>
+<p>Streaming request state and helper methods.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Chat</span>(<span class="hljs-params"></span>) {
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+<span class="hljs-keyword">import</span> { useFaasStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Chat</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> [prompt, setPrompt] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)
-  <span class="hljs-keyword">const</span> { data, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;chat&#x27;</span>, { prompt })
+ *   <span class="hljs-keyword">const</span> { data, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;chat&#x27;</span>, { prompt })
 
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{prompt}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setPrompt(e.target.value)} /&gt;
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{reload}</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{loading}</span>&gt;</span>
-        Send
-      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{prompt}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{e</span> =&gt;</span> setPrompt(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{reload}</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{loading}</span>&gt;</span>Send<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
   )

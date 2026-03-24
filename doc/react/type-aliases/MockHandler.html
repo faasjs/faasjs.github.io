@@ -73,7 +73,7 @@ Mock handlers receive request parameters and return simulated responses or error
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
 <p><code>string</code></p>
-<p>The function path/action being requested (e.g., 'user', 'data/list').
+<p>The function path/action being requested (for example, <code>user</code> or <code>data/list</code>).
 Converted to lowercase by the client before being passed to the handler.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | <code>undefined</code></p>
@@ -87,14 +87,11 @@ Includes X-FaasJS-Request-Id header in the headers object.
 Contains merged client defaults and per-request options.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&gt; | <code>Promise</code>&lt;<code>void</code>&gt; | <code>Promise</code>&lt;<code>Error</code>&gt;</p>
-<ul>
-<li>A Promise resolving to:
+<p>A promise resolving to:</p>
 <ul>
 <li>ResponseProps: Mock response data (status, headers, body, data)</li>
 <li>void: Returns an empty response (204 No Content)</li>
 <li>Error: Throws ResponseError when returning an Error object</li>
-</ul>
-</li>
 </ul>
 <p>Notes:</p>
 <ul>
