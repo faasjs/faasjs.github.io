@@ -70,14 +70,6 @@
 <p>Properties for creating a Response object.</p>
 <p>Defines the structure of response data that can be passed to the Response constructor
 or returned from mock handlers.</p>
-<h2 id="remarks" tabindex="-1">Remarks</h2>
-<ul>
-<li>All properties are optional</li>
-<li>At least one of data or body should be provided for meaningful responses</li>
-<li>The Response class automatically defaults status to 200 or 204 based on content</li>
-<li>If data is provided without body, body is automatically JSON.stringify(data)</li>
-<li>Used by Response constructor and mock handlers</li>
-</ul>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
 <li>Response for the class that uses these properties</li>
@@ -100,6 +92,14 @@ Optional: if not provided, body is automatically populated from data using JSON.
 </blockquote>
 <p>The parsed JSON data to include in the response.
 Optional: contains the response payload when JSON data is provided.</p>
+<p>Notes:</p>
+<ul>
+<li>All properties are optional</li>
+<li>At least one of data or body should be provided for meaningful responses</li>
+<li>The Response class automatically defaults status to 200 or 204 based on content</li>
+<li>If data is provided without body, body is automatically JSON.stringify(data)</li>
+<li>Used by Response constructor and mock handlers</li>
+</ul>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
 <p><code>optional</code> <strong>headers?</strong>: <a href="/doc/react/type-aliases/ResponseHeaders.html"><code>ResponseHeaders</code></a></p>

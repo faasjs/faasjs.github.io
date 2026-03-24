@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / useApp</p>
 <h1 id="variable%3A-useapp" tabindex="-1">Variable: useApp</h1>
 <blockquote>
-<p><code>const</code> <strong>useApp</strong>: &lt;<code>NewT</code>&gt;() =&gt; <code>Readonly</code>&lt;<code>NewT</code>&gt; = <code>AppContext.use</code></p>
+<p><code>const</code> <strong>useApp</strong>: &lt;<code>NewT</code>&gt;(<code>this</code>) =&gt; <code>Readonly</code>&lt;<code>NewT</code>&gt; = <code>AppContext.use</code></p>
 </blockquote>
 <p>Get app context.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
@@ -75,6 +75,9 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="newt" tabindex="-1">NewT</h3>
 <p><code>NewT</code> <em>extends</em> <a href="/doc/ant-design/interfaces/useAppProps.html"><code>useAppProps</code></a> = <a href="/doc/ant-design/interfaces/useAppProps.html"><code>useAppProps</code></a></p>
+<h2 id="parameters" tabindex="-1">Parameters</h2>
+<h3 id="this" tabindex="-1">this</h3>
+<p><code>void</code></p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
 </div></div>

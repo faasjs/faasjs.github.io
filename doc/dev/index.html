@@ -64,39 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/dev</p>
 <h1 id="%40faasjs%2Fdev" tabindex="-1">@faasjs/dev</h1>
-<p>FaasJS development toolkit for local development and testing.</p>
-<p><a href="https://github.com/faasjs/faasjs/blob/main/packages/dev/LICENSE" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/l/@faasjs/dev.svg" alt="License: MIT"></a>
-<a href="https://www.npmjs.com/package/@faasjs/dev" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/v/@faasjs/dev.svg" alt="NPM Version"></a></p>
-<h2 id="install" tabindex="-1">Install</h2>
-<pre><code class="hljs language-sh">npm install @faasjs/dev
-</code></pre>
-<h2 id="features" tabindex="-1">Features</h2>
-<ul>
-<li>Vite integration for in-process FaasJS API during local development.</li>
-<li>Test helpers to invoke and assert FaasJS functions.</li>
-</ul>
-<h2 id="usage%3A-vite-integration" tabindex="-1">Usage: Vite integration</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteFaasJsServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">viteFaasJsServer</span>()],
-})
-</code></pre>
-<h2 id="usage%3A-test-helpers" tabindex="-1">Usage: Test helpers</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">Func</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../demo.func.ts&#x27;</span>
-
-<span class="hljs-keyword">const</span> func = <span class="hljs-title function_">test</span>(<span class="hljs-title class_">Func</span>)
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> func.<span class="hljs-title class_">JSON</span>handler({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
-
-<span class="hljs-title function_">expect</span>(response.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>)
-<span class="hljs-title function_">expect</span>(response.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello, FaasJS&#x27;</span> })
-</code></pre>
-<h2 id="api" tabindex="-1">API</h2>
-<ul>
-<li>Vite: <a href="/doc/dev/functions/viteFaasJsServer.html">viteFaasJsServer</a></li>
-<li>Test: <a href="/doc/dev/functions/test.html">test</a>, <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a>, <a href="/doc/dev/functions/streamToText.html">streamToText</a>, <a href="/doc/dev/functions/streamToObject.html">streamToObject</a>, <a href="/doc/dev/variables/streamToString.html">streamToString</a></li>
-</ul>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/dev/functions/closeAll.html">closeAll</a></li>
@@ -132,10 +99,6 @@
 <li><a href="/doc/dev/classes/HttpError.html">HttpError</a></li>
 <li><a href="/doc/dev/classes/Server.html">Server</a></li>
 <li><a href="/doc/dev/classes/Session.html">Session</a></li>
-</ul>
-<h2 id="interfaces" tabindex="-1">Interfaces</h2>
-<ul>
-<li><a href="/doc/dev/interfaces/FaasPluginEventMap.html">FaasPluginEventMap</a></li>
 </ul>
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>

@@ -70,6 +70,16 @@
 <p>Configuration options for FaasJS requests.</p>
 <p>Extends the standard RequestInit interface with FaasJS-specific options for
 customizing request behavior, adding request hooks, and overriding defaults.</p>
+<p>Notes:</p>
+<ul>
+<li>Options can be provided at client creation (defaultOptions) or per-request</li>
+<li>Per-request options override client default options</li>
+<li>headers are merged: per-request headers override default headers</li>
+<li>beforeRequest hook is called before the request is sent, allowing modification</li>
+<li>Custom request function completely replaces the default fetch implementation</li>
+<li>baseUrl in options overrides the client's baseUrl for this specific request</li>
+<li>When stream is true, returns the native fetch Response instead of wrapped Response</li>
+</ul>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
 <blockquote>
@@ -127,16 +137,6 @@ headers,
 <blockquote>
 <p><code>optional</code> <strong>stream?</strong>: <code>boolean</code></p>
 </blockquote>
-<h2 id="remarks" tabindex="-1">Remarks</h2>
-<ul>
-<li>Options can be provided at client creation (defaultOptions) or per-request</li>
-<li>Per-request options override client default options</li>
-<li>headers are merged: per-request headers override default headers</li>
-<li>beforeRequest hook is called before the request is sent, allowing modification</li>
-<li>Custom request function completely replaces the default fetch implementation</li>
-<li>baseUrl in options overrides the client's baseUrl for this specific request</li>
-<li>When stream is true, returns the native fetch Response instead of wrapped Response</li>
-</ul>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
 <li>FaasBrowserClient for client creation</li>

@@ -78,12 +78,15 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <h3 id="use" tabindex="-1">use</h3>
 <blockquote>
-<p><strong>use</strong>: &lt;<code>NewT</code>&gt;() =&gt; <code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
+<p><strong>use</strong>: &lt;<code>NewT</code>&gt;(<code>this</code>) =&gt; <code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
 </blockquote>
 <p>The hook to use the splitting context.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="newt" tabindex="-1">NewT</h5>
 <p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>T</code></p>
+<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h5 id="this" tabindex="-1">this</h5>
+<p><code>void</code></p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
 <h4 id="see" tabindex="-1">See</h4>
@@ -102,13 +105,15 @@
 </code></pre>
 <h3 id="provider()" tabindex="-1">Provider()</h3>
 <blockquote>
-<p><strong>Provider</strong>&lt;<code>NewT</code>&gt;(<code>props</code>): <code>ReactNode</code></p>
+<p><strong>Provider</strong>&lt;<code>NewT</code>&gt;(<code>this</code>, <code>props</code>): <code>ReactNode</code></p>
 </blockquote>
 <p>The provider component of the splitting context.</p>
 <h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="newt-1" tabindex="-1">NewT</h5>
 <p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>T</code></p>
-<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h4 id="parameters-2" tabindex="-1">Parameters</h4>
+<h5 id="this-1" tabindex="-1">this</h5>
+<p><code>void</code></p>
 <h5 id="props" tabindex="-1">props</h5>
 <h6 id="children" tabindex="-1">children</h6>
 <p><code>ReactNode</code></p>
