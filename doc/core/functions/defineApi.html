@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / defineApi</p>
 <h1 id="function%3A-defineapi()" tabindex="-1">Function: defineApi()</h1>
 <blockquote>
-<p><strong>defineApi</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;(<code>options</code>): <a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><strong>defineApi</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>THandler</code>&gt;(<code>options</code>): <a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Create an HTTP API function with optional Zod validation.</p>
 <p>Plugins are always auto-loaded from <code>func.config.plugins</code>.
@@ -79,13 +79,13 @@ plugin type) or a default class export.</p>
 <p><code>TEvent</code> = <code>any</code></p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
-<h3 id="tresult" tabindex="-1">TResult</h3>
-<p><code>TResult</code> = <code>any</code></p>
+<h3 id="thandler" tabindex="-1">THandler</h3>
+<p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt; = (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
-<p><a href="/doc/core/type-aliases/DefineApiOptions.html"><code>DefineApiOptions</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><code>Omit</code>&lt;<a href="/doc/core/type-aliases/DefineApiOptions.html"><code>DefineApiOptions</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;, <code>&quot;handler&quot;</code>&gt; &amp; <code>object</code></p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 </div></div>
           </div>
           

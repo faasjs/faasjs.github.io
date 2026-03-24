@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Agent Guide | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon no-sidebar">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/AGENTS.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/AGENTS.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="agent-guide" tabindex="-1">Agent Guide</h1>
+<h2 id="repo-snapshot" tabindex="-1">Repo Snapshot</h2>
+<p>FaasJS is a TypeScript monorepo built with npm workspaces and <a href="https://viteplus.dev/" target="_blank" rel="noopener noreferrer" class="external-link">vite plus</a>.</p>
+<ul>
+<li><code>packages/core</code>: core runtime, server utilities, HTTP helpers</li>
+<li><code>packages/dev</code>: dev tooling, CLI helpers, test support</li>
+<li><code>packages/node-utils</code>: Node-specific utilities and hooks</li>
+<li><code>packages/react</code>: React bindings</li>
+<li><code>packages/ant-design</code>: Ant Design integration</li>
+<li><code>packages/types</code>: shared types and base TS config</li>
+<li><code>packages/create-faas-app</code>: project scaffolding CLI</li>
+<li><code>docs</code>: documentation site</li>
+<li><code>specs</code>: internal normative specifications for framework-level contracts</li>
+<li><code>images</code>: Docker image definitions and related assets/configs</li>
+<li><code>examples/*</code>: runnable examples and smoke-test references</li>
+<li><code>benchmarks</code>: benchmark suite</li>
+</ul>
+<p>Most package source code lives in <code>packages/*/src</code>, and package entrypoints are defined in each package's <code>package.json</code>.</p>
+<h2 id="environment" tabindex="-1">Environment</h2>
+<ul>
+<li>Node <code>&gt;=24.0.0</code></li>
+<li>npm <code>&gt;=11.0.0</code></li>
+<li><code>package-lock.json</code> is the canonical lockfile</li>
+<li><code>vp</code> from <code>vite-plus</code>; if <code>vp</code> is not available on your PATH locally, use <code>npx vp ...</code></li>
+</ul>
+<h2 id="source-of-truth" tabindex="-1">Source Of Truth</h2>
+<ul>
+<li>Edit source files under <code>packages/*/src</code>, <code>examples/*/src</code>, or <code>docs/**</code></li>
+<li>Edit specifications under <code>specs/**</code>; English <code>*.md</code> files are the source, and matching <code>.zh.md</code> mirrors should be kept in sync</li>
+<li>Edit Docker image definitions and related docs/configs under <code>images/**</code></li>
+<li>Do not hand-edit <code>dist/**</code>; those directories are generated artifacts</li>
+<li>Public API Markdown under <code>packages/*/{classes,functions,interfaces,type-aliases,variables}</code> is generated by <code>vp run doc</code></li>
+<li>If you change exported APIs, types, or package surface area, regenerate the package docs before handing off</li>
+<li>Keep changes scoped to the affected package(s); avoid unrelated formatting churn</li>
+</ul>
+<h2 id="style-and-conventions" tabindex="-1">Style And Conventions</h2>
+<p>The root <a href="/vite.config.ts"><code>vite.config.ts</code></a> is the source of truth for formatting, linting, packing, and test config.</p>
+<ul>
+<li>TypeScript + ESM throughout the repo</li>
+<li>Single quotes, no semicolons, sorted imports</li>
+<li>Prefer <code>import type</code> where appropriate</li>
+<li>Type-aware linting is enabled</li>
+<li>Root TS path aliases map <code>@faasjs/*</code> to <code>packages/*/src</code></li>
+</ul>
+<h2 id="validation" tabindex="-1">Validation</h2>
+<p>Prefer the smallest useful validation for the files you touched, then run broader checks before final handoff when the change is significant.</p>
+<ul>
+<li>Install dependencies: <code>vp install</code></li>
+<li>Run tests: <code>vp test</code></li>
+<li>Run coverage suite: <code>vp run ci</code></li>
+<li>Run lint/format/static checks: <code>vp check</code></li>
+<li>Build packages: <code>vp pack</code></li>
+<li>Regenerate API docs: <code>vp run doc</code></li>
+<li>Build docs site: <code>cd docs &amp;&amp; vp install &amp;&amp; vp run build</code></li>
+</ul>
+<p>CI currently runs the equivalent of:</p>
+<pre><code class="hljs language-bash">vp install
+vp pack
+vp check
+vp run ci
+</code></pre>
+<p>If <code>vp</code> is not on PATH locally, use <code>npx vp ...</code> instead.</p>
+<h2 id="testing-notes" tabindex="-1">Testing Notes</h2>
+<ul>
+<li>Node tests are primarily <code>packages/**/*.test.ts</code></li>
+<li>Browser tests live mainly in <code>packages/react</code> and <code>packages/ant-design</code> and run in <code>jsdom</code></li>
+<li>Type tests use <code>packages/**/*.types.test.ts</code></li>
+<li>Examples also have local test scripts and are useful for targeted regression checks</li>
+</ul>
+<h2 id="docs-and-generated-files" tabindex="-1">Docs And Generated Files</h2>
+<ul>
+<li><code>vp run doc</code> runs <a href="/build-docs.ts"><code>build-docs.ts</code></a> and refreshes the tracked API Markdown under each package</li>
+<li>The docs site build lives in <a href="/docs/package.json"><code>docs/package.json</code></a></li>
+<li>Root <code>.gitignore</code> ignores local artifacts such as <code>dist</code>, <code>coverage</code>, <code>tmp</code>, logs, and generated report files</li>
+</ul>
+<h2 id="collaboration-expectations" tabindex="-1">Collaboration Expectations</h2>
+<ul>
+<li>Follow the existing contribution flow in <a href="/CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a></li>
+<li>Keep PRs small and focused</li>
+<li>Mention affected packages clearly</li>
+<li>Link PRs to issues with <code>Closes #...</code></li>
+<li>Use Conventional Commits</li>
+<li><code>main</code> is merged through squash PRs</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

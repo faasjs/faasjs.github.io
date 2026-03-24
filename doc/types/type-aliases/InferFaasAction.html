@@ -65,9 +65,12 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / InferFaasAction</p>
 <h1 id="type-alias%3A-inferfaasaction%3Ctfunc%3E" tabindex="-1">Type Alias: InferFaasAction&lt;TFunc&gt;</h1>
 <blockquote>
-<p><strong>InferFaasAction</strong>&lt;<code>TFunc</code>&gt; = <code>object</code></p>
+<p><strong>InferFaasAction</strong>&lt;<code>TFunc</code>&gt; = <code>TFunc</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>never</code></p>
 </blockquote>
 <p>Infer the FaasAction type from a Func.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tfunc" tabindex="-1">TFunc</h3>
+<p><code>TFunc</code> <em>extends</em> <code>FaasFuncLike</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 <span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InferFaasAction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span>
@@ -95,18 +98,6 @@
   }
 }
 </code></pre>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tfunc" tabindex="-1">TFunc</h3>
-<p><code>TFunc</code> <em>extends</em> <code>FaasFuncLike</code></p>
-<h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="data" tabindex="-1">Data</h3>
-<blockquote>
-<p><strong>Data</strong>: <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>ReturnType</code>&lt;<code>TFunc</code>[<code>&quot;export&quot;</code>]&gt;[<code>&quot;handler&quot;</code>]&gt;&gt;</p>
-</blockquote>
-<h3 id="params" tabindex="-1">Params</h3>
-<blockquote>
-<p><strong>Params</strong>: <code>NonNullable</code>&lt;<code>Parameters</code>&lt;<code>ReturnType</code>&lt;<code>TFunc</code>[<code>&quot;export&quot;</code>]&gt;[<code>&quot;handler&quot;</code>]&gt;[<code>0</code>]&gt;[<code>&quot;params&quot;</code>]</p>
-</blockquote>
 </div></div>
           </div>
           
