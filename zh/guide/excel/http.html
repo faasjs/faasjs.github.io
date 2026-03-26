@@ -91,8 +91,8 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">return</span> http.<span class="hljs-property">params</span>.<span class="hljs-property">id</span> <span class="hljs-comment">// 返回传入的 id</span>
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params">data</span>) {
+    <span class="hljs-keyword">return</span> data.<span class="hljs-property">params</span>.<span class="hljs-property">id</span> <span class="hljs-comment">// 返回传入的 id</span>
   },
 })
 </code></pre>
@@ -114,8 +114,8 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
-    http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 cookie 中的 distinct_id 写入为 user_id</span>
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params">data</span>) {
+    data.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, data.<span class="hljs-property">cookie</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 cookie 中的 distinct_id 写入为 user_id</span>
   },
 })
 </code></pre>
@@ -137,8 +137,8 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
   <span class="hljs-attr">plugins</span>: [http],
-  <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
-    http.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, http.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 session 中的 distinct_id 写入为 user_id</span>
+  <span class="hljs-title function_">handler</span>(<span class="hljs-params">data</span>) {
+    data.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;user_id&#x27;</span>, data.<span class="hljs-property">session</span>.<span class="hljs-title function_">read</span>(<span class="hljs-string">&#x27;distinct_id&#x27;</span>)) <span class="hljs-comment">// 将 session 中的 distinct_id 写入为 user_id</span>
   },
 })
 </code></pre>
