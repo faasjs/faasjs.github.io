@@ -68,69 +68,16 @@
 <p><strong>FormSubmitProps</strong> = <code>object</code></p>
 </blockquote>
 <h2 id="properties" tabindex="-1">Properties</h2>
+<h3 id="buttonprops%3F" tabindex="-1">buttonProps?</h3>
+<blockquote>
+<p><code>optional</code> <strong>buttonProps?</strong>: <code>ButtonProps</code></p>
+</blockquote>
+<p>Props for the built-in submit button</p>
 <h3 id="text%3F" tabindex="-1">text?</h3>
 <blockquote>
 <p><code>optional</code> <strong>text?</strong>: <code>string</code></p>
 </blockquote>
 <p>Default: Submit</p>
-<h3 id="to%3F" tabindex="-1">to?</h3>
-<blockquote>
-<p><code>optional</code> <strong>to?</strong>: <code>object</code></p>
-</blockquote>
-<p>Submit to FaasJS server.</p>
-<p>If use onFinish, you should call submit manually.</p>
-<pre><code class="hljs language-ts">{
-  <span class="hljs-attr">submit</span>: {
-    <span class="hljs-attr">to</span>: {
-      <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;action_name&#x27;</span>
-    }
-  },
-  <span class="hljs-attr">onFinish</span>: <span class="hljs-function">(<span class="hljs-params">values, submit</span>) =&gt;</span> {
-    <span class="hljs-comment">// do something before submit</span>
-
-    <span class="hljs-comment">// submit</span>
-    <span class="hljs-keyword">await</span> <span class="hljs-title function_">submit</span>({
-     ...values,
-     <span class="hljs-attr">extraProps</span>: <span class="hljs-string">&#x27;some extra props&#x27;</span>
-    })
-
-    <span class="hljs-comment">// do something after submit</span>
-  }
-}
-</code></pre>
-<h4 id="action" tabindex="-1">action</h4>
-<blockquote>
-<p><strong>action</strong>: <code>FaasAction</code></p>
-</blockquote>
-<h4 id="catch%3F" tabindex="-1">catch?</h4>
-<blockquote>
-<p><code>optional</code> <strong>catch?</strong>: (<code>error</code>) =&gt; <code>void</code></p>
-</blockquote>
-<h5 id="parameters" tabindex="-1">Parameters</h5>
-<h6 id="error" tabindex="-1">error</h6>
-<p><code>any</code></p>
-<h5 id="returns" tabindex="-1">Returns</h5>
-<p><code>void</code></p>
-<h4 id="finally%3F" tabindex="-1">finally?</h4>
-<blockquote>
-<p><code>optional</code> <strong>finally?</strong>: () =&gt; <code>void</code></p>
-</blockquote>
-<h5 id="returns-1" tabindex="-1">Returns</h5>
-<p><code>void</code></p>
-<h4 id="params%3F" tabindex="-1">params?</h4>
-<blockquote>
-<p><code>optional</code> <strong>params?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
-</blockquote>
-<p>params will overwrite form values before submit</p>
-<h4 id="then%3F" tabindex="-1">then?</h4>
-<blockquote>
-<p><code>optional</code> <strong>then?</strong>: (<code>result</code>) =&gt; <code>void</code></p>
-</blockquote>
-<h5 id="parameters-1" tabindex="-1">Parameters</h5>
-<h6 id="result" tabindex="-1">result</h6>
-<p><code>any</code></p>
-<h5 id="returns-2" tabindex="-1">Returns</h5>
-<p><code>void</code></p>
 </div></div>
           </div>
           

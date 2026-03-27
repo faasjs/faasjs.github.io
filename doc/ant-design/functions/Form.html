@@ -70,15 +70,54 @@
 <p>Form component with Ant Design &amp; FaasJS</p>
 <ul>
 <li>Based on <a href="https://ant.design/components/form/" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Form</a>.</li>
+<li>Use <code>onFinish</code> for custom submit logic.</li>
+<li>Use <code>faas</code> for the built-in FaasJS submit flow.</li>
 </ul>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
-<p><a href="/doc/ant-design/interfaces/FormProps.html"><code>FormProps</code></a>&lt;<code>Values</code>&gt;</p>
+<p><a href="/doc/ant-design/type-aliases/FormProps.html"><code>FormProps</code></a>&lt;<code>Values</code>&gt;</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code> | <code>null</code></p>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">ProfileForm</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">name</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> },
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">email</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> },
+      ]}
+      <span class="hljs-attr">onFinish</span>=<span class="hljs-string">{async</span> (<span class="hljs-attr">values</span>) =&gt;</span> {
+        console.log(values)
+      }}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">CreateUserForm</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
+      <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">role:</span> &#x27;<span class="hljs-attr">user</span>&#x27; }}
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">name</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> },
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">role</span>&#x27;, <span class="hljs-attr">options:</span> [&#x27;<span class="hljs-attr">user</span>&#x27;, &#x27;<span class="hljs-attr">admin</span>&#x27;] },
+      ]}
+      <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">user</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({
+          role: values.role || &#x27;user&#x27;,
+        }),
+      }}
+    /&gt;</span>
+  )
+}
+</code></pre>
 </div></div>
           </div>
           
