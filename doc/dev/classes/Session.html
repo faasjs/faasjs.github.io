@@ -72,13 +72,15 @@
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new Session</strong>&lt;<code>S</code>, <code>C</code>&gt;(<code>cookie</code>, <code>config</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
+<p><strong>new Session</strong>&lt;<code>S</code>, <code>C</code>&gt;(<code>cookie</code>, <code>config</code>, <code>secrets?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="cookie" tabindex="-1">cookie</h5>
 <p><a href="/doc/dev/classes/Cookie.html"><code>Cookie</code></a>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h5 id="config" tabindex="-1">config</h5>
-<p><a href="/doc/dev/type-aliases/SessionOptions.html"><code>SessionOptions</code></a></p>
+<p><a href="/doc/dev/type-aliases/SessionOptions.html"><code>SessionOptions</code></a> | <code>SessionConfig</code></p>
+<h5 id="secrets%3F" tabindex="-1">secrets?</h5>
+<p><code>SessionSecrets</code></p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -103,79 +105,56 @@
 <p><a href="/doc/dev/type-aliases/SessionContent.html"><code>SessionContent</code></a></p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>string</code></p>
+<h3 id="fork()" tabindex="-1">fork()</h3>
+<blockquote>
+<p><strong>fork</strong>(<code>cookie</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
+</blockquote>
+<h4 id="parameters-3" tabindex="-1">Parameters</h4>
+<h5 id="cookie-1" tabindex="-1">cookie</h5>
+<p><a href="/doc/dev/classes/Cookie.html"><code>Cookie</code></a>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<h4 id="returns-3" tabindex="-1">Returns</h4>
+<p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 <h3 id="invoke()" tabindex="-1">invoke()</h3>
 <blockquote>
 <p><strong>invoke</strong>(<code>cookie?</code>, <code>logger?</code>): <code>void</code></p>
 </blockquote>
-<h4 id="parameters-3" tabindex="-1">Parameters</h4>
+<h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="cookie%3F" tabindex="-1">cookie?</h5>
 <p><code>string</code></p>
 <h5 id="logger%3F" tabindex="-1">logger?</h5>
 <p><code>Logger</code></p>
-<h4 id="returns-3" tabindex="-1">Returns</h4>
+<h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="read()" tabindex="-1">read()</h3>
 <blockquote>
 <p><strong>read</strong>(<code>key</code>): <code>string</code> | <code>number</code></p>
 </blockquote>
-<h4 id="parameters-4" tabindex="-1">Parameters</h4>
+<h4 id="parameters-5" tabindex="-1">Parameters</h4>
 <h5 id="key" tabindex="-1">key</h5>
 <p><code>string</code></p>
-<h4 id="returns-4" tabindex="-1">Returns</h4>
+<h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>string</code> | <code>number</code></p>
 <h3 id="update()" tabindex="-1">update()</h3>
 <blockquote>
 <p><strong>update</strong>(): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
-<h4 id="returns-5" tabindex="-1">Returns</h4>
+<h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
 <p><strong>write</strong>(<code>key</code>, <code>value?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
-<h4 id="parameters-5" tabindex="-1">Parameters</h4>
+<h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="key-1" tabindex="-1">key</h5>
 <p><code>string</code></p>
 <h5 id="value%3F" tabindex="-1">value?</h5>
 <p><code>string</code> | <code>number</code> | <code>null</code></p>
-<h4 id="returns-6" tabindex="-1">Returns</h4>
+<h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config-1" tabindex="-1">config</h3>
 <blockquote>
-<p><code>readonly</code> <strong>config</strong>: <code>object</code></p>
-</blockquote>
-<h4 id="ciphername" tabindex="-1">cipherName</h4>
-<blockquote>
-<p><strong>cipherName</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="digest" tabindex="-1">digest</h4>
-<blockquote>
-<p><strong>digest</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="iterations" tabindex="-1">iterations</h4>
-<blockquote>
-<p><strong>iterations</strong>: <code>number</code></p>
-</blockquote>
-<h4 id="key-2" tabindex="-1">key</h4>
-<blockquote>
-<p><strong>key</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="keylen" tabindex="-1">keylen</h4>
-<blockquote>
-<p><strong>keylen</strong>: <code>number</code></p>
-</blockquote>
-<h4 id="salt" tabindex="-1">salt</h4>
-<blockquote>
-<p><strong>salt</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="secret" tabindex="-1">secret</h4>
-<blockquote>
-<p><strong>secret</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="signedsalt" tabindex="-1">signedSalt</h4>
-<blockquote>
-<p><strong>signedSalt</strong>: <code>string</code></p>
+<p><code>readonly</code> <strong>config</strong>: <code>SessionConfig</code></p>
 </blockquote>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>

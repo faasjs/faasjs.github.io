@@ -72,21 +72,33 @@
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new Cookie</strong>&lt;<code>C</code>, <code>S</code>&gt;(<code>config</code>, <code>logger?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p><strong>new Cookie</strong>&lt;<code>C</code>, <code>S</code>&gt;(<code>config</code>, <code>logger?</code>, <code>options?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="config" tabindex="-1">config</h5>
 <p><a href="/doc/dev/type-aliases/CookieOptions.html"><code>CookieOptions</code></a></p>
 <h5 id="logger%3F" tabindex="-1">logger?</h5>
 <p><code>Logger</code></p>
+<h5 id="options%3F" tabindex="-1">options?</h5>
+<h6 id="template%3F" tabindex="-1">template?</h6>
+<p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
+<h3 id="fork()" tabindex="-1">fork()</h3>
+<blockquote>
+<p><strong>fork</strong>(<code>logger?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+</blockquote>
+<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h5 id="logger%3F-1" tabindex="-1">logger?</h5>
+<p><code>Logger</code></p>
+<h4 id="returns-1" tabindex="-1">Returns</h4>
+<p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h3 id="headers()" tabindex="-1">headers()</h3>
 <blockquote>
 <p><strong>headers</strong>(): <code>object</code></p>
 </blockquote>
-<h4 id="returns-1" tabindex="-1">Returns</h4>
+<h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
 <h5 id="set-cookie%3F" tabindex="-1">Set-Cookie?</h5>
 <blockquote>
@@ -96,27 +108,27 @@
 <blockquote>
 <p><strong>invoke</strong>(<code>cookie</code>, <code>logger</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
-<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="cookie" tabindex="-1">cookie</h5>
 <p><code>string</code> | <code>undefined</code></p>
 <h5 id="logger" tabindex="-1">logger</h5>
 <p><code>Logger</code></p>
-<h4 id="returns-2" tabindex="-1">Returns</h4>
+<h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h3 id="read()" tabindex="-1">read()</h3>
 <blockquote>
 <p><strong>read</strong>(<code>key</code>): <code>any</code></p>
 </blockquote>
-<h4 id="parameters-2" tabindex="-1">Parameters</h4>
+<h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="key" tabindex="-1">key</h5>
 <p><code>string</code></p>
-<h4 id="returns-3" tabindex="-1">Returns</h4>
+<h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>any</code></p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
 <p><strong>write</strong>(<code>key</code>, <code>value</code>, <code>opts?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
-<h4 id="parameters-3" tabindex="-1">Parameters</h4>
+<h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="key-1" tabindex="-1">key</h5>
 <p><code>string</code></p>
 <h5 id="value" tabindex="-1">value</h5>
@@ -134,40 +146,12 @@
 <p><code>&quot;Strict&quot;</code> | <code>&quot;Lax&quot;</code> | <code>&quot;None&quot;</code></p>
 <h6 id="secure%3F" tabindex="-1">secure?</h6>
 <p><code>boolean</code></p>
-<h4 id="returns-4" tabindex="-1">Returns</h4>
+<h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config-1" tabindex="-1">config</h3>
 <blockquote>
-<p><code>readonly</code> <strong>config</strong>: <code>object</code></p>
-</blockquote>
-<h4 id="domain%3F-1" tabindex="-1">domain?</h4>
-<blockquote>
-<p><code>optional</code> <strong>domain?</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="expires" tabindex="-1">expires</h4>
-<blockquote>
-<p><strong>expires</strong>: <code>number</code></p>
-</blockquote>
-<h4 id="httponly" tabindex="-1">httpOnly</h4>
-<blockquote>
-<p><strong>httpOnly</strong>: <code>boolean</code></p>
-</blockquote>
-<h4 id="path" tabindex="-1">path</h4>
-<blockquote>
-<p><strong>path</strong>: <code>string</code></p>
-</blockquote>
-<h4 id="samesite%3F-1" tabindex="-1">sameSite?</h4>
-<blockquote>
-<p><code>optional</code> <strong>sameSite?</strong>: <code>&quot;Strict&quot;</code> | <code>&quot;Lax&quot;</code> | <code>&quot;None&quot;</code></p>
-</blockquote>
-<h4 id="secure" tabindex="-1">secure</h4>
-<blockquote>
-<p><strong>secure</strong>: <code>boolean</code></p>
-</blockquote>
-<h4 id="session" tabindex="-1">session</h4>
-<blockquote>
-<p><strong>session</strong>: <a href="/doc/dev/type-aliases/SessionOptions.html"><code>SessionOptions</code></a></p>
+<p><code>readonly</code> <strong>config</strong>: <code>CookieConfig</code></p>
 </blockquote>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>
@@ -177,7 +161,7 @@
 <blockquote>
 <p><strong>logger</strong>: <code>Logger</code> | <code>undefined</code></p>
 </blockquote>
-<h3 id="session-1" tabindex="-1">session</h3>
+<h3 id="session" tabindex="-1">session</h3>
 <blockquote>
 <p><strong>session</strong>: <a href="/doc/dev/classes/Session.html"><code>Session</code></a>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
