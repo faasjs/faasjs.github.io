@@ -67,18 +67,24 @@
 <blockquote>
 <p><strong>Handler</strong>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 </blockquote>
+<p>User-defined handler executed after plugins have prepared invoke data.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Runtime event type.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <code>any</code></p>
+<p>Async result type returned by the handler.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="data" tabindex="-1">data</h3>
 <p><a href="/doc/core/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>TEvent</code>, <code>TContext</code>&gt;</p>
+<p>Invocation data exposed to the handler.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>TResult</code>&gt;</p>
+<p>Handler result that becomes the function response.</p>
 </div></div>
           </div>
           

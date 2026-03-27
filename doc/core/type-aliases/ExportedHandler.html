@@ -67,22 +67,30 @@
 <blockquote>
 <p><strong>ExportedHandler</strong>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = (<code>event?</code>, <code>context?</code>, <code>callback?</code>) =&gt; <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 </blockquote>
+<p>Runtime-compatible handler returned by <a href="/doc/core/classes/Func.html#export">Func.export</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Runtime event type.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <code>any</code></p>
+<p>Async result type returned by the handler.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="event%3F" tabindex="-1">event?</h3>
 <p><code>TEvent</code></p>
+<p>Runtime event payload.</p>
 <h3 id="context%3F" tabindex="-1">context?</h3>
 <p><code>TContext</code></p>
+<p>Runtime context object.</p>
 <h3 id="callback%3F" tabindex="-1">callback?</h3>
 <p>(...<code>args</code>) =&gt; <code>any</code></p>
+<p>Optional callback supplied by callback-based runtimes.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>TResult</code>&gt;</p>
+<p>Final function response.</p>
 </div></div>
           </div>
           

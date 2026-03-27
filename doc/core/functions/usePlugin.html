@@ -67,14 +67,34 @@
 <blockquote>
 <p><strong>usePlugin</strong>&lt;<code>T</code>&gt;(<code>plugin</code>): <a href="/doc/core/type-aliases/UseifyPlugin.html"><code>UseifyPlugin</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
+<p>Register a plugin for the next <a href="/doc/core/functions/useFunc.html">useFunc</a> call and ensure it has a mount helper.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <a href="/doc/core/type-aliases/Plugin.html"><code>Plugin</code></a></p>
+<p>Plugin type to register and return.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="plugin" tabindex="-1">plugin</h3>
 <p><code>T</code> &amp; <code>object</code></p>
+<p>Plugin instance to register.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/core/type-aliases/UseifyPlugin.html"><code>UseifyPlugin</code></a>&lt;<code>T</code>&gt;</p>
+<p>The same plugin with a <code>mount()</code> convenience method.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useFunc, usePlugin } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">usePlugin</span>({
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;trace&#x27;</span>,
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;trace&#x27;</span>,
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params">data, next</span>) {
+      data.<span class="hljs-property">logger</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;before handler&#x27;</span>)
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    },
+  })
+
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">async</span> () =&gt; <span class="hljs-string">&#x27;ok&#x27;</span>
+})
+</code></pre>
 </div></div>
           </div>
           

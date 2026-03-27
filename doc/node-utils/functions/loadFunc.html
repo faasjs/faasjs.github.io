@@ -71,10 +71,13 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Runtime event type.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <code>any</code></p>
+<p>Async result type returned by the handler.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="root" tabindex="-1">root</h3>
 <p><code>string</code></p>
@@ -84,7 +87,7 @@
 <p>Path to the packaged FaasJS function file to load.</p>
 <h3 id="staging" tabindex="-1">staging</h3>
 <p><code>string</code></p>
-<p>Staging directory name (used when locating config).</p>
+<p>Staging directory name used when locating config.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/ExportedHandler.html"><code>ExportedHandler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
 <p>A promise that resolves to the function handler.</p>

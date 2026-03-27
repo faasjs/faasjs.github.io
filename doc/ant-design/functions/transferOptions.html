@@ -71,8 +71,18 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><a href="/doc/ant-design/type-aliases/BaseOption.html"><code>BaseOption</code></a>[]</p>
+<p>Raw option list to normalize.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code>[]</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { transferOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-title function_">transferOptions</span>([<span class="hljs-string">&#x27;draft&#x27;</span>, { <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;Published&#x27;</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;published&#x27;</span> }])
+<span class="hljs-comment">// [</span>
+<span class="hljs-comment">//   { label: &#x27;Draft&#x27;, value: &#x27;draft&#x27; },</span>
+<span class="hljs-comment">//   { label: &#x27;Published&#x27;, value: &#x27;published&#x27; },</span>
+<span class="hljs-comment">// ]</span>
+</code></pre>
 </div></div>
           </div>
           

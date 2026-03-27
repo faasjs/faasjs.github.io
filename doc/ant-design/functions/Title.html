@@ -69,22 +69,24 @@
 </blockquote>
 <p>Title is used to change the title of the page</p>
 <p>Return null by default.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-comment">// return null</span>
-&lt;<span class="hljs-title class_">Title</span> title=<span class="hljs-string">&#x27;hi&#x27;</span> /&gt; <span class="hljs-comment">// =&gt; change the document.title to &#x27;hi&#x27;</span>
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{[</span>&#x27;<span class="hljs-attr">a</span>&#x27;, &#x27;<span class="hljs-attr">b</span>&#x27;]} /&gt;</span></span> <span class="hljs-comment">// =&gt; change the document.title to &#x27;a - b&#x27;</span>
-
-<span class="hljs-comment">// return h1</span>
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&#x27;hi&#x27;</span> <span class="hljs-attr">h1</span> /&gt;</span></span> <span class="hljs-comment">// =&gt; &lt;h1&gt;hi&lt;/h1&gt;</span>
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{[</span>&#x27;<span class="hljs-attr">a</span>&#x27;, &#x27;<span class="hljs-attr">b</span>&#x27;]} <span class="hljs-attr">h1</span> /&gt;</span></span> <span class="hljs-comment">// =&gt; &lt;h1&gt;a&lt;/h1&gt;</span>
-
-<span class="hljs-comment">// return children</span>
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&#x27;hi&#x27;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">CustomTitle</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Title</span>&gt;</span></span> <span class="hljs-comment">// =&gt; &lt;CustomTitle /&gt;</span>
-</code></pre>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/TitleProps.html"><code>TitleProps</code></a></p>
+<p>Title props controlling document title updates and optional inline rendering.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code> | <code>null</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Title</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DetailPage</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{[</span>&#x27;<span class="hljs-attr">Orders</span>&#x27;, &#x27;<span class="hljs-attr">Detail</span>&#x27;]} <span class="hljs-attr">h1</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
+</code></pre>
 </div></div>
           </div>
           

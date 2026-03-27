@@ -70,6 +70,17 @@
 <p>Start cron jobs for the current mounted server lifecycle.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createCronJob, mountServerCronJobs, unmountServerCronJobs } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-title function_">createCronJob</span>({
+  <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;5 * * * *&#x27;</span>,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {},
+})
+
+<span class="hljs-title function_">mountServerCronJobs</span>()
+<span class="hljs-title function_">unmountServerCronJobs</span>()
+</code></pre>
 </div></div>
           </div>
           

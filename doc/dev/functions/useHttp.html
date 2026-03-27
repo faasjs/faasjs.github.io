@@ -71,10 +71,13 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tparams" tabindex="-1">TParams</h3>
 <p><code>TParams</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
+<p>Parsed HTTP params type injected into invoke data.</p>
 <h3 id="tcookie" tabindex="-1">TCookie</h3>
 <p><code>TCookie</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Cookie map exposed by the cookie helper.</p>
 <h3 id="tsession" tabindex="-1">TSession</h3>
 <p><code>TSession</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Session map exposed by the session helper.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="config%3F" tabindex="-1">config?</h3>
 <p><a href="/doc/dev/type-aliases/HttpConfig.html"><code>HttpConfig</code></a></p>
@@ -82,6 +85,17 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/type-aliases/UseifyPlugin.html"><code>UseifyPlugin</code></a>&lt;<a href="/doc/dev/classes/Http.html"><code>Http</code></a>&lt;<code>TParams</code>, <code>TCookie</code>, <code>TSession</code>&gt;&gt;</p>
 <p>HTTP plugin instance wrapped for <code>usePlugin</code>.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useFunc, useHttp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useFunc</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">useHttp</span>()
+
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">async</span> ({ body }) =&gt; ({
+    <span class="hljs-attr">received</span>: body,
+  })
+})
+</code></pre>
 </div></div>
           </div>
           

@@ -146,36 +146,30 @@ including HTTP status code, response headers, response body, and the original er
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new ResponseError</strong>(<code>msg</code>, <code>options?</code>): <code>ResponseError</code></p>
+<p><strong>new ResponseError</strong>(<code>data</code>, <code>options?</code>): <code>ResponseError</code></p>
 </blockquote>
 <p>Create a ResponseError from a message, Error, or structured response error payload.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
-<h5 id="msg" tabindex="-1">msg</h5>
+<h5 id="data" tabindex="-1">data</h5>
 <p><code>string</code> | <code>Error</code></p>
+<p>Error message, Error object, or structured response error props.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <p><code>Omit</code>&lt;<a href="/doc/react/type-aliases/ResponseErrorProps.html"><code>ResponseErrorProps</code></a>, <code>&quot;message&quot;</code> | <code>&quot;originalError&quot;</code>&gt;</p>
+<p>Additional options such as status, headers, and body.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>ResponseError</code></p>
-<h4 id="param" tabindex="-1">Param</h4>
-<p>Error message, Error object, or structured response error props.</p>
-<h4 id="param-1" tabindex="-1">Param</h4>
-<p>Additional options such as status, headers, and body.</p>
+<p>ResponseError instance.</p>
 <h4 id="overrides" tabindex="-1">Overrides</h4>
 <p><code>Error.constructor</code></p>
 <h3 id="constructor-1" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new ResponseError</strong>(<code>props</code>): <code>ResponseError</code></p>
+<p><strong>new ResponseError</strong>(<code>data</code>): <code>ResponseError</code></p>
 </blockquote>
-<p>Create a ResponseError from a message, Error, or structured response error payload.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
-<h5 id="props" tabindex="-1">props</h5>
+<h5 id="data-1" tabindex="-1">data</h5>
 <p><a href="/doc/react/type-aliases/ResponseErrorProps.html"><code>ResponseErrorProps</code></a></p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>ResponseError</code></p>
-<h4 id="param-2" tabindex="-1">Param</h4>
-<p>Error message, Error object, or structured response error props.</p>
-<h4 id="param-3" tabindex="-1">Param</h4>
-<p>Additional options such as status, headers, and body.</p>
 <h4 id="overrides-1" tabindex="-1">Overrides</h4>
 <p><code>Error.constructor</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>

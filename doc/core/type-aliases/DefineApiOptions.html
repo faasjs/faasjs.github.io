@@ -67,20 +67,26 @@
 <blockquote>
 <p><strong>DefineApiOptions</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>object</code></p>
 </blockquote>
+<p>Options for creating a typed API function with <a href="/doc/core/functions/defineApi.html">defineApi</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
+<p>Zod schema used to validate <code>event.params</code>.</p>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Raw event type passed to the function.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <code>any</code></p>
+<p>Handler return type.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="handler" tabindex="-1">handler</h3>
 <blockquote>
 <p><strong>handler</strong>: (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 </blockquote>
+<p>Async business handler executed after plugin and schema setup.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/core/type-aliases/DefineApiData.html"><code>DefineApiData</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
@@ -90,6 +96,7 @@
 <blockquote>
 <p><code>optional</code> <strong>schema?</strong>: <code>TSchema</code></p>
 </blockquote>
+<p>Optional Zod schema used to validate <code>event.params</code>.</p>
 </div></div>
           </div>
           

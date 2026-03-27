@@ -72,6 +72,15 @@
 request URL before forwarding to <code>@faasjs/core</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Plugin</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite&#x27;</span>
+<span class="hljs-keyword">import</span> react <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vitejs/plugin-react&#x27;</span>
+<span class="hljs-keyword">import</span> { viteFaasJsServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">react</span>(), <span class="hljs-title function_">viteFaasJsServer</span>()],
+})
+</code></pre>
 </div></div>
           </div>
           

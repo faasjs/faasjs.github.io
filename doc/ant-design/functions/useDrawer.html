@@ -68,20 +68,10 @@
 <p><strong>useDrawer</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
 <p>Hook style drawer</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Example</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { drawer, setDrawerProps } = <span class="hljs-title function_">useDrawer</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setDrawerProps((prev) =&gt; ({ open: !prev.open }))}&gt;Toggle<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-      {drawer}
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
-}
-</code></pre>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/DrawerProps.html"><code>DrawerProps</code></a></p>
+<p>Initial drawer props.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code></p>
 <h3 id="drawer" tabindex="-1">drawer</h3>
@@ -96,6 +86,27 @@
 <blockquote>
 <p><strong>setDrawerProps</strong>: <a href="/doc/ant-design/type-aliases/setDrawerProps.html"><code>setDrawerProps</code></a></p>
 </blockquote>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useDrawer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Example</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { drawer, setDrawerProps } = <span class="hljs-title function_">useDrawer</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+          setDrawerProps({ open: true, title: &#x27;Details&#x27;, children: <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> })
+        }
+      &gt;
+        Open
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+      {drawer}
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
+</code></pre>
 </div></div>
           </div>
           

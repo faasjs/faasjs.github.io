@@ -70,6 +70,17 @@
 <p>List all registered cron jobs.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/core/classes/CronJob.html"><code>CronJob</code></a>[]</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createCronJob, listCronJobs } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-title function_">createCronJob</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;cleanup&#x27;</span>,
+  <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;0 3 * * *&#x27;</span>,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {},
+})
+
+<span class="hljs-title function_">listCronJobs</span>().<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">job</span>) =&gt;</span> job.<span class="hljs-property">name</span>)
+</code></pre>
 </div></div>
           </div>
           

@@ -67,11 +67,19 @@
 <blockquote>
 <p><strong>parseFuncFilenameFromStack</strong>(<code>stack?</code>): <code>string</code> | <code>undefined</code></p>
 </blockquote>
+<p>Extract a <code>.func.ts</code> file path from a captured stack trace.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="stack%3F" tabindex="-1">stack?</h3>
 <p><code>string</code></p>
+<p>Stack trace text to inspect.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code> | <code>undefined</code></p>
+<p>Absolute or file URL converted source path when found.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseFuncFilenameFromStack } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> filename = <span class="hljs-title function_">parseFuncFilenameFromStack</span>(<span class="hljs-string">&#x27;Error\\n    at file:///project/src/demo.func.ts:3:1&#x27;</span>)
+</code></pre>
 </div></div>
           </div>
           

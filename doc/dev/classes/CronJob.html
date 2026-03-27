@@ -65,12 +65,26 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / CronJob</p>
 <h1 id="class%3A-cronjob" tabindex="-1">Class: CronJob</h1>
 <p>Simple cron job scheduler with 5-field cron expression support.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">CronJob</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> job = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CronJob</span>({
+  <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;5 * * * *&#x27;</span>,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ logger }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;run cleanup&#x27;</span>)
+  },
+})
+
+job.<span class="hljs-title function_">start</span>()
+job.<span class="hljs-title function_">stop</span>()
+</code></pre>
 <h2 id="accessors" tabindex="-1">Accessors</h2>
 <h3 id="isstarted" tabindex="-1">isStarted</h3>
 <h4 id="get-signature" tabindex="-1">Get Signature</h4>
 <blockquote>
 <p><strong>get</strong> <strong>isStarted</strong>(): <code>boolean</code></p>
 </blockquote>
+<p>Whether the cron job is currently scheduled.</p>
 <h5 id="returns" tabindex="-1">Returns</h5>
 <p><code>boolean</code></p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
@@ -78,9 +92,11 @@
 <blockquote>
 <p><strong>new CronJob</strong>(<code>options</code>): <code>CronJob</code></p>
 </blockquote>
+<p>Create a cron job from an expression and handler.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="options" tabindex="-1">options</h5>
 <p><a href="/doc/dev/type-aliases/CronJobOptions.html"><code>CronJobOptions</code></a></p>
+<p>Cron job options including expression, handler, and logger.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>CronJob</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -88,12 +104,14 @@
 <blockquote>
 <p><strong>start</strong>(): <code>void</code></p>
 </blockquote>
+<p>Start checking the cron expression on minute boundaries.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
 <p><strong>stop</strong>(): <code>void</code></p>
 </blockquote>
+<p>Stop future cron checks for this job.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
@@ -101,14 +119,17 @@
 <blockquote>
 <p><code>readonly</code> <strong>expression</strong>: <code>string</code></p>
 </blockquote>
+<p>Original 5-field cron expression.</p>
 <h3 id="handler" tabindex="-1">handler</h3>
 <blockquote>
 <p><code>readonly</code> <strong>handler</strong>: <a href="/doc/dev/type-aliases/CronJobHandler.html"><code>CronJobHandler</code></a></p>
 </blockquote>
+<p>Callback invoked when the expression matches.</p>
 <h3 id="name" tabindex="-1">name</h3>
 <blockquote>
 <p><code>readonly</code> <strong>name</strong>: <code>string</code></p>
 </blockquote>
+<p>Job name used in logs and registry helpers.</p>
 </div></div>
           </div>
           

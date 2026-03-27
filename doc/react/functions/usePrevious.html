@@ -79,6 +79,15 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>T</code> | <code>undefined</code></p>
 <p>Previous value from the prior render, or <code>undefined</code> on the first render.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { usePrevious } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params">{ count }: { count: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> previous = <span class="hljs-title function_">usePrevious</span>(count)
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{previous} -&gt; {count}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+}
+</code></pre>
 </div></div>
           </div>
           

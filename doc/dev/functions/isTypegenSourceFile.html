@@ -67,11 +67,20 @@
 <blockquote>
 <p><strong>isTypegenSourceFile</strong>(<code>filePath</code>): <code>boolean</code></p>
 </blockquote>
+<p>Determine whether a file change should trigger Faas type generation.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="filepath" tabindex="-1">filePath</h3>
 <p><code>string</code></p>
+<p>Absolute or relative file path.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>boolean</code></p>
+<p><code>true</code> for <code>.func.ts</code> files and <code>faas.yaml</code> updates.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isTypegenSourceFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-title function_">isTypegenSourceFile</span>(<span class="hljs-string">&#x27;src/orders/create.func.ts&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-title function_">isTypegenSourceFile</span>(<span class="hljs-string">&#x27;src/orders/service.ts&#x27;</span>) <span class="hljs-comment">// false</span>
+</code></pre>
 </div></div>
           </div>
           

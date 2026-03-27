@@ -75,8 +75,17 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/node-utils/type-aliases/LoadEnvFileIfExistsOptions.html"><code>LoadEnvFileIfExistsOptions</code></a> = <code>{}</code></p>
+<p>Optional working directory and filename overrides.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code> | <code>null</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">loadEnvFileIfExists</span>({
+  <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
+  <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;.env.local&#x27;</span>,
+})
+</code></pre>
 </div></div>
           </div>
           

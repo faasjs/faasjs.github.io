@@ -67,8 +67,13 @@
 <blockquote>
 <p><strong>PageNotFound</strong>(): <code>Element</code></p>
 </blockquote>
+<p>Default 404 route element that uses the configured localized title.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PageNotFound</span>, <span class="hljs-title class_">Routes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span> <span class="hljs-attr">routes</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">path:</span> &#x27;/&#x27;, <span class="hljs-attr">element:</span> &lt;<span class="hljs-attr">div</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> }]} notFound={<span class="hljs-tag">&lt;<span class="hljs-name">PageNotFound</span> /&gt;</span>} /&gt;</span>
+</code></pre>
 </div></div>
           </div>
           

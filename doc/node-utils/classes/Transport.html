@@ -96,6 +96,7 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <blockquote>
 <p><strong>new Transport</strong>(): <code>Transport</code></p>
 </blockquote>
+<p>Create the shared transport and start its flush interval.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Transport</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -188,10 +189,12 @@ and disables the logger if no handlers remain.</p>
 <blockquote>
 <p><strong>handlers</strong>: <code>Map</code>&lt;<code>string</code>, <a href="/doc/node-utils/type-aliases/TransportHandler.html"><code>TransportHandler</code></a>&gt;</p>
 </blockquote>
+<p>Registered flush handlers keyed by name.</p>
 <h3 id="messages" tabindex="-1">messages</h3>
 <blockquote>
 <p><strong>messages</strong>: <a href="/doc/node-utils/type-aliases/LoggerMessage.html"><code>LoggerMessage</code></a>[] = <code>[]</code></p>
 </blockquote>
+<p>Buffered messages waiting to be flushed.</p>
 </div></div>
           </div>
           

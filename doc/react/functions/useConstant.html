@@ -71,11 +71,22 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code></p>
+<p>Constant value type returned by the initializer.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="fn" tabindex="-1">fn</h3>
 <p>() =&gt; <code>T</code></p>
+<p>Initializer that runs only once for the current component instance.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>T</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useConstant } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> requestId = <span class="hljs-title function_">useConstant</span>(<span class="hljs-function">() =&gt;</span> crypto.<span class="hljs-title function_">randomUUID</span>())
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{requestId}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+}
+</code></pre>
 </div></div>
           </div>
           

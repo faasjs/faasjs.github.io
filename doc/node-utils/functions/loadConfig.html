@@ -67,18 +67,28 @@
 <blockquote>
 <p><strong>loadConfig</strong>(<code>root</code>, <code>filename</code>, <code>staging</code>, <code>logger?</code>): <a href="/doc/node-utils/type-aliases/FuncConfig.html"><code>FuncConfig</code></a></p>
 </blockquote>
-<p>Load configuration from faas.yaml</p>
+<p>Load resolved config for a function and staging.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="root" tabindex="-1">root</h3>
 <p><code>string</code></p>
+<p>Project root.</p>
 <h3 id="filename" tabindex="-1">filename</h3>
 <p><code>string</code></p>
+<p>Function filename.</p>
 <h3 id="staging" tabindex="-1">staging</h3>
 <p><code>string</code></p>
+<p>Staging name to resolve.</p>
 <h3 id="logger%3F" tabindex="-1">logger?</h3>
 <p><a href="/doc/node-utils/classes/Logger.html"><code>Logger</code></a></p>
+<p>Optional logger.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/type-aliases/FuncConfig.html"><code>FuncConfig</code></a></p>
+<p>Resolved config for the requested staging.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>, <span class="hljs-string">&#x27;development&#x27;</span>)
+</code></pre>
 </div></div>
           </div>
           

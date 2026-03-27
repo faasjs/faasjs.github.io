@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>Plugin</strong> = <code>object</code></p>
 </blockquote>
+<p>Lifecycle plugin attached to a <a href="/doc/core/classes/Func.html">Func</a>.</p>
 <h2 id="indexable" tabindex="-1">Indexable</h2>
 <blockquote>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
@@ -76,10 +77,12 @@
 <blockquote>
 <p><code>readonly</code> <strong>name</strong>: <code>string</code></p>
 </blockquote>
+<p>Instance name used for ordering and logs.</p>
 <h3 id="oninvoke%3F" tabindex="-1">onInvoke?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onInvoke?</strong>: (<code>data</code>, <code>next</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Optional hook that runs for every invocation.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/core/type-aliases/InvokeData.html"><code>InvokeData</code></a></p>
@@ -91,6 +94,7 @@
 <blockquote>
 <p><code>optional</code> <strong>onMount?</strong>: (<code>data</code>, <code>next</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Optional hook that runs once before the first invoke.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data-1" tabindex="-1">data</h5>
 <p><a href="/doc/core/type-aliases/MountData.html"><code>MountData</code></a></p>
@@ -102,6 +106,7 @@
 <blockquote>
 <p><code>readonly</code> <strong>type</strong>: <code>string</code></p>
 </blockquote>
+<p>Stable plugin type identifier.</p>
 </div></div>
           </div>
           

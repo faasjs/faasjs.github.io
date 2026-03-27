@@ -202,30 +202,37 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <blockquote>
 <p><strong>colorfyOutput</strong>: <code>boolean</code> = <code>true</code></p>
 </blockquote>
+<p>Whether terminal output should use ANSI colors.</p>
 <h3 id="disabletransport" tabindex="-1">disableTransport</h3>
 <blockquote>
 <p><strong>disableTransport</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
+<p>Disable forwarding log messages to the shared transport.</p>
 <h3 id="label%3F-1" tabindex="-1">label?</h3>
 <blockquote>
 <p><code>optional</code> <strong>label?</strong>: <code>string</code></p>
 </blockquote>
+<p>Optional label prefix included in log lines.</p>
 <h3 id="level" tabindex="-1">level</h3>
 <blockquote>
 <p><strong>level</strong>: <a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a> = <code>'debug'</code></p>
 </blockquote>
+<p>Minimum level that will be printed.</p>
 <h3 id="silent" tabindex="-1">silent</h3>
 <blockquote>
 <p><strong>silent</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
+<p>When true, suppresses all output.</p>
 <h3 id="size" tabindex="-1">size</h3>
 <blockquote>
 <p><strong>size</strong>: <code>number</code> = <code>1000</code></p>
 </blockquote>
+<p>Maximum serialized payload size used by the formatter.</p>
 <h3 id="stderr" tabindex="-1">stderr</h3>
 <blockquote>
 <p><strong>stderr</strong>: (<code>text</code>) =&gt; <code>void</code> = <code>console.error</code></p>
 </blockquote>
+<p>Output function used for error logs.</p>
 <h4 id="parameters-8" tabindex="-1">Parameters</h4>
 <h5 id="text" tabindex="-1">text</h5>
 <p><code>string</code></p>
@@ -235,6 +242,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <blockquote>
 <p><strong>stdout</strong>: (<code>text</code>) =&gt; <code>void</code> = <code>console.log</code></p>
 </blockquote>
+<p>Output function used for non-error logs.</p>
 <h4 id="parameters-9" tabindex="-1">Parameters</h4>
 <h5 id="text-1" tabindex="-1">text</h5>
 <p><code>string</code></p>

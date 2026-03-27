@@ -70,6 +70,14 @@
 <p>Close every tracked server instance.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span>, closeAll } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>())
+server.<span class="hljs-title function_">listen</span>()
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">closeAll</span>()
+</code></pre>
 </div></div>
           </div>
           

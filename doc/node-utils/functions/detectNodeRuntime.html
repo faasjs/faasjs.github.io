@@ -75,6 +75,11 @@ Node.js ESM detection via <code>process.versions.node</code>.</p>
 <p><code>module</code> for ESM and <code>commonjs</code> for CJS.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>Throws an error if runtime cannot be determined.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { detectNodeRuntime } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> runtime = <span class="hljs-title function_">detectNodeRuntime</span>()
+</code></pre>
 </div></div>
           </div>
           

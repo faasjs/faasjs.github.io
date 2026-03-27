@@ -75,17 +75,38 @@ plugin type) or a default class export.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
+<p>Zod schema used to validate <code>event.params</code>.</p>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Raw event type passed to the function.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="thandler" tabindex="-1">THandler</h3>
 <p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt; = (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>Handler signature used to infer the response type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><code>Omit</code>&lt;<a href="/doc/dev/type-aliases/DefineApiOptions.html"><code>DefineApiOptions</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;, <code>&quot;handler&quot;</code>&gt; &amp; <code>object</code></p>
+<p>Schema and handler used to build the API function.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">min</span>(<span class="hljs-number">1</span>),
+})
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+  schema,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">message</span>: <span class="hljs-string">`Hello, <span class="hljs-subst">${params.name}</span>`</span>,
+    }
+  },
+})
+</code></pre>
 </div></div>
           </div>
           

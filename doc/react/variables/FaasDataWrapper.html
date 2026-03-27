@@ -67,6 +67,7 @@
 <blockquote>
 <p><code>const</code> <strong>FaasDataWrapper</strong>: &lt;<code>PathOrData</code>&gt;(<code>props</code>) =&gt; <code>ReactElement</code>&lt;<code>unknown</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt; | <code>null</code></p>
 </blockquote>
+<p>Fetch FaasJS data and inject the result into a render prop or child element.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a> = <code>any</code></p>
@@ -75,6 +76,17 @@
 <p><a href="/doc/react/type-aliases/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>PathOrData</code>&gt; &amp; <code>RefAttributes</code>&lt;<a href="/doc/react/type-aliases/FaasDataWrapperRef.html"><code>FaasDataWrapperRef</code></a>&lt;<code>PathOrData</code>&gt;&gt;</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>ReactElement</code>&lt;<code>unknown</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt; | <code>null</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Greeting</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;greeting/api/hello&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">name:</span> &#x27;<span class="hljs-attr">FaasJS</span>&#x27; }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
+  )
+}
+</code></pre>
 </div></div>
           </div>
           

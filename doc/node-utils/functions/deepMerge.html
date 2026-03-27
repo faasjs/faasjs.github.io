@@ -74,14 +74,18 @@
 <li>Merging order is from right to left.</li>
 <li>If an array include same objects, it will be unique to one.</li>
 </ul>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">deepMerge</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span> }) <span class="hljs-comment">// { a: 2 }</span>
-<span class="hljs-title function_">deepMerge</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// [1, 2, 3]</span>
-</code></pre>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="sources" tabindex="-1">sources</h3>
 <p>...<code>any</code>[]</p>
+<p>Objects or arrays merged from right to left.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>any</code></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { deepMerge } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">deepMerge</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span> }) <span class="hljs-comment">// { a: 2 }</span>
+<span class="hljs-title function_">deepMerge</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// [1, 2, 3]</span>
+</code></pre>
 </div></div>
           </div>
           

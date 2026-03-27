@@ -64,23 +64,44 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / Session</p>
 <h1 id="class%3A-session%3Cs%2C-c%3E" tabindex="-1">Class: Session&lt;S, C&gt;</h1>
+<p>Encrypted session storage backed by a signed cookie.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cookie</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> cookie = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>({
+  <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">session</span>: {
+    <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;session_id&#x27;</span>,
+    <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;replace-me&#x27;</span>,
+  },
+})
+
+cookie.<span class="hljs-property">session</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;userId&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>).<span class="hljs-title function_">update</span>()
+cookie.<span class="hljs-title function_">headers</span>()
+</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="s" tabindex="-1">S</h3>
 <p><code>S</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Session value map exposed by <code>read()</code> and <code>content</code>.</p>
 <h3 id="c" tabindex="-1">C</h3>
 <p><code>C</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Cookie value map exposed by the parent cookie store.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
 <p><strong>new Session</strong>&lt;<code>S</code>, <code>C</code>&gt;(<code>cookie</code>, <code>config</code>, <code>secrets?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
+<p>Create a session helper bound to a cookie store.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="cookie" tabindex="-1">cookie</h5>
 <p><a href="/doc/dev/classes/Cookie.html"><code>Cookie</code></a>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Parent cookie store used for persistence.</p>
 <h5 id="config" tabindex="-1">config</h5>
 <p><a href="/doc/dev/type-aliases/SessionOptions.html"><code>SessionOptions</code></a> | <code>SessionConfig</code></p>
+<p>Session encryption and cookie key options.</p>
 <h5 id="secrets%3F" tabindex="-1">secrets?</h5>
 <p><code>SessionSecrets</code></p>
+<p>Precomputed secrets reused by forked sessions.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -88,78 +109,104 @@
 <blockquote>
 <p><strong>decode</strong>&lt;<code>TData</code>&gt;(<code>text</code>): <a href="/doc/dev/type-aliases/SessionContent.html"><code>SessionContent</code></a> | <code>TData</code></p>
 </blockquote>
+<p>Decode and verify a session cookie value.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="tdata" tabindex="-1">TData</h5>
 <p><code>TData</code> = <code>any</code></p>
+<p>Expected decoded payload shape.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="text" tabindex="-1">text</h5>
 <p><code>string</code></p>
+<p>Encoded cookie value.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><a href="/doc/dev/type-aliases/SessionContent.html"><code>SessionContent</code></a> | <code>TData</code></p>
+<p>Decoded session payload.</p>
+<h4 id="throws" tabindex="-1">Throws</h4>
+<p>When the signature is invalid or the payload cannot be decrypted.</p>
 <h3 id="encode()" tabindex="-1">encode()</h3>
 <blockquote>
 <p><strong>encode</strong>(<code>text</code>): <code>string</code></p>
 </blockquote>
+<p>Serialize session content into a signed, encrypted cookie string.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="text-1" tabindex="-1">text</h5>
 <p><a href="/doc/dev/type-aliases/SessionContent.html"><code>SessionContent</code></a></p>
+<p>Session payload to encode.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>string</code></p>
+<p>Encoded cookie value.</p>
 <h3 id="fork()" tabindex="-1">fork()</h3>
 <blockquote>
 <p><strong>fork</strong>(<code>cookie</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
+<p>Clone the session helper for a forked cookie store.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="cookie-1" tabindex="-1">cookie</h5>
 <p><a href="/doc/dev/classes/Cookie.html"><code>Cookie</code></a>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Forked cookie store.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
+<p>Session helper sharing the same derived secrets.</p>
 <h3 id="invoke()" tabindex="-1">invoke()</h3>
 <blockquote>
 <p><strong>invoke</strong>(<code>cookie?</code>, <code>logger?</code>): <code>void</code></p>
 </blockquote>
+<p>Decode the current session cookie into memory.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="cookie%3F" tabindex="-1">cookie?</h5>
 <p><code>string</code></p>
+<p>Encoded session cookie value.</p>
 <h5 id="logger%3F" tabindex="-1">logger?</h5>
 <p><code>Logger</code></p>
+<p>Optional logger for decode failures.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="read()" tabindex="-1">read()</h3>
 <blockquote>
 <p><strong>read</strong>(<code>key</code>): <code>string</code> | <code>number</code></p>
 </blockquote>
+<p>Read a session value by key.</p>
 <h4 id="parameters-5" tabindex="-1">Parameters</h4>
 <h5 id="key" tabindex="-1">key</h5>
 <p><code>string</code></p>
+<p>Session key.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>string</code> | <code>number</code></p>
+<p>Stored session value.</p>
 <h3 id="update()" tabindex="-1">update()</h3>
 <blockquote>
 <p><strong>update</strong>(): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
+<p>Persist pending in-memory changes back to the session cookie.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
+<p>Current session helper for chaining.</p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
 <p><strong>write</strong>(<code>key</code>, <code>value?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
+<p>Set or remove a session value in memory.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="key-1" tabindex="-1">key</h5>
 <p><code>string</code></p>
+<p>Session key.</p>
 <h5 id="value%3F" tabindex="-1">value?</h5>
 <p><code>string</code> | <code>number</code> | <code>null</code></p>
+<p>Session value, or <code>null</code>/<code>undefined</code> to delete it.</p>
 <h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;</p>
+<p>Current session helper for chaining.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config-1" tabindex="-1">config</h3>
 <blockquote>
 <p><code>readonly</code> <strong>config</strong>: <code>SessionConfig</code></p>
 </blockquote>
+<p>Normalized session config with derived defaults.</p>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>
 <p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code> | <code>number</code>&gt;</p>
 </blockquote>
+<p>Decoded session values for the current request.</p>
 </div></div>
           </div>
           

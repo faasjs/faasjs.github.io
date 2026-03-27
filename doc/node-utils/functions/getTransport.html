@@ -70,6 +70,18 @@
 <p>Get the shared transport instance used by Logger.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/classes/Transport.html"><code>Transport</code></a></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getTransport, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> transport = <span class="hljs-title function_">getTransport</span>()
+
+transport.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;console&#x27;</span>, <span class="hljs-title function_">async</span> (messages) =&gt; {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(messages.<span class="hljs-property">length</span>)
+})
+
+<span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;app&#x27;</span>).<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;hello&#x27;</span>)
+<span class="hljs-keyword">await</span> transport.<span class="hljs-title function_">flush</span>()
+</code></pre>
 </div></div>
           </div>
           

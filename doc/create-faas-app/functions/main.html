@@ -67,11 +67,19 @@
 <blockquote>
 <p><strong>main</strong>(<code>argv</code>): <code>Promise</code>&lt;<code>Command</code>&gt;</p>
 </blockquote>
+<p>Run the <code>create-faas-app</code> CLI with a provided argv array.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="argv" tabindex="-1">argv</h3>
 <p><code>string</code>[]</p>
+<p>CLI arguments forwarded to Commander.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>Command</code>&gt;</p>
+<p>Commander program instance after parsing.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { main } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;create-faas-app&#x27;</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">main</span>([<span class="hljs-string">&#x27;node&#x27;</span>, <span class="hljs-string">&#x27;create-faas-app&#x27;</span>, <span class="hljs-string">&#x27;--help&#x27;</span>])
+</code></pre>
 </div></div>
           </div>
           

@@ -64,22 +64,40 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / Cookie</p>
 <h1 id="class%3A-cookie%3Cc%2C-s%3E" tabindex="-1">Class: Cookie&lt;C, S&gt;</h1>
+<p>Read, write, and serialize cookies for the HTTP plugin.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cookie</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> cookie = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>({
+  <span class="hljs-attr">secure</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">session</span>: { <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;replace-me&#x27;</span> },
+})
+
+cookie.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;theme&#x27;</span>, <span class="hljs-string">&#x27;dark&#x27;</span>)
+cookie.<span class="hljs-title function_">headers</span>()
+</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="c" tabindex="-1">C</h3>
 <p><code>C</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Cookie value map exposed by <code>read()</code> and <code>content</code>.</p>
 <h3 id="s" tabindex="-1">S</h3>
 <p><code>S</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Session value map exposed by the nested session helper.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
 <p><strong>new Cookie</strong>&lt;<code>C</code>, <code>S</code>&gt;(<code>config</code>, <code>logger?</code>, <code>options?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
+<p>Create a cookie manager.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="config" tabindex="-1">config</h5>
 <p><a href="/doc/dev/type-aliases/CookieOptions.html"><code>CookieOptions</code></a></p>
+<p>Cookie defaults including session settings.</p>
 <h5 id="logger%3F" tabindex="-1">logger?</h5>
 <p><code>Logger</code></p>
+<p>Optional logger used by cookie and session helpers.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
+<p>Internal template reuse options.</p>
 <h6 id="template%3F" tabindex="-1">template?</h6>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
@@ -89,17 +107,22 @@
 <blockquote>
 <p><strong>fork</strong>(<code>logger?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
+<p>Clone the cookie manager while reusing normalized config and secrets.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="logger%3F-1" tabindex="-1">logger?</h5>
 <p><code>Logger</code></p>
+<p>Optional logger for the forked instance.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Forked cookie manager for a single invocation.</p>
 <h3 id="headers()" tabindex="-1">headers()</h3>
 <blockquote>
 <p><strong>headers</strong>(): <code>object</code></p>
 </blockquote>
+<p>Build <code>Set-Cookie</code> headers for queued writes.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
+<p>Header bag suitable for merging into an HTTP response.</p>
 <h5 id="set-cookie%3F" tabindex="-1">Set-Cookie?</h5>
 <blockquote>
 <p><code>optional</code> <strong>Set-Cookie?</strong>: <code>string</code>[]</p>
@@ -108,32 +131,43 @@
 <blockquote>
 <p><strong>invoke</strong>(<code>cookie</code>, <code>logger</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
+<p>Load request cookies and bootstrap the related session state.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="cookie" tabindex="-1">cookie</h5>
 <p><code>string</code> | <code>undefined</code></p>
+<p>Raw <code>Cookie</code> header value.</p>
 <h5 id="logger" tabindex="-1">logger</h5>
 <p><code>Logger</code></p>
+<p>Logger forwarded to the session helper.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Current cookie manager for chaining.</p>
 <h3 id="read()" tabindex="-1">read()</h3>
 <blockquote>
 <p><strong>read</strong>(<code>key</code>): <code>any</code></p>
 </blockquote>
+<p>Read a cookie value by key.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="key" tabindex="-1">key</h5>
 <p><code>string</code></p>
+<p>Cookie name.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>any</code></p>
+<p>Decoded cookie value for the current request.</p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
 <p><strong>write</strong>(<code>key</code>, <code>value</code>, <code>opts?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 </blockquote>
+<p>Queue a cookie write or removal for the outgoing response.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="key-1" tabindex="-1">key</h5>
 <p><code>string</code></p>
+<p>Cookie name.</p>
 <h5 id="value" tabindex="-1">value</h5>
 <p><code>string</code> | <code>null</code> | <code>undefined</code></p>
+<p>Cookie value, or <code>null</code>/<code>undefined</code> to expire it.</p>
 <h5 id="opts%3F" tabindex="-1">opts?</h5>
+<p>Per-cookie attribute overrides.</p>
 <h6 id="domain%3F" tabindex="-1">domain?</h6>
 <p><code>string</code></p>
 <h6 id="expires%3F" tabindex="-1">expires?</h6>
@@ -148,23 +182,28 @@
 <p><code>boolean</code></p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Current cookie manager for chaining.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config-1" tabindex="-1">config</h3>
 <blockquote>
 <p><code>readonly</code> <strong>config</strong>: <code>CookieConfig</code></p>
 </blockquote>
+<p>Normalized cookie configuration with defaults applied.</p>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>
 <p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;</p>
 </blockquote>
+<p>Parsed cookie key-value pairs for the current request.</p>
 <h3 id="logger-1" tabindex="-1">logger</h3>
 <blockquote>
 <p><strong>logger</strong>: <code>Logger</code> | <code>undefined</code></p>
 </blockquote>
+<p>Optional logger used for warnings and debug output.</p>
 <h3 id="session" tabindex="-1">session</h3>
 <blockquote>
 <p><strong>session</strong>: <a href="/doc/dev/classes/Session.html"><code>Session</code></a>&lt;<code>S</code>, <code>C</code>&gt;</p>
 </blockquote>
+<p>Session helper bound to this cookie store.</p>
 </div></div>
           </div>
           

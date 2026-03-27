@@ -64,6 +64,19 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / HttpError</p>
 <h1 id="class%3A-httperror" tabindex="-1">Class: HttpError</h1>
+<p>Error type that carries an HTTP status code for JSON error responses.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">HttpError</span>, defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpError</span>({
+      <span class="hljs-attr">statusCode</span>: <span class="hljs-number">403</span>,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Forbidden&#x27;</span>,
+    })
+  },
+})
+</code></pre>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
 <li><code>Error</code></li>
@@ -71,10 +84,12 @@
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new HttpError</strong>(<code>__namedParameters</code>): <code>HttpError</code></p>
+<p><strong>new HttpError</strong>(<code>options</code>): <code>HttpError</code></p>
 </blockquote>
+<p>Create an HTTP error with a status code and user-facing message.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
-<h5 id="__namedparameters" tabindex="-1">__namedParameters</h5>
+<h5 id="options" tabindex="-1">options</h5>
+<p>Error details.</p>
 <h6 id="message" tabindex="-1">message</h6>
 <p><code>string</code></p>
 <h6 id="statuscode%3F" tabindex="-1">statusCode?</h6>
@@ -88,12 +103,14 @@
 <blockquote>
 <p><code>readonly</code> <strong>message</strong>: <code>string</code></p>
 </blockquote>
+<p>Error message exposed to callers.</p>
 <h4 id="overrides-1" tabindex="-1">Overrides</h4>
 <p><code>Error.message</code></p>
 <h3 id="statuscode" tabindex="-1">statusCode</h3>
 <blockquote>
 <p><code>readonly</code> <strong>statusCode</strong>: <code>number</code></p>
 </blockquote>
+<p>HTTP status code returned to the client.</p>
 </div></div>
           </div>
           

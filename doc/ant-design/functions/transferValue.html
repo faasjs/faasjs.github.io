@@ -67,13 +67,24 @@
 <blockquote>
 <p><strong>transferValue</strong>(<code>type</code>, <code>value</code>): <code>any</code></p>
 </blockquote>
+<p>Normalize raw values into the runtime shape expected by FaasJS Ant Design components.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="type" tabindex="-1">type</h3>
 <p><a href="/doc/ant-design/type-aliases/FaasItemType.html"><code>FaasItemType</code></a> | <code>null</code> | <code>undefined</code></p>
+<p>Target field type.</p>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>any</code></p>
+<p>Raw value to normalize.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>any</code></p>
+<p>Normalized value for rendering or form initialization.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { transferValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-title function_">transferValue</span>(<span class="hljs-string">&#x27;number&#x27;</span>, <span class="hljs-string">&#x27;42&#x27;</span>) <span class="hljs-comment">// 42</span>
+<span class="hljs-title function_">transferValue</span>(<span class="hljs-string">&#x27;boolean&#x27;</span>, <span class="hljs-string">&#x27;true&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-title function_">transferValue</span>(<span class="hljs-string">&#x27;string[]&#x27;</span>, <span class="hljs-string">&#x27;a,b&#x27;</span>) <span class="hljs-comment">// [&#x27;a&#x27;, &#x27;b&#x27;]</span>
+</code></pre>
 </div></div>
           </div>
           

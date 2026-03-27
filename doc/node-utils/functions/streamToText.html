@@ -77,6 +77,18 @@
 <p>Stream contents as a UTF-8 string.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>If stream is not a ReadableStream instance.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { streamToText } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> stream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReadableStream</span>&lt;<span class="hljs-title class_">Uint8Array</span>&gt;({
+  <span class="hljs-title function_">start</span>(<span class="hljs-params">controller</span>) {
+    controller.<span class="hljs-title function_">enqueue</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(<span class="hljs-string">&#x27;hello&#x27;</span>))
+    controller.<span class="hljs-title function_">close</span>()
+  },
+})
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">streamToText</span>(stream) <span class="hljs-comment">// &#x27;hello&#x27;</span>
+</code></pre>
 </div></div>
           </div>
           

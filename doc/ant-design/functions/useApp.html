@@ -68,18 +68,39 @@
 <p><strong>useApp</strong>&lt;<code>NewT</code>&gt;(<code>this</code>): <code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
 </blockquote>
 <p>Get app context.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">const</span> { message, notification, setModalProps, setDrawerProps } = <span class="hljs-title function_">useApp</span>()
-</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="newt" tabindex="-1">NewT</h3>
 <p><code>NewT</code> <em>extends</em> <a href="/doc/ant-design/interfaces/useAppProps.html"><code>useAppProps</code></a> = <a href="/doc/ant-design/interfaces/useAppProps.html"><code>useAppProps</code></a></p>
+<p>Narrowed app context shape to read from <code>AppContext</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="this" tabindex="-1">this</h3>
 <p><code>void</code></p>
+<p>Unused receiver to keep the hook callable without binding.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Readonly</code>&lt;<code>NewT</code>&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">App</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { message, setModalProps } = <span class="hljs-title function_">useApp</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+        message.success(&#x27;Saved&#x27;)
+        setModalProps({ open: true, title: &#x27;Done&#x27;, children: &#x27;Profile updated.&#x27; })
+      }}
+    &gt;
+      Save
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span>
+  )
+}
+
+&lt;<span class="hljs-title class_">App</span>&gt;
+  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Page</span> /&gt;</span></span>
+&lt;/<span class="hljs-title class_">App</span>&gt;
+</code></pre>
 </div></div>
           </div>
           

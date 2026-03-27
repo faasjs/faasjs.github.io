@@ -81,6 +81,17 @@ Otherwise, it creates a new element from the provided element and props.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>ReactElement</code>&lt;<a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html"><code>UnionFaasItemInjection</code></a>&lt;<code>any</code>, <code>any</code>&gt;, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
 <p>The cloned element with the applied props.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { cloneUnionFaasItemElement, <span class="hljs-keyword">type</span> <span class="hljs-title class_">UnionFaasItemElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Cell</span>: <span class="hljs-title class_">UnionFaasItemElement</span>&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{value}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+
+<span class="hljs-keyword">const</span> element = <span class="hljs-title function_">cloneUnionFaasItemElement</span>(<span class="hljs-title class_">Cell</span>, {
+  <span class="hljs-attr">scene</span>: <span class="hljs-string">&#x27;table&#x27;</span>,
+  <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;Hello&#x27;</span>,
+  <span class="hljs-attr">index</span>: <span class="hljs-number">0</span>,
+})
+</code></pre>
 </div></div>
           </div>
           

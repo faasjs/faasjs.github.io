@@ -64,13 +64,31 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / Func</p>
 <h1 id="class%3A-func%3Ctevent%2C-tcontext%2C-tresult%3E" tabindex="-1">Class: Func&lt;TEvent, TContext, TResult&gt;</h1>
+<p>Core executable unit used by FaasJS runtimes and helpers.</p>
+<p>A Func composes lifecycle plugins, exposes a runtime handler via
+<a href="#export">Func.export</a>, and keeps function configuration available across mounts
+and invokes.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ event }</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">echo</span>: event }
+  },
+})
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> func.<span class="hljs-title function_">export</span>().<span class="hljs-title function_">handler</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
+</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>
+<p>Runtime event type.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
+<p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <code>any</code></p>
+<p>Async result type produced by the handler.</p>
 <h2 id="indexable" tabindex="-1">Indexable</h2>
 <blockquote>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
@@ -84,6 +102,7 @@
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="config" tabindex="-1">config</h5>
 <p><a href="/doc/dev/type-aliases/FuncConfig.html"><code>FuncConfig</code></a>&lt;<code>TEvent</code>, <code>TContext</code>&gt;</p>
+<p>Plugins and optional business handler used to configure the function.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Func</code>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -106,6 +125,7 @@
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/dev/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p>Invocation state mutated by plugins and the final handler.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="mount()" tabindex="-1">mount()</h3>
@@ -115,6 +135,7 @@
 <p>First time mount the function.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="data%3F" tabindex="-1">data?</h5>
+<p>Optional initial event, context, config, and logger used during mount.</p>
 <h6 id="config%3F" tabindex="-1">config?</h6>
 <p><a href="/doc/dev/type-aliases/Config.html"><code>Config</code></a></p>
 <h6 id="context" tabindex="-1">context</h6>
@@ -130,22 +151,27 @@
 <blockquote>
 <p><strong>config</strong>: <a href="/doc/dev/type-aliases/Config.html"><code>Config</code></a></p>
 </blockquote>
+<p>Mutable runtime configuration used by the function.</p>
 <h3 id="filename%3F" tabindex="-1">filename?</h3>
 <blockquote>
 <p><code>optional</code> <strong>filename?</strong>: <code>string</code></p>
 </blockquote>
+<p>Resolved source filename inferred from the constructor call stack.</p>
 <h3 id="handler%3F" tabindex="-1">handler?</h3>
 <blockquote>
 <p><code>optional</code> <strong>handler?</strong>: <a href="/doc/dev/type-aliases/Handler.html"><code>Handler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 </blockquote>
+<p>Final business handler invoked after plugins finish.</p>
 <h3 id="mounted" tabindex="-1">mounted</h3>
 <blockquote>
 <p><strong>mounted</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
+<p>Indicates whether mount hooks have already run.</p>
 <h3 id="plugins" tabindex="-1">plugins</h3>
 <blockquote>
 <p><strong>plugins</strong>: <a href="/doc/dev/type-aliases/Plugin.html"><code>Plugin</code></a>[]</p>
 </blockquote>
+<p>Ordered plugin instances attached to this function.</p>
 </div></div>
           </div>
           

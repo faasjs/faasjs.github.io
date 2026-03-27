@@ -64,13 +64,31 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / Http</p>
 <h1 id="class%3A-http%3Ctparams%2C-tcookie%2C-tsession%3E" tabindex="-1">Class: Http&lt;TParams, TCookie, TSession&gt;</h1>
+<p>HTTP lifecycle plugin that enriches invoke data with cookies, sessions, and response helpers.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> http = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Http</span>({
+  <span class="hljs-attr">config</span>: {
+    <span class="hljs-attr">cookie</span>: {
+      <span class="hljs-attr">session</span>: {
+        <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;session_id&#x27;</span>,
+        <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;replace-me&#x27;</span>,
+      },
+    },
+  },
+})
+</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tparams" tabindex="-1">TParams</h3>
 <p><code>TParams</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
+<p>Parsed HTTP params type injected into invoke data.</p>
 <h3 id="tcookie" tabindex="-1">TCookie</h3>
 <p><code>TCookie</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Cookie map exposed by the cookie helper.</p>
 <h3 id="tsession" tabindex="-1">TSession</h3>
 <p><code>TSession</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
+<p>Session map exposed by the session helper.</p>
 <h2 id="implements" tabindex="-1">Implements</h2>
 <ul>
 <li><a href="/doc/dev/type-aliases/Plugin.html"><code>Plugin</code></a></li>
@@ -80,9 +98,11 @@
 <blockquote>
 <p><strong>new Http</strong>&lt;<code>TParams</code>, <code>TCookie</code>, <code>TSession</code>&gt;(<code>config?</code>): <code>Http</code>&lt;<code>TParams</code>, <code>TCookie</code>, <code>TSession</code>&gt;</p>
 </blockquote>
+<p>Create an HTTP plugin instance.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="config%3F" tabindex="-1">config?</h5>
 <p><a href="/doc/dev/type-aliases/HttpConfig.html"><code>HttpConfig</code></a></p>
+<p>Optional plugin name and HTTP configuration overrides.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Http</code>&lt;<code>TParams</code>, <code>TCookie</code>, <code>TSession</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -90,11 +110,14 @@
 <blockquote>
 <p><strong>onInvoke</strong>(<code>data</code>, <code>next</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Attach HTTP helpers, cookies, sessions, and response handling to invoke data.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/dev/type-aliases/InvokeData.html"><code>InvokeData</code></a></p>
+<p>Invocation data for the current request.</p>
 <h5 id="next" tabindex="-1">next</h5>
 <p><a href="/doc/dev/type-aliases/Next.html"><code>Next</code></a></p>
+<p>Continuation for the remaining invoke chain.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="implementation-of" tabindex="-1">Implementation of</h4>
@@ -103,13 +126,18 @@
 <blockquote>
 <p><strong>onMount</strong>(<code>data</code>, <code>next</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Merge environment and function config into the plugin before first invoke.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="data-1" tabindex="-1">data</h5>
 <p><a href="/doc/dev/type-aliases/MountData.html"><code>MountData</code></a></p>
+<p>Mount data supplied by the parent function.</p>
 <h5 id="next-1" tabindex="-1">next</h5>
 <p><a href="/doc/dev/type-aliases/Next.html"><code>Next</code></a></p>
+<p>Continuation for the remaining mount chain.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<h4 id="throws" tabindex="-1">Throws</h4>
+<p>When function config is unavailable.</p>
 <h4 id="implementation-of-1" tabindex="-1">Implementation of</h4>
 <p><code>Plugin.onMount</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
@@ -117,16 +145,19 @@
 <blockquote>
 <p><strong>config</strong>: <a href="/doc/dev/type-aliases/HttpConfig.html"><code>HttpConfig</code></a></p>
 </blockquote>
+<p>Active HTTP plugin configuration after mount-time merging.</p>
 <h3 id="name" tabindex="-1">name</h3>
 <blockquote>
 <p><code>readonly</code> <strong>name</strong>: <code>string</code> = <code>Name</code></p>
 </blockquote>
+<p>Plugin instance name used in config lookup and logs.</p>
 <h4 id="implementation-of-2" tabindex="-1">Implementation of</h4>
 <p><code>Plugin.name</code></p>
 <h3 id="type" tabindex="-1">type</h3>
 <blockquote>
 <p><code>readonly</code> <strong>type</strong>: <code>&quot;http&quot;</code> = <code>'http'</code></p>
 </blockquote>
+<p>Stable plugin type identifier.</p>
 <h4 id="implementation-of-3" tabindex="-1">Implementation of</h4>
 <p><code>Plugin.type</code></p>
 </div></div>

@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>FormProps</strong>&lt;<code>Values</code>, <code>ExtendItemProps</code>&gt; = <code>Omit</code>&lt;<code>AntdFormProps</code>&lt;<code>Values</code>&gt;, <code>&quot;onFinish&quot;</code> | <code>&quot;children&quot;</code> | <code>&quot;initialValues&quot;</code>&gt; &amp; <code>object</code> &amp; { <code>faas?</code>: <a href="/doc/ant-design/type-aliases/FormFaasProps.html"><code>FormFaasProps</code></a>&lt;<code>Values</code>&gt;; <code>onFinish?</code>: <code>never</code>; } | { <code>faas?</code>: <code>never</code>; <code>onFinish?</code>: (<code>values</code>) =&gt; <code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;; }</p>
 </blockquote>
+<p>Props for the FaasJS Ant Design <a href="/doc/ant-design/functions/Form.html">Form</a> component.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="beforeitems%3F" tabindex="-1">beforeItems?</h3>
 <blockquote>
@@ -100,8 +101,10 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
+<p>Form values shape.</p>
 <h3 id="extenditemprops" tabindex="-1">ExtendItemProps</h3>
 <p><code>ExtendItemProps</code> <em>extends</em> <a href="/doc/ant-design/interfaces/ExtendFormItemProps.html"><code>ExtendFormItemProps</code></a> = <a href="/doc/ant-design/interfaces/ExtendFormItemProps.html"><code>ExtendFormItemProps</code></a></p>
+<p>Additional item prop shape accepted by <code>items</code>.</p>
 </div></div>
           </div>
           

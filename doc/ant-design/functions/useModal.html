@@ -68,20 +68,10 @@
 <p><strong>useModal</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
 <p>Hook style modal</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Example</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { modal, setModalProps } = <span class="hljs-title function_">useModal</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setModalProps({ open: true })}&gt;Open Modal<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-      {modal}
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
-}
-</code></pre>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/ModalProps.html"><code>ModalProps</code></a></p>
+<p>Initial modal props.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code></p>
 <h3 id="modal" tabindex="-1">modal</h3>
@@ -96,6 +86,25 @@
 <blockquote>
 <p><strong>setModalProps</strong>: <a href="/doc/ant-design/type-aliases/setModalProps.html"><code>setModalProps</code></a></p>
 </blockquote>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useModal } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Example</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { modal, setModalProps } = <span class="hljs-title function_">useModal</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setModalProps({ open: true, title: &#x27;Delete&#x27;, children: &#x27;Are you sure?&#x27; })}
+      &gt;
+        Open Modal
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+      {modal}
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
+</code></pre>
 </div></div>
           </div>
           
