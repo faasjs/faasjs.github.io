@@ -67,19 +67,19 @@
 <blockquote>
 <p><strong>useMiddleware</strong>(<code>handler</code>): <code>Promise</code>&lt;<a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/core/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>any</code>, <code>any</code>&gt;&gt;</p>
 </blockquote>
-<p>Apply a middleware function to handle incoming requests.</p>
+<p>Create a function that runs one middleware and falls back to <code>404 Not Found</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handler" tabindex="-1">handler</h3>
 <p><a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a></p>
-<p>The middleware function to handle the request and response.</p>
+<p>Middleware to execute for each incoming request.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/core/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>any</code>, <code>any</code>&gt;&gt;</p>
-<p>A function that processes the event and applies the middleware.</p>
+<p>Promise that resolves to a function wrapper.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(<span class="hljs-function">(<span class="hljs-params">request, response, logger</span>) =&gt;</span> {
-  response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">&#x27;X-Hello&#x27;</span>, <span class="hljs-string">&#x27;World&#x27;</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(<span class="hljs-function">(<span class="hljs-params">request, response, { logger }</span>) =&gt;</span> {
+  response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">&#x27;x-hello&#x27;</span>, <span class="hljs-string">&#x27;World&#x27;</span>)
   response.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>)
   logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Hello, World!&#x27;</span>)
 })

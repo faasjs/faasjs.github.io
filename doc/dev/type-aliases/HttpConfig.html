@@ -84,28 +84,38 @@
 <blockquote>
 <p><code>optional</code> <strong>cookie?</strong>: <a href="/doc/dev/type-aliases/CookieOptions.html"><code>CookieOptions</code></a></p>
 </blockquote>
+<p>Cookie and session configuration injected into invoke data.</p>
 <h4 id="functionname%3F" tabindex="-1">functionName?</h4>
 <blockquote>
 <p><code>optional</code> <strong>functionName?</strong>: <code>string</code></p>
 </blockquote>
+<p>Explicit function name used by HTTP integrations.</p>
 <h4 id="ignorepathprefix%3F" tabindex="-1">ignorePathPrefix?</h4>
 <blockquote>
 <p><code>optional</code> <strong>ignorePathPrefix?</strong>: <code>string</code></p>
 </blockquote>
+<p>Path prefix removed before route matching.</p>
 <h4 id="method%3F" tabindex="-1">method?</h4>
 <blockquote>
 <p><code>optional</code> <strong>method?</strong>: <code>&quot;BEGIN&quot;</code> | <code>&quot;GET&quot;</code> | <code>&quot;POST&quot;</code> | <code>&quot;DELETE&quot;</code> | <code>&quot;HEAD&quot;</code> | <code>&quot;PUT&quot;</code> | <code>&quot;OPTIONS&quot;</code> | <code>&quot;TRACE&quot;</code> | <code>&quot;PATCH&quot;</code> | <code>&quot;ANY&quot;</code></p>
 </blockquote>
-<p>POST as default</p>
+<p>HTTP method accepted by the server route.</p>
+<h5 id="default" tabindex="-1">Default</h5>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;POST&#x27;</span>
+</code></pre>
 <h4 id="path%3F" tabindex="-1">path?</h4>
 <blockquote>
 <p><code>optional</code> <strong>path?</strong>: <code>string</code></p>
 </blockquote>
-<p>file relative path as default</p>
+<p>Route path matched by the server.</p>
+<h5 id="default-1" tabindex="-1">Default</h5>
+<pre><code class="hljs language-ts">source file relative path
+</code></pre>
 <h4 id="timeout%3F" tabindex="-1">timeout?</h4>
 <blockquote>
 <p><code>optional</code> <strong>timeout?</strong>: <code>number</code></p>
 </blockquote>
+<p>Request timeout in milliseconds.</p>
 <h3 id="name%3F" tabindex="-1">name?</h3>
 <blockquote>
 <p><code>optional</code> <strong>name?</strong>: <code>string</code></p>

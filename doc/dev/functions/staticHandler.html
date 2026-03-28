@@ -67,7 +67,9 @@
 <blockquote>
 <p><strong>staticHandler</strong>(<code>options</code>): <a href="/doc/dev/type-aliases/Middleware.html"><code>Middleware</code></a></p>
 </blockquote>
-<p>Middleware to handle static file requests.</p>
+<p>Create middleware that serves static files from a directory.</p>
+<p>The middleware resolves the request URL relative to <code>options.root</code>, serves the matching file,
+and optionally delegates missing files to <code>options.notFound</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><a href="/doc/dev/type-aliases/StaticHandlerOptions.html"><code>StaticHandlerOptions</code></a></p>
@@ -75,13 +77,14 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/type-aliases/Middleware.html"><code>Middleware</code></a></p>
 <p>Middleware that serves files from the configured root directory.</p>
-<p>The middleware resolves the requested URL to a file path within the specified root directory.
-If the file exists, it reads the file content and sends it in the response.
-If the file does not exist, it does nothing.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddleware, staticHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { staticHandler, useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(<span class="hljs-title function_">staticHandler</span>({ <span class="hljs-attr">root</span>: __dirname + <span class="hljs-string">&#x27;/public&#x27;</span> }))
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(
+  <span class="hljs-title function_">staticHandler</span>({
+    <span class="hljs-attr">root</span>: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/public`</span>,
+  }),
+)
 </code></pre>
 </div></div>
           </div>

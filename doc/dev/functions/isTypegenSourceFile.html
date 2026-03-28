@@ -71,10 +71,10 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="filepath" tabindex="-1">filePath</h3>
 <p><code>string</code></p>
-<p>Absolute or relative file path.</p>
+<p>Absolute or relative path reported by a file watcher.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>boolean</code></p>
-<p><code>true</code> for <code>.func.ts</code> files and <code>faas.yaml</code> updates.</p>
+<p><code>true</code> when the changed file can affect generated route declarations.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isTypegenSourceFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 

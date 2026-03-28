@@ -68,6 +68,8 @@
 <p><code>const</code> <strong>FaasDataWrapper</strong>: &lt;<code>PathOrData</code>&gt;(<code>props</code>) =&gt; <code>ReactElement</code>&lt;<code>unknown</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt; | <code>null</code></p>
 </blockquote>
 <p>Fetch FaasJS data and inject the result into a render prop or child element.</p>
+<p>The wrapper defers rendering <code>children</code> or <code>render</code> until the first request
+completes, then keeps passing the latest request state to the rendered output.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a> = <code>any</code></p>

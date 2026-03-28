@@ -64,7 +64,9 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / Server</p>
 <h1 id="class%3A-server" tabindex="-1">Class: Server</h1>
-<p>FaasJS Server.</p>
+<p>HTTP server that loads and runs FaasJS function files from a project root.</p>
+<p>A Server resolves route files on demand, caches loaded handlers, and
+can optionally mount cron jobs for the process lifecycle.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
@@ -89,15 +91,17 @@ server.<span class="hljs-title function_">listen</span>()
 <p>Server configuration overrides.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Server</code></p>
-<p>Server instance.</p>
+<h4 id="throws" tabindex="-1">Throws</h4>
+<p>When <code>onStart</code>, <code>onError</code>, or <code>onClose</code> is not an async function.</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="close()" tabindex="-1">close()</h3>
 <blockquote>
 <p><strong>close</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Close server.</p>
+<p>Close the server and wait for active requests to finish.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise that resolves after sockets, cron jobs, and transports stop.</p>
 <h3 id="handle()" tabindex="-1">handle()</h3>
 <blockquote>
 <p><strong>handle</strong>(<code>req</code>, <code>res</code>, <code>options?</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -115,31 +119,35 @@ server.<span class="hljs-title function_">listen</span>()
 <p>Optional request metadata and forced filepath override.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise that resolves after the request has been handled.</p>
 <h3 id="listen()" tabindex="-1">listen()</h3>
 <blockquote>
 <p><strong>listen</strong>(): <code>Server</code></p>
 </blockquote>
-<p>Start server.</p>
+<p>Start the underlying Node.js HTTP server.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Server</code></p>
+<p>Underlying Node.js server instance.</p>
+<h4 id="throws-1" tabindex="-1">Throws</h4>
+<p>When the server is already running.</p>
 <h3 id="middleware()" tabindex="-1">middleware()</h3>
 <blockquote>
 <p><strong>middleware</strong>(<code>req</code>, <code>res</code>, <code>next</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Middleware function to handle incoming HTTP requests.</p>
+<p>Express-style middleware wrapper that delegates to <a href="#handle">Server.handle</a>.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="req-1" tabindex="-1">req</h5>
 <p><code>IncomingMessage</code></p>
-<p>The incoming HTTP request object.</p>
+<p>Incoming HTTP request object.</p>
 <h5 id="res-1" tabindex="-1">res</h5>
 <p><code>ServerResponse</code>&lt;<code>IncomingMessage</code>&gt;</p>
-<p>The server response object.</p>
+<p>Server response object.</p>
 <h5 id="next" tabindex="-1">next</h5>
 <p>() =&gt; <code>void</code></p>
-<p>A callback function to pass control to the next middleware.</p>
+<p>Callback used to continue the middleware chain.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
-<p>A promise that resolves when the middleware processing is complete.</p>
+<p>Promise that resolves when middleware processing finishes.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="closed" tabindex="-1">closed</h3>
 <blockquote>

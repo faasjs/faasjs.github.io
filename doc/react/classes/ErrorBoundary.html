@@ -65,6 +65,9 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / ErrorBoundary</p>
 <h1 id="class%3A-errorboundary" tabindex="-1">Class: ErrorBoundary</h1>
 <p>React error boundary with an optional custom fallback element.</p>
+<p>The boundary renders its children until a descendant throws. After that it
+either clones <code>errorChildren</code> with injected error details or renders a simple
+built-in fallback.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorBoundary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 

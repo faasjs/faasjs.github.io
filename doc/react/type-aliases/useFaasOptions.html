@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>useFaasOptions</strong>&lt;<code>PathOrData</code>&gt; = <code>object</code></p>
 </blockquote>
-<p>Options for <a href="/doc/react/functions/useFaas.html">useFaas</a>.</p>
+<p>Options that customize the <a href="/doc/react/functions/useFaas.html">useFaas</a> request lifecycle.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
@@ -87,12 +87,12 @@
 <blockquote>
 <p><code>optional</code> <strong>debounce?</strong>: <code>number</code></p>
 </blockquote>
-<p>Send the last request after milliseconds</p>
+<p>Delay the latest automatic request by the given number of milliseconds.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
 <p><code>optional</code> <strong>params?</strong>: <a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
 </blockquote>
-<p>Override the request params without changing the hook's stored params state.</p>
+<p>Override the current request params without changing the hook's stored params state.</p>
 <h3 id="setdata%3F" tabindex="-1">setData?</h3>
 <blockquote>
 <p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>

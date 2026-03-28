@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>UseFaasStreamOptions</strong> = <code>object</code></p>
 </blockquote>
-<p>Options for <a href="/doc/react/functions/useFaasStream.html">useFaasStream</a>.</p>
+<p>Options that customize the <a href="/doc/react/functions/useFaasStream.html">useFaasStream</a> request lifecycle.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
 <blockquote>
@@ -83,12 +83,12 @@
 <blockquote>
 <p><code>optional</code> <strong>debounce?</strong>: <code>number</code></p>
 </blockquote>
-<p>Send the last request after milliseconds</p>
+<p>Delay the latest automatic request by the given number of milliseconds.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
 <p><code>optional</code> <strong>params?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
 </blockquote>
-<p>Override the request params without changing the hook's stored params state.</p>
+<p>Override the current request params without changing the hook's stored params state.</p>
 <h3 id="setdata%3F" tabindex="-1">setData?</h3>
 <blockquote>
 <p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;</p>

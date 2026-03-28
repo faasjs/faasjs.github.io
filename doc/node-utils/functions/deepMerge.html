@@ -67,24 +67,22 @@
 <blockquote>
 <p><strong>deepMerge</strong>(...<code>sources</code>): <code>any</code></p>
 </blockquote>
-<p>Deep merge two objects or arrays.</p>
-<p>Features:</p>
-<ul>
-<li>All objects will be cloned before merging.</li>
-<li>Merging order is from right to left.</li>
-<li>If an array include same objects, it will be unique to one.</li>
-</ul>
+<p>Deeply clone and merge plain objects or arrays.</p>
+<p>Later sources override earlier object properties, and nested objects are merged recursively.
+Array values are deduplicated with <code>Set</code>, with items from newer sources appearing first.
+Non-object and non-array inputs are ignored.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="sources" tabindex="-1">sources</h3>
 <p>...<code>any</code>[]</p>
-<p>Objects or arrays merged from right to left.</p>
+<p>Objects or arrays to merge from left to right.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>any</code></p>
+<p>A cloned merged value built from the provided sources.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { deepMerge } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
 <span class="hljs-title function_">deepMerge</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">a</span>: <span class="hljs-number">2</span> }) <span class="hljs-comment">// { a: 2 }</span>
-<span class="hljs-title function_">deepMerge</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// [1, 2, 3]</span>
+<span class="hljs-title function_">deepMerge</span>({ <span class="hljs-attr">a</span>: [<span class="hljs-number">0</span>] }, { <span class="hljs-attr">a</span>: [<span class="hljs-number">1</span>] }) <span class="hljs-comment">// { a: [1, 0] }</span>
 </code></pre>
 </div></div>
           </div>

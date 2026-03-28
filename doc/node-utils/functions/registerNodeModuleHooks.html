@@ -67,13 +67,13 @@
 <blockquote>
 <p><strong>registerNodeModuleHooks</strong>(<code>options?</code>): <code>void</code></p>
 </blockquote>
-<p>Register Node module hooks for tsconfig path alias resolution.</p>
+<p>Install Node module hooks for tsconfig path aliases and TypeScript-friendly local imports.</p>
+<p>Calling this function multiple times is safe. Hooks are installed once, while loader state is refreshed
+from the latest options when a root, entry, or tsconfig path can be inferred.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/node-utils/type-aliases/RegisterNodeModuleHooksOptions.html"><code>RegisterNodeModuleHooksOptions</code></a> = <code>{}</code></p>
-<p>Hook registration options such as entry file, root, and tsconfig path.
-See <a href="/doc/node-utils/type-aliases/RegisterNodeModuleHooksOptions.html">RegisterNodeModuleHooksOptions</a> for supported fields such as <code>entry</code>, <code>root</code>,
-<code>tsconfigPath</code>, and <code>version</code>.</p>
+<p>Hook registration options such as entry file, root, tsconfig path, and cache-busting version.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code></p>
 <h2 id="example" tabindex="-1">Example</h2>

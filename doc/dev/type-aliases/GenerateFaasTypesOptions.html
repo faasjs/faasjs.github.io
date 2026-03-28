@@ -73,12 +73,15 @@
 <blockquote>
 <p><code>optional</code> <strong>logger?</strong>: <code>Logger</code></p>
 </blockquote>
-<p>optional logger instance</p>
+<p>Logger used to report generation progress.</p>
 <h3 id="root%3F" tabindex="-1">root?</h3>
 <blockquote>
 <p><code>optional</code> <strong>root?</strong>: <code>string</code></p>
 </blockquote>
-<p>faas project root path, default is process.cwd()</p>
+<p>Project root used to resolve <code>src/</code> and emit <code>src/.faasjs/types.d.ts</code>.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts">process.<span class="hljs-title function_">cwd</span>()
+</code></pre>
 </div></div>
           </div>
           

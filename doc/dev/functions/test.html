@@ -67,7 +67,9 @@
 <blockquote>
 <p><strong>test</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
 </blockquote>
-<p>Create a <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a> for tests.</p>
+<p>Create a bound <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a> for tests.</p>
+<p>The returned wrapper binds <code>mount()</code>, <code>handler()</code>, and <code>JSONhandler()</code> so
+they can be passed around without losing their instance context.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tfunc" tabindex="-1">TFunc</h3>
 <p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
@@ -75,9 +77,12 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initby" tabindex="-1">initBy</h3>
 <p><code>TFunc</code></p>
-<p>FaasJS function module or exported function instance.</p>
+<p>Function instance passed to <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
+<p>Bound wrapper instance.</p>
+<h2 id="see" tabindex="-1">See</h2>
+<p><a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { func } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.func&#x27;</span>

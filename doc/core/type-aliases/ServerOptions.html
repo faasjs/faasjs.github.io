@@ -73,19 +73,14 @@
 <blockquote>
 <p><code>optional</code> <strong>beforeHandle?</strong>: <a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a></p>
 </blockquote>
-<p>Callback function that is invoked before handling each request.</p>
-<p>This function is executed asynchronously before the main request handling logic.
-It can be used for request preprocessing, authentication, logging, etc.</p>
-<h4 id="param" tabindex="-1">Param</h4>
-<p>The incoming HTTP request object.</p>
-<h4 id="param-1" tabindex="-1">Param</h4>
-<p>The server response object.</p>
+<p>Middleware invoked before each request is dispatched to a FaasJS function.</p>
+<p>Write to the response to short-circuit normal request handling.</p>
 <h4 id="example" tabindex="-1">Example</h4>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">beforeHandle</span>: <span class="hljs-title function_">async</span> (req, res) =&gt; {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Processing <span class="hljs-subst">${req.method}</span> request to <span class="hljs-subst">${req.url}</span>`</span>)
 
-    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> !== <span class="hljs-string">&#x27;POST&#x27;</span>) res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">405</span>, { <span class="hljs-title class_">Allow</span>: <span class="hljs-string">&#x27;POST&#x27;</span> }) <span class="hljs-comment">// If you write response, it will finish the request</span>
+    <span class="hljs-keyword">if</span> (req.<span class="hljs-property">method</span> !== <span class="hljs-string">&#x27;POST&#x27;</span>) res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">405</span>, { <span class="hljs-title class_">Allow</span>: <span class="hljs-string">&#x27;POST&#x27;</span> })
   },
 })
 </code></pre>
@@ -103,9 +98,8 @@ It can be used for request preprocessing, authentication, logging, etc.</p>
 <blockquote>
 <p><code>optional</code> <strong>onClose?</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Callback function that is invoked when the server is closed.</p>
-<p>This function is executed asynchronously and can be used to perform
-cleanup tasks or log server shutdown events.</p>
+<p>Async hook invoked after the server closes.</p>
+<p>Use this hook for cleanup or shutdown logging.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="context" tabindex="-1">context</h5>
 <p>Lifecycle context passed to the close hook.</p>
@@ -114,8 +108,9 @@ cleanup tasks or log server shutdown events.</p>
 <p>Shared server logger instance.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise returned by the close hook.</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onClose</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
     logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server closed&#x27;</span>)
   },
@@ -125,13 +120,12 @@ cleanup tasks or log server shutdown events.</p>
 <blockquote>
 <p><code>optional</code> <strong>onError?</strong>: (<code>error</code>, <code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Callback function that is invoked when an error occurs.</p>
-<p>This function is executed asynchronously and allows handling of errors
-that occur during server operation.</p>
+<p>Async hook invoked when server-level errors occur.</p>
+<p>This hook receives normalized <code>Error</code> instances.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="error" tabindex="-1">error</h5>
 <p><code>Error</code></p>
-<p>The error that occurred.</p>
+<p>Error raised during server operation.</p>
 <h5 id="context-1" tabindex="-1">context</h5>
 <p>Lifecycle context passed to the error hook.</p>
 <h6 id="logger-1" tabindex="-1">logger</h6>
@@ -139,8 +133,9 @@ that occur during server operation.</p>
 <p>Shared server logger instance.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise returned by the error hook.</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onError</span>: <span class="hljs-title function_">async</span> (error, { logger }) =&gt; {
     logger.<span class="hljs-title function_">error</span>(error)
   },
@@ -150,9 +145,8 @@ that occur during server operation.</p>
 <blockquote>
 <p><code>optional</code> <strong>onStart?</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Callback function that is invoked when the server starts.</p>
-<p>This function is executed asynchronously and will not interrupt the server
-if an error occurs during its execution.</p>
+<p>Async hook invoked after the server starts listening.</p>
+<p>Errors thrown by this hook are reported through the server error logger.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="context-2" tabindex="-1">context</h5>
 <p>Lifecycle context passed to the start hook.</p>
@@ -161,8 +155,9 @@ if an error occurs during its execution.</p>
 <p>Shared server logger instance.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise returned by the start hook.</p>
 <h4 id="example-3" tabindex="-1">Example</h4>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
   <span class="hljs-attr">onStart</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
     logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server started&#x27;</span>)
   },
@@ -172,7 +167,7 @@ if an error occurs during its execution.</p>
 <blockquote>
 <p><code>optional</code> <strong>port?</strong>: <code>number</code></p>
 </blockquote>
-<p>The port on which the server will listen. Defaults to <code>3000</code> if not provided.</p>
+<p>Port used by <a href="/doc/core/classes/Server.html#listen">Server.listen</a>.</p>
 <h4 id="default-1" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-number">3000</span>
 </code></pre>

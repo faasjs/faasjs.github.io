@@ -110,9 +110,10 @@ and invokes.</p>
 <blockquote>
 <p><strong>export</strong>(): <code>object</code></p>
 </blockquote>
-<p>Export the function.</p>
+<p>Build a runtime-compatible handler wrapper for the function.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
+<p>Object containing the exported handler.</p>
 <h5 id="handler" tabindex="-1">handler</h5>
 <blockquote>
 <p><strong>handler</strong>: <a href="/doc/dev/type-aliases/ExportedHandler.html"><code>ExportedHandler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
@@ -128,6 +129,7 @@ and invokes.</p>
 <p>Invocation state mutated by plugins and the final handler.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise that resolves after invoke hooks complete.</p>
 <h3 id="mount()" tabindex="-1">mount()</h3>
 <blockquote>
 <p><strong>mount</strong>(<code>data?</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -150,6 +152,7 @@ and invokes.</p>
 <p>Logger override used during mount.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>Promise that resolves after mount hooks complete.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config-1" tabindex="-1">config</h3>
 <blockquote>

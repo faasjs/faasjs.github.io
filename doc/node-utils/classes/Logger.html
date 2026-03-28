@@ -64,9 +64,15 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/node-utils/">Documents</a> / <a href="/doc/node-utils/">@faasjs/node-utils</a> / Logger</p>
 <h1 id="class%3A-logger" tabindex="-1">Class: Logger</h1>
-<p>Logger with optional labels, colorized output, and transport forwarding.</p>
+<p>Write level-filtered log output with optional labels, colors, timers, and transport forwarding.</p>
+<p>When <code>process</code> is available, the constructor reads <code>FaasLog</code>, <code>FaasLogMode</code>, <code>FaasLogSize</code>,
+and <code>FaasLogTransport</code> to derive the initial logger behavior.</p>
+<h2 id="see" tabindex="-1">See</h2>
+<p><a href="/doc/node-utils/functions/getTransport.html">getTransport</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>()
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>()
 
 logger.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;debug message&#x27;</span>)
 logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;info message&#x27;</span>)
@@ -103,7 +109,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="error()" tabindex="-1">error()</h3>
 <blockquote>
 <p><strong>error</strong>(<code>message</code>, ...<code>args</code>): <code>Logger</code></p>
@@ -112,13 +118,13 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="message-1" tabindex="-1">message</h5>
 <p><code>unknown</code></p>
-<p>Log message, format string, or Error object.</p>
+<p>Log message, format string, or <code>Error</code> object.</p>
 <h5 id="args-1" tabindex="-1">args</h5>
 <p>...<code>any</code>[]</p>
 <p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="info()" tabindex="-1">info()</h3>
 <blockquote>
 <p><strong>info</strong>(<code>message</code>, ...<code>args</code>): <code>Logger</code></p>
@@ -133,7 +139,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="raw()" tabindex="-1">raw()</h3>
 <blockquote>
 <p><strong>raw</strong>(<code>message</code>, ...<code>args</code>): <code>Logger</code></p>
@@ -148,40 +154,41 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="time()" tabindex="-1">time()</h3>
 <blockquote>
 <p><strong>time</strong>(<code>key</code>, <code>level?</code>): <code>Logger</code></p>
 </blockquote>
-<p>Start a timer with a specific key and log level.</p>
+<p>Start a named timer that will log its duration when ended.</p>
 <h4 id="parameters-5" tabindex="-1">Parameters</h4>
 <h5 id="key" tabindex="-1">key</h5>
 <p><code>string</code></p>
-<p>The unique identifier for the timer.</p>
+<p>Unique identifier for the timer.</p>
 <h5 id="level%3F" tabindex="-1">level?</h5>
 <p><a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a> = <code>'debug'</code></p>
-<p>The log level for the timer. Defaults to 'debug'.</p>
+<p>Log level used when the timer ends.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>The Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="timeend()" tabindex="-1">timeEnd()</h3>
 <blockquote>
 <p><strong>timeEnd</strong>(<code>key</code>, <code>message</code>, ...<code>args</code>): <code>Logger</code></p>
 </blockquote>
-<p>End a timer with a specific key and log the elapsed time.</p>
+<p>Stop a named timer and log the elapsed duration.</p>
+<p>If the timer key does not exist, the logger emits a warning and then writes the provided message at debug level.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="key-1" tabindex="-1">key</h5>
 <p><code>string</code></p>
-<p>The unique identifier for the timer.</p>
+<p>Unique identifier for the timer.</p>
 <h5 id="message-4" tabindex="-1">message</h5>
 <p><code>string</code></p>
-<p>The message to log with the elapsed time.</p>
+<p>Message to log alongside the elapsed time.</p>
 <h5 id="args-4" tabindex="-1">args</h5>
 <p>...<code>any</code>[]</p>
-<p>Additional arguments to log with the message.</p>
+<p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>The Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h3 id="warn()" tabindex="-1">warn()</h3>
 <blockquote>
 <p><strong>warn</strong>(<code>message</code>, ...<code>args</code>): <code>Logger</code></p>
@@ -196,18 +203,24 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p>Additional values forwarded to the formatter.</p>
 <h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>Logger</code></p>
-<p>Logger instance for chaining.</p>
+<p>The current logger for chaining.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="colorfyoutput" tabindex="-1">colorfyOutput</h3>
 <blockquote>
 <p><strong>colorfyOutput</strong>: <code>boolean</code> = <code>true</code></p>
 </blockquote>
 <p>Whether terminal output should use ANSI colors.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
+</code></pre>
 <h3 id="disabletransport" tabindex="-1">disableTransport</h3>
 <blockquote>
 <p><strong>disableTransport</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
 <p>Disable forwarding log messages to the shared transport.</p>
+<h4 id="default-1" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-literal">false</span>
+</code></pre>
 <h3 id="label%3F-1" tabindex="-1">label?</h3>
 <blockquote>
 <p><code>optional</code> <strong>label?</strong>: <code>string</code></p>
@@ -217,17 +230,26 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <blockquote>
 <p><strong>level</strong>: <a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a> = <code>'debug'</code></p>
 </blockquote>
-<p>Minimum level that will be printed.</p>
+<p>Minimum level that will be emitted.</p>
+<h4 id="default-2" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;debug&#x27;</span>
+</code></pre>
 <h3 id="silent" tabindex="-1">silent</h3>
 <blockquote>
 <p><strong>silent</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
-<p>When true, suppresses all output.</p>
+<p>When true, suppresses all output and transport forwarding.</p>
+<h4 id="default-3" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-literal">false</span>
+</code></pre>
 <h3 id="size" tabindex="-1">size</h3>
 <blockquote>
 <p><strong>size</strong>: <code>number</code> = <code>1000</code></p>
 </blockquote>
-<p>Maximum serialized payload size used by the formatter.</p>
+<p>Maximum plain-text payload length before non-error logs are truncated.</p>
+<h4 id="default-4" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-number">1000</span>
+</code></pre>
 <h3 id="stderr" tabindex="-1">stderr</h3>
 <blockquote>
 <p><strong>stderr</strong>: (<code>text</code>) =&gt; <code>void</code> = <code>console.error</code></p>
@@ -238,6 +260,9 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><code>string</code></p>
 <h4 id="returns-8" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
+<h4 id="default-5" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-variable language_">console</span>.<span class="hljs-property">error</span>
+</code></pre>
 <h3 id="stdout" tabindex="-1">stdout</h3>
 <blockquote>
 <p><strong>stdout</strong>: (<code>text</code>) =&gt; <code>void</code> = <code>console.log</code></p>
@@ -248,6 +273,9 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><code>string</code></p>
 <h4 id="returns-9" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
+<h4 id="default-6" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>
+</code></pre>
 </div></div>
           </div>
           

@@ -67,23 +67,27 @@
 <blockquote>
 <p><strong>loadConfig</strong>(<code>root</code>, <code>filename</code>, <code>staging</code>, <code>logger?</code>): <a href="/doc/node-utils/type-aliases/FuncConfig.html"><code>FuncConfig</code></a></p>
 </blockquote>
-<p>Load resolved config for a function and staging.</p>
+<p>Resolve the staged <code>faas.yaml</code> config for a function file.</p>
+<p>This walks from <code>root</code> to the function directory, merges every discovered <code>faas.yaml</code>,
+applies the <code>defaults</code> stage, and annotates plugin entries with their resolved <code>name</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="root" tabindex="-1">root</h3>
 <p><code>string</code></p>
-<p>Project root.</p>
+<p>Project root directory used to scope config discovery.</p>
 <h3 id="filename" tabindex="-1">filename</h3>
 <p><code>string</code></p>
-<p>Function filename.</p>
+<p>Function filename whose directory controls nested config lookup.</p>
 <h3 id="staging" tabindex="-1">staging</h3>
 <p><code>string</code></p>
 <p>Staging name to resolve.</p>
 <h3 id="logger%3F" tabindex="-1">logger?</h3>
 <p><a href="/doc/node-utils/classes/Logger.html"><code>Logger</code></a></p>
-<p>Optional logger.</p>
+<p>Optional logger used while loading config files.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/type-aliases/FuncConfig.html"><code>FuncConfig</code></a></p>
 <p>Resolved config for the requested staging.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>If a discovered <code>faas.yaml</code> cannot be parsed or fails schema validation.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

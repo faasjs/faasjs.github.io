@@ -91,6 +91,10 @@ plugin type) or a default class export.</p>
 <p>Schema and handler used to build the API function.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When the required <code>http</code> plugin is missing from function config.</p>
+<h2 id="throws-1" tabindex="-1">Throws</h2>
+<p>When <code>event.params</code> fails schema validation.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 

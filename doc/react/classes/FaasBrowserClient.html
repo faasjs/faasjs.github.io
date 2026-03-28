@@ -205,8 +205,8 @@ See <a href="/doc/react/type-aliases/Options.html">Options</a> for supported req
 <code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
-<p>A Promise that resolves to a Response object containing status, headers, body, and data.
-The data property is typed based on the PathOrData generic parameter.</p>
+<p>A promise resolving to the wrapped FaasJS response. When <code>options.stream</code>
+is <code>true</code>, the runtime returns the native fetch response so callers can read the stream.</p>
 <h4 id="throws-2" tabindex="-1">Throws</h4>
 <p>When action is not provided or is empty</p>
 <h4 id="throws-3" tabindex="-1">Throws</h4>

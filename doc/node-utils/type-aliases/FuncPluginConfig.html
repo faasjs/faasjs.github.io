@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>FuncPluginConfig</strong> = <code>object</code></p>
 </blockquote>
-<p>Plugin config entry loaded from <code>faas.yaml</code>.</p>
+<p>Per-plugin configuration entry resolved from <code>faas.yaml</code>.</p>
 <h2 id="indexable" tabindex="-1">Indexable</h2>
 <blockquote>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
@@ -77,16 +77,19 @@
 <blockquote>
 <p><code>optional</code> <strong>config?</strong>: <code>object</code></p>
 </blockquote>
+<p>Plugin-specific configuration payload.</p>
 <h4 id="index-signature" tabindex="-1">Index Signature</h4>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
 <h3 id="name%3F" tabindex="-1">name?</h3>
 <blockquote>
 <p><code>optional</code> <strong>name?</strong>: <code>string</code></p>
 </blockquote>
+<p>Plugin key assigned during config resolution.</p>
 <h3 id="type%3F" tabindex="-1">type?</h3>
 <blockquote>
 <p><code>optional</code> <strong>type?</strong>: <code>string</code></p>
 </blockquote>
+<p>Plugin type identifier consumed by the runtime or plugin loader.</p>
 </div></div>
           </div>
           

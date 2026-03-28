@@ -67,18 +67,23 @@
 <blockquote>
 <p><strong>generateId</strong>(<code>prefix?</code>, <code>length?</code>): <code>string</code></p>
 </blockquote>
-<p>Generate random id with prefix</p>
+<p>Generate a random identifier with an optional prefix.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="prefix%3F" tabindex="-1">prefix?</h3>
 <p><code>string</code> = <code>''</code></p>
-<p>prefix of id</p>
+<p>Prefix prepended to the generated identifier.</p>
 <h3 id="length%3F" tabindex="-1">length?</h3>
 <p><code>number</code> = <code>18</code></p>
-<p>length of id without prefix, range is 8 ~ 18, default is 18</p>
+<p>Length of the generated identifier excluding <code>prefix</code>. Must be between <code>8</code> and <code>18</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code></p>
+<p>Generated identifier string.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When <code>length</code> is outside the supported <code>8</code> to <code>18</code> range.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">generateId</span>(<span class="hljs-string">&#x27;prefix-&#x27;</span>) <span class="hljs-comment">// prefix-1z3b4c5d6e</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> id = <span class="hljs-title function_">generateId</span>(<span class="hljs-string">&#x27;prefix-&#x27;</span>)
+
+id.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;prefix-&#x27;</span>) <span class="hljs-comment">// true</span>
 </code></pre>
 </div></div>
           </div>

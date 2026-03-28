@@ -80,25 +80,25 @@ minute hour dayOfMonth month dayOfWeek</p>
 <blockquote>
 <p><strong>handler</strong>: <a href="/doc/core/type-aliases/CronJobHandler.html"><code>CronJobHandler</code></a></p>
 </blockquote>
-<p>Job handler.</p>
+<p>Callback invoked whenever the cron expression matches.</p>
 <h3 id="logger%3F" tabindex="-1">logger?</h3>
 <blockquote>
 <p><code>optional</code> <strong>logger?</strong>: <code>Logger</code></p>
 </blockquote>
-<p>Custom logger for this cron job.</p>
+<p>Custom logger used by this cron job.</p>
 <h3 id="name%3F" tabindex="-1">name?</h3>
 <blockquote>
 <p><code>optional</code> <strong>name?</strong>: <code>string</code></p>
 </blockquote>
-<p>Name of the cron job, used in logs.</p>
+<p>Optional job name used in logs and registry helpers.</p>
 <h4 id="default" tabindex="-1">Default</h4>
-<pre><code class="hljs language-ts">random name
+<pre><code class="hljs language-ts">random generated name
 </code></pre>
 <h3 id="onerror%3F" tabindex="-1">onError?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onError?</strong>: <a href="/doc/core/type-aliases/CronJobErrorHandler.html"><code>CronJobErrorHandler</code></a></p>
 </blockquote>
-<p>Called when handler throws.</p>
+<p>Error handler invoked when <code>handler</code> throws.</p>
 </div></div>
           </div>
           

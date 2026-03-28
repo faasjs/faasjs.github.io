@@ -68,13 +68,18 @@
 <p><strong>generateFaasTypes</strong>(<code>options?</code>): <code>Promise</code>&lt;<a href="/doc/dev/type-aliases/GenerateFaasTypesResult.html"><code>GenerateFaasTypesResult</code></a>&gt;</p>
 </blockquote>
 <p>Generate <code>src/.faasjs/types.d.ts</code> for a FaasJS project.</p>
+<p>The generator scans the <code>src/</code> tree for <code>.func.ts</code> files, converts file
+names into routes, and keeps the most specific file when multiple files
+resolve to the same route.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/dev/type-aliases/GenerateFaasTypesOptions.html"><code>GenerateFaasTypesOptions</code></a> = <code>{}</code></p>
-<p>Project root and optional logger.</p>
+<p>Project root and logger overrides.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/dev/type-aliases/GenerateFaasTypesResult.html"><code>GenerateFaasTypesResult</code></a>&gt;</p>
 <p>Summary describing the generated file and discovered routes.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When the resolved <code>src/</code> directory does not exist.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { generateFaasTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 

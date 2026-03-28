@@ -75,14 +75,17 @@ and any plugin-provided fields declared through <code>DefineApiInject</code>.</p
 <blockquote>
 <p><strong>cookie</strong>: <a href="/doc/dev/classes/Cookie.html"><code>Cookie</code></a></p>
 </blockquote>
+<p>Cookie helper injected by the HTTP plugin.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
 <p><strong>params</strong>: <code>TSchema</code> <em>extends</em> <code>ZodType</code> ? <code>output</code>&lt;<code>NonNullable</code>&lt;<code>TSchema</code>&gt;&gt; : <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
 </blockquote>
+<p>Params validated by the optional Zod schema.</p>
 <h3 id="session" tabindex="-1">session</h3>
 <blockquote>
 <p><strong>session</strong>: <a href="/doc/dev/classes/Session.html"><code>Session</code></a></p>
 </blockquote>
+<p>Session helper injected by the HTTP plugin.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>

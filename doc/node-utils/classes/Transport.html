@@ -64,10 +64,12 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/node-utils/">Documents</a> / <a href="/doc/node-utils/">@faasjs/node-utils</a> / Transport</p>
 <h1 id="class%3A-transport" tabindex="-1">Class: Transport</h1>
-<p>The transport class that manages the transport handlers and log messages.</p>
-<p><strong>Note: This class is not meant to be used directly. Use the <a href="/doc/node-utils/functions/getTransport.html">getTransport</a> instead.</strong></p>
+<p>Buffer log messages and flush them to registered async handlers on an interval.</p>
+<p>Use <a href="/doc/node-utils/functions/getTransport.html">getTransport</a> to access the shared singleton that <a href="/doc/node-utils/classes/Logger.html">Logger</a> writes into by default.</p>
+<h2 id="see" tabindex="-1">See</h2>
+<p><a href="/doc/node-utils/functions/getTransport.html">getTransport</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { getTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> transport = <span class="hljs-title function_">getTransport</span>()
 
@@ -77,7 +79,7 @@ transport.<span class="hljs-title function_">register</span>(<span class="hljs-s
 
 transport.<span class="hljs-title function_">config</span>({ <span class="hljs-attr">label</span>: <span class="hljs-string">&#x27;test&#x27;</span>, <span class="hljs-attr">debug</span>: <span class="hljs-literal">true</span> })
 
-<span class="hljs-comment">// If you using Logger, it will automatically insert messages to the transport.</span>
+<span class="hljs-comment">// If you use Logger, it will automatically insert messages into the transport.</span>
 <span class="hljs-comment">// Otherwise, you can insert messages manually.</span>
 transport.<span class="hljs-title function_">insert</span>({
   <span class="hljs-attr">level</span>: <span class="hljs-string">&#x27;info&#x27;</span>,
@@ -104,7 +106,8 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <blockquote>
 <p><strong>config</strong>(<code>options</code>): <code>void</code></p>
 </blockquote>
-<p>Configure the transport options for the logger.</p>
+<p>Update runtime options for the shared transport logger.</p>
+<p>Calling this method also re-enables a previously disabled transport.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="options" tabindex="-1">options</h5>
 <p><a href="/doc/node-utils/type-aliases/TransportOptions.html"><code>TransportOptions</code></a></p>
@@ -115,73 +118,65 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <blockquote>
 <p><strong>flush</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Flushes the current messages by processing them with the registered handlers.</p>
-<p>If the transport is already flushing, it will wait until the current flush is complete.
-If the transport is disabled or there are no messages to flush, it will return immediately.
-If there are no handlers registered, it will log a warning, clear the messages, disable the transport, and stop the interval.</p>
-<p>The method processes all messages with each handler and logs any errors encountered during the process.</p>
+<p>Flush the current message buffer through every registered handler.</p>
+<p>Concurrent callers wait for the active flush to finish. If no handlers are registered, the transport clears
+the buffered messages, disables itself, and stops the interval until reconfigured.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
-<p>A promise that resolves when the flush operation is complete.</p>
+<p>Promise that resolves after the active flush completes.</p>
 <h3 id="insert()" tabindex="-1">insert()</h3>
 <blockquote>
 <p><strong>insert</strong>(<code>message</code>): <code>void</code></p>
 </blockquote>
-<p>Inserts a log message into the transport if it is enabled.</p>
+<p>Queue a formatted log message for the next flush.</p>
+<p>This is a no-op when the transport is disabled.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="message" tabindex="-1">message</h5>
 <p><a href="/doc/node-utils/type-aliases/LoggerMessage.html"><code>LoggerMessage</code></a></p>
-<p>The log message to be inserted.</p>
+<p>Log message to buffer.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="register()" tabindex="-1">register()</h3>
 <blockquote>
 <p><strong>register</strong>(<code>name</code>, <code>handler</code>): <code>void</code></p>
 </blockquote>
-<p>Registers a new transport handler.</p>
+<p>Register a named flush handler.</p>
+<p>Registering the same name again replaces the previous handler.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="name" tabindex="-1">name</h5>
 <p><code>string</code></p>
-<p>The name of the transport handler.</p>
+<p>Transport handler name.</p>
 <h5 id="handler" tabindex="-1">handler</h5>
 <p><a href="/doc/node-utils/type-aliases/TransportHandler.html"><code>TransportHandler</code></a></p>
-<p>The transport handler function to be registered.</p>
+<p>Async handler invoked for each flushed batch.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="reset()" tabindex="-1">reset()</h3>
 <blockquote>
 <p><strong>reset</strong>(): <code>void</code></p>
 </blockquote>
-<p>Resets the transport by clearing handlers, emptying messages, and re-enabling the transport.
-If an interval is set, it will be cleared.</p>
+<p>Clear handlers and buffered messages without destroying the singleton instance.</p>
+<p>This also clears the interval so tests or setup code can reconfigure the transport from a clean state.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
 <p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Stops the logger transport.</p>
-<p>This method performs the following actions:</p>
-<ol>
-<li>Logs a 'stopping' message.</li>
-<li>Clears the interval if it is set.</li>
-<li>Flushes any remaining logs.</li>
-<li>Disables the transport.</li>
-</ol>
+<p>Stop periodic flushing and drain any buffered messages.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
-<p>A promise that resolves when the transport has been stopped.</p>
+<p>Promise that resolves when the transport has fully stopped.</p>
 <h3 id="unregister()" tabindex="-1">unregister()</h3>
 <blockquote>
 <p><strong>unregister</strong>(<code>name</code>): <code>void</code></p>
 </blockquote>
-<p>Unregister a handler by its name.</p>
-<p>This method logs the unregistration process, removes the handler from the internal collection,
-and disables the logger if no handlers remain.</p>
+<p>Remove a named handler from the transport.</p>
+<p>When the last handler is removed, the transport stops accepting new messages until it is re-enabled.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="name-1" tabindex="-1">name</h5>
 <p><code>string</code></p>
-<p>The name of the handler to unregister.</p>
+<p>Transport handler name to remove.</p>
 <h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>

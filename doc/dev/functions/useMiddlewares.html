@@ -67,16 +67,16 @@
 <blockquote>
 <p><strong>useMiddlewares</strong>(<code>handlers</code>): <code>Promise</code>&lt;<a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/dev/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>any</code>, <code>any</code>&gt;&gt;</p>
 </blockquote>
-<p>Apply an array of middleware functions to an event.</p>
+<p>Create a function that runs middleware handlers in sequence until one ends the response.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handlers" tabindex="-1">handlers</h3>
 <p><a href="/doc/dev/type-aliases/Middleware.html"><code>Middleware</code></a>[]</p>
-<p>Middleware functions to run in order until one ends the response.</p>
+<p>Middleware functions to run in order.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/dev/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>any</code>, <code>any</code>&gt;&gt;</p>
-<p>Wrapper that applies each middleware to the incoming event.</p>
+<p>Promise that resolves to a function wrapper.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddlewares } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useMiddlewares } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddlewares</span>([
   <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {

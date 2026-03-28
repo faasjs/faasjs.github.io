@@ -73,10 +73,9 @@
 <blockquote>
 <p><code>optional</code> <strong>cache?</strong>: <code>boolean</code> | <code>string</code></p>
 </blockquote>
-<p>Cache static files.
-If set to <code>true</code>, the middleware will cache static files.
-If set to a string, the middleware will cache static files with the specified key.
-If set to <code>false</code>, the middleware will not cache static files.</p>
+<p>Cache control for resolved static files.</p>
+<p>Set <code>true</code> to cache by root directory, a string to use a custom cache namespace,
+or <code>false</code> to disable lookup caching.</p>
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
 </code></pre>
@@ -84,11 +83,9 @@ If set to <code>false</code>, the middleware will not cache static files.</p>
 <blockquote>
 <p><code>optional</code> <strong>notFound?</strong>: <a href="/doc/dev/type-aliases/Middleware.html"><code>Middleware</code></a> | <code>boolean</code> | <code>string</code></p>
 </blockquote>
-<p>Not found handler.</p>
-<p>If set to <code>true</code>, the middleware will respond with a default 404 status code.
-If set to a string as a fallback path, the middleware will respond with the file at that path.
-If set to a function, the middleware will call the function with the request, response, and logger.
-If set to <code>false</code>, the middleware will do nothing.</p>
+<p>Fallback behavior used when a file is missing.</p>
+<p>Set <code>true</code> to send a default <code>404 Not Found</code> response, a string to serve a fallback file,
+a middleware function to handle the miss manually, or <code>false</code> to leave the response untouched.</p>
 <h4 id="default-1" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-literal">false</span>
 </code></pre>
@@ -96,17 +93,21 @@ If set to <code>false</code>, the middleware will do nothing.</p>
 <blockquote>
 <p><strong>root</strong>: <code>string</code></p>
 </blockquote>
+<p>Root directory used to resolve requested files.</p>
 <h3 id="stripprefix%3F" tabindex="-1">stripPrefix?</h3>
 <blockquote>
 <p><code>optional</code> <strong>stripPrefix?</strong>: <code>string</code> | <code>RegExp</code></p>
 </blockquote>
-<p>Strip prefix from the URL.</p>
+<p>URL prefix removed before resolving the file path.</p>
 <h4 id="example" tabindex="-1">Example</h4>
-<pre><code class="hljs language-typescript"><span class="hljs-keyword">import</span> { useMiddleware, staticHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useMiddleware, staticHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(
-  <span class="hljs-title function_">staticHandler</span>({ <span class="hljs-attr">root</span>: __dirname + <span class="hljs-string">&#x27;/public&#x27;</span>, <span class="hljs-attr">stripPrefix</span>: <span class="hljs-string">&#x27;/public&#x27;</span> }),
-) <span class="hljs-comment">// /public/index.html -&gt; /index.html</span>
+  <span class="hljs-title function_">staticHandler</span>({
+    <span class="hljs-attr">root</span>: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/public`</span>,
+    <span class="hljs-attr">stripPrefix</span>: <span class="hljs-string">&#x27;/public&#x27;</span>,
+  }),
+)
 </code></pre>
 </div></div>
           </div>

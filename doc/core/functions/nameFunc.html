@@ -67,27 +67,25 @@
 <blockquote>
 <p><strong>nameFunc</strong>&lt;<code>T</code>&gt;(<code>name</code>, <code>handler</code>): <code>T</code></p>
 </blockquote>
-<p>Assigns a name to a given function handler, which will be displayed in logs and error messages.</p>
+<p>Assign a stable name to a function for logs and stack traces.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> (...<code>args</code>) =&gt; <code>any</code></p>
-<p>The type of the function handler.</p>
+<p>Function type to rename.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="name" tabindex="-1">name</h3>
 <p><code>string</code></p>
-<p>The name to assign to the function handler.</p>
+<p>Name assigned to <code>handler.name</code>.</p>
 <h3 id="handler" tabindex="-1">handler</h3>
 <p><code>T</code></p>
-<p>The function handler to which the name will be assigned.</p>
+<p>Function to rename.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>T</code></p>
-<p>The original function handler with the assigned name.</p>
+<p>The same handler with an updated <code>name</code> property.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { nameFunc } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">nameFunc</span>(<span class="hljs-string">&#x27;myHandler&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello World&#x27;</span>
-})
+<span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">nameFunc</span>(<span class="hljs-string">&#x27;myHandler&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;Hello World&#x27;</span>)
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(handler.<span class="hljs-property">name</span>) <span class="hljs-comment">// =&gt; &#x27;myHandler&#x27;</span>
 </code></pre>

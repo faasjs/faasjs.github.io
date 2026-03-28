@@ -67,10 +67,10 @@
 <blockquote>
 <p><strong>setMock</strong>(<code>handler</code>): <code>void</code></p>
 </blockquote>
-<p>Set global mock handler for testing. Mock affects all FaasBrowserClient instances.</p>
+<p>Set the global mock handler used by all <a href="/doc/react/classes/FaasBrowserClient.html">FaasBrowserClient</a> instances.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handler" tabindex="-1">handler</h3>
-<p><a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>any</code>&gt; | <a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&lt;<code>any</code>&gt; | <a href="/doc/react/type-aliases/MockHandler.html"><code>MockHandler</code></a> | <code>null</code></p>
+<p><a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>any</code>&gt; | <a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&lt;<code>any</code>&gt; | <a href="/doc/react/type-aliases/MockHandler.html"><code>MockHandler</code></a> | <code>null</code> | <code>undefined</code></p>
 <p>Mock handler, can be:</p>
 <ul>
 <li>MockHandler function: receives (action, params, options) and returns response data</li>
@@ -104,8 +104,6 @@
 )
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-literal">null</span>)
-<span class="hljs-comment">// or</span>
-<span class="hljs-title function_">setMock</span>(<span class="hljs-literal">undefined</span>)
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> () =&gt; {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Internal error&#x27;</span>)

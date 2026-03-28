@@ -67,17 +67,17 @@
 <blockquote>
 <p><strong>colorfy</strong>(<code>level</code>, <code>message</code>): <code>string</code></p>
 </blockquote>
-<p>Apply ANSI color codes to a message based on the log level.</p>
+<p>Wrap a log message with the ANSI foreground color for a log level.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="level" tabindex="-1">level</h3>
 <p><a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a></p>
-<p>The log level to determine the color.</p>
+<p>Log level used to select the foreground color.</p>
 <h3 id="message" tabindex="-1">message</h3>
 <p><code>string</code></p>
-<p>The message to be colorized.</p>
+<p>Plain text message to colorize.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code></p>
-<p>The colorized message string.</p>
+<p>Message wrapped in ANSI color escape sequences.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { colorfy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

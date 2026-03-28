@@ -67,11 +67,16 @@
 <blockquote>
 <p><strong>viteFaasJsServer</strong>(): <code>Plugin</code></p>
 </blockquote>
-<p>Create a Vite plugin that proxies POST requests to an in-process FaasJS server.</p>
-<p>It resolves server root/base from <code>src/faas.yaml</code> and strips <code>base</code> from
-request URL before forwarding to <code>@faasjs/core</code>.</p>
+<p>Create a Vite plugin that forwards POST requests to an in-process FaasJS server.</p>
+<p>The plugin resolves server settings from <code>src/faas.yaml</code>, strips the Vite
+<code>base</code> prefix from request URLs, restarts the in-process server when source
+files change, and refreshes generated route declarations for
+<code>@faasjs/types</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Plugin</code></p>
+<p>Vite plugin instance for local FaasJS development.</p>
+<h2 id="see" tabindex="-1">See</h2>
+<p><a href="/doc/dev/functions/generateFaasTypes.html">generateFaasTypes</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite&#x27;</span>
 <span class="hljs-keyword">import</span> react <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vitejs/plugin-react&#x27;</span>

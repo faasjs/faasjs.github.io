@@ -85,6 +85,7 @@ customizing request behavior, adding request hooks, and overriding defaults.</p>
 <blockquote>
 <p><code>optional</code> <strong>baseUrl?</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
 </blockquote>
+<p>Base URL override for the current request.</p>
 <h3 id="beforerequest%3F" tabindex="-1">beforeRequest?</h3>
 <blockquote>
 <p><code>optional</code> <strong>beforeRequest?</strong>: (`{</p>
@@ -95,7 +96,7 @@ options,
 headers,
 </code></pre>
 <p>}<code>) =&gt; </code>Promise<code>\&lt;</code>void`&gt;</p>
-<p>trigger before request</p>
+<p>Async hook called after request options are merged but before the request is sent.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="%7B" tabindex="-1">{</h5>
 <pre><code>action,
@@ -122,7 +123,7 @@ headers,
 <blockquote>
 <p><code>optional</code> <strong>request?</strong>: &lt;<code>PathOrData</code>&gt;(<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 </blockquote>
-<p>custom request</p>
+<p>Custom request implementation used instead of the native <code>fetch</code>.</p>
 <h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
 <h5 id="pathordata" tabindex="-1">PathOrData</h5>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
@@ -137,6 +138,7 @@ headers,
 <blockquote>
 <p><code>optional</code> <strong>stream?</strong>: <code>boolean</code></p>
 </blockquote>
+<p>When <code>true</code>, return the native fetch response so callers can consume the stream manually.</p>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
 <li>FaasBrowserClient for client creation</li>

@@ -77,30 +77,49 @@
 <blockquote>
 <p><code>optional</code> <strong>domain?</strong>: <code>string</code></p>
 </blockquote>
+<p>Cookie domain attribute.</p>
 <h3 id="expires%3F" tabindex="-1">expires?</h3>
 <blockquote>
 <p><code>optional</code> <strong>expires?</strong>: <code>number</code></p>
 </blockquote>
+<p>Max age in seconds for persisted cookies.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-number">31536000</span>
+</code></pre>
 <h3 id="httponly%3F" tabindex="-1">httpOnly?</h3>
 <blockquote>
 <p><code>optional</code> <strong>httpOnly?</strong>: <code>boolean</code></p>
 </blockquote>
+<p>Whether cookies are hidden from client-side scripts.</p>
+<h4 id="default-1" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
+</code></pre>
 <h3 id="path%3F" tabindex="-1">path?</h3>
 <blockquote>
 <p><code>optional</code> <strong>path?</strong>: <code>string</code></p>
 </blockquote>
+<p>Cookie path attribute.</p>
+<h4 id="default-2" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;/&#x27;</span>
+</code></pre>
 <h3 id="samesite%3F" tabindex="-1">sameSite?</h3>
 <blockquote>
 <p><code>optional</code> <strong>sameSite?</strong>: <code>&quot;Strict&quot;</code> | <code>&quot;Lax&quot;</code> | <code>&quot;None&quot;</code></p>
 </blockquote>
+<p>SameSite attribute applied to written cookies.</p>
 <h3 id="secure%3F" tabindex="-1">secure?</h3>
 <blockquote>
 <p><code>optional</code> <strong>secure?</strong>: <code>boolean</code></p>
 </blockquote>
+<p>Whether cookies require HTTPS transport.</p>
+<h4 id="default-3" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
+</code></pre>
 <h3 id="session%3F" tabindex="-1">session?</h3>
 <blockquote>
 <p><code>optional</code> <strong>session?</strong>: <a href="/doc/dev/type-aliases/SessionOptions.html"><code>SessionOptions</code></a></p>
 </blockquote>
+<p>Session encryption and signing settings.</p>
 </div></div>
           </div>
           

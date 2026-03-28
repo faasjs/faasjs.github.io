@@ -67,9 +67,11 @@
 <blockquote>
 <p><strong>getTransport</strong>(): <a href="/doc/node-utils/classes/Transport.html"><code>Transport</code></a></p>
 </blockquote>
-<p>Get the shared transport instance used by Logger.</p>
+<p>Return the singleton transport used by <a href="/doc/node-utils/classes/Logger.html">Logger</a>.</p>
+<p>The instance is created lazily on first access.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/classes/Transport.html"><code>Transport</code></a></p>
+<p>Shared transport instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getTransport, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

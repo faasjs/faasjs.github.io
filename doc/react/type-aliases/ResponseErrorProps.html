@@ -73,15 +73,19 @@
 <blockquote>
 <p><code>optional</code> <strong>body?</strong>: <code>any</code></p>
 </blockquote>
+<p>Raw error body or structured error payload.</p>
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts">{
-  <span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>(message)
+  <span class="hljs-attr">error</span>: {
+    message
+  }
 }
 </code></pre>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
 <p><code>optional</code> <strong>headers?</strong>: <a href="/doc/react/type-aliases/ResponseHeaders.html"><code>ResponseHeaders</code></a></p>
 </blockquote>
+<p>Response headers returned with the error.</p>
 <h4 id="default-1" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts">{
 }
@@ -90,14 +94,17 @@
 <blockquote>
 <p><strong>message</strong>: <code>string</code></p>
 </blockquote>
+<p>User-facing error message.</p>
 <h3 id="originalerror%3F" tabindex="-1">originalError?</h3>
 <blockquote>
 <p><code>optional</code> <strong>originalError?</strong>: <code>Error</code></p>
 </blockquote>
+<p>Original error preserved when this instance wraps another exception.</p>
 <h3 id="status%3F" tabindex="-1">status?</h3>
 <blockquote>
 <p><code>optional</code> <strong>status?</strong>: <code>number</code></p>
 </blockquote>
+<p>HTTP status code reported for the error.</p>
 <h4 id="default-2" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-number">500</span>
 </code></pre>

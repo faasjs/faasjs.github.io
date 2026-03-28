@@ -67,17 +67,17 @@
 <blockquote>
 <p><strong>loadEnvFileIfExists</strong>(<code>options?</code>): <code>string</code> | <code>null</code></p>
 </blockquote>
-<p>Load a dotenv file if it exists.</p>
-<ul>
-<li>Defaults to <code>${process.cwd()}/.env</code>.</li>
-<li>Existing environment variables are preserved (Node.js behavior).</li>
-</ul>
+<p>Load a dotenv file with Node's built-in <code>loadEnvFile</code> when the file exists.</p>
+<p>Existing <code>process.env</code> values are preserved because Node.js does not overwrite them.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/node-utils/type-aliases/LoadEnvFileIfExistsOptions.html"><code>LoadEnvFileIfExistsOptions</code></a> = <code>{}</code></p>
 <p>Optional working directory and filename overrides.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code> | <code>null</code></p>
+<p>Resolved env file path, or <code>null</code> when the file does not exist.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>If the resolved path exists but cannot be read as a file.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

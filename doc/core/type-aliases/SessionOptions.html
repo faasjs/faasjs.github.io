@@ -73,34 +73,60 @@
 <blockquote>
 <p><code>optional</code> <strong>cipherName?</strong>: <code>string</code></p>
 </blockquote>
+<p>Cipher name used to encrypt the session payload.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;aes-256-cbc&#x27;</span>
+</code></pre>
 <h3 id="digest%3F" tabindex="-1">digest?</h3>
 <blockquote>
 <p><code>optional</code> <strong>digest?</strong>: <code>string</code></p>
 </blockquote>
+<p>Hash algorithm used by PBKDF2 and HMAC.</p>
+<h4 id="default-1" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;sha256&#x27;</span>
+</code></pre>
 <h3 id="iterations%3F" tabindex="-1">iterations?</h3>
 <blockquote>
 <p><code>optional</code> <strong>iterations?</strong>: <code>number</code></p>
 </blockquote>
+<p>PBKDF2 iteration count used for key derivation.</p>
+<h4 id="default-2" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-number">100</span>
+</code></pre>
 <h3 id="key" tabindex="-1">key</h3>
 <blockquote>
 <p><strong>key</strong>: <code>string</code></p>
 </blockquote>
+<p>Cookie key used to store the encrypted session payload.</p>
 <h3 id="keylen%3F" tabindex="-1">keylen?</h3>
 <blockquote>
 <p><code>optional</code> <strong>keylen?</strong>: <code>number</code></p>
 </blockquote>
+<p>Total derived key length in bytes.</p>
+<h4 id="default-3" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-number">64</span>
+</code></pre>
 <h3 id="salt%3F" tabindex="-1">salt?</h3>
 <blockquote>
 <p><code>optional</code> <strong>salt?</strong>: <code>string</code></p>
 </blockquote>
+<p>Salt used for deriving the encryption key.</p>
+<h4 id="default-4" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;salt&#x27;</span>
+</code></pre>
 <h3 id="secret" tabindex="-1">secret</h3>
 <blockquote>
 <p><strong>secret</strong>: <code>string</code></p>
 </blockquote>
+<p>Secret source used to derive encryption and signing keys.</p>
 <h3 id="signedsalt%3F" tabindex="-1">signedSalt?</h3>
 <blockquote>
 <p><code>optional</code> <strong>signedSalt?</strong>: <code>string</code></p>
 </blockquote>
+<p>Salt used for deriving the signing key.</p>
+<h4 id="default-5" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;signedSalt&#x27;</span>
+</code></pre>
 </div></div>
           </div>
           

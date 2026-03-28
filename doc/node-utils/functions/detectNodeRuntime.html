@@ -67,14 +67,13 @@
 <blockquote>
 <p><strong>detectNodeRuntime</strong>(): <a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
 </blockquote>
-<p>Detect current JavaScript runtime environment.</p>
-<p>This function checks for presence of <code>require</code> first, then falls back to
-Node.js ESM detection via <code>process.versions.node</code>.</p>
+<p>Detect whether the current Node process should load modules through CommonJS or ESM.</p>
+<p>The detected runtime is cached until <a href="/doc/node-utils/functions/resetRuntime.html">resetRuntime</a> is called.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
-<p><code>module</code> for ESM and <code>commonjs</code> for CJS.</p>
+<p><code>'module'</code> for ESM and <code>'commonjs'</code> for CommonJS.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
-<p>Throws an error if runtime cannot be determined.</p>
+<p>If the runtime cannot be determined from the current global environment.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { detectNodeRuntime } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

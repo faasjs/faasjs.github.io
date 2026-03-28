@@ -68,6 +68,8 @@
 <p><strong>faas</strong>&lt;<code>PathOrData</code>&gt;(<code>action</code>, <code>params</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Call the currently configured FaasReactClient.</p>
+<p>This helper forwards the request to <code>getClient</code>. When the registered
+client defines <code>onError</code>, the hook is invoked before the promise rejects.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
@@ -87,10 +89,12 @@ See the request <code>Options</code> type for supported fields such as <code>hea
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 <p>Response returned by the active browser client.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When the request fails and the active client does not recover inside <code>onError</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { faas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> faas&lt;{ <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;post/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;posts/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>.<span class="hljs-property">title</span>)
 </code></pre>

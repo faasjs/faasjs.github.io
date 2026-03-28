@@ -67,23 +67,26 @@
 <blockquote>
 <p><strong>LoadPackageOptions</strong> = <code>object</code></p>
 </blockquote>
-<p>Options for resolving packages with runtime hooks and tsconfig path aliases.</p>
+<p>Options for loading modules with tsconfig path aliases and runtime-aware cache control.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="root%3F" tabindex="-1">root?</h3>
 <blockquote>
 <p><code>optional</code> <strong>root?</strong>: <code>string</code></p>
 </blockquote>
-<p>Project root used to scope tsconfig paths resolving.</p>
+<p>Project root used to scope tsconfig path alias resolution.</p>
 <h3 id="tsconfigpath%3F" tabindex="-1">tsconfigPath?</h3>
 <blockquote>
 <p><code>optional</code> <strong>tsconfigPath?</strong>: <code>string</code></p>
 </blockquote>
-<p>Explicit tsconfig path, defaults to <code>&lt;root&gt;/tsconfig.json</code>.</p>
+<p>Explicit tsconfig file path used to load path alias rules.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;&lt;root&gt;/tsconfig.json&#x27;</span>
+</code></pre>
 <h3 id="version%3F" tabindex="-1">version?</h3>
 <blockquote>
 <p><code>optional</code> <strong>version?</strong>: <code>string</code></p>
 </blockquote>
-<p>Optional version token used to bust ESM module cache.</p>
+<p>Version token appended to ESM file URLs to bypass Node's module cache.</p>
 </div></div>
           </div>
           

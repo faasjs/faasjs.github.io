@@ -67,9 +67,9 @@
 <blockquote>
 <p><strong>formatLogger</strong>(<code>fmt</code>, ...<code>args</code>): <code>string</code></p>
 </blockquote>
-<p>Formats the provided arguments into a string, filtering out any objects
-with a <code>__hidden__</code> property set to <code>true</code>. If formatting fails, it attempts
-to stringify each argument individually.</p>
+<p>Format logger arguments into a printable string.</p>
+<p>Values marked with <code>__hidden__: true</code> are skipped so callers can attach transport-only metadata.
+When formatting fails, the formatter returns a fallback error message instead of throwing.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="fmt" tabindex="-1">fmt</h3>
 <p><code>any</code></p>

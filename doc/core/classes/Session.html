@@ -130,6 +130,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p><strong>encode</strong>(<code>text</code>): <code>string</code></p>
 </blockquote>
 <p>Serialize session content into a signed, encrypted cookie string.</p>
+<p>Non-string payloads are JSON serialized before encryption.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="text-1" tabindex="-1">text</h5>
 <p><a href="/doc/core/type-aliases/SessionContent.html"><code>SessionContent</code></a></p>
@@ -163,6 +164,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Optional logger for decode failures.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
+<p>No return value.</p>
 <h3 id="read()" tabindex="-1">read()</h3>
 <blockquote>
 <p><strong>read</strong>(<code>key</code>): <code>string</code> | <code>number</code></p>
