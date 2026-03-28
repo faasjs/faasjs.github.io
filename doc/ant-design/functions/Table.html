@@ -67,13 +67,10 @@
 <blockquote>
 <p><strong>Table</strong>&lt;<code>T</code>, <code>ExtendTypes</code>&gt;(<code>props</code>): <code>Element</code> | <code>null</code></p>
 </blockquote>
-<p>Table component with Ant Design &amp; FaasJS</p>
-<ul>
-<li>Based on <a href="https://ant.design/components/table/" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Table</a>.</li>
-<li>Support FaasJS injection.</li>
-<li>Auto generate filter dropdown (disable with <code>filterDropdown: false</code>).</li>
-<li>Auto generate sorter (disable with <code>sorter: false</code>).</li>
-</ul>
+<p>Render an Ant Design table from FaasJS item metadata.</p>
+<p>The component can render local <code>dataSource</code> rows or resolve remote rows through <code>faasData</code>. It
+also generates default filters and sorters for built-in item types unless you disable them with
+the corresponding Ant Design column props.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
@@ -87,6 +84,8 @@
 <p>Table props including columns, data source, and optional Faas data config.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code> | <code>null</code></p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When an entry in <code>extendTypes</code> omits both <code>children</code> and <code>render</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Table</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
@@ -95,14 +94,18 @@
   { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>, <span class="hljs-attr">active</span>: <span class="hljs-literal">false</span> },
 ]
 
-&lt;<span class="hljs-title class_">Table</span>
-  rowKey=<span class="hljs-string">&quot;id&quot;</span>
-  dataSource={rows}
-  items={[
-    { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Name&#x27;</span> },
-    { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Active&#x27;</span> },
-  ]}
-/&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserTable</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span>
+      <span class="hljs-attr">rowKey</span>=<span class="hljs-string">&quot;id&quot;</span>
+      <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{rows}</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">name</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Name</span>&#x27; },
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">active</span>&#x27;, <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">boolean</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Active</span>&#x27; },
+      ]}
+    /&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

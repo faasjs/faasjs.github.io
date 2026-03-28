@@ -67,7 +67,9 @@
 <blockquote>
 <p><strong>FaasDataWrapper</strong>&lt;<code>T</code>&gt;(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>FaasDataWrapper component with Loading</p>
+<p>Render the <code>@faasjs/react</code> data wrapper with an Ant Design loading fallback.</p>
+<p>When <code>loading</code> is not provided, the component renders <a href="/doc/ant-design/functions/Loading.html">Loading</a> with <code>loadingProps</code> while
+the wrapped FaasJS request is pending.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>FaasActionUnionType</code> = <code>any</code></p>
@@ -79,7 +81,9 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">FaasDataInjection</span></span>) {
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasDataInjection</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">FaasDataInjection</span></span>) {
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
 

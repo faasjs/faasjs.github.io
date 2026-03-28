@@ -136,7 +136,9 @@
 <p>Base URL for all API requests. Must end with <code>/</code>. Defaults to <code>/</code> for relative requests.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a> = <code>...</code></p>
-<p>Default request options such as headers, hooks, request override, or stream mode.</p>
+<p>Default request options such as headers, hooks, request override, or stream mode.
+See <a href="/doc/react/type-aliases/Options.html">Options</a> for supported request fields such as <code>headers</code>, <code>beforeRequest</code>,
+<code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>FaasBrowserClient</code></p>
 <h4 id="examples-1" tabindex="-1">Examples</h4>
@@ -198,7 +200,9 @@ Optional if the function accepts no parameters.</p>
 <h5 id="options%3F-1" tabindex="-1">options?</h5>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
 <p>Optional request options that override client defaults.
-Supports headers, beforeRequest hook, custom request function, baseUrl override, and streaming mode.</p>
+Supports headers, beforeRequest hook, custom request function, baseUrl override, and streaming mode.
+See <a href="/doc/react/type-aliases/Options.html">Options</a> for supported request fields such as <code>headers</code>, <code>beforeRequest</code>,
+<code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
 <p>A Promise that resolves to a Response object containing status, headers, body, and data.

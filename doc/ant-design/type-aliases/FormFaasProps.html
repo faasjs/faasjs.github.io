@@ -67,9 +67,9 @@
 <blockquote>
 <p><strong>FormFaasProps</strong>&lt;<code>Values</code>&gt; = <code>object</code></p>
 </blockquote>
-<p>Built-in FaasJS submit handler for Form.</p>
+<p>Built-in FaasJS submit handler configuration for <a href="/doc/ant-design/functions/Form.html">Form</a>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts">{
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> faas = {
   <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;user/create&#x27;</span>,
   <span class="hljs-attr">params</span>: <span class="hljs-function">(<span class="hljs-params">values</span>) =&gt;</span> ({
     ...values,
@@ -89,12 +89,12 @@
 <blockquote>
 <p><strong>action</strong>: <code>FaasAction</code></p>
 </blockquote>
-<p>Action name to submit to</p>
+<p>Action name submitted through <code>faas()</code>.</p>
 <h3 id="onerror%3F" tabindex="-1">onError?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onError?</strong>: (<code>error</code>, <code>values</code>) =&gt; <code>void</code></p>
 </blockquote>
-<p>Called when the request fails</p>
+<p>Callback invoked when the request fails.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="error" tabindex="-1">error</h5>
 <p><code>any</code></p>
@@ -106,14 +106,14 @@
 <blockquote>
 <p><code>optional</code> <strong>onFinally?</strong>: () =&gt; <code>void</code></p>
 </blockquote>
-<p>Called after the request settles</p>
+<p>Callback invoked after the request settles.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="onsuccess%3F" tabindex="-1">onSuccess?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onSuccess?</strong>: (<code>result</code>, <code>values</code>) =&gt; <code>void</code></p>
 </blockquote>
-<p>Called when the request succeeds</p>
+<p>Callback invoked when the request succeeds.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="result" tabindex="-1">result</h5>
 <p><code>any</code></p>
@@ -125,12 +125,12 @@
 <blockquote>
 <p><code>optional</code> <strong>params?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | ((<code>values</code>) =&gt; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;)</p>
 </blockquote>
-<p>params will overwrite form values before submit</p>
+<p>Extra params merged into the submitted payload after <code>transformValues</code> runs.</p>
 <h3 id="transformvalues%3F" tabindex="-1">transformValues?</h3>
 <blockquote>
 <p><code>optional</code> <strong>transformValues?</strong>: (<code>values</code>) =&gt; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;</p>
 </blockquote>
-<p>Transform form values before sending the request</p>
+<p>Transform form values before sending the request.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="values-3" tabindex="-1">values</h5>
 <p><code>Values</code></p>

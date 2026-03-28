@@ -67,12 +67,10 @@
 <blockquote>
 <p><strong>Form</strong>&lt;<code>Values</code>&gt;(<code>props</code>): <code>Element</code> | <code>null</code></p>
 </blockquote>
-<p>Form component with Ant Design &amp; FaasJS</p>
-<ul>
-<li>Based on <a href="https://ant.design/components/form/" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Form</a>.</li>
-<li>Use <code>onFinish</code> for custom submit logic.</li>
-<li>Use <code>faas</code> for the built-in FaasJS submit flow.</li>
-</ul>
+<p>Render a data-aware Ant Design form with optional FaasJS submission helpers.</p>
+<p>The component normalizes <code>initialValues</code> with <a href="/doc/ant-design/functions/transferValue.html">transferValue</a>, renders item definitions
+through <a href="/doc/ant-design/functions/FormItem.html">FormItem</a>, and can either delegate submission to a custom <code>onFinish</code> handler or
+the built-in FaasJS request flow configured by <code>faas</code>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>

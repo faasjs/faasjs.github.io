@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>Loading</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>Loading component based on Spin</p>
+<p>Render an Ant Design loading spinner with an optional content fallback.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/type-aliases/LoadingProps.html"><code>LoadingProps</code></a></p>
@@ -75,11 +75,18 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx">&lt;<span class="hljs-title class_">Loading</span> /&gt; <span class="hljs-comment">// display loading</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Loading</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">loading</span>=<span class="hljs-string">{</span> !<span class="hljs-attr">remoteData</span> }&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{remoteData}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">Loading</span>&gt;</span></span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params">{ remoteData }: { remoteData?: <span class="hljs-built_in">string</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">loading</span>=<span class="hljs-string">{!remoteData}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{remoteData}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Loading</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

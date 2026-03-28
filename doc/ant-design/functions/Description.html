@@ -67,10 +67,9 @@
 <blockquote>
 <p><strong>Description</strong>&lt;<code>T</code>&gt;(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>Description component</p>
-<ul>
-<li>Based on <a href="https://ant.design/components/descriptions/" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Descriptions</a>.</li>
-</ul>
+<p>Render an Ant Design description list from FaasJS item metadata.</p>
+<p>The component can render a local <code>dataSource</code> directly or resolve one through <code>faasData</code>, and
+it applies the same item type normalization helpers used by the form and table components.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
@@ -81,19 +80,26 @@
 <p>Description props including items, data source, and optional Faas data config.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When an entry in <code>extendTypes</code> omits both <code>children</code> and <code>render</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
-  <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Title&quot;</span>
-  <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-    {
-      <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;,
-      <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;,
-      <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27;,
-    },
-  ]}
-  <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">value</span>&#x27; }}
-/&gt;</span></span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Title&quot;</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        {
+          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;,
+          <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;,
+          <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27;,
+        },
+      ]}
+      <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">value</span>&#x27; }}
+    /&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

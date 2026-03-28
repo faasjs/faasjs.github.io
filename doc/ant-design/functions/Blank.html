@@ -67,17 +67,21 @@
 <blockquote>
 <p><strong>Blank</strong>(<code>options?</code>): <code>Element</code></p>
 </blockquote>
-<p>Blank component.</p>
-<p>If value is undefined or null, return text, otherwise return value.</p>
+<p>Render a disabled placeholder when a value is empty.</p>
+<p>Empty values include <code>undefined</code>, <code>null</code>, empty strings, and empty arrays.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/ant-design/interfaces/BlankProps.html"><code>BlankProps</code></a></p>
 <p>Placeholder text and value to render.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
+<p>Rendered value or the configured placeholder text.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{undefined}</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;Empty&quot;</span> /&gt;</span></span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FieldPreview</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{undefined}</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&quot;Empty&quot;</span> /&gt;</span></span>
+}
 </code></pre>
 </div></div>
           </div>

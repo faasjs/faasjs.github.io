@@ -108,9 +108,10 @@ It can be used for request preprocessing, authentication, logging, etc.</p>
 cleanup tasks or log server shutdown events.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="context" tabindex="-1">context</h5>
-<p>An object containing the logger instance.</p>
+<p>Lifecycle context passed to the close hook.</p>
 <h6 id="logger" tabindex="-1">logger</h6>
 <p><code>Logger</code></p>
+<p>Shared server logger instance.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
@@ -132,9 +133,10 @@ that occur during server operation.</p>
 <p><code>Error</code></p>
 <p>The error that occurred.</p>
 <h5 id="context-1" tabindex="-1">context</h5>
-<p>An object containing the logger instance.</p>
+<p>Lifecycle context passed to the error hook.</p>
 <h6 id="logger-1" tabindex="-1">logger</h6>
 <p><code>Logger</code></p>
+<p>Shared server logger instance.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
@@ -153,9 +155,10 @@ that occur during server operation.</p>
 if an error occurs during its execution.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="context-2" tabindex="-1">context</h5>
-<p>An object containing the logger instance.</p>
+<p>Lifecycle context passed to the start hook.</p>
 <h6 id="logger-2" tabindex="-1">logger</h6>
 <p><code>Logger</code></p>
+<p>Shared server logger instance.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="example-3" tabindex="-1">Example</h4>

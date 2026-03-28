@@ -67,7 +67,9 @@
 <blockquote>
 <p><strong>ConfigProvider</strong>(<code>props</code>): <code>Element</code> | <code>null</code></p>
 </blockquote>
-<p>Config for <code>@faasjs/ant-design</code> components.</p>
+<p>Provide theme overrides and optional FaasJS client initialization for descendants.</p>
+<p>Theme overrides are merged with the built-in defaults. When <code>theme.lang</code> is omitted, the
+provider infers a default language from <code>navigator.language</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/ConfigProviderProps.html"><code>ConfigProviderProps</code></a></p>
@@ -75,10 +77,15 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code> | <code>null</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigProvider</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">Empty</span>&#x27; } }}&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span>, <span class="hljs-title class_">ConfigProvider</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">Empty</span>&#x27; } }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

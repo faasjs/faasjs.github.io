@@ -70,30 +70,35 @@
 <blockquote>
 <p><code>optional</code> <strong>children?</strong>: <code>Element</code></p>
 </blockquote>
-<p>return children</p>
+<p>Existing element cloned with a <code>title</code> prop.</p>
 <h3 id="h1%3F" tabindex="-1">h1?</h3>
 <blockquote>
 <p><code>optional</code> <strong>h1?</strong>: <code>boolean</code> | { <code>className?</code>: <code>string</code>; <code>style?</code>: <code>CSSProperties</code>; }</p>
 </blockquote>
-<p>return a h1 element</p>
+<p>Whether to render an <code>h1</code>, or the props used to style that <code>h1</code>.</p>
 <h3 id="plain%3F" tabindex="-1">plain?</h3>
 <blockquote>
 <p><code>optional</code> <strong>plain?</strong>: <code>boolean</code></p>
 </blockquote>
-<p>return a pure text element</p>
+<p>Whether to render plain text instead of returning <code>null</code>.</p>
 <h3 id="separator%3F" tabindex="-1">separator?</h3>
 <blockquote>
 <p><code>optional</code> <strong>separator?</strong>: <code>string</code></p>
 </blockquote>
-<p><code>-</code> as default</p>
+<p>Separator used when joining title segments.</p>
+<h4 id="default" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27; - &#x27;</span>
+</code></pre>
 <h3 id="suffix%3F" tabindex="-1">suffix?</h3>
 <blockquote>
 <p><code>optional</code> <strong>suffix?</strong>: <code>string</code></p>
 </blockquote>
+<p>Suffix appended to the generated document title.</p>
 <h3 id="title" tabindex="-1">title</h3>
 <blockquote>
 <p><strong>title</strong>: <code>string</code> | <code>string</code>[]</p>
 </blockquote>
+<p>Title text or title segments used to update <code>document.title</code>.</p>
 </div></div>
           </div>
           

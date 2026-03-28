@@ -67,13 +67,16 @@
 <blockquote>
 <p><strong>useModal</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
-<p>Hook style modal</p>
+<p>Create a hook-managed Ant Design modal instance.</p>
+<p>The returned setter merges partial updates into the current modal props instead of replacing the
+entire state object.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/ModalProps.html"><code>ModalProps</code></a></p>
 <p>Initial modal props.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code></p>
+<p>Hook-managed modal element, current props, and a state-merging setter.</p>
 <h3 id="modal" tabindex="-1">modal</h3>
 <blockquote>
 <p><strong>modal</strong>: <code>Element</code></p>

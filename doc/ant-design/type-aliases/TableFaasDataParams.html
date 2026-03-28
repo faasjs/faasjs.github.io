@@ -73,22 +73,41 @@
 <blockquote>
 <p><code>optional</code> <strong>filters?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>[]&gt;</p>
 </blockquote>
+<p>Active filter values keyed by column field.</p>
 <h3 id="pagination%3F" tabindex="-1">pagination?</h3>
 <blockquote>
 <p><code>optional</code> <strong>pagination?</strong>: <code>object</code></p>
 </blockquote>
+<p>Pagination state sent to the endpoint.</p>
 <h4 id="current%3F" tabindex="-1">current?</h4>
 <blockquote>
 <p><code>optional</code> <strong>current?</strong>: <code>number</code></p>
 </blockquote>
+<p>Current page number.</p>
 <h4 id="pagesize%3F" tabindex="-1">pageSize?</h4>
 <blockquote>
 <p><code>optional</code> <strong>pageSize?</strong>: <code>number</code></p>
 </blockquote>
+<p>Requested page size.</p>
 <h3 id="sorter%3F" tabindex="-1">sorter?</h3>
 <blockquote>
 <p><code>optional</code> <strong>sorter?</strong>: { <code>field</code>: <code>string</code>; <code>order</code>: <code>&quot;ascend&quot;</code> | <code>&quot;descend&quot;</code>; } | <code>object</code>[]</p>
 </blockquote>
+<p>Sorter state sent to the endpoint.</p>
+<h4 id="union-members" tabindex="-1">Union Members</h4>
+<h5 id="type-literal" tabindex="-1">Type Literal</h5>
+<p>{ <code>field</code>: <code>string</code>; <code>order</code>: <code>&quot;ascend&quot;</code> | <code>&quot;descend&quot;</code>; }</p>
+<h5 id="field" tabindex="-1">field</h5>
+<blockquote>
+<p><strong>field</strong>: <code>string</code></p>
+</blockquote>
+<p>Column field being sorted.</p>
+<h5 id="order" tabindex="-1">order</h5>
+<blockquote>
+<p><strong>order</strong>: <code>&quot;ascend&quot;</code> | <code>&quot;descend&quot;</code></p>
+</blockquote>
+<p>Sort direction.</p>
+<p><code>object</code>[]</p>
 </div></div>
           </div>
           

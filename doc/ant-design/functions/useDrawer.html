@@ -67,13 +67,16 @@
 <blockquote>
 <p><strong>useDrawer</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
-<p>Hook style drawer</p>
+<p>Create a hook-managed Ant Design drawer instance.</p>
+<p>The returned setter merges partial updates into the current drawer props instead of replacing the
+entire state object.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/DrawerProps.html"><code>DrawerProps</code></a></p>
 <p>Initial drawer props.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code></p>
+<p>Hook-managed drawer element, current props, and a state-merging setter.</p>
 <h3 id="drawer" tabindex="-1">drawer</h3>
 <blockquote>
 <p><strong>drawer</strong>: <code>Element</code></p>

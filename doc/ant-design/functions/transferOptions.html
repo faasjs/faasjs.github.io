@@ -67,13 +67,16 @@
 <blockquote>
 <p><strong>transferOptions</strong>(<code>options</code>): <code>object</code>[]</p>
 </blockquote>
-<p>convert string[] or number[] to { label, value }[]</p>
+<p>Normalize primitive options into explicit <code>{ label, value }</code> objects.</p>
+<p>String and number options are converted with <a href="/doc/ant-design/functions/idToTitle.html">idToTitle</a>, while pre-shaped option objects
+are returned as-is.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><a href="/doc/ant-design/type-aliases/BaseOption.html"><code>BaseOption</code></a>[]</p>
 <p>Raw option list to normalize.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>object</code>[]</p>
+<p>Normalized option list.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { transferOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 

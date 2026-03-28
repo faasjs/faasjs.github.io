@@ -67,14 +67,10 @@
 <blockquote>
 <p><strong>App</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>App component with Ant Design &amp; FaasJS</p>
-<ul>
-<li>Based on Ant Design's <a href="https://ant.design/components/config-provider/" target="_blank" rel="noopener noreferrer" class="external-link">ConfigProvider</a>.</li>
-<li>Integrated Ant Design's <a href="https://ant.design/components/message/" target="_blank" rel="noopener noreferrer" class="external-link">Message</a> and <a href="https://ant.design/components/notification/" target="_blank" rel="noopener noreferrer" class="external-link">Notification</a>.</li>
-<li>Based on FaasJS's <a href="https://faasjs.com/doc/ant-design/#configprovider" target="_blank" rel="noopener noreferrer" class="external-link">ConfigProvider</a>.</li>
-<li>Integrated FaasJS's <a href="https://faasjs.com/doc/ant-design/#usemodal" target="_blank" rel="noopener noreferrer" class="external-link">Modal</a>, <a href="https://faasjs.com/doc/ant-design/#usedrawer" target="_blank" rel="noopener noreferrer" class="external-link">Drawer</a> and <a href="https://faasjs.com/doc/ant-design/#errorboundary" target="_blank" rel="noopener noreferrer" class="external-link">ErrorBoundary</a>.</li>
-<li>Integrated React Router's <a href="https://api.reactrouter.com/v7/interfaces/react_router.BrowserRouterProps.html" target="_blank" rel="noopener noreferrer" class="external-link">BrowserRouter</a>.</li>
-</ul>
+<p>Render the root provider shell for a FaasJS Ant Design application.</p>
+<p><code>App</code> initializes Ant Design message and notification APIs, exposes hook-managed modal and
+drawer state through <a href="/doc/ant-design/variables/AppContext.html">AppContext</a>, wraps descendants with <a href="/doc/ant-design/functions/ErrorBoundary.html">ErrorBoundary</a>, and
+optionally mounts React Router's <code>BrowserRouter</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/AppProps.html"><code>AppProps</code></a></p>
@@ -84,13 +80,13 @@
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">App</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>
-      <span class="hljs-attr">configProviderProps</span>=<span class="hljs-string">{{}}</span> // <span class="hljs-attr">https:</span>//<span class="hljs-attr">ant.design</span>/<span class="hljs-attr">components</span>/<span class="hljs-attr">config-provider</span>/#<span class="hljs-attr">API</span>
-      <span class="hljs-attr">browserRouterProps</span>=<span class="hljs-string">{{}}</span> // <span class="hljs-attr">https:</span>//<span class="hljs-attr">api.reactrouter.com</span>/<span class="hljs-attr">v7</span>/<span class="hljs-attr">interfaces</span>/<span class="hljs-attr">react_router.BrowserRouterProps.html</span>
-      <span class="hljs-attr">errorBoundaryProps</span>=<span class="hljs-string">{{}}</span> // <span class="hljs-attr">https:</span>//<span class="hljs-attr">faasjs.com</span>/<span class="hljs-attr">doc</span>/<span class="hljs-attr">ant-design</span>/#<span class="hljs-attr">errorboundary</span>
-      <span class="hljs-attr">faasConfigProviderProps</span>=<span class="hljs-string">{{}}</span> // <span class="hljs-attr">https:</span>//<span class="hljs-attr">faasjs.com</span>/<span class="hljs-attr">doc</span>/<span class="hljs-attr">ant-design</span>/#<span class="hljs-attr">configprovider</span>
+      <span class="hljs-attr">configProviderProps</span>=<span class="hljs-string">{{}}</span>
+      <span class="hljs-attr">browserRouterProps</span>=<span class="hljs-string">{{}}</span>
+      <span class="hljs-attr">errorBoundaryProps</span>=<span class="hljs-string">{{}}</span>
+      <span class="hljs-attr">faasConfigProviderProps</span>=<span class="hljs-string">{{}}</span>
     &gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">App</span>&gt;</span></span>

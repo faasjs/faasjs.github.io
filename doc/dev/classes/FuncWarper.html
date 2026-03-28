@@ -130,10 +130,13 @@
 <p>Extra headers, request cookies, and session seed values.</p>
 <h6 id="cookie%3F" tabindex="-1">cookie?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
+<p>Cookie key-value pairs preloaded into the request.</p>
 <h6 id="headers%3F" tabindex="-1">headers?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
+<p>Extra request headers merged into the JSON test request.</p>
 <h6 id="session%3F" tabindex="-1">session?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
+<p>Session key-value pairs encoded into the request cookie before invocation.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;{ <code>body</code>: <code>any</code>; <code>cookie?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>data?</code>: <code>TData</code>; <code>error?</code>: { <code>message</code>: <code>string</code>; }; <code>headers</code>: {[<code>key</code>: <code>string</code>]: <code>string</code>; }; <code>session?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>statusCode</code>: <code>number</code>; }&gt;</p>
 <p>Normalized HTTP response payload for assertions.</p>

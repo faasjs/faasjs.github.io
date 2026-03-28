@@ -67,20 +67,19 @@
 <blockquote>
 <p><strong>cloneUnionFaasItemElement</strong>(<code>element</code>, <code>props</code>): <code>ReactElement</code>&lt;<a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html"><code>UnionFaasItemInjection</code></a>&lt;<code>any</code>, <code>any</code>&gt;, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
 </blockquote>
-<p>Clone a UnionFaasItemElement with the given props.</p>
-<p>This function takes a UnionFaasItemElement and props, and returns a cloned element.
-If the provided element is a valid React element, it clones it with the new props.
-Otherwise, it creates a new element from the provided element and props.</p>
+<p>Clone a <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html">UnionFaasItemElement</a> with FaasJS injection props.</p>
+<p>React elements are cloned directly, while component references are first wrapped with
+<code>createElement</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="element" tabindex="-1">element</h3>
 <p><a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a></p>
-<p>The UnionFaasItemElement to be cloned.</p>
+<p>Element or component to clone.</p>
 <h3 id="props" tabindex="-1">props</h3>
 <p><code>any</code></p>
-<p>The props to be applied to the cloned element.</p>
+<p>Injection props such as <code>scene</code>, <code>value</code>, <code>values</code>, and <code>index</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>ReactElement</code>&lt;<a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html"><code>UnionFaasItemInjection</code></a>&lt;<code>any</code>, <code>any</code>&gt;, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
-<p>The cloned element with the applied props.</p>
+<p>Cloned React element ready for rendering.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { cloneUnionFaasItemElement, <span class="hljs-keyword">type</span> <span class="hljs-title class_">UnionFaasItemElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 

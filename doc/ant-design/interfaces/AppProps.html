@@ -65,35 +65,41 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / AppProps</p>
 <h1 id="interface%3A-appprops" tabindex="-1">Interface: AppProps</h1>
 <p>Props for the root <a href="/doc/ant-design/functions/App.html">App</a> shell.</p>
+<p><code>App</code> composes the Ant Design provider tree, FaasJS config provider, shared modal and drawer
+state, and optional browser routing into a single wrapper component.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="browserrouterprops%3F" tabindex="-1">browserRouterProps?</h3>
 <blockquote>
 <p><code>optional</code> <strong>browserRouterProps?</strong>: <code>false</code> | <code>BrowserRouterProps</code></p>
 </blockquote>
-<p><code>false</code> to disable BrowserRouter.</p>
-<p>Auto disable when not in browser.</p>
+<p>Props forwarded to React Router's <code>BrowserRouter</code>, or <code>false</code> to disable browser routing.</p>
+<p>Routing is enabled automatically when running in a browser and this prop is not <code>false</code>.</p>
 <h4 id="see" tabindex="-1">See</h4>
 <p><a href="https://api.reactrouter.com/v7/interfaces/react_router.BrowserRouterProps.html" target="_blank" rel="noopener noreferrer" class="external-link">https://api.reactrouter.com/v7/interfaces/react_router.BrowserRouterProps.html</a></p>
 <h3 id="children" tabindex="-1">children</h3>
 <blockquote>
 <p><strong>children</strong>: <code>ReactNode</code></p>
 </blockquote>
+<p>Descendant elements rendered inside all configured providers.</p>
 <h3 id="configproviderprops%3F" tabindex="-1">configProviderProps?</h3>
 <blockquote>
 <p><code>optional</code> <strong>configProviderProps?</strong>: <code>ConfigProviderProps</code></p>
 </blockquote>
+<p>Props forwarded to Ant Design's <code>ConfigProvider</code>.</p>
 <h4 id="see-1" tabindex="-1">See</h4>
 <p><a href="https://ant.design/components/config-provider/#API" target="_blank" rel="noopener noreferrer" class="external-link">https://ant.design/components/config-provider/#API</a></p>
 <h3 id="errorboundaryprops%3F" tabindex="-1">errorBoundaryProps?</h3>
 <blockquote>
 <p><code>optional</code> <strong>errorBoundaryProps?</strong>: <code>Omit</code>&lt;<a href="/doc/ant-design/interfaces/ErrorBoundaryProps.html"><code>ErrorBoundaryProps</code></a>, <code>&quot;children&quot;</code>&gt;</p>
 </blockquote>
+<p>Props forwarded to <a href="/doc/ant-design/functions/ErrorBoundary.html">ErrorBoundary</a>.</p>
 <h4 id="see-2" tabindex="-1">See</h4>
 <p><a href="https://faasjs.com/doc/ant-design/#errorboundary" target="_blank" rel="noopener noreferrer" class="external-link">https://faasjs.com/doc/ant-design/#errorboundary</a></p>
 <h3 id="faasconfigproviderprops%3F" tabindex="-1">faasConfigProviderProps?</h3>
 <blockquote>
 <p><code>optional</code> <strong>faasConfigProviderProps?</strong>: <code>false</code> | <code>Omit</code>&lt;<a href="/doc/ant-design/interfaces/ConfigProviderProps.html"><code>ConfigProviderProps</code></a>, <code>&quot;children&quot;</code>&gt;</p>
 </blockquote>
+<p>Props forwarded to <a href="/doc/ant-design/functions/ConfigProvider.html">ConfigProvider</a>, or <code>false</code> to skip the FaasJS config layer.</p>
 <h4 id="see-3" tabindex="-1">See</h4>
 <p><a href="https://faasjs.com/doc/ant-design/#configprovider" target="_blank" rel="noopener noreferrer" class="external-link">https://faasjs.com/doc/ant-design/#configprovider</a></p>
 </div></div>

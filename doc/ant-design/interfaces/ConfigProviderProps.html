@@ -70,18 +70,22 @@
 <blockquote>
 <p><strong>children</strong>: <code>ReactNode</code></p>
 </blockquote>
+<p>Descendant components that consume the resolved config context.</p>
 <h3 id="faasclientoptions%3F" tabindex="-1">faasClientOptions?</h3>
 <blockquote>
 <p><code>optional</code> <strong>faasClientOptions?</strong>: <a href="/doc/ant-design/type-aliases/FaasReactClientOptions.html"><code>FaasReactClientOptions</code></a></p>
 </blockquote>
+<p>Optional FaasJS client options used to initialize <a href="/doc/ant-design/functions/FaasReactClient.html">FaasReactClient</a>.</p>
 <h3 id="theme%3F" tabindex="-1">theme?</h3>
 <blockquote>
 <p><code>optional</code> <strong>theme?</strong>: <code>object</code></p>
 </blockquote>
+<p>Theme overrides merged with the built-in defaults.</p>
 <h4 id="blank%3F" tabindex="-1">Blank?</h4>
 <blockquote>
 <p><code>optional</code> <strong>Blank?</strong>: <code>object</code></p>
 </blockquote>
+<p>Blank-component theme overrides.</p>
 <h5 id="blank.text%3F" tabindex="-1">Blank.text?</h5>
 <blockquote>
 <p><code>optional</code> <strong>text?</strong>: <code>string</code></p>
@@ -90,6 +94,7 @@
 <blockquote>
 <p><code>optional</code> <strong>common?</strong>: <code>object</code></p>
 </blockquote>
+<p>Common shared copy and labels used across components.</p>
 <h5 id="common.add%3F" tabindex="-1">common.add?</h5>
 <blockquote>
 <p><code>optional</code> <strong>add?</strong>: <code>string</code></p>
@@ -130,6 +135,7 @@
 <blockquote>
 <p><code>optional</code> <strong>Form?</strong>: <code>object</code></p>
 </blockquote>
+<p>Form-component theme overrides.</p>
 <h5 id="form.submit%3F" tabindex="-1">Form.submit?</h5>
 <blockquote>
 <p><code>optional</code> <strong>submit?</strong>: <code>object</code></p>
@@ -142,32 +148,43 @@
 <blockquote>
 <p><code>optional</code> <strong>lang?</strong>: <code>string</code></p>
 </blockquote>
+<p>Language code used to select localized defaults.</p>
 <h4 id="link%3F" tabindex="-1">Link?</h4>
 <blockquote>
 <p><code>optional</code> <strong>Link?</strong>: <code>object</code></p>
 </blockquote>
+<p>Link-component theme overrides.</p>
 <h5 id="link.style%3F" tabindex="-1">Link.style?</h5>
 <blockquote>
 <p><code>optional</code> <strong>style?</strong>: <code>CSSProperties</code></p>
 </blockquote>
+<p>Default inline styles merged into every <code>Link</code>.</p>
 <h5 id="link.target%3F" tabindex="-1">Link.target?</h5>
 <blockquote>
 <p><code>optional</code> <strong>target?</strong>: <code>string</code></p>
 </blockquote>
-<p>'_blank' as default</p>
+<p>Default target used by the <code>Link</code> component when <code>props.target</code> is omitted.</p>
+<h6 id="default" tabindex="-1">Default</h6>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;_blank&#x27;</span>
+</code></pre>
 <h4 id="title%3F" tabindex="-1">Title?</h4>
 <blockquote>
 <p><code>optional</code> <strong>Title?</strong>: <code>object</code></p>
 </blockquote>
+<p>Title-component theme overrides.</p>
 <h5 id="title.separator%3F" tabindex="-1">Title.separator?</h5>
 <blockquote>
 <p><code>optional</code> <strong>separator?</strong>: <code>string</code></p>
 </blockquote>
-<p>' - ' as default</p>
+<p>Separator inserted between title segments.</p>
+<h6 id="default-1" tabindex="-1">Default</h6>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27; - &#x27;</span>
+</code></pre>
 <h5 id="title.suffix%3F" tabindex="-1">Title.suffix?</h5>
 <blockquote>
 <p><code>optional</code> <strong>suffix?</strong>: <code>string</code></p>
 </blockquote>
+<p>Suffix appended to generated page titles.</p>
 </div></div>
           </div>
           

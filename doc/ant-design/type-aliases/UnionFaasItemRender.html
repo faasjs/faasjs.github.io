@@ -67,7 +67,7 @@
 <blockquote>
 <p><strong>UnionFaasItemRender</strong>&lt;<code>Value</code>, <code>Values</code>&gt; = (<code>value</code>, <code>values</code>, <code>index</code>, <code>scene</code>) =&gt; <code>React.ReactNode</code></p>
 </blockquote>
-<p>A type representing a function that renders a React node for a given item in a list.</p>
+<p>Render callback signature shared by form, description, and table item definitions.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="value" tabindex="-1">Value</h3>
 <p><code>Value</code> = <code>any</code></p>
@@ -78,16 +78,16 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value-1" tabindex="-1">value</h3>
 <p><code>Value</code></p>
-<p>The value of the current item.</p>
+<p>Current item value.</p>
 <h3 id="values-1" tabindex="-1">values</h3>
 <p><code>Values</code></p>
-<p>The entire list of values.</p>
+<p>Whole record or row containing the value.</p>
 <h3 id="index" tabindex="-1">index</h3>
 <p><code>number</code></p>
-<p>The index of the current item in the list.</p>
+<p>Current row or list index.</p>
 <h3 id="scene" tabindex="-1">scene</h3>
 <p><a href="/doc/ant-design/type-aliases/UnionScene.html"><code>UnionScene</code></a></p>
-<p>The scene in which the rendering is taking place. See <a href="/doc/ant-design/type-aliases/UnionScene.html">UnionScene</a>.</p>
+<p>Rendering surface requesting the output.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>React.ReactNode</code></p>
 <h2 id="example" tabindex="-1">Example</h2>

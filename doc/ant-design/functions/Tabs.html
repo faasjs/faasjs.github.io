@@ -67,12 +67,8 @@
 <blockquote>
 <p><strong>Tabs</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>Tabs component with Ant Design &amp; FaasJS</p>
-<ul>
-<li>Based on <a href="https://ant.design/components/tabs/" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Tabs</a>.</li>
-<li>Support auto skip null/false tab item.</li>
-<li>Support <code>id</code> as key and label.</li>
-</ul>
+<p>Render an Ant Design tabs wrapper that accepts FaasJS-style tab definitions.</p>
+<p>Missing <code>key</code> and <code>label</code> values are derived from each tab's <code>id</code> and <code>title</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/TabsProps.html"><code>TabsProps</code></a></p>
@@ -81,18 +77,23 @@
 <p><code>Element</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Tabs</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Tabs</span>
-  <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-    {
-      <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;,
-      <span class="hljs-attr">children:</span> &#x27;<span class="hljs-attr">content</span>&#x27;,
-    },
-    <span class="hljs-attr">1</span> === <span class="hljs-string">0</span> &amp;&amp; {
-      <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">hidden</span>&#x27;,
-      <span class="hljs-attr">children:</span> &#x27;<span class="hljs-attr">content</span>&#x27;,
-    },
-  ]}
-/&gt;</span></span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Tabs</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        {
+          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;,
+          <span class="hljs-attr">children:</span> &#x27;<span class="hljs-attr">content</span>&#x27;,
+        },
+        <span class="hljs-attr">1</span> === <span class="hljs-string">0</span> &amp;&amp; {
+          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">hidden</span>&#x27;,
+          <span class="hljs-attr">children:</span> &#x27;<span class="hljs-attr">content</span>&#x27;,
+        },
+      ]}
+    /&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

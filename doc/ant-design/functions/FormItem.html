@@ -67,11 +67,10 @@
 <blockquote>
 <p><strong>FormItem</strong>&lt;<code>T</code>&gt;(<code>props</code>): <code>Element</code> | <code>null</code></p>
 </blockquote>
-<p>FormItem</p>
-<ul>
-<li>Based on <a href="https://ant.design/components/form#formitem" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design Form.Item</a>.</li>
-<li>Can be used without <a href="https://faasjs.com/doc/ant-design/#form" target="_blank" rel="noopener noreferrer" class="external-link">Form</a>.</li>
-</ul>
+<p>Render a FaasJS-aware Ant Design form field or nested field group.</p>
+<p>The component derives default labels from <code>id</code>, applies required validation messages from the
+active theme, supports surface-specific union renderers, and can render nested <code>object</code> or
+<code>object[]</code> field structures.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
@@ -83,13 +82,19 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code> | <code>null</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-comment">// use inline type</span>
-&lt;<span class="hljs-title class_">FormItem</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;string&#x27;</span> id=<span class="hljs-string">&#x27;name&#x27;</span> /&gt;
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FormItem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Input</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 
-<span class="hljs-comment">// use custom type</span>
-<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FormItem</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;password&#x27;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">Input.Password</span> /&gt;</span>
-<span class="hljs-tag">&lt;/&gt;</span></span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">AccountFields</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormItem</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;string&quot;</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">FormItem</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Input.Password</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">FormItem</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
 </code></pre>
 </div></div>
           </div>

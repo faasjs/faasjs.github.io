@@ -82,49 +82,58 @@
 <blockquote>
 <p><code>optional</code> <strong>children?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Generic custom element rendered when no table-specific child overrides it.</p>
 <h3 id="id" tabindex="-1">id</h3>
 <blockquote>
 <p><strong>id</strong>: <code>string</code> | <code>number</code></p>
 </blockquote>
+<p>Stable field identifier used as the default name and title source.</p>
 <h4 id="inherited-from" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FaasItemProps.html"><code>FaasItemProps</code></a>.<a href="/doc/ant-design/interfaces/FaasItemProps.html#id"><code>id</code></a></p>
 <h3 id="object%3F" tabindex="-1">object?</h3>
 <blockquote>
 <p><code>optional</code> <strong>object?</strong>: <code>TableItemProps</code>&lt;<code>T</code>&gt;[]</p>
 </blockquote>
+<p>Nested item definitions used by <code>object</code> and <code>object[]</code> item types.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <blockquote>
 <p><code>optional</code> <strong>options?</strong>: <a href="/doc/ant-design/type-aliases/BaseOption.html"><code>BaseOption</code></a>[]</p>
 </blockquote>
+<p>Shared choice options used by select-like renderers.</p>
 <h4 id="inherited-from-1" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FaasItemProps.html"><code>FaasItemProps</code></a>.<a href="/doc/ant-design/interfaces/FaasItemProps.html#options"><code>options</code></a></p>
 <h3 id="optionstype%3F" tabindex="-1">optionsType?</h3>
 <blockquote>
 <p><code>optional</code> <strong>optionsType?</strong>: <code>&quot;auto&quot;</code></p>
 </blockquote>
+<p>Use built-in option inference for filters when supported.</p>
 <h3 id="render%3F" tabindex="-1">render?</h3>
 <blockquote>
 <p><code>optional</code> <strong>render?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Generic custom render callback.</p>
 <h3 id="tablechildren%3F" tabindex="-1">tableChildren?</h3>
 <blockquote>
 <p><code>optional</code> <strong>tableChildren?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Table-specific custom element.</p>
 <h3 id="tablerender%3F" tabindex="-1">tableRender?</h3>
 <blockquote>
 <p><code>optional</code> <strong>tableRender?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Table-specific custom render callback.</p>
 <h3 id="title%3F" tabindex="-1">title?</h3>
 <blockquote>
 <p><code>optional</code> <strong>title?</strong>: <code>string</code></p>
 </blockquote>
+<p>Human-readable title used for labels and table headers.</p>
 <h4 id="inherited-from-2" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FaasItemProps.html"><code>FaasItemProps</code></a>.<a href="/doc/ant-design/interfaces/FaasItemProps.html#title"><code>title</code></a></p>
 <h3 id="type%3F" tabindex="-1">type?</h3>
 <blockquote>
 <p><code>optional</code> <strong>type?</strong>: <a href="/doc/ant-design/type-aliases/FaasItemType.html"><code>FaasItemType</code></a></p>
 </blockquote>
-<p>Support string, string[], number, number[], boolean, date, time, object, object[]</p>
+<p>Built-in FaasJS field type used to normalize and render values.</p>
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-string">&#x27;string&#x27;</span>
 </code></pre>

@@ -100,6 +100,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Internal template reuse options.</p>
 <h6 id="template%3F" tabindex="-1">template?</h6>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
+<p>Existing cookie template reused by <code>fork()</code>.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -170,16 +171,22 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Per-cookie attribute overrides.</p>
 <h6 id="domain%3F" tabindex="-1">domain?</h6>
 <p><code>string</code></p>
+<p>Cookie domain attribute override.</p>
 <h6 id="expires%3F" tabindex="-1">expires?</h6>
 <p><code>string</code> | <code>number</code></p>
+<p><code>max-age</code> seconds or absolute <code>expires</code> string override.</p>
 <h6 id="httponly%3F" tabindex="-1">httpOnly?</h6>
 <p><code>boolean</code></p>
+<p>Whether the written cookie is hidden from client-side scripts.</p>
 <h6 id="path%3F" tabindex="-1">path?</h6>
 <p><code>string</code></p>
+<p>Cookie path attribute override.</p>
 <h6 id="samesite%3F" tabindex="-1">sameSite?</h6>
 <p><code>&quot;Strict&quot;</code> | <code>&quot;Lax&quot;</code> | <code>&quot;None&quot;</code></p>
+<p>SameSite attribute override.</p>
 <h6 id="secure%3F" tabindex="-1">secure?</h6>
 <p><code>boolean</code></p>
+<p>Whether the written cookie requires HTTPS transport.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <p>Current cookie manager for chaining.</p>

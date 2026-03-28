@@ -84,7 +84,9 @@ Parameters are passed as a plain object (already JSON-serialized if needed).</p>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
 <p>The full request options including headers, beforeRequest hook, and other config.
 Includes X-FaasJS-Request-Id header in the headers object.
-Contains merged client defaults and per-request options.</p>
+Contains merged client defaults and per-request options.
+See <a href="/doc/react/type-aliases/Options.html">Options</a> for supported request fields such as <code>headers</code>, <code>beforeRequest</code>,
+<code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&gt; | <code>Promise</code>&lt;<code>void</code>&gt; | <code>Promise</code>&lt;<code>Error</code>&gt;</p>
 <p>A promise resolving to:</p>
