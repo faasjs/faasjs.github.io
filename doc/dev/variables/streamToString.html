@@ -67,8 +67,8 @@
 <blockquote>
 <p><code>const</code> <strong>streamToString</strong>: (<code>stream</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt; = <code>streamToText</code></p>
 </blockquote>
-<p>Alias of <a href="/doc/dev/functions/streamToText.html">streamToText</a>.</p>
-<p>Convert ReadableStream to text.</p>
+<p>Alias of <a href="/doc/dev/functions/streamToText.html">streamToText</a> for string-oriented call sites.</p>
+<p>Read a byte stream into a UTF-8 string.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="stream" tabindex="-1">stream</h3>
 <p><code>ReadableStream</code>&lt;<code>Uint8Array</code>&lt;<code>ArrayBufferLike</code>&gt;&gt;</p>
@@ -89,6 +89,18 @@
 })
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">streamToText</span>(stream) <span class="hljs-comment">// &#x27;hello&#x27;</span>
+</code></pre>
+<h2 id="example-1" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { streamToString } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> stream = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReadableStream</span>&lt;<span class="hljs-title class_">Uint8Array</span>&gt;({
+  <span class="hljs-title function_">start</span>(<span class="hljs-params">controller</span>) {
+    controller.<span class="hljs-title function_">enqueue</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(<span class="hljs-string">&#x27;hello&#x27;</span>))
+    controller.<span class="hljs-title function_">close</span>()
+  },
+})
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">streamToString</span>(stream) <span class="hljs-comment">// &#x27;hello&#x27;</span>
 </code></pre>
 </div></div>
           </div>
