@@ -78,10 +78,18 @@ used by helpers such as <a href="/doc/ant-design/functions/faas.html">faas</a> a
 <p><code>FaasReactClientInstance</code></p>
 <p>Registered FaasReactClient instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, <span class="hljs-title class_">ResponseError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-title class_">FaasReactClient</span>({
   <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;http://localhost:8080/api/&#x27;</span>,
+  <span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (res) =&gt; {
+    <span class="hljs-keyword">if</span> (res <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ResponseError</span>) {
+      <span class="hljs-title function_">reportErrorToSentry</span>(res, {
+        <span class="hljs-attr">tags</span>: { action },
+        <span class="hljs-attr">extra</span>: { params },
+      })
+    }
+  },
 })
 </code></pre>
 </div></div>

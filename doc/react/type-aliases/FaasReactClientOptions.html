@@ -81,8 +81,15 @@
 </blockquote>
 <p>Error hook invoked when <code>faas</code> or <code>useFaas</code> receives a failed response.</p>
 <h4 id="example" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (res) =&gt; {
-  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(action, params, res)
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ResponseError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (res) =&gt; {
+  <span class="hljs-keyword">if</span> (res <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ResponseError</span>) {
+    <span class="hljs-title function_">reportErrorToSentry</span>(res, {
+      <span class="hljs-attr">tags</span>: { action },
+      <span class="hljs-attr">extra</span>: { params },
+    })
+  }
 }
 </code></pre>
 <h3 id="options%3F" tabindex="-1">options?</h3>

@@ -81,17 +81,69 @@ the wrapped FaasJS request is pending.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasDataInjection</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Alert</span>, <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">FaasDataInjection</span></span>) {
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyPage</span>(<span class="hljs-params"></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserView</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { data?: User; error?: <span class="hljs-built_in">Error</span>; reload?: () =&gt; <span class="hljs-built_in">void</span> }</span>) {
+  <span class="hljs-keyword">if</span> (props.<span class="hljs-property">error</span>) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Alert</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;error&quot;</span>
+        <span class="hljs-attr">message</span>=<span class="hljs-string">{props.error.message}</span>
+        <span class="hljs-attr">action</span>=<span class="hljs-string">{</span>
+          &lt;<span class="hljs-attr">Button</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> props.reload?.()}&gt;
+            Retry
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+        }
+      /&gt;</span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hello, {props.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+
+<span class="hljs-comment">// Render-prop mode</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;test&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">a:</span> <span class="hljs-attr">1</span> }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
+    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
+      action=<span class="hljs-string">&quot;user/get&quot;</span>
+      params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
+      loading={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}
+      render={<span class="hljs-function">(<span class="hljs-params">{ data, error, reload }</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span> (error) {
+          <span class="hljs-keyword">return</span> (
+            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Alert</span>
+              <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;error&quot;</span>
+              <span class="hljs-attr">message</span>=<span class="hljs-string">{error.message}</span>
+              <span class="hljs-attr">action</span>=<span class="hljs-string">{</span>
+                &lt;<span class="hljs-attr">Button</span> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+                  Retry
+                <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+              }
+            /&gt;</span>
+          )
+        }
+
+        <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Hello, {data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+      }}
+    /&gt;
+  )
+}
+
+<span class="hljs-comment">// Children injection mode</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfileWithChildren</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
+      action=<span class="hljs-string">&quot;user/get&quot;</span>
+      params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
+      loading={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}
+    &gt;
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UserView</span> /&gt;</span></span>
+    &lt;/<span class="hljs-title class_">FaasDataWrapper</span>&gt;
   )
 }
 </code></pre>

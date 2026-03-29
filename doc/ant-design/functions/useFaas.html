@@ -68,8 +68,9 @@
 <p><strong>useFaas</strong>&lt;<code>PathOrData</code>&gt;(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <code>FaasDataInjection</code>&lt;<code>PathOrData</code>&gt;</p>
 </blockquote>
 <p>Request FaasJS data and keep request state in React state.</p>
-<p><code>useFaas</code> sends an initial request unless <code>skip</code> is enabled, and returns
-request state plus helpers for reloading, updating data, and handling errors.</p>
+<p><code>useFaas</code> is the default hook for standard FaasJS request-response flows in React.
+It sends an initial request unless <code>skip</code> is enabled, and returns request state
+plus helpers for reloading, updating data, and handling errors.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <code>FaasActionUnionType</code></p>
@@ -90,10 +91,30 @@ request state plus helpers for reloading, updating data, and handling errors.</p
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">Post</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data } = useFaas&lt;{ <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;post/get&#x27;</span>, { id })
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { id })
 
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{data.title}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+
+  <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+        Refresh
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
 }
 </code></pre>
 </div></div>

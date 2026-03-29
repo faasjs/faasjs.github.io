@@ -69,7 +69,10 @@
 </blockquote>
 <p>Get a registered FaasReactClient instance.</p>
 <p>When <code>host</code> is omitted, the first registered client is returned. If no client
-has been created yet, a default client is initialized automatically.</p>
+has been created yet, a default client is initialized automatically.
+Use <code>getClient</code> only for special cases such as multiple Faas clients with
+different base URLs. In normal single-client app code, prefer the default
+<code>faas</code>, <code>useFaas</code>, or <code>FaasReactClient</code> setup directly.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="host%3F" tabindex="-1">host?</h3>
 <p><code>string</code></p>
@@ -78,10 +81,19 @@ has been created yet, a default client is initialized automatically.</p>
 <p><a href="/doc/react/type-aliases/FaasReactClientInstance.html"><code>FaasReactClientInstance</code></a></p>
 <p>Registered or newly created FaasReactClient instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-title function_">getClient</span>()
-<span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;http://localhost:8080/api/&#x27;</span>)
+<span class="hljs-title class_">FaasReactClient</span>({
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-a.example.com/api/&#x27;</span>,
+})
+
+<span class="hljs-title class_">FaasReactClient</span>({
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>,
+})
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>)
+
+<span class="hljs-keyword">await</span> client.<span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/posts/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
 </code></pre>
 </div></div>
           </div>

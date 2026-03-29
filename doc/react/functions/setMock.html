@@ -81,19 +81,41 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code></p>
 <h2 id="examples" tabindex="-1">Examples</h2>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action, params, options) =&gt; {
-  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;user&#x27;</span>) {
-    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span> } }
-  }
-  <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;Not found&#x27;</span> } }
-})
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { afterEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
 
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;user&#x27;</span>)
+<span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">setMock</span>(<span class="hljs-literal">null</span>)
+})
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>({
-  <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-attr">data</span>: { <span class="hljs-attr">result</span>: <span class="hljs-string">&#x27;success&#x27;</span> },
-  <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> },
+  <span class="hljs-attr">data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> },
+})
+
+<span class="hljs-title function_">setMock</span>({
+  <span class="hljs-attr">status</span>: <span class="hljs-number">500</span>,
+  <span class="hljs-attr">data</span>: { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Internal Server Error&#x27;</span> },
+})
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action) =&gt; {
+  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> } }
+  }
+
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Not Found&#x27;</span> } }
+})
+
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>)
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action, params) =&gt; {
+  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params?.<span class="hljs-property">id</span> === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Admin&#x27;</span> } }
+  }
+
+  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params?.<span class="hljs-property">id</span> === <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Editor&#x27;</span> } }
+  }
+
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;User not found&#x27;</span> } }
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(
@@ -102,6 +124,16 @@
     <span class="hljs-attr">data</span>: { <span class="hljs-attr">result</span>: <span class="hljs-string">&#x27;success&#x27;</span> },
   }),
 )
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>({
+  <span class="hljs-attr">body</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReadableStream</span>({
+    <span class="hljs-title function_">start</span>(<span class="hljs-params">controller</span>) {
+      controller.<span class="hljs-title function_">enqueue</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(<span class="hljs-string">&#x27;hello&#x27;</span>))
+      controller.<span class="hljs-title function_">enqueue</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(<span class="hljs-string">&#x27; world&#x27;</span>))
+      controller.<span class="hljs-title function_">close</span>()
+    },
+  }),
+})
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-literal">null</span>)
 </code></pre>
