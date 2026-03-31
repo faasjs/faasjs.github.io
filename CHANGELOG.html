@@ -64,6 +64,29 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.19...v8.0.0-beta.20" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.20 (2026-03-31)</code></a></p>
+<ul>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Break] Stop setting and logging the legacy <code>FaasMode</code> environment variable during <code>Server</code> initialization.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Break] Remove the legacy <code>FaasMode=remote</code> logger behavior and rely on terminal capability detection by default, while still allowing <code>FaasLogMode</code>, <code>FORCE_COLOR</code>, and <code>NO_COLOR</code> to override the output mode.</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.18...v8.0.0-beta.19" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.19 (2026-03-31)</code></a></p>
+<ul>
+<li><code>@faasjs/dev</code>
+<ul>
+<li>[Feature] Add <code>faas run &lt;file&gt;</code> to execute local TypeScript files with <code>@faasjs/node-utils/register-hooks</code> preloaded and auto load <code>.env</code>.</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.17...v8.0.0-beta.18" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.18 (2026-03-29)</code></a></p>
 <ul>
 <li>
