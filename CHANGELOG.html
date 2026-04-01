@@ -69,13 +69,16 @@
 <li>
 <p><code>@faasjs/core</code></p>
 <ul>
+<li>[Break] Remove <code>useFunc</code>, <code>usePlugin</code>, and <code>useHttp</code>. Create functions with <code>new Func({ plugins, handler })</code> or <code>defineApi(...)</code> instead, and attach HTTP support with <code>new Http(...)</code>.</li>
 <li>[Break] Stop setting and logging the legacy <code>FaasMode</code> environment variable during <code>Server</code> initialization.</li>
+<li>[Feature] Support loading plugins from <code>file://</code> module types when resolving named class exports in <code>defineApi</code>.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/node-utils</code></p>
 <ul>
 <li>[Break] Remove the legacy <code>FaasMode=remote</code> logger behavior and rely on terminal capability detection by default, while still allowing <code>FaasLogMode</code>, <code>FORCE_COLOR</code>, and <code>NO_COLOR</code> to override the output mode.</li>
+<li>[Feature] Resolve relative <code>file://</code> plugin <code>type</code> values in <code>faas.yaml</code> from the directory of the <code>faas.yaml</code> file.</li>
 </ul>
 </li>
 </ul>
