@@ -64,8 +64,11 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.19...v8.0.0-beta.20" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.20 (2026-03-31)</code></a></p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.19...v8.0.0-beta.20" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.20 (unreleased)</code></a></p>
 <ul>
+<li>
+<p>[Break] Remove cjs exports.</p>
+</li>
 <li>
 <p><code>@faasjs/core</code></p>
 <ul>
@@ -79,6 +82,7 @@
 <ul>
 <li>[Break] Remove the legacy <code>FaasMode=remote</code> logger behavior and rely on terminal capability detection by default, while still allowing <code>FaasLogMode</code>, <code>FORCE_COLOR</code>, and <code>NO_COLOR</code> to override the output mode.</li>
 <li>[Feature] Resolve relative <code>file://</code> plugin <code>type</code> values in <code>faas.yaml</code> from the directory of the <code>faas.yaml</code> file.</li>
+<li>[Feature] Export <code>parseYaml</code> as a public API for parsing the supported <code>faas.yaml</code> YAML subset in custom Node.js tooling.</li>
 </ul>
 </li>
 </ul>

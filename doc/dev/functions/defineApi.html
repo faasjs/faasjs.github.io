@@ -68,10 +68,7 @@
 <p><strong>defineApi</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>THandler</code>&gt;(<code>options</code>): <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Create an HTTP API function with optional Zod validation.</p>
-<p>Plugins are always auto-loaded from <code>func.config.plugins</code>.
-Plugin module exports must be either a named class (normalized from
-plugin type) or a default class export.</p>
-<p>The <code>http</code> plugin is required.</p>
+<p>The <code>http</code> plugin must come from <code>faas.yaml</code> or explicit code injection.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
@@ -92,7 +89,7 @@ plugin type) or a default class export.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
-<p>When the required <code>http</code> plugin is missing from function config.</p>
+<p>When the required <code>http</code> plugin is missing from <code>faas.yaml</code> and no plugin was injected in code.</p>
 <h2 id="throws-1" tabindex="-1">Throws</h2>
 <p>When <code>event.params</code> fails schema validation.</p>
 <h2 id="example" tabindex="-1">Example</h2>

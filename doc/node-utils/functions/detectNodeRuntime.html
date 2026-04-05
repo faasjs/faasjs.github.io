@@ -65,13 +65,13 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/node-utils/">Documents</a> / <a href="/doc/node-utils/">@faasjs/node-utils</a> / detectNodeRuntime</p>
 <h1 id="function%3A-detectnoderuntime()" tabindex="-1">Function: detectNodeRuntime()</h1>
 <blockquote>
-<p><strong>detectNodeRuntime</strong>(): <a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
+<p><strong>detectNodeRuntime</strong>(): <code>&quot;module&quot;</code></p>
 </blockquote>
-<p>Detect whether the current Node process should load modules through CommonJS or ESM.</p>
+<p>Detect whether the current Node process is running in the supported ESM runtime.</p>
 <p>The detected runtime is cached until <a href="/doc/node-utils/functions/resetRuntime.html">resetRuntime</a> is called.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/node-utils/type-aliases/NodeRuntime.html"><code>NodeRuntime</code></a></p>
-<p><code>'module'</code> for ESM and <code>'commonjs'</code> for CommonJS.</p>
+<p><code>&quot;module&quot;</code></p>
+<p><code>'module'</code> for ESM.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>If the runtime cannot be determined from the current global environment.</p>
 <h2 id="example" tabindex="-1">Example</h2>

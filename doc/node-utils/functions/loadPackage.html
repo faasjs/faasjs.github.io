@@ -67,9 +67,9 @@
 <blockquote>
 <p><strong>loadPackage</strong>&lt;<code>T</code>&gt;(<code>name</code>, <code>defaultNames?</code>, <code>options?</code>): <code>Promise</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Load a module in the current Node runtime and optionally resolve a preferred export key.</p>
-<p>In ESM mode, the loader can install tsconfig-aware hooks and append a version query string to bust
-Node's import cache for project-local files.</p>
+<p>Load a module in the current Node ESM runtime and optionally resolve a preferred export key.</p>
+<p>The loader can install tsconfig-aware hooks and append a version query string to bust Node's
+import cache for project-local files.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>unknown</code></p>

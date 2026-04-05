@@ -73,7 +73,22 @@
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>
 </blockquote>
 <h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="name" tabindex="-1">name</h3>
+<h3 id="applyconfig%3F" tabindex="-1">applyConfig?</h3>
+<blockquote>
+<p><code>optional</code> <strong>applyConfig?</strong>: (<code>config</code>) =&gt; <code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
+</blockquote>
+<p>Optional hook that receives the resolved config for an already-registered plugin instance.</p>
+<h4 id="parameters" tabindex="-1">Parameters</h4>
+<h5 id="config" tabindex="-1">config</h5>
+<h6 id="config%3F" tabindex="-1">config?</h6>
+<p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
+<h6 id="name" tabindex="-1">name</h6>
+<p><code>string</code></p>
+<h6 id="type" tabindex="-1">type</h6>
+<p><code>string</code></p>
+<h4 id="returns" tabindex="-1">Returns</h4>
+<p><code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<h3 id="name-1" tabindex="-1">name</h3>
 <blockquote>
 <p><code>readonly</code> <strong>name</strong>: <code>string</code></p>
 </blockquote>
@@ -83,26 +98,26 @@
 <p><code>optional</code> <strong>onInvoke?</strong>: (<code>data</code>, <code>next</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Optional hook that runs for every invocation.</p>
-<h4 id="parameters" tabindex="-1">Parameters</h4>
+<h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/core/type-aliases/InvokeData.html"><code>InvokeData</code></a></p>
 <h5 id="next" tabindex="-1">next</h5>
 <p><a href="/doc/core/type-aliases/Next.html"><code>Next</code></a></p>
-<h4 id="returns" tabindex="-1">Returns</h4>
+<h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="onmount%3F" tabindex="-1">onMount?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onMount?</strong>: (<code>data</code>, <code>next</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Optional hook that runs once before the first invoke.</p>
-<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="data-1" tabindex="-1">data</h5>
 <p><a href="/doc/core/type-aliases/MountData.html"><code>MountData</code></a></p>
 <h5 id="next-1" tabindex="-1">next</h5>
 <p><a href="/doc/core/type-aliases/Next.html"><code>Next</code></a></p>
-<h4 id="returns-1" tabindex="-1">Returns</h4>
+<h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
-<h3 id="type" tabindex="-1">type</h3>
+<h3 id="type-1" tabindex="-1">type</h3>
 <blockquote>
 <p><code>readonly</code> <strong>type</strong>: <code>string</code></p>
 </blockquote>

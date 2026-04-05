@@ -210,18 +210,16 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="colorfyoutput" tabindex="-1">colorfyOutput</h3>
 <blockquote>
-<p><strong>colorfyOutput</strong>: <code>boolean</code> = <code>true</code></p>
+<p><strong>colorfyOutput</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
 <p>Whether terminal output should use ANSI colors.</p>
-<h4 id="default-1" tabindex="-1">Default</h4>
-<pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
-</code></pre>
+<p>Auto-detected from the current environment and can be overridden with <code>FaasLogMode</code>.</p>
 <h3 id="disabletransport" tabindex="-1">disableTransport</h3>
 <blockquote>
 <p><strong>disableTransport</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
 <p>Disable forwarding log messages to the shared transport.</p>
-<h4 id="default-2" tabindex="-1">Default</h4>
+<h4 id="default-1" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-literal">false</span>
 </code></pre>
 <h3 id="label%3F-1" tabindex="-1">label?</h3>
@@ -234,7 +232,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><strong>level</strong>: <a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a> = <code>'debug'</code></p>
 </blockquote>
 <p>Minimum level that will be emitted.</p>
-<h4 id="default-3" tabindex="-1">Default</h4>
+<h4 id="default-2" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-string">&#x27;debug&#x27;</span>
 </code></pre>
 <h3 id="silent" tabindex="-1">silent</h3>
@@ -242,7 +240,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><strong>silent</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
 <p>When true, suppresses all output and transport forwarding.</p>
-<h4 id="default-4" tabindex="-1">Default</h4>
+<h4 id="default-3" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-literal">false</span>
 </code></pre>
 <h3 id="size" tabindex="-1">size</h3>
@@ -250,7 +248,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><strong>size</strong>: <code>number</code> = <code>1000</code></p>
 </blockquote>
 <p>Maximum plain-text payload length before non-error logs are truncated.</p>
-<h4 id="default-5" tabindex="-1">Default</h4>
+<h4 id="default-4" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-number">1000</span>
 </code></pre>
 <h3 id="stderr" tabindex="-1">stderr</h3>
@@ -263,7 +261,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><code>string</code></p>
 <h4 id="returns-8" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
-<h4 id="default-6" tabindex="-1">Default</h4>
+<h4 id="default-5" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-variable language_">console</span>.<span class="hljs-property">error</span>
 </code></pre>
 <h3 id="stdout" tabindex="-1">stdout</h3>
@@ -276,7 +274,7 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 <p><code>string</code></p>
 <h4 id="returns-9" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
-<h4 id="default-7" tabindex="-1">Default</h4>
+<h4 id="default-6" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>
 </code></pre>
 </div></div>
