@@ -64,6 +64,18 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / create-faas-app</p>
 <h1 id="create-faas-app" tabindex="-1">create-faas-app</h1>
+<p>Quickly scaffold a FaasJS project with the shared FaasJS Vite and TypeScript defaults.</p>
+<h2 id="templates" tabindex="-1">Templates</h2>
+<ul>
+<li><code>basic</code>: default starter with <code>@faasjs/react</code></li>
+<li><code>antd</code>: Ant Design starter with <code>@faasjs/ant-design</code></li>
+</ul>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="hljs language-bash">npx create-faas-app --name faasjs
+npx create-faas-app --name faasjs-admin --template antd
+</code></pre>
+<p>Generated projects reuse the shared <code>@faasjs/dev</code> config exports and the
+<code>@faasjs/types/tsconfig/build.json</code> preset.</p>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/create-faas-app/functions/main.html">main</a></li>

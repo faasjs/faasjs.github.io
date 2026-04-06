@@ -208,6 +208,8 @@
   "/doc/dev/type-aliases/SessionOptions.html",
   "/doc/dev/type-aliases/StaticHandlerOptions.html",
   "/doc/dev/variables/ContentType.html",
+  "/doc/dev/variables/oxfmtConfig.html",
+  "/doc/dev/variables/oxlintConfig.html",
   "/doc/images/",
   "/doc/images/nginx/",
   "/doc/images/node/",
