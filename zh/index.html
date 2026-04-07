@@ -84,7 +84,8 @@
 })
 </code></pre>
 <h2 id="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6" tabindex="-1">单元测试文件</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts 文件，单元测试文件名都以 .test.ts 结尾</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts 文件，普通单元测试文件名以 .test.ts 结尾</span>
+<span class="hljs-comment">// 需要 jsdom 的 UI 测试使用 .ui.test.ts 或 .ui.test.tsx</span>
 <span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { func } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.func&#x27;</span>
 

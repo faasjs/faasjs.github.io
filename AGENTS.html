@@ -132,9 +132,9 @@ vp run ci
 <p>If <code>vp</code> is not on PATH locally, use <code>npx vp ...</code> instead.</p>
 <h2 id="testing-notes" tabindex="-1">Testing Notes</h2>
 <ul>
-<li>Node tests are primarily <code>packages/**/*.test.ts</code></li>
-<li>Browser tests live mainly in <code>packages/react</code> and <code>packages/ant-design</code> and run in <code>jsdom</code></li>
-<li>Type tests use <code>packages/**/*.types.test.ts</code></li>
+<li>Node tests are primarily <code>packages/**/*.test.ts</code> and <code>packages/**/*.test.tsx</code></li>
+<li>Tests that require <code>jsdom</code> must use <code>packages/**/*.ui.test.ts</code> or <code>packages/**/*.ui.test.tsx</code></li>
+<li>Type tests use <code>packages/**/*.types.test.ts</code> and <code>packages/**/*.types.test.tsx</code></li>
 <li>Examples also have local test scripts and are useful for targeted regression checks</li>
 </ul>
 <h2 id="docs-and-generated-files" tabindex="-1">Docs And Generated Files</h2>

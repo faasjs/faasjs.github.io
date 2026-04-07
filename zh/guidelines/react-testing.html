@@ -74,6 +74,7 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
+<li>需要 <code>jsdom</code> 的 React hook 与组件测试，文件名使用 <code>.ui.test.ts</code> 或 <code>.ui.test.tsx</code>。</li>
 <li>在共享 Vitest setup 中使用 <code>afterEach(() =&gt; setMock(null))</code> 清除全局 mock。</li>
 <li>在每个测试或 <code>beforeEach</code> 中设置当前场景所需的具体 mock。</li>
 <li>测试可观察行为，而不是实现细节。</li>
@@ -86,6 +87,7 @@
 <li>针对 <code>@faasjs/react</code> 请求流程的 React 单元测试，应使用 <code>setMock</code>。</li>
 <li>不要在单元测试中依赖外部服务、真实 fetch 时序或环境相关后端。</li>
 <li>mock 设置应保持显式，并且局部化到具体测试场景。</li>
+<li>当测试依赖 <code>@testing-library/react</code>、<code>renderHook</code>、<code>window</code> 或其他 <code>jsdom</code> API 时，使用 <code>.ui.test.ts</code> 或 <code>.ui.test.tsx</code> 后缀，让 Vitest 可以按文件名把它路由到 <code>jsdom</code> project，而不是依赖 package 位置。</li>
 </ul>
 <p>Vitest setup 示例：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { afterEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
@@ -256,6 +258,7 @@
 </code></pre>
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
+<li>需要 <code>jsdom</code> 的测试使用 <code>.ui.test.ts</code> 或 <code>.ui.test.tsx</code> 后缀</li>
 <li>请求相关测试使用 <code>setMock</code>，而不是发真实网络请求</li>
 <li>共享 Vitest setup 通过 <code>setMock(null)</code> 清理 mocks</li>
 <li>mocks 没有比当前场景需要的复杂度更高</li>

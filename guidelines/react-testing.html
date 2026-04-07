@@ -74,6 +74,7 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
+<li>Name React hook and component tests that require <code>jsdom</code> with <code>.ui.test.ts</code> or <code>.ui.test.tsx</code>.</li>
 <li>Clear the global mock in shared Vitest setup with <code>afterEach(() =&gt; setMock(null))</code>.</li>
 <li>Set the specific mock for each test or <code>beforeEach</code>.</li>
 <li>Test observable behavior instead of implementation details.</li>
@@ -86,6 +87,7 @@
 <li>React unit tests that cover <code>@faasjs/react</code> request flows should use <code>setMock</code>.</li>
 <li>Do not rely on external services, real fetch timing, or environment-specific backends in unit tests.</li>
 <li>Keep mock setup explicit and local to the test scenario.</li>
+<li>When a test needs <code>@testing-library/react</code>, <code>renderHook</code>, <code>window</code>, or other <code>jsdom</code> APIs, name it with <code>.ui.test.ts</code> or <code>.ui.test.tsx</code> so Vitest can route it to the <code>jsdom</code> project without relying on package location.</li>
 </ul>
 <p>Vitest setup example:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { afterEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
@@ -256,6 +258,7 @@
 </code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
+<li>tests that require <code>jsdom</code> use the <code>.ui.test.ts</code> or <code>.ui.test.tsx</code> suffix</li>
 <li>request-related tests use <code>setMock</code> instead of real network calls</li>
 <li>shared Vitest setup clears mocks with <code>setMock(null)</code></li>
 <li>mocks are no more complex than the scenario requires</li>
