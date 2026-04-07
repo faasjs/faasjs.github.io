@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Node Utils Guide | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/node-utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/node-utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/node-utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/node-utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="node-utils-guide" tabindex="-1">Node Utils Guide</h1>
+<p>Use this guide when you need Node.js-only helpers for FaasJS runtime bootstrapping, local tooling, config resolution, or logging.</p>
+<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
+<ul>
+<li>running FaasJS handlers, CLIs, tests, or bootstrap scripts directly in Node.js</li>
+<li>loading <code>.env</code> files before bootstrapping the app</li>
+<li>reading merged staged <code>faas.yaml</code> config for a specific function file</li>
+<li>parsing the FaasJS YAML subset in custom Node.js tooling</li>
+<li>turning a function module into a runnable exported handler</li>
+<li>loading YAML-defined plugins into a <code>Func</code> instance</li>
+<li>importing local TypeScript modules with tsconfig path aliases in plain Node</li>
+<li>sharing runtime logs or shipping them through a transport</li>
+</ul>
+<h2 id="what-%40faasjs%2Fnode-utils-gives-you" tabindex="-1">What <code>@faasjs/node-utils</code> Gives You</h2>
+<ul>
+<li>environment and config loading: <code>loadEnvFileIfExists</code>, <code>loadConfig</code>, <code>parseYaml</code></li>
+<li>function loading: <code>loadFunc</code>, <code>loadPlugins</code></li>
+<li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>detectNodeRuntime</code>, <code>resetRuntime</code></li>
+<li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorfy</code></li>
+</ul>
+<h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
+<ol>
+<li>Keep <code>@faasjs/node-utils</code> imports in Node-only entrypoints, tests, CLIs, or adapters.</li>
+<li>Load env files early with <code>loadEnvFileIfExists()</code> if the process relies on local dotenv files.</li>
+<li>Use <code>loadConfig()</code> when you only need staged <code>faas.yaml</code> data.</li>
+<li>Use <code>parseYaml()</code> when you need the raw FaasJS YAML subset in custom tooling without staged discovery.</li>
+<li>Use <code>loadFunc()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
+<li>Prefer the FaasJS TypeScript loader when direct Node execution must understand local TypeScript files or tsconfig aliases, and keep local imports extensionless without <code>.ts</code> or <code>.tsx</code> suffixes.</li>
+<li>Reuse <code>Logger</code> and the shared transport instead of building a custom logging wrapper.</li>
+</ol>
+<h2 id="rules" tabindex="-1">Rules</h2>
+<h3 id="1.-keep-node-utils-in-node-only-code-paths" tabindex="-1">1. Keep <code>node-utils</code> in Node-only code paths</h3>
+<ul>
+<li>This package depends on Node APIs such as <code>node:module</code>, <code>node:process</code>, and filesystem access.</li>
+<li>Do not import it into browser code, React components, or code that must run on edge runtimes.</li>
+<li>Use <code>@faasjs/utils</code> for portable helpers and <code>@faasjs/core</code> or <code>@faasjs/dev</code> for framework/runtime primitives.</li>
+</ul>
+<h3 id="2.-load-.env-files-explicitly-and-early" tabindex="-1">2. Load <code>.env</code> files explicitly and early</h3>
+<ul>
+<li><code>loadEnvFileIfExists()</code> is the small, safe entrypoint when local scripts or tests depend on dotenv files.</li>
+<li>Call it before reading <code>process.env</code>, building config objects, or loading modules that depend on env values.</li>
+<li>It returns the resolved filename or <code>null</code>, which is useful for debug logs.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;bootstrap&#x27;</span>)
+<span class="hljs-keyword">const</span> envFile = <span class="hljs-title function_">loadEnvFileIfExists</span>({
+  <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
+  <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;.env.local&#x27;</span>,
+})
+
+logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;env file: %s&#x27;</span>, envFile || <span class="hljs-string">&#x27;not found&#x27;</span>)
+</code></pre>
+<h3 id="3.-let-loadconfig()-resolve-staged-faas.yaml" tabindex="-1">3. Let <code>loadConfig()</code> resolve staged <code>faas.yaml</code></h3>
+<ul>
+<li>Do not reimplement directory walking or manual deep merging for <code>faas.yaml</code>.</li>
+<li><code>loadConfig()</code> walks from project root to the function directory, merges nested files, applies <code>defaults</code>, and annotates plugin entries with their resolved <code>name</code>.</li>
+<li>This keeps runtime behavior consistent with FaasJS plugin loading.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>, <span class="hljs-string">&#x27;production&#x27;</span>)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(config.<span class="hljs-property">plugins</span>?.<span class="hljs-property">http</span>)
+</code></pre>
+<h3 id="4.-pick-the-smallest-loader-for-the-job" tabindex="-1">4. Pick the smallest loader for the job</h3>
+<ul>
+<li>Use <code>parseYaml()</code> when your script receives YAML text directly and you want the same supported subset and error messages as FaasJS config parsing.</li>
+<li><code>parseYaml()</code> does not walk directories, apply staging fallbacks, or validate the <code>faas.yaml</code> schema, so validate the parsed shape yourself when you are not calling <code>loadConfig()</code>.</li>
+<li>Use <code>loadFunc()</code> when you need the final handler that a runtime or test will invoke.</li>
+<li>Use <code>loadPlugins()</code> when you already have a <code>Func</code> instance and want YAML-driven plugins and config attached before exporting or mounting it.</li>
+<li>Use <code>loadPackage()</code> for general dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
+<li>Prefer these helpers over ad hoc <code>import()</code> wrappers so cache busting, tsconfig resolution, and plugin wiring stay consistent.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">loadEnvFileIfExists</span>()
+
+<span class="hljs-keyword">const</span> pluginDefaults = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">`defaults:
+  plugins:
+    http:
+      type: http
+`</span>)
+
+<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(
+  process.<span class="hljs-title function_">cwd</span>(),
+  <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>,
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
+)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(pluginDefaults)
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>(event, context)
+</code></pre>
+<h3 id="5.-register-module-hooks-only-at-process-bootstrap" tabindex="-1">5. Register module hooks only at process bootstrap</h3>
+<ul>
+<li><code>registerNodeModuleHooks()</code> is for long-lived Node entrypoints such as CLIs, dev servers, or bootstrap scripts that need tsconfig path alias resolution.</li>
+<li>Prefer the preload entry <code>node --import @faasjs/node-utils/register-hooks &lt;entry&gt;</code> for direct Node execution so scripts keep standard extensionless local imports.</li>
+<li>Call it once near startup. Repeated calls are safe, but scattering it across modules makes startup intent harder to follow.</li>
+<li>In isolated tests that depend on fresh loader state, call <code>resetRuntime()</code> between cases instead of reinitializing the whole process.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { registerNodeModuleHooks } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">registerNodeModuleHooks</span>({
+  <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>(),
+})
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./scripts/sync-users&#x27;</span>)
+</code></pre>
+<h3 id="6.-keep-node-side-logging-on-the-shared-primitives" tabindex="-1">6. Keep Node-side logging on the shared primitives</h3>
+<ul>
+<li>Use <code>Logger</code> for structured levels, labels, timers, and environment-driven verbosity.</li>
+<li>Use <code>getTransport()</code> only when logs must be buffered and forwarded to another sink.</li>
+<li><code>colorfy()</code> and <code>formatLogger()</code> are lower-level helpers; prefer the <code>Logger</code> class unless you are implementing logging infrastructure.</li>
+</ul>
+<h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
+<ul>
+<li><code>@faasjs/node-utils</code> imports stay in Node-only code</li>
+<li>local scripts load <code>.env</code> before env-dependent bootstrap logic</li>
+<li>staged <code>faas.yaml</code> is read through <code>loadConfig()</code> or <code>loadFunc()</code>, not custom merge code</li>
+<li>raw FaasJS-compatible YAML parsing uses <code>parseYaml()</code> instead of a different YAML parser</li>
+<li>loaders use <code>loadFunc()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>
+<li>module hooks are registered at process startup, not deep inside feature code</li>
+<li>tests that depend on fresh loader state use <code>resetRuntime()</code></li>
+<li>logging uses <code>Logger</code> or the shared transport instead of raw <code>console</code> wrappers</li>
+</ul>
+<h2 id="read-next" tabindex="-1">Read Next</h2>
+<ul>
+<li><a href="/guidelines/logger.html">Logger Guide</a></li>
+<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
+<li><a href="/doc/node-utils/functions/loadEnvFileIfExists.html">loadEnvFileIfExists</a></li>
+<li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
+<li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>
+<li><a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a></li>
+<li><a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a></li>
+<li><a href="/doc/node-utils/functions/parseYaml.html">parseYaml</a></li>
+<li><a href="/doc/node-utils/functions/registerNodeModuleHooks.html">registerNodeModuleHooks</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

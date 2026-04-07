@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Utils 指南 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="utils-%E6%8C%87%E5%8D%97" tabindex="-1">Utils 指南</h1>
+<p>当你在应用代码、测试或运行时 adapter 中需要来自 <code>@faasjs/utils</code> 的轻量 helpers 时，请使用这份指南。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>用用户覆盖项与默认值合并配置</li>
+<li>把文本或 JSON 转成 <code>ReadableStream</code></li>
+<li>把 stream body 再读回文本或数据</li>
+<li>希望 helper 代码能在 Node.js、浏览器和 edge runtime 间保持可移植</li>
+</ul>
+<h2 id="%40faasjs%2Futils-%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88" tabindex="-1"><code>@faasjs/utils</code> 提供什么</h2>
+<ul>
+<li><code>deepMerge</code>：递归合并嵌套对象与数组，且不修改输入值</li>
+<li><code>stringToStream</code>：把纯文本转成 UTF-8 <code>ReadableStream</code></li>
+<li><code>streamToString</code>：把文本 stream 读取回字符串</li>
+<li><code>objectToStream</code>：把 JSON 数据序列化成 stream</li>
+<li><code>streamToObject</code>：把 JSON 数据从 stream 解析回来</li>
+</ul>
+<h2 id="%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%BC%8F" tabindex="-1">常见模式</h2>
+<h3 id="1.-%E7%94%A8-overrides-%E5%90%88%E5%B9%B6%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE" tabindex="-1">1. 用 overrides 合并默认配置</h3>
+<ul>
+<li>当你想把默认值、环境值和单次请求覆盖项合成一个最终配置对象时，使用 <code>deepMerge</code>。</li>
+<li>后面的值优先。嵌套对象递归合并。数组会去重，并且较新的项排在前面。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { deepMerge } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> defaults = {
+  <span class="hljs-attr">auth</span>: {
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">roles</span>: [<span class="hljs-string">&#x27;user&#x27;</span>],
+  },
+  <span class="hljs-attr">features</span>: [<span class="hljs-string">&#x27;search&#x27;</span>],
+}
+
+<span class="hljs-keyword">const</span> overrides = {
+  <span class="hljs-attr">auth</span>: {
+    <span class="hljs-attr">roles</span>: [<span class="hljs-string">&#x27;admin&#x27;</span>],
+  },
+  <span class="hljs-attr">features</span>: [<span class="hljs-string">&#x27;export&#x27;</span>],
+}
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">deepMerge</span>(defaults, overrides)
+
+config
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   auth: {</span>
+<span class="hljs-comment">//     required: true,</span>
+<span class="hljs-comment">//     roles: [&#x27;admin&#x27;, &#x27;user&#x27;],</span>
+<span class="hljs-comment">//   },</span>
+<span class="hljs-comment">//   features: [&#x27;export&#x27;, &#x27;search&#x27;],</span>
+<span class="hljs-comment">// }</span>
+</code></pre>
+<h3 id="2.-%E4%BB%8E%E6%96%87%E6%9C%AC%E6%88%96-json-%E6%9E%84%E9%80%A0-stream-body" tabindex="-1">2. 从文本或 JSON 构造 stream body</h3>
+<ul>
+<li>原始文本使用 <code>stringToStream</code>。</li>
+<li>JSON 使用 <code>objectToStream</code>，这样就不需要自己调用 <code>JSON.stringify()</code>。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { objectToStream, stringToStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> textBody = <span class="hljs-title function_">stringToStream</span>(<span class="hljs-string">&#x27;hello from FaasJS&#x27;</span>)
+<span class="hljs-keyword">const</span> jsonBody = <span class="hljs-title function_">objectToStream</span>({
+  <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">user</span>: {
+    <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;admin&#x27;</span>,
+  },
+})
+</code></pre>
+<h3 id="3.-%E6%8A%8A-stream-body-%E8%AF%BB%E5%9B%9E%E5%8F%AF%E7%94%A8%E6%95%B0%E6%8D%AE" tabindex="-1">3. 把 stream body 读回可用数据</h3>
+<ul>
+<li>文本载荷使用 <code>streamToString</code>。</li>
+<li>JSON 载荷使用 <code>streamToObject</code>。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { objectToStream, streamToObject, streamToString, stringToStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> <span class="hljs-title function_">streamToString</span>(<span class="hljs-title function_">stringToStream</span>(<span class="hljs-string">&#x27;hello&#x27;</span>))
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> streamToObject&lt;{ <span class="hljs-attr">ok</span>: <span class="hljs-built_in">boolean</span> }&gt;(<span class="hljs-title function_">objectToStream</span>({ <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> }))
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(text) <span class="hljs-comment">// &#x27;hello&#x27;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">ok</span>) <span class="hljs-comment">// true</span>
+</code></pre>
+<h3 id="4.-%E9%80%89%E6%8B%A9%E6%88%90%E5%AF%B9%E5%87%BA%E7%8E%B0%E7%9A%84-helper" tabindex="-1">4. 选择成对出现的 helper</h3>
+<ul>
+<li><code>stringToStream</code> 对应 <code>streamToString</code></li>
+<li><code>objectToStream</code> 对应 <code>streamToObject</code></li>
+<li>结构化数据优先使用 JSON 这一对，原始 body 内容优先使用文本这一对</li>
+</ul>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li>只有在确实需要递归合并时才使用 <code>deepMerge</code></li>
+<li>文本载荷使用文本 stream helpers</li>
+<li>JSON 载荷使用对象 stream helpers</li>
+<li>示例与测试选择的是最小且最能表达意图的 helper</li>
+</ul>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/doc/utils/">@faasjs/utils package reference</a></li>
+<li><a href="/doc/utils/functions/deepMerge.html">deepMerge</a></li>
+<li><a href="/doc/utils/functions/objectToStream.html">objectToStream</a></li>
+<li><a href="/doc/utils/functions/streamToObject.html">streamToObject</a></li>
+<li><a href="/doc/utils/functions/streamToString.html">streamToString</a></li>
+<li><a href="/doc/utils/functions/stringToStream.html">stringToStream</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>faas.yaml 配置规范 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/specs/faas-yaml.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/specs/faas-yaml.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/specs/faas-yaml.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/specs/faas-yaml.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/specs/faas-yaml.html" aria-label="faas.yaml 配置规范">faas.yaml 配置规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/http-protocol.html" aria-label="HTTP 协议规范">HTTP 协议规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/jsdoc-authoring.html" aria-label="JSDoc 编写规范">JSDoc 编写规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/plugin.html" aria-label="Plugin 规范">Plugin 规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/routing-mapping.html" aria-label="路由映射规范">路由映射规范</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="faas.yaml-%E9%85%8D%E7%BD%AE%E8%A7%84%E8%8C%83" tabindex="-1">faas.yaml 配置规范</h1>
+<h2 id="%E8%83%8C%E6%99%AF" tabindex="-1">背景</h2>
+<p><code>faas.yaml</code> 是 FaasJS 在配置加载、本地开发服务解析和类型生成中使用的运行时配置入口。</p>
+<p>这份规范定义了与当前 FaasJS 运行时行为一致的公开基线。</p>
+<p>相关参考：</p>
+<ul>
+<li><code>packages/node-utils/src/load_config.ts</code></li>
+<li><code>packages/node-utils/src/parse_yaml.ts</code></li>
+<li><code>packages/dev/src/server_config.ts</code></li>
+<li><code>packages/dev/src/typegen.ts</code></li>
+<li><code>@faasjs/node-utils</code> 的 <code>parseYaml()</code></li>
+</ul>
+<h2 id="%E7%9B%AE%E6%A0%87" tabindex="-1">目标</h2>
+<ul>
+<li>保持配置发现顺序与合并顺序可预测。</li>
+<li>保持 staging 级别的校验行为可预测。</li>
+<li>明确定义支持的 YAML 子集。</li>
+<li>为自定义 Node.js 工具提供一个支持相同 YAML 子集的 parser 入口。</li>
+</ul>
+<h2 id="%E8%A7%84%E8%8C%83%E6%80%A7%E8%A7%84%E5%88%99" tabindex="-1">规范性规则</h2>
+<h3 id="1.-%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%E4%B8%8E%E6%94%BE%E7%BD%AE%E4%BD%8D%E7%BD%AE" tabindex="-1">1. 文件命名与放置位置</h3>
+<ol>
+<li>配置文件名必须是 <code>faas.yaml</code>。</li>
+<li>项目级配置应放在 <code>&lt;projectRoot&gt;/src/faas.yaml</code>。</li>
+<li>可以在 <code>src/</code> 下的嵌套目录中放置额外的 <code>faas.yaml</code>，用于局部覆盖。</li>
+</ol>
+<h3 id="2.-%E5%8F%91%E7%8E%B0%E4%B8%8E%E5%90%88%E5%B9%B6%E9%A1%BA%E5%BA%8F" tabindex="-1">2. 发现与合并顺序</h3>
+<ol>
+<li>对于位于 <code>&lt;srcRoot&gt;/&lt;path&gt;/&lt;file&gt;.func.ts</code> 的函数文件，loader 必须按从浅到深的顺序发现配置文件：
+<ul>
+<li><code>&lt;srcRoot&gt;/faas.yaml</code></li>
+<li><code>&lt;srcRoot&gt;/&lt;path-segment-1&gt;/faas.yaml</code></li>
+<li>...</li>
+<li><code>&lt;srcRoot&gt;/&lt;path&gt;/faas.yaml</code></li>
+</ul>
+</li>
+<li>有效配置必须按发现顺序进行合并，越深层的配置覆盖越浅层的配置。</li>
+<li>对于每个 <code>S != defaults</code> 的 staging key，在文件级合并完成后，有效 staging 配置必须为 <code>deepMerge(defaults, S)</code>。</li>
+<li>如果请求的 staging 不存在，运行时必须依次 fallback 到 <code>defaults</code>，再 fallback 到空对象。</li>
+</ol>
+<h3 id="3.-%E6%A0%B9%E5%AF%B9%E8%B1%A1%E4%B8%8E-staging-keys" tabindex="-1">3. 根对象与 staging keys</h3>
+<ol>
+<li>解析后的根值在提供时必须是对象。</li>
+<li>每个顶层 staging 值在提供时必须是对象。</li>
+<li><code>defaults</code> 应存在，并应包含共享的基线设置。</li>
+</ol>
+<h3 id="4.-server-%E8%8A%82%E7%82%B9%E7%BA%A6%E5%AE%9A" tabindex="-1">4. <code>server</code> 节点约定</h3>
+<ol>
+<li><code>&lt;staging&gt;.server</code> 在存在时必须是对象。</li>
+<li><code>&lt;staging&gt;.server.root</code> 在存在时必须是字符串。</li>
+<li><code>&lt;staging&gt;.server.base</code> 在存在时必须是字符串。</li>
+<li>在 <code>@faasjs/dev</code> 中，<code>server.root</code> 必须相对于项目根目录解析，并表示项目根目录。</li>
+<li>在 <code>@faasjs/dev</code> 中，源码根目录必须是 <code>&lt;server.root&gt;/src</code>。</li>
+<li>在类型生成中，输出路径必须是 <code>&lt;server.root&gt;/src/.faasjs/types.d.ts</code>。</li>
+</ol>
+<h3 id="5.-plugins-%E8%8A%82%E7%82%B9%E7%BC%96%E5%86%99%E6%96%B9%E5%BC%8F" tabindex="-1">5. <code>plugins</code> 节点编写方式</h3>
+<ol>
+<li><code>&lt;staging&gt;.plugins</code> 可以省略。</li>
+<li>推荐的写法是：从 plugin key 到 plugin config object 的映射。</li>
+<li>同一个 staging 内的 plugin key 应保持稳定，因为 <code>loadConfig()</code> 会从该 key 推导运行时的 <code>name</code>。</li>
+<li><code>name</code> 是 loader 在运行时生成的字段，不应手写在 <code>faas.yaml</code> 中。</li>
+<li>一个 plugin config object 可以包含 <code>type</code>、<code>config</code> 以及其他 plugin 自定义字段。</li>
+<li>Plugin <code>type</code> 可以写成内建 alias、裸 package type、scoped package name、相对路径、绝对路径，或 <code>file://</code> 本地文件 URL。</li>
+<li>plugin 自身的内部字段不在本规范范围内，合并时应原样保留。</li>
+</ol>
+<h3 id="6.-%E6%94%AF%E6%8C%81%E7%9A%84-yaml-%E5%AD%90%E9%9B%86" tabindex="-1">6. 支持的 YAML 子集</h3>
+<ol>
+<li>parser 必须支持基于缩进的 mappings 与 sequences。</li>
+<li>parser 必须支持 plain、single-quoted 与 double-quoted scalars。</li>
+<li>parser 必须支持这些 scalar 值：<code>null</code>、<code>boolean</code>、<code>number</code> 和 <code>string</code>。</li>
+<li>parser 必须支持 mappings 中的 anchors（<code>&amp;</code>）、aliases（<code>*</code>）和 merge key（<code>&lt;&lt;</code>）。</li>
+<li>parser 不允许使用 tab 作为缩进。</li>
+<li>parser 不允许多 YAML 文档（<code>---</code>、<code>...</code>）。</li>
+<li>parser 不允许 block scalars（<code>|</code>、<code>&gt;</code>）、YAML tags（<code>!</code>）或非空 flow collections（<code>[a]</code>、<code>{a: 1}</code>）。</li>
+<li>空 flow collections <code>[]</code> 与 <code>{}</code> 可以使用。</li>
+</ol>
+<h3 id="7.-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86" tabindex="-1">7. 错误处理</h3>
+<ol>
+<li>非法配置结构必须抛出以如下前缀开头的错误：
+<ul>
+<li><code>[loadConfig] Invalid faas.yaml &lt;filePath&gt; at &quot;&lt;keyPath&gt;&quot;: &lt;reason&gt;</code></li>
+</ul>
+</li>
+<li>不支持的 YAML 语法 / 特性必须抛出以前缀开头的解析错误：
+<ul>
+<li><code>[parseYaml]</code></li>
+</ul>
+</li>
+<li>配置消费者（例如 dev server 启动或 typegen）在配置加载失败时应快速失败。</li>
+</ol>
+<h2 id="%E7%A4%BA%E4%BE%8B" tabindex="-1">示例</h2>
+<pre><code class="hljs language-yaml"><span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">server:</span>
+    <span class="hljs-attr">root:</span> <span class="hljs-string">.</span>
+    <span class="hljs-attr">base:</span> <span class="hljs-string">/api</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">http:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">http</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">cookie:</span>
+          <span class="hljs-attr">secure:</span> <span class="hljs-literal">false</span>
+</code></pre>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

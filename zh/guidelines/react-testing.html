@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>React 测试指南 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/react-testing.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/react-testing.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/react-testing.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/react-testing.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="react-%E6%B5%8B%E8%AF%95%E6%8C%87%E5%8D%97" tabindex="-1">React 测试指南</h1>
+<p>当你在 FaasJS 项目中编写或评审 React hooks、组件与请求流程的单元测试时，请使用这份指南。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>测试来自 <code>@faasjs/react</code> 的 React hooks</li>
+<li>测试会触发 FaasJS 请求的组件</li>
+<li>决定如何使用 <code>setMock</code></li>
+<li>在 Vitest 中设置共享 mock 清理</li>
+<li>在 hook tests 与 component tests 之间做选择</li>
+</ul>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>在共享 Vitest setup 中使用 <code>afterEach(() =&gt; setMock(null))</code> 清除全局 mock。</li>
+<li>在每个测试或 <code>beforeEach</code> 中设置当前场景所需的具体 mock。</li>
+<li>测试可观察行为，而不是实现细节。</li>
+<li>当这些流程存在时，覆盖 loading、error、reload、skip、debounce 与 controlled-props 行为。</li>
+<li>hook 行为使用 hook tests，界面可见行为使用 component tests。</li>
+</ol>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E4%BD%BF%E7%94%A8-setmock%EF%BC%8C%E4%B8%8D%E8%A6%81%E5%8F%91%E7%9C%9F%E5%AE%9E%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82" tabindex="-1">1. 使用 <code>setMock</code>，不要发真实网络请求</h3>
+<ul>
+<li>针对 <code>@faasjs/react</code> 请求流程的 React 单元测试，应使用 <code>setMock</code>。</li>
+<li>不要在单元测试中依赖外部服务、真实 fetch 时序或环境相关后端。</li>
+<li>mock 设置应保持显式，并且局部化到具体测试场景。</li>
+</ul>
+<p>Vitest setup 示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { afterEach } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> { setMock } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">setMock</span>(<span class="hljs-literal">null</span>)
+})
+</code></pre>
+<h3 id="2.-%E4%BB%8E%E6%9C%80%E5%B0%8F%E5%8F%AF%E7%94%A8-mock-%E5%BC%80%E5%A7%8B" tabindex="-1">2. 从最小可用 mock 开始</h3>
+<ul>
+<li>当一个响应就足够时，使用静态对象。</li>
+<li>当响应依赖 path 或 params 时，使用 handler。</li>
+<li>只有在被测代码真的会读取 stream 时，才使用 streaming mock。</li>
+<li>对简单的文本流场景，优先使用 <code>stringToStream</code>，让测试设置保持紧凑。</li>
+</ul>
+<p>基础示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { setMock } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">setMock</span>({
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span>,
+  },
+})
+
+<span class="hljs-title function_">setMock</span>({
+  <span class="hljs-attr">status</span>: <span class="hljs-number">500</span>,
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Internal Server Error&#x27;</span>,
+  },
+})
+</code></pre>
+<p>Handler 示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { setMock } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> () =&gt; ({
+  <span class="hljs-attr">data</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span>,
+  },
+}))
+
+<span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (path) =&gt; {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span>) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">data</span>: {
+        <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span>,
+      },
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/posts/get&#x27;</span>) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">data</span>: {
+        <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Hello&#x27;</span>,
+      },
+    }
+  }
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>,
+    <span class="hljs-attr">data</span>: {
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Not Found&#x27;</span>,
+    },
+  }
+})
+
+<span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (path, params) =&gt; {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">data</span>: {
+        <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Admin&#x27;</span>,
+      },
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">data</span>: {
+        <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Editor&#x27;</span>,
+      },
+    }
+  }
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>,
+    <span class="hljs-attr">data</span>: {
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;User not found&#x27;</span>,
+    },
+  }
+})
+</code></pre>
+<p>Streaming 示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { stringToStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+<span class="hljs-keyword">import</span> { setMock } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">setMock</span>({
+  <span class="hljs-attr">body</span>: <span class="hljs-title function_">stringToStream</span>(<span class="hljs-string">&#x27;hello world&#x27;</span>),
+})
+</code></pre>
+<h3 id="3.-%E4%B8%BA%E5%8F%AF%E8%A7%81%E8%A1%8C%E4%B8%BA%E6%B7%BB%E5%8A%A0%E8%81%9A%E7%84%A6%E7%BB%84%E4%BB%B6%E6%B5%8B%E8%AF%95" tabindex="-1">3. 为可见行为添加聚焦组件测试</h3>
+<ul>
+<li>组件测试优先使用 <code>@testing-library/react</code>。</li>
+<li>断言用户真正能看到或触发的行为。</li>
+<li>当组件自己拥有请求流程时，覆盖 success 和 failure 状态。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { render, screen } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@testing-library/react&#x27;</span>
+<span class="hljs-keyword">import</span> { beforeEach, describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> { setMock, useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserName</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { data } = useFaas&lt;{ <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, {})
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;UserName&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> () =&gt; ({
+      <span class="hljs-attr">data</span>: {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span>,
+      },
+    }))
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;renders mocked data&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-title function_">render</span>(<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UserName</span> /&gt;</span></span>)
+
+    <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> screen.<span class="hljs-title function_">findByText</span>(<span class="hljs-string">&#x27;FaasJS&#x27;</span>)).<span class="hljs-title function_">toBeDefined</span>()
+  })
+})
+</code></pre>
+<h3 id="4.-%E4%B8%BA-hook-%E8%A1%8C%E4%B8%BA%E6%B7%BB%E5%8A%A0%E8%81%9A%E7%84%A6-hook-%E6%B5%8B%E8%AF%95" tabindex="-1">4. 为 hook 行为添加聚焦 hook 测试</h3>
+<ul>
+<li>当无需渲染完整 UI 就能验证行为时，优先使用 <code>renderHook</code>。</li>
+<li>根据场景覆盖 reload、skip、debounce、loading、error 与 controlled props 等行为。</li>
+<li>当新增或修改了基于 mock 的请求逻辑时，应增加测试来证明预期的 <code>setMock</code> 交互路径。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { renderHook, waitFor } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@testing-library/react&#x27;</span>
+<span class="hljs-keyword">import</span> { beforeEach, describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> { setMock, useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;useFaas&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (_path, params) =&gt; ({
+      <span class="hljs-attr">data</span>: params,
+    }))
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;supports reload with next params&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> { result } = <span class="hljs-title function_">renderHook</span>(<span class="hljs-function">() =&gt;</span> useFaas&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }))
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">waitFor</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">current</span>.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }))
+
+    <span class="hljs-keyword">await</span> result.<span class="hljs-property">current</span>.<span class="hljs-title function_">reload</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">waitFor</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">current</span>.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> }))
+  })
+})
+</code></pre>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li>请求相关测试使用 <code>setMock</code>，而不是发真实网络请求</li>
+<li>共享 Vitest setup 通过 <code>setMock(null)</code> 清理 mocks</li>
+<li>mocks 没有比当前场景需要的复杂度更高</li>
+<li>组件通过可见行为进行测试</li>
+<li>合适时，hooks 通过 <code>renderHook</code> 进行测试</li>
+<li>测试覆盖了相关的 loading、error、reload、skip、debounce 或 controlled-props 流程</li>
+</ul>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/zh/guidelines/react.html">React 指南</a></li>
+<li><a href="/zh/guidelines/react-data-fetching.html">React 数据请求指南</a></li>
+<li><a href="/doc/react/functions/setMock.html">setMock</a></li>
+<li><a href="/doc/react/functions/useFaas.html">useFaas</a></li>
+<li><a href="/doc/react/functions/useFaasStream.html">useFaasStream</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

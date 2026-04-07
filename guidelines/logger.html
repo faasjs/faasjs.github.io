@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Logger Guide | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/logger.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/logger.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/logger.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/logger.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="logger-guide" tabindex="-1">Logger Guide</h1>
+<p>Use this guide when you need readable runtime logs in FaasJS handlers, middleware, cron jobs, server hooks, or standalone Node.js scripts.</p>
+<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
+<ul>
+<li>writing logs inside middleware, plugins, or cron jobs</li>
+<li>adding request, lifecycle, or failure logs to a FaasJS server</li>
+<li>creating a standalone script that needs a shared logger</li>
+<li>timing slow operations</li>
+<li>tuning log noise for local development, CI, or production</li>
+</ul>
+<h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
+<ol>
+<li>Reuse the injected <code>logger</code> when FaasJS already gives you one.</li>
+<li>Create <code>new Logger('label')</code> only for standalone scripts, adapters, or infrastructure code.</li>
+<li>Use <code>debug</code> for details, <code>info</code> for normal milestones, <code>warn</code> for degraded paths, and <code>error</code> for failures.</li>
+<li>Keep labels short and stable so related logs stay easy to scan.</li>
+<li>Use <code>time()</code> and <code>timeEnd()</code> around slow steps.</li>
+<li>Change verbosity with environment variables before changing log call sites.</li>
+</ol>
+<h2 id="rules" tabindex="-1">Rules</h2>
+<h3 id="1.-prefer-the-injected-logger-when-the-framework-provides-one" tabindex="-1">1. Prefer the injected logger when the framework provides one</h3>
+<ul>
+<li>In FaasJS runtime code, <code>logger</code> is often already part of the callback context.</li>
+<li>Reuse that logger so labels, timing, and transport behavior stay consistent with the runtime.</li>
+<li>Do not create a second logger inside the same request or cron callback unless you have a very specific reason.</li>
+</ul>
+<p>Middleware example:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">useMiddleware</span>(<span class="hljs-function">(<span class="hljs-params">request, response, { logger }</span>) =&gt;</span> {
+  logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;%s %s&#x27;</span>, request.<span class="hljs-property">method</span>, request.<span class="hljs-property">url</span>)
+
+  response.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;ok&#x27;</span>)
+})
+</code></pre>
+<p>Cron job example:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">CronJob</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">const</span> job = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CronJob</span>({
+  <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;0 * * * *&#x27;</span>,
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ logger }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;run cleanup&#x27;</span>)
+  },
+})
+</code></pre>
+<h3 id="2.-create-a-labeled-logger-for-standalone-code" tabindex="-1">2. Create a labeled logger for standalone code</h3>
+<ul>
+<li>Use <code>new Logger('label')</code> in scripts, CLIs, build tools, or custom adapters.</li>
+<li>A good label explains where the log came from without becoming noisy.</li>
+<li>Prefer labels like <code>seed</code>, <code>typegen</code>, <code>server</code>, or <code>sync:users</code>.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;seed&#x27;</span>)
+
+logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;start importing users&#x27;</span>)
+logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;loaded config %o&#x27;</span>, { <span class="hljs-attr">region</span>: <span class="hljs-string">&#x27;cn&#x27;</span>, <span class="hljs-attr">dryRun</span>: <span class="hljs-literal">false</span> })
+</code></pre>
+<h3 id="3.-choose-levels-by-intent" tabindex="-1">3. Choose levels by intent</h3>
+<ul>
+<li><code>debug</code>: internal steps, params, cache hits, and other noisy diagnostics</li>
+<li><code>info</code>: expected lifecycle messages such as startup, shutdown, and successful jobs</li>
+<li><code>warn</code>: recoverable problems, fallbacks, skipped work, or unusual states</li>
+<li><code>error</code>: failures that need attention</li>
+<li>Pass an <code>Error</code> object directly to <code>logger.error(error)</code> when you have one</li>
+</ul>
+<p>Prefer this:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">syncUsers</span>()
+  logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;sync completed&#x27;</span>)
+} <span class="hljs-keyword">catch</span> (error) {
+  logger.<span class="hljs-title function_">error</span>(error)
+}
+</code></pre>
+<p>Over manually stringifying the error first.</p>
+<h3 id="4.-use-format-strings-instead-of-building-large-strings-by-hand" tabindex="-1">4. Use format strings instead of building large strings by hand</h3>
+<ul>
+<li><code>Logger</code> supports format-style messages, which keeps logs compact and readable.</li>
+<li>Reach for <code>%s</code> for text, <code>%d</code> for numbers, <code>%j</code> for JSON, and <code>%o</code> for inspected objects.</li>
+<li>This is usually clearer than manual concatenation or eager <code>JSON.stringify()</code>.</li>
+</ul>
+<pre><code class="hljs language-ts">logger.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;user=%s retries=%d payload=%j&#x27;</span>, user.<span class="hljs-property">id</span>, retries, payload)
+</code></pre>
+<h3 id="5.-time-slow-operations-with-time()-and-timeend()" tabindex="-1">5. Time slow operations with <code>time()</code> and <code>timeEnd()</code></h3>
+<ul>
+<li>Use timers for network calls, database work, file IO, or startup hooks.</li>
+<li>Keep the timer key stable and make sure <code>timeEnd()</code> uses the same key.</li>
+<li>If the key is missing, FaasJS logs a warning, so mismatches are easy to spot.</li>
+</ul>
+<pre><code class="hljs language-ts">logger.<span class="hljs-title function_">time</span>(<span class="hljs-string">&#x27;load-user&#x27;</span>, <span class="hljs-string">&#x27;info&#x27;</span>)
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadUser</span>(id)
+
+logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-string">&#x27;load-user&#x27;</span>, <span class="hljs-string">&#x27;loaded user %s&#x27;</span>, user.<span class="hljs-property">id</span>)
+</code></pre>
+<h3 id="6.-tune-output-with-environment-variables" tabindex="-1">6. Tune output with environment variables</h3>
+<ul>
+<li><code>FaasLog=debug|info|warn|error</code> sets the minimum level</li>
+<li><code>FaasLogMode=plain</code> disables ANSI colors</li>
+<li><code>FaasLogMode=pretty</code> forces colorized terminal output</li>
+<li><code>FaasLogSize=2000</code> changes the truncation threshold for long non-error logs</li>
+<li><code>FaasLogTransport=true|false</code> enables or disables shared transport forwarding</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="hljs language-bash">FaasLog=info npx vp <span class="hljs-built_in">test</span>
+FaasLog=debug FaasLogMode=plain node ./scripts/sync-users.ts
+</code></pre>
+<h3 id="7.-use-transport-only-when-you-really-need-log-shipping" tabindex="-1">7. Use transport only when you really need log shipping</h3>
+<ul>
+<li><code>Logger</code> forwards messages to the shared transport by default.</li>
+<li>Reach for <code>getTransport()</code> when you want to batch logs into another system.</li>
+<li>If you register transport handlers, flush them during shutdown so buffered logs are not lost.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> transport = <span class="hljs-title function_">getTransport</span>()
+
+transport.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;shipper&#x27;</span>, <span class="hljs-title function_">async</span> (messages) =&gt; {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> message <span class="hljs-keyword">of</span> messages) {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">sendToRemote</span>(message)
+  }
+})
+
+process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> transport.<span class="hljs-title function_">stop</span>()
+  process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">0</span>)
+})
+</code></pre>
+<h3 id="8.-do-not-log-secrets-or-full-sensitive-payloads" tabindex="-1">8. Do not log secrets or full sensitive payloads</h3>
+<ul>
+<li>Avoid logging tokens, cookies, session content, passwords, or raw request bodies by default.</li>
+<li>Be extra careful with <code>debug</code> logs because they often survive in CI logs and incident reports.</li>
+<li>If you must log request context, prefer IDs, counts, and safe summaries.</li>
+</ul>
+<h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
+<ul>
+<li>injected loggers are reused where available</li>
+<li>labels are short, stable, and meaningful</li>
+<li><code>debug</code> is used for noisy diagnostics instead of <code>info</code></li>
+<li>caught errors are logged with <code>logger.error(error)</code> when possible</li>
+<li>slow steps use <code>time()</code> and <code>timeEnd()</code> with matching keys</li>
+<li>environment variables are used to change verbosity</li>
+<li>secrets and sensitive payloads are not logged</li>
+<li>transport handlers call <code>stop()</code> during shutdown when transport is enabled</li>
+</ul>
+<h2 id="read-next" tabindex="-1">Read Next</h2>
+<ul>
+<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
+<li><a href="/doc/node-utils/classes/Logger.html">Logger</a></li>
+<li><a href="/doc/node-utils/functions/getTransport.html">getTransport</a></li>
+<li><a href="/doc/node-utils/functions/formatLogger.html">formatLogger</a></li>
+<li><a href="/doc/core/functions/useMiddleware.html">useMiddleware</a></li>
+<li><a href="/doc/core/classes/CronJob.html">CronJob</a></li>
+<li><a href="/doc/core/type-aliases/ServerOptions.html">ServerOptions</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>HTTP Protocol Specification | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/http-protocol.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/http-protocol.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/http-protocol.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/http-protocol.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/faas-yaml.html" aria-label="faas.yaml Configuration Specification">faas.yaml Configuration Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/specs/http-protocol.html" aria-label="HTTP Protocol Specification">HTTP Protocol Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/jsdoc-authoring.html" aria-label="JSDoc Authoring Specification">JSDoc Authoring Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/plugin.html" aria-label="Plugin Specification">Plugin Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/routing-mapping.html" aria-label="Routing Mapping Specification">Routing Mapping Specification</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="http-protocol-specification" tabindex="-1">HTTP Protocol Specification</h1>
+<h2 id="background" tabindex="-1">Background</h2>
+<p>FaasJS has historical request/response guidance in docs, but contracts are spread across multiple locations. This spec defines a single internal baseline for transport behavior.</p>
+<p>Legacy references (kept unchanged in this phase):</p>
+<ul>
+<li><code>docs/guide/request-spec.md</code></li>
+<li><code>docs/zh/guide/excel/request-spec.md</code></li>
+</ul>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>Keep client/server interaction predictable across projects.</li>
+<li>Keep transport-level behavior aligned with current implementation, including low-level error fallback.</li>
+<li>Keep failure semantics simple in V1.</li>
+</ul>
+<h2 id="non-goals" tabindex="-1">Non-goals</h2>
+<ul>
+<li>Defining REST resource modeling patterns.</li>
+<li>Defining GraphQL contracts.</li>
+<li>Standardizing file upload and stream protocol details.</li>
+</ul>
+<h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
+<h3 id="1.-request" tabindex="-1">1. Request</h3>
+<ol>
+<li>API requests MUST use <code>POST</code> as the default method.</li>
+<li>Request body MUST be encoded as JSON text (<code>application/json; charset=UTF-8</code>) and SHOULD be a JSON object.</li>
+<li>Query parameters SHOULD be avoided for business input; clients SHOULD send input in JSON body.</li>
+<li>Request path MUST follow <a href="/specs/routing-mapping.html">routing-mapping.md</a>.</li>
+<li>Clients SHOULD include <code>X-FaasJS-Request-Id</code> for traceability when possible.</li>
+</ol>
+<h3 id="2.-response-(transport-layer)" tabindex="-1">2. Response (transport layer)</h3>
+<ol>
+<li>The V1 status code baseline is <code>200</code>, <code>204</code>, and <code>500</code>.</li>
+<li><code>200</code> means request completed with a response body, and payload MUST use top-level <code>data</code>.</li>
+<li><code>204</code> means request completed with no content.</li>
+<li>Business failures MUST return <code>500</code> in the V1 baseline.</li>
+<li>For JSON error responses, payload MUST use top-level <code>error</code> with <code>error.message</code>.</li>
+<li>For low-level server failures, <code>500</code> MAY return plain text <code>Internal Server Error</code> with <code>Content-Type: text/plain; charset=utf-8</code>.</li>
+<li>JSON responses SHOULD use <code>Content-Type: application/json; charset=utf-8</code>.</li>
+<li>This specification is HTTP-version agnostic and does not require a specific HTTP protocol version.</li>
+</ol>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<h3 id="request" tabindex="-1">Request</h3>
+<pre><code class="hljs language-http">POST /todo/api/create
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json; charset=UTF-8
+
+{&quot;title&quot;:&quot;Buy milk&quot;}
+</code></pre>
+<h3 id="response%3A-200-success" tabindex="-1">Response: 200 success</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Buy milk&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="response%3A-500-business%2Fruntime-error-(json)" tabindex="-1">Response: 500 business/runtime error (JSON)</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;error&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;business-500&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="response%3A-500-low-level-server-error-(plain-text)" tabindex="-1">Response: 500 low-level server error (plain text)</h3>
+<pre><code class="hljs language-text">500 Internal Server Error
+Content-Type: text/plain; charset=utf-8
+
+Internal Server Error
+</code></pre>
+<h3 id="response%3A-500-transport%2Fruntime-error-(json)" tabindex="-1">Response: 500 transport/runtime error (JSON)</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;error&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Internal Server Error&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="compatibility" tabindex="-1">Compatibility</h2>
+<ul>
+<li>Current runtime behavior is consistent with top-level <code>data</code>/<code>error</code> wrapping in <code>@faasjs/core</code>.</li>
+<li>Current server fallback behavior can return plain-text <code>500 Internal Server Error</code> in low-level failures.</li>
+<li>Historical docs mention <code>action + params</code>; V1 standardizes direct JSON object request body for route-based APIs.</li>
+<li>Existing projects may return additional status codes in custom logic. Those are outside this V1 baseline.</li>
+</ul>
+<h2 id="migration-checklist" tabindex="-1">Migration Checklist</h2>
+<ul>
+<li>[ ] New APIs use <code>POST</code> + JSON object body.</li>
+<li>[ ] Success responses use transport-level top <code>data</code>.</li>
+<li>[ ] Failure responses use <code>500</code> (JSON <code>error.message</code> when possible).</li>
+<li>[ ] Clients can handle both JSON and <code>text/plain</code> for <code>500</code>.</li>
+<li>[ ] Existing custom status codes are documented locally when retained.</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

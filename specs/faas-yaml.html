@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>faas.yaml Configuration Specification | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/faas-yaml.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/faas-yaml.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/faas-yaml.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/faas-yaml.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/specs/faas-yaml.html" aria-label="faas.yaml Configuration Specification">faas.yaml Configuration Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/http-protocol.html" aria-label="HTTP Protocol Specification">HTTP Protocol Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/jsdoc-authoring.html" aria-label="JSDoc Authoring Specification">JSDoc Authoring Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/plugin.html" aria-label="Plugin Specification">Plugin Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/routing-mapping.html" aria-label="Routing Mapping Specification">Routing Mapping Specification</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="faas.yaml-configuration-specification" tabindex="-1">faas.yaml Configuration Specification</h1>
+<h2 id="background" tabindex="-1">Background</h2>
+<p><code>faas.yaml</code> is the runtime configuration entry used by FaasJS config loading, local dev server resolution, and type generation.</p>
+<p>This spec defines the current public baseline that matches FaasJS runtime behavior.</p>
+<p>Related references:</p>
+<ul>
+<li><code>packages/node-utils/src/load_config.ts</code></li>
+<li><code>packages/node-utils/src/parse_yaml.ts</code></li>
+<li><code>packages/dev/src/server_config.ts</code></li>
+<li><code>packages/dev/src/typegen.ts</code></li>
+<li><code>@faasjs/node-utils</code> <code>parseYaml()</code></li>
+</ul>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>Keep config discovery and merge order deterministic.</li>
+<li>Keep staging-level validation predictable.</li>
+<li>Define the supported YAML subset explicitly.</li>
+<li>Give custom Node.js tooling a supported parser entrypoint for the same YAML subset.</li>
+</ul>
+<h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
+<h3 id="1.-file-naming-and-placement" tabindex="-1">1. File naming and placement</h3>
+<ol>
+<li>Configuration file name MUST be <code>faas.yaml</code>.</li>
+<li>Project-level configuration SHOULD be placed at <code>&lt;projectRoot&gt;/src/faas.yaml</code>.</li>
+<li>Additional <code>faas.yaml</code> files MAY be placed in nested directories under <code>src/</code> for local overrides.</li>
+</ol>
+<h3 id="2.-discovery-and-merge-order" tabindex="-1">2. Discovery and merge order</h3>
+<ol>
+<li>For a function file under <code>&lt;srcRoot&gt;/&lt;path&gt;/&lt;file&gt;.func.ts</code>, the loader MUST discover files from shallow to deep:
+<ul>
+<li><code>&lt;srcRoot&gt;/faas.yaml</code></li>
+<li><code>&lt;srcRoot&gt;/&lt;path-segment-1&gt;/faas.yaml</code></li>
+<li>...</li>
+<li><code>&lt;srcRoot&gt;/&lt;path&gt;/faas.yaml</code></li>
+</ul>
+</li>
+<li>Effective config MUST be merged in discovered order where deeper config overrides shallower config.</li>
+<li>For each staging key <code>S != defaults</code>, effective staging config MUST be <code>deepMerge(defaults, S)</code> after file-level merge is done.</li>
+<li>If requested staging does not exist, runtime MUST fall back to <code>defaults</code>, then to an empty object.</li>
+</ol>
+<h3 id="3.-root-object-and-staging-keys" tabindex="-1">3. Root object and staging keys</h3>
+<ol>
+<li>The parsed root value MUST be an object when provided.</li>
+<li>Each top-level staging value MUST be an object when provided.</li>
+<li><code>defaults</code> SHOULD exist and SHOULD contain shared baseline settings.</li>
+</ol>
+<h3 id="4.-server-node-contract" tabindex="-1">4. <code>server</code> node contract</h3>
+<ol>
+<li><code>&lt;staging&gt;.server</code>, when present, MUST be an object.</li>
+<li><code>&lt;staging&gt;.server.root</code>, when present, MUST be a string.</li>
+<li><code>&lt;staging&gt;.server.base</code>, when present, MUST be a string.</li>
+<li>In <code>@faasjs/dev</code>, <code>server.root</code> MUST be resolved relative to project root and represent project root.</li>
+<li>In <code>@faasjs/dev</code>, source root MUST be <code>&lt;server.root&gt;/src</code>.</li>
+<li>In type generation, output path MUST be <code>&lt;server.root&gt;/src/.faasjs/types.d.ts</code>.</li>
+</ol>
+<h3 id="5.-plugins-node-authoring" tabindex="-1">5. <code>plugins</code> node authoring</h3>
+<ol>
+<li><code>&lt;staging&gt;.plugins</code> MAY be omitted.</li>
+<li>Recommended authoring shape is a mapping from plugin key to plugin config object.</li>
+<li>Plugin key SHOULD be stable within the same staging because <code>loadConfig()</code> derives runtime <code>name</code> from that key.</li>
+<li><code>name</code> is a loader-generated runtime field and SHOULD NOT be authored manually in <code>faas.yaml</code>.</li>
+<li>A plugin config object MAY contain <code>type</code>, <code>config</code>, and other plugin-specific fields.</li>
+<li>Plugin <code>type</code> MAY be authored as a built-in alias, bare package type, scoped package name, relative path, absolute path, or <code>file://</code> local file URL.</li>
+<li>Plugin-specific inner fields are outside the scope of this spec and are preserved during merge.</li>
+</ol>
+<h3 id="6.-supported-yaml-subset" tabindex="-1">6. Supported YAML subset</h3>
+<ol>
+<li>The parser MUST support indentation-based mappings and sequences.</li>
+<li>The parser MUST support plain, single-quoted, and double-quoted scalars.</li>
+<li>The parser MUST support scalar values: <code>null</code>, <code>boolean</code>, <code>number</code>, and <code>string</code>.</li>
+<li>The parser MUST support anchors (<code>&amp;</code>), aliases (<code>*</code>), and merge key (<code>&lt;&lt;</code>) for mappings.</li>
+<li>The parser MUST NOT allow tabs for indentation.</li>
+<li>The parser MUST NOT allow multiple YAML documents (<code>---</code>, <code>...</code>).</li>
+<li>The parser MUST NOT allow block scalars (<code>|</code>, <code>&gt;</code>), YAML tags (<code>!</code>), or non-empty flow collections (<code>[a]</code>, <code>{a: 1}</code>).</li>
+<li>Empty flow collections <code>[]</code> and <code>{}</code> MAY be used.</li>
+</ol>
+<h3 id="7.-error-handling" tabindex="-1">7. Error handling</h3>
+<ol>
+<li>Invalid config structure MUST throw an error prefixed with:
+<ul>
+<li><code>[loadConfig] Invalid faas.yaml &lt;filePath&gt; at &quot;&lt;keyPath&gt;&quot;: &lt;reason&gt;</code></li>
+</ul>
+</li>
+<li>Unsupported YAML syntax/features MUST throw parse errors prefixed with:
+<ul>
+<li><code>[parseYaml]</code></li>
+</ul>
+</li>
+<li>Config consumers (for example dev server startup or typegen) SHOULD fail fast when config loading fails.</li>
+</ol>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="hljs language-yaml"><span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">server:</span>
+    <span class="hljs-attr">root:</span> <span class="hljs-string">.</span>
+    <span class="hljs-attr">base:</span> <span class="hljs-string">/api</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">http:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">http</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">cookie:</span>
+          <span class="hljs-attr">secure:</span> <span class="hljs-literal">false</span>
+</code></pre>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

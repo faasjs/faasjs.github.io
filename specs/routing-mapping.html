@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Routing Mapping Specification | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/routing-mapping.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/routing-mapping.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/routing-mapping.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/routing-mapping.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/faas-yaml.html" aria-label="faas.yaml Configuration Specification">faas.yaml Configuration Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/http-protocol.html" aria-label="HTTP Protocol Specification">HTTP Protocol Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/jsdoc-authoring.html" aria-label="JSDoc Authoring Specification">JSDoc Authoring Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/plugin.html" aria-label="Plugin Specification">Plugin Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/specs/routing-mapping.html" aria-label="Routing Mapping Specification">Routing Mapping Specification</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="routing-mapping-specification" tabindex="-1">Routing Mapping Specification</h1>
+<h2 id="background" tabindex="-1">Background</h2>
+<p>FaasJS route resolution is file-based. This spec standardizes the mapping and keeps the Zero-Mapping default explicit: file path and URL path stay in one-to-one alignment.</p>
+<p>Related references:</p>
+<ul>
+<li><code>packages/core/src/server/routes.ts</code></li>
+<li><code>packages/core/src/server/__tests__/routes.test.ts</code></li>
+<li><code>documents/projects/faasjs/rfc-spa-api-zero-mapping-v0.1-short.md</code></li>
+</ul>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>Keep API location discoverable from URL without an extra mapping table.</li>
+<li>Reduce ambiguity for humans and AI coding agents.</li>
+<li>Keep behavior aligned with current server route search order.</li>
+</ul>
+<h2 id="non-goals" tabindex="-1">Non-goals</h2>
+<ul>
+<li>Introducing path aliases or rewrite layers.</li>
+<li>Replacing file-system routing with a registry-based router.</li>
+</ul>
+<h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
+<h3 id="1.-file-naming-and-placement" tabindex="-1">1. File naming and placement</h3>
+<ol>
+<li>API entry files MUST end with <code>.func.ts</code>.</li>
+<li>API files SHOULD be placed under <code>api/</code> directories for SPA-style projects.</li>
+<li>API files MUST NOT be placed under <code>components/</code> directories.</li>
+</ol>
+<h3 id="2.-zero-mapping-routing" tabindex="-1">2. Zero-mapping routing</h3>
+<ol>
+<li>URL path and file path MUST keep direct mapping (Zero-Mapping by default).</li>
+<li>Implementations MUST NOT rely on implicit rewrites such as <code>actions -&gt; api</code>.</li>
+<li>Implementations MUST NOT add hidden alias routes that break path/file predictability.</li>
+</ol>
+<h3 id="3.-route-file-search-order" tabindex="-1">3. Route file search order</h3>
+<p>Given request path <code>&lt;p&gt;</code>, route resolution MUST probe in this order:</p>
+<ol>
+<li><code>&lt;p&gt;.func.ts</code></li>
+<li><code>&lt;p&gt;/index.func.ts</code></li>
+<li><code>&lt;p&gt;/default.func.ts</code></li>
+<li>Parent fallback chain: <code>&lt;parent&gt;/default.func.ts</code> up to root scope</li>
+</ol>
+<p>If no candidate exists, the request is treated as not found.</p>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Route</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/pages/todo/api/list.func.ts</code></td>
+<td><code>POST /pages/todo/api/list</code></td>
+</tr>
+<tr>
+<td><code>src/pages/todo/api/index.func.ts</code></td>
+<td><code>POST /pages/todo/api</code></td>
+</tr>
+<tr>
+<td><code>src/pages/todo/default.func.ts</code></td>
+<td>fallback for <code>/pages/todo/*</code></td>
+</tr>
+<tr>
+<td><code>src/pages/default.func.ts</code></td>
+<td>fallback for unmatched routes under <code>/pages/*</code></td>
+</tr>
+</tbody>
+</table>
+<p>Fallback example:</p>
+<ul>
+<li>Request: <code>POST /pages/todo/item/unknown</code></li>
+<li>Probe order:
+<ol>
+<li><code>src/pages/todo/item/unknown.func.ts</code></li>
+<li><code>src/pages/todo/item/unknown/index.func.ts</code></li>
+<li><code>src/pages/todo/item/unknown/default.func.ts</code></li>
+<li><code>src/pages/todo/item/default.func.ts</code></li>
+<li><code>src/pages/todo/default.func.ts</code></li>
+<li><code>src/pages/default.func.ts</code></li>
+</ol>
+</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

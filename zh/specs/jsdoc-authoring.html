@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>JSDoc 编写规范 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/specs/jsdoc-authoring.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/specs/jsdoc-authoring.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/specs/jsdoc-authoring.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/specs/jsdoc-authoring.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/faas-yaml.html" aria-label="faas.yaml 配置规范">faas.yaml 配置规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/http-protocol.html" aria-label="HTTP 协议规范">HTTP 协议规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/specs/jsdoc-authoring.html" aria-label="JSDoc 编写规范">JSDoc 编写规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/plugin.html" aria-label="Plugin 规范">Plugin 规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/specs/routing-mapping.html" aria-label="路由映射规范">路由映射规范</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="jsdoc-%E7%BC%96%E5%86%99%E8%A7%84%E8%8C%83" tabindex="-1">JSDoc 编写规范</h1>
+<h2 id="%E8%83%8C%E6%99%AF" tabindex="-1">背景</h2>
+<p>FaasJS 已经主要通过 TypeScript 源码中的 JSDoc 来生成公开 API 文档。<a href="https://github.com/faasjs/faasjs/blob/main/build-docs.ts" target="_blank" rel="noopener noreferrer" class="external-link"><code>build-docs.ts</code></a> 会对各 package 入口运行 TypeDoc，并在 <code>classes/</code>、<code>functions/</code>、<code>interfaces/</code>、<code>type-aliases/</code> 和 <code>variables/</code> 下输出 Markdown。</p>
+<p>当前 package 文档已经呈现出一些稳定模式：</p>
+<ul>
+<li><code>src/index.ts</code> 中的 package overview</li>
+<li>紧贴导出声明的 symbol summary</li>
+<li><code>@param</code>、<code>@returns</code>、<code>@example</code>、<code>@throws</code>、<code>@default</code>、<code>@property</code>、<code>@template</code>、<code>@see</code> 和 <code>{@link}</code> 等标签</li>
+</ul>
+<p>同时，仓库中仍然存在 tag 语法、语言和内容重复上的风格漂移。这份规范定义了未来新增或被修改的公开 API 文档编写基线。</p>
+<h2 id="%E7%9B%AE%E6%A0%87" tabindex="-1">目标</h2>
+<ul>
+<li>让各 package 的公开 API 文档保持可预测，并且易于通过 TypeDoc 生成。</li>
+<li>让文档始终贴近源码，并与真实 TypeScript 行为保持一致。</li>
+<li>让示例对用户和 AI 编码 agent 都具备可复制性。</li>
+</ul>
+<h2 id="%E9%9D%9E%E7%9B%AE%E6%A0%87" tabindex="-1">非目标</h2>
+<ul>
+<li>替代 README 或教程类文档。</li>
+<li>记录私有 helpers 或仅供测试使用的 API。</li>
+<li>统一源码 JSDoc 与生成 API Markdown 之外的散文风格。</li>
+</ul>
+<h2 id="%E8%A7%84%E8%8C%83%E6%80%A7%E8%A7%84%E5%88%99" tabindex="-1">规范性规则</h2>
+<h3 id="1.-%E5%8D%95%E4%B8%80%E4%BA%8B%E5%AE%9E%E6%9D%A5%E6%BA%90%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F" tabindex="-1">1. 单一事实来源与作用域</h3>
+<ol>
+<li>公开 API 文档必须以 JSDoc 的形式写在 <code>packages/*/src</code> 中，且紧邻导出声明。</li>
+<li><code>packages/*/{classes,functions,interfaces,type-aliases,variables}</code> 下的生成 Markdown 必须被视为派生产物，禁止手工编辑。</li>
+<li>只要某个导出 class、function、hook、React component、interface、type alias 或 public variable 是面向 package 用户直接消费的，就应有对应的 JSDoc block。</li>
+<li>Re-export 可以复用原 symbol 的 JSDoc，但若 package 对用户可见，其 entrypoint 仍应提供 package 或 module overview。</li>
+<li>每个声明必须只有一个规范性的 JSDoc block，不允许为同一声明写重复的前置注释。</li>
+</ol>
+<h3 id="2.-%E8%AF%AD%E8%A8%80%E4%B8%8E%E6%96%87%E6%A1%88" tabindex="-1">2. 语言与文案</h3>
+<ol>
+<li>公开 JSDoc 必须使用英文书写，这样生成的 API Markdown 才能保持单一主语言。</li>
+<li>第一段首句必须概括说明该 symbol 是什么或做什么。</li>
+<li>额外段落应解释行为、约束、生命周期或重要 caveats，而不是简单重复 TypeScript 签名。</li>
+<li>文案必须描述可观察行为与契约，不应重复容易漂移的实现细节。</li>
+<li>当某个 doc block 被更新时，即使周围仍然存在旧风格注释，也应把该 block 规范化到本规范。</li>
+</ol>
+<h3 id="3.-symbol-%E7%BA%A7%E5%86%85%E5%AE%B9" tabindex="-1">3. Symbol 级内容</h3>
+<ol>
+<li>对 functions、hooks 和 methods，当输入、返回值、side effects 或 failure cases 不能仅从类型签名中一眼看出时，应明确记录。</li>
+<li>对 classes 和 React components，若它们属于公开 surface，应提供顶层 overview，并在需要时说明构造方式或 props 用法。</li>
+<li>对 interfaces 和对象形态的 type aliases，应描述其用途，并通过成员 JSDoc 或 <code>@property</code> 记录重要字段。</li>
+<li>对 conditional、inferred、template-literal 等不直观的类型，应说明其映射规则；如果能提升理解，应附示例。</li>
+<li>对面向直接消费的 package，<code>src/index.ts</code> 中的 package-level module comments 应包含安装与使用说明。</li>
+</ol>
+<h3 id="4.-%E6%A0%87%E7%AD%BE%E7%BA%A6%E5%AE%9A" tabindex="-1">4. 标签约定</h3>
+<ol>
+<li>在 TypeScript 源码中，<code>@param</code> 应采用 <code>{Type} name - description</code> 风格。</li>
+<li>当 summary 不能清楚说明返回值、Promise 载荷或空返回时，应使用 <code>@returns</code>。</li>
+<li>对用法不直观的公开 API，尤其是 classes、hooks、factories、configuration objects 和高级类型，应提供 <code>@example</code>。</li>
+<li>对调用方预期需要处理的用户可观察异常或校验错误，必须使用 <code>@throws</code> 记录。</li>
+<li>对有重要运行时默认值的 options 或 props，应使用 <code>@default</code>。</li>
+<li>对对象形态的 options、response props 或 props bags，当行内成员注释不够时，应使用 <code>@property</code>。</li>
+<li>当 <code>@template</code>、<code>@see</code>、<code>@augments</code> 和 <code>@deprecated</code> 能表达 TypeScript 语法本身无法表达的信息时，可以使用。</li>
+<li>关联其他 FaasJS API symbols 时，应优先使用 <code>{@link Symbol}</code>；外部文档和 URL 可以使用标准 Markdown links。</li>
+<li>当同一个 JSDoc block 中存在多个 block tags 时，应遵循这个顺序：<code>@template</code>、<code>@param</code>、<code>@returns</code>、<code>@throws</code>、<code>@default</code>、<code>@property</code>、<code>@see</code>、<code>@augments</code>、<code>@deprecated</code>、<code>@example</code>。被正常修改过的公开文档应逐步向这个顺序靠拢。</li>
+<li>各 tag 的描述必须与真实运行时行为、默认值和错误语义保持一致。</li>
+</ol>
+<h3 id="5.-%E7%A4%BA%E4%BE%8B%E4%B8%8E%E5%BC%95%E7%94%A8" tabindex="-1">5. 示例与引用</h3>
+<ol>
+<li>示例必须使用带有合适 info string 的 fenced code block，例如 <code>ts</code>、<code>tsx</code>、<code>sh</code> 或 <code>json</code>。</li>
+<li>示例应尽量最小化、理论上可运行，并且一次只聚焦一个行为。</li>
+<li>示例应从 package 的公开入口导入，除非某个 deep import 被明确视作公开 API。</li>
+<li>交叉引用应指向最接近的相关 symbol 或外部参考，而不是在多个地方重复长篇说明。</li>
+<li>当有助于提升可扫描性时，package 与 class overview 可以使用简短的 Markdown heading 与 bullet list。</li>
+</ol>
+<h3 id="6.-%E7%94%9F%E6%88%90%E4%B8%8E%E7%BB%B4%E6%8A%A4" tabindex="-1">6. 生成与维护</h3>
+<ol>
+<li>当导出的 API 结构或公开 JSDoc 发生变化时，贡献者必须运行 <code>vp run doc</code>；若本地没有 <code>vp</code>，则运行 <code>npx vp run doc</code> 重新生成 API Markdown。</li>
+<li>应检查生成结果，确认标题、参数描述、示例与 links 都能正确渲染。</li>
+<li>旧注释即便暂时仍保留旧 tag 顺序、混合语言或重复类型信息，但只要文档被修改过，就应朝着本规范靠拢。</li>
+<li>本规范只约束源码注释与生成 API Markdown。docs site 页面与其他叙述性文档可以采用不同结构。</li>
+</ol>
+<h2 id="%E7%A4%BA%E4%BE%8B" tabindex="-1">示例</h2>
+<pre><code class="hljs language-ts"><span class="hljs-comment">/**
+ * Load a package and resolve its preferred default export.
+ *
+ * <span class="hljs-doctag">@template</span> <span class="hljs-variable">T</span> - The expected module shape.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - The package name to load.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | string[]</span>} <span class="hljs-variable">defaultNames</span> - Preferred export keys used to resolve default values.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">LoadPackageOptions</span>} <span class="hljs-variable">options</span> - Optional runtime loader options.
+ * <span class="hljs-doctag">@returns</span> Loaded module or resolved default export.
+ * <span class="hljs-doctag">@throws</span> {<span class="hljs-type">Error</span>} When runtime cannot be determined.
+ * <span class="hljs-doctag">@example</span>
+ * ```ts
+ * const handler = await loadPackage(&#x27;pkg&#x27;, [&#x27;default&#x27;, &#x27;handler&#x27;])
+ * ```
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> loadPackage&lt;T = <span class="hljs-built_in">unknown</span>&gt;(
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>,
+  <span class="hljs-attr">defaultNames</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[] = <span class="hljs-string">&#x27;default&#x27;</span>,
+  <span class="hljs-attr">options</span>: <span class="hljs-title class_">LoadPackageOptions</span> = {},
+): <span class="hljs-title class_">Promise</span>&lt;T&gt; {
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-comment">/**
+ * Configuration options for a request.
+ *
+ * <span class="hljs-doctag">@property</span> {<span class="hljs-type">Record&lt;string, string&gt;</span>} [headers] - Extra request headers.
+ * <span class="hljs-doctag">@property</span> {<span class="hljs-type">boolean</span>} [stream] - When true, return the native fetch response.
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Options</span> = <span class="hljs-title class_">RequestInit</span> &amp; {
+  <span class="hljs-comment">/** <span class="hljs-doctag">@default</span> false */</span>
+  <span class="hljs-attr">stream</span>?: <span class="hljs-built_in">boolean</span>
+}
+</code></pre>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

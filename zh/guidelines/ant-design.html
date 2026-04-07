@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Ant Design 指南 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/ant-design.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/ant-design.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/ant-design.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/ant-design.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="ant-design-%E6%8C%87%E5%8D%97" tabindex="-1">Ant Design 指南</h1>
+<p>当你在开发或评审基于 <code>@faasjs/ant-design</code> 的前端功能时，请使用这份指南。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>在 <code>pages/</code> 下创建新页面或 feature</li>
+<li>使用 <code>Routes</code> 与 <code>lazy</code> 配置路由</li>
+<li>构建列表、详情、新建、更新或删除流程</li>
+<li>决定一个 feature 的前端文件该如何拆分</li>
+<li>判断请求应该使用 <code>faas</code>、<code>faasData</code> 还是自定义 hook</li>
+<li>实现消息提示、通知、确认弹窗或抽屉工作流</li>
+</ul>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>先遵循 <a href="/zh/guidelines/file-conventions.html">文件约定</a> 指南，把功能放到 <code>pages/&lt;feature-name&gt;/</code> 下。</li>
+<li>在前端根部附近只使用一次 <code>App</code>，并用 <code>Routes</code> + <code>lazy</code> 挂载各个 feature 页面。</li>
+<li>让 feature 页面聚焦于组合，把具体 UI 片段下沉到 <code>components/</code>。</li>
+<li>把 feature 内部请求文件放在 <code>api/</code> 下，并保持路由路径与文件路径对齐。</li>
+<li>把业务字段建模为 <code>items</code> metadata，并在 <code>Form</code>、<code>Description</code> 与 <code>Table</code> 中复用。</li>
+<li>对标准 CRUD 流程，列表从 <code>Table</code> 开始，详情从 <code>Description</code> 开始，新建 / 编辑从 <code>Form</code> 开始。</li>
+<li>对交互反馈，优先通过 <code>useApp()</code> 使用 <code>message</code>、<code>notification</code>、<code>setModalProps</code> 和 <code>setDrawerProps</code>。</li>
+</ol>
+<h2 id="%E6%8E%A8%E8%8D%90%E7%9A%84%E5%8A%9F%E8%83%BD%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84" tabindex="-1">推荐的功能目录结构</h2>
+<p>对于 users 这类典型 CRUD 功能，推荐采用如下结构：</p>
+<pre><code class="hljs language-text">src/pages/
+  index.tsx
+  users/
+    index.tsx
+    components/
+      UserDescription.tsx
+      UserForm.tsx
+      UserTable.tsx
+    hooks/
+      useUserItems.ts
+    api/
+      create.func.ts
+      detail.func.ts
+      list.func.ts
+      remove.func.ts
+      update.func.ts
+</code></pre>
+<p>这样可以把：</p>
+<ul>
+<li>路由放在 <code>pages/</code></li>
+<li>feature UI 放在 <code>components/</code></li>
+<li>feature 内可复用逻辑放在 <code>hooks/</code></li>
+<li>后端处理器放在 <code>api/</code></li>
+</ul>
+<p>对应的 action paths 会直接映射为：</p>
+<ul>
+<li><code>/pages/users/api/list</code></li>
+<li><code>/pages/users/api/detail</code></li>
+<li><code>/pages/users/api/create</code></li>
+<li><code>/pages/users/api/update</code></li>
+<li><code>/pages/users/api/remove</code></li>
+</ul>
+<h2 id="%E9%A1%B9%E7%9B%AE%E6%A8%A1%E5%BC%8F" tabindex="-1">项目模式</h2>
+<p>根路由应尽量保持简单，让每个 feature 自己 lazy-load 对应的页面入口：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Pages</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>
+      <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
+        {
+          <span class="hljs-attr">path:</span> &#x27;<span class="hljs-attr">users</span>&#x27;,
+          <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./users&#x27;)),
+        },
+      ]}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<p>Feature 入口文件应主要负责组合现有组件，并通过 <code>useApp</code> 触发共享应用交互：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+<span class="hljs-keyword">import</span> { useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserForm</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/UserForm&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserTable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/UserTable&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UsersPage</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { setDrawerProps } = <span class="hljs-title function_">useApp</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Space</span> <span class="hljs-attr">direction</span>=<span class="hljs-string">&quot;vertical&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">width:</span> &#x27;<span class="hljs-attr">100</span>%&#x27; }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+          setDrawerProps({
+            open: true,
+            title: &#x27;Create User&#x27;,
+            width: 720,
+            children: <span class="hljs-tag">&lt;<span class="hljs-name">UserForm</span> /&gt;</span>,
+          })
+        }
+      &gt;
+        Create User
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+
+      <span class="hljs-tag">&lt;<span class="hljs-name">UserTable</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Space</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h2 id="%E5%85%B8%E5%9E%8B-crud-%E6%B5%81%E7%A8%8B" tabindex="-1">典型 CRUD 流程</h2>
+<h3 id="1.-%E5%88%97%E8%A1%A8%E3%80%81%E8%AF%A6%E6%83%85%E3%80%81%E7%BC%96%E8%BE%91%E3%80%81%E5%88%A0%E9%99%A4" tabindex="-1">1. 列表、详情、编辑、删除</h3>
+<p>对大多数 CRUD 页面：</p>
+<ul>
+<li>列表页使用 <code>Table</code></li>
+<li>详情面板使用 <code>Description</code></li>
+<li>新建 / 编辑流程使用 <code>Form</code></li>
+<li>详情与编辑面板优先通过 <code>setDrawerProps</code> 在上下文中打开</li>
+<li>删除确认优先通过 <code>setModalProps</code> 实现</li>
+<li>反馈优先使用 <code>useApp</code> 提供的 <code>message</code> 与 <code>notification</code></li>
+<li>在列表、详情和表单之间复用同一份 <code>items</code> 定义</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+<span class="hljs-keyword">import</span> { faas, <span class="hljs-title class_">Table</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserDescription</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./UserDescription&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserForm</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./UserForm&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserTable</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { message, setDrawerProps, setModalProps } = <span class="hljs-title function_">useApp</span>()
+  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span>
+      <span class="hljs-attr">rowKey</span>=<span class="hljs-string">&quot;id&quot;</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        <span class="hljs-attr">...items</span>,
+        {
+          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">actions</span>&#x27;,
+          <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Actions</span>&#x27;,
+          <span class="hljs-attr">tableRender:</span> (<span class="hljs-attr">_</span>, <span class="hljs-attr">row</span>) =&gt;</span> (
+            <span class="hljs-tag">&lt;<span class="hljs-name">Space</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
+                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+                  setDrawerProps({
+                    open: true,
+                    title: `User #${row.id}`,
+                    width: 720,
+                    children: <span class="hljs-tag">&lt;<span class="hljs-name">UserDescription</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{row.id}</span> /&gt;</span>,
+                  })
+                }
+              &gt;
+                Detail
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
+                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+                  setDrawerProps({
+                    open: true,
+                    title: `Edit User #${row.id}`,
+                    width: 720,
+                    children: <span class="hljs-tag">&lt;<span class="hljs-name">UserForm</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{row.id}</span> <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{row}</span> /&gt;</span>,
+                  })
+                }
+              &gt;
+                Edit
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+                <span class="hljs-attr">danger</span>
+                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
+                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+                  setModalProps({
+                    open: true,
+                    title: &#x27;Delete User&#x27;,
+                    children: &#x27;This action cannot be undone.&#x27;,
+                    onOk: async () =&gt; {
+                      await faas(&#x27;/pages/users/api/remove&#x27;, { id: row.id })
+                      message.success(&#x27;User deleted&#x27;)
+                      setModalProps({ open: false })
+                    },
+                  })
+                }
+              &gt;
+                Delete
+              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">Space</span>&gt;</span>
+          ),
+        },
+      ]}
+      faasData={{
+        action: &#x27;/pages/users/api/list&#x27;,
+      }}
+      pagination={{
+        pageSize: 20,
+      }}
+      onRow={(record) =&gt; ({
+        onDoubleClick: () =&gt;
+          setDrawerProps({
+            open: true,
+            title: `User #${record.id}`,
+            width: 720,
+            children: <span class="hljs-tag">&lt;<span class="hljs-name">UserDescription</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{record.id}</span> /&gt;</span>,
+          }),
+      })}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<h3 id="2.-%E8%AF%A6%E6%83%85" tabindex="-1">2. 详情</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserDescription</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
+      <span class="hljs-attr">column</span>=<span class="hljs-string">{1}</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
+      <span class="hljs-attr">faasData</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">action:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">detail</span>&#x27;,
+        <span class="hljs-attr">params:</span> {
+          <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span>,
+        },
+      }}
+    /&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="3.-%E6%96%B0%E5%BB%BA%E6%88%96%E6%9B%B4%E6%96%B0" tabindex="-1">3. 新建或更新</h3>
+<ul>
+<li>当提交流程只是一次直接 action 调用时，优先使用 <code>Form.faas</code>。</li>
+<li>编辑数据应在表单外部加载，再通过 <code>initialValues</code> 传入。</li>
+<li>成功与失败反馈交给 <code>useApp</code> 统一处理。</li>
+</ul>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id?: <span class="hljs-built_in">number</span>; initialValues?: Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }</span>) {
+  <span class="hljs-keyword">const</span> { message, notification, setDrawerProps } = <span class="hljs-title function_">useApp</span>()
+  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
+      <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{props.initialValues}</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
+      <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({
+          ...values,
+          ...(props.id ? { id: props.id } : {}),
+        }),
+        onSuccess: () =&gt; {
+          message.success(props.id ? &#x27;User updated&#x27; : &#x27;User created&#x27;)
+          setDrawerProps({ open: false })
+        },
+        onError: (error) =&gt; {
+          notification.error({
+            message: props.id ? &#x27;Update failed&#x27; : &#x27;Create failed&#x27;,
+            description: error?.message || &#x27;Unknown error&#x27;,
+          })
+        },
+      }}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<h3 id="4.-%E5%88%A0%E9%99%A4%E6%88%96%E5%8D%B1%E9%99%A9%E6%93%8D%E4%BD%9C" tabindex="-1">4. 删除或危险操作</h3>
+<ul>
+<li>在普通业务页面中，优先使用 <code>useApp().setModalProps(...)</code>，而不是零散的本地 modal 实例。</li>
+<li>短小成功反馈使用 <code>message</code>，更完整的失败反馈使用 <code>notification</code>。</li>
+</ul>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+<span class="hljs-keyword">import</span> { faas, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">RemoveButton</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> { message, notification, setModalProps } = <span class="hljs-title function_">useApp</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+      <span class="hljs-attr">danger</span>
+      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
+        setModalProps({
+          open: true,
+          title: &#x27;Delete User&#x27;,
+          children: &#x27;Please confirm the deletion.&#x27;,
+          onOk: async () =&gt; {
+            try {
+              await faas(&#x27;/pages/users/api/remove&#x27;, { id: props.id })
+              message.success(&#x27;User deleted&#x27;)
+              setModalProps({ open: false })
+            } catch (error: any) {
+              notification.error({
+                message: &#x27;Delete failed&#x27;,
+                description: error?.message || &#x27;Unknown error&#x27;,
+              })
+            }
+          },
+        })
+      }
+    &gt;
+      Delete
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h2 id="%E6%8E%A8%E8%8D%90%E7%BB%84%E4%BB%B6" tabindex="-1">推荐组件</h2>
+<h3 id="title" tabindex="-1"><code>Title</code></h3>
+<p>当页面既需要设置标题副作用，又可能需要一个可见 heading 时，优先使用它，而不是手写 <code>document.title</code>。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Title</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UsersPage</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{[</span>&#x27;<span class="hljs-attr">Users</span>&#x27;, &#x27;<span class="hljs-attr">List</span>&#x27;]} <span class="hljs-attr">h1</span> /&gt;</span></span>
+}
+</code></pre>
+<h3 id="tabs" tabindex="-1"><code>Tabs</code></h3>
+<p>当你希望用更简洁的 <code>id</code> 驱动 tabs 定义相关子视图（如 profile、permissions、logs）时，优先使用它，而不是直接使用原始 Ant Design <code>Tabs</code>。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Tabs</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserTabs</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Tabs</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
+        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">profile</span>&#x27;, <span class="hljs-attr">children:</span> &lt;<span class="hljs-attr">div</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> },
+        { id: &#x27;logs&#x27;, children: <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Logs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> },
+      ]}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<h3 id="link" tabindex="-1"><code>Link</code></h3>
+<p>内部跳转、外链以及 button-style 跳转时，优先使用它，而不是原始 anchor、手动 <code>navigate</code> 或按钮 + router 胶水代码。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Link</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Actions</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/users/create&quot;</span> <span class="hljs-attr">button</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">primary</span>&#x27; }}&gt;</span>
+      Create User
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="blank" tabindex="-1"><code>Blank</code></h3>
+<p>当一个字段可能为空，且需要一致的占位展示时，优先使用它，而不是到处散落 <code>'-'</code>、<code>'N/A'</code> 或空 fragment。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserEmail</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { email?: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span> }</span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{props.email}</span> /&gt;</span></span>
+}
+</code></pre>
+<h3 id="loading" tabindex="-1"><code>Loading</code></h3>
+<p>轻量本地 loading 状态时，优先使用它，而不是手工摆 <code>Spin</code>；也可以让 <code>FaasDataWrapper</code> 把它作为默认 fallback。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Loading</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanel</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { loading: <span class="hljs-built_in">boolean</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">loading</span>=<span class="hljs-string">{props.loading}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loaded<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">Loading</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="configprovider" tabindex="-1"><code>ConfigProvider</code></h3>
+<p>当你需要为某个子树覆盖 FaasJS Ant Design 文案、主题默认值或 client 行为时，优先使用它，而不是把配置散落到叶子组件里。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span>, <span class="hljs-title class_">ConfigProvider</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">EmptyState</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">data</span>&#x27; } }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="errorboundary" tabindex="-1"><code>ErrorBoundary</code></h3>
+<p>对不稳定或隔离区域，优先包一层它，让渲染错误变成用户可见的提示，而不是把整页打挂。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorBoundary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ErrorBoundary</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">DangerousWidget</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ErrorBoundary</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="faasdatawrapper-%E6%88%96-withfaasdata" tabindex="-1"><code>FaasDataWrapper</code> 或 <code>withFaasData</code></h3>
+<p>当组件需要直接获取数据，但又不适合 <code>Table</code> 或 <code>Description</code>，例如 summary cards、dashboard widgets 或小型异步组件时，优先考虑它们。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSummary</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
+      {({ data }) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="usethemetoken" tabindex="-1"><code>useThemeToken</code></h3>
+<p>当自定义组件需要读取 Ant Design theme tokens（如 spacing、colors、radius）时，优先使用它，而不是硬编码设计值。如果你确实需要手工写一个 <code>div</code> 结构的自定义块，也应通过这个 hook 让它与应用其余部分保持一致。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useThemeToken } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Section</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { colorPrimary, borderRadius } = <span class="hljs-title function_">useThemeToken</span>()
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">border:</span> `<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> ${<span class="hljs-attr">colorPrimary</span>}`, <span class="hljs-attr">borderRadius</span> }} /&gt;</span></span>
+}
+</code></pre>
+<h3 id="usemodal-%E4%B8%8E-usedrawer" tabindex="-1"><code>useModal</code> 与 <code>useDrawer</code></h3>
+<p>只有当你明确需要在共享 <code>App</code> shell 之外创建本地隔离的 modal / drawer 实例时，才使用它们。在普通 feature 页面中，仍然优先使用 <code>useApp().setModalProps(...)</code> 与 <code>useApp().setDrawerProps(...)</code>。</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+<span class="hljs-keyword">import</span> { useDrawer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">LocalPreview</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { drawer, setDrawerProps } = <span class="hljs-title function_">useDrawer</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setDrawerProps({ open: true, title: &#x27;Preview&#x27;, children: <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Body<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> })}
+      &gt;
+        Open
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
+      {drawer}
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
+}
+</code></pre>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E6%9E%84%E5%BB%BA-ant-design-feature-%E6%97%B6%E5%85%88%E9%81%B5%E5%BE%AA%E6%96%87%E4%BB%B6%E7%BA%A6%E5%AE%9A" tabindex="-1">1. 构建 Ant Design feature 时先遵循文件约定</h3>
+<ul>
+<li>前端页面放在 <code>pages/</code> 下。</li>
+<li>页面入口文件使用 <code>index.tsx</code>。</li>
+<li>页面入口应聚焦于组合。</li>
+<li>feature 组件放在 <code>components/</code>，hooks 放在 <code>hooks/</code>，请求处理器放在 <code>api/</code>。</li>
+<li>所有文件都应作用域化在这个 feature 内，而不是在全局层面扁平展开。</li>
+</ul>
+<h3 id="2.-%E6%8A%8A-app-%E4%BD%9C%E4%B8%BA%E5%94%AF%E4%B8%80%E5%BA%94%E7%94%A8%E5%A3%B3%E5%B1%82%E4%BD%BF%E7%94%A8%E4%B8%80%E6%AC%A1" tabindex="-1">2. 把 <code>App</code> 作为唯一应用壳层使用一次</h3>
+<ul>
+<li>优先使用一个根级 <code>App</code> wrapper，而不是为每个页面分别包一层。</li>
+<li><code>App</code> 是共享 message、notification、modal 与 drawer 行为的默认承载点。</li>
+<li><code>App</code> 也负责接通 FaasJS 错误处理与可选的浏览器路由。</li>
+<li>只有当你明确需要更小边界时，才单独使用 <code>ConfigProvider</code>。</li>
+</ul>
+<h3 id="3.-%E6%8A%8A-items-metadata-%E5%BD%93%E4%BD%9C%E5%8D%95%E4%B8%80%E4%BA%8B%E5%AE%9E%E6%9D%A5%E6%BA%90" tabindex="-1">3. 把 <code>items</code> metadata 当作单一事实来源</h3>
+<ul>
+<li>从 <code>id</code>、<code>type</code>、<code>title</code>、<code>options</code> 与嵌套 <code>object</code> 定义开始建模。</li>
+<li>只要字段语义相同，就在 <code>Form</code>、<code>Description</code> 与 <code>Table</code> 之间复用同一份 metadata。</li>
+<li>让内建的 normalization logic 处理 labels、options 与 value conversion。</li>
+<li>除非领域语义真的不同，否则不要把同一个字段复制成三套列表 / 详情 / 表单配置对象。</li>
+</ul>
+<h3 id="4.-%E5%B8%B8%E8%A7%81-crud-%E9%9D%A2%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E5%86%85%E5%BB%BA%E7%BB%84%E4%BB%B6" tabindex="-1">4. 常见 CRUD 面优先使用内建组件</h3>
+<ul>
+<li>列表页先从 <code>Table</code> 开始。</li>
+<li>详情页先从 <code>Description</code> 开始。</li>
+<li>新建 / 编辑页先从 <code>Form</code> 开始。</li>
+<li>同时，优先使用 <code>Title</code>、<code>Tabs</code>、<code>Link</code>、<code>Blank</code>、<code>Loading</code>、<code>ErrorBoundary</code> 和 <code>FaasDataWrapper</code> 这类 FaasJS 封装组件，而不是直接下沉到原始 Ant Design primitives 或手写胶水代码。</li>
+<li>如果已有组件已经适配场景，就不要手工用零散 <code>div</code> 堆布局或状态展示。</li>
+<li>只有在现有组件明显不适配功能需求时，才编写更底层的自定义 UI。</li>
+</ul>
+<h3 id="4.1.-%E5%A6%82%E6%9E%9C%E5%BF%85%E9%A1%BB%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B8%83%E5%B1%80%EF%BC%8C%E5%B0%B1%E4%BD%BF%E7%94%A8-usethemetoken" tabindex="-1">4.1. 如果必须自定义布局，就使用 <code>useThemeToken</code></h3>
+<ul>
+<li>当你确实需要手写一个 <code>div</code> 结构的 block 时，应通过 <code>useThemeToken()</code> 读取 spacing、colors、radius 等设计值。</li>
+<li>除非有非常强的理由，否则不要硬编码 border color、radius 或 spacing 这类视觉 token。</li>
+<li>这样能让自定义 UI 仍然与 Ant Design 及周边 FaasJS 组件保持一致。</li>
+</ul>
+<p>优先这样写：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useThemeToken } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SummaryCard</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { children: React.ReactNode }</span>) {
+  <span class="hljs-keyword">const</span> { colorBorder, borderRadiusLG, padding } = <span class="hljs-title function_">useThemeToken</span>()
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">padding</span>,
+        <span class="hljs-attr">border:</span> `<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> ${<span class="hljs-attr">colorBorder</span>}`,
+        <span class="hljs-attr">borderRadius:</span> <span class="hljs-attr">borderRadiusLG</span>,
+      }}
+    &gt;</span>
+      {props.children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<p>避免这样写：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SummaryCard</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { children: React.ReactNode }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">padding:</span> <span class="hljs-attr">12</span>,
+        <span class="hljs-attr">border:</span> &#x27;<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> #<span class="hljs-attr">d9d9d9</span>&#x27;,
+        <span class="hljs-attr">borderRadius:</span> <span class="hljs-attr">8</span>,
+      }}
+    &gt;</span>
+      {props.children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="5.-%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8-faas-%E4%B8%8E-faasdata" tabindex="-1">5. 简单请求生命周期优先使用 <code>faas</code> 与 <code>faasData</code></h3>
+<ul>
+<li>当提交流程只是一次直接 action 调用时，优先使用 <code>Form.faas</code>。</li>
+<li>当组件能够自己持有请求生命周期时，优先使用 <code>Description.faasData</code> 和 <code>Table.faasData</code>。</li>
+<li>对于简单场景，优先使用这些内建请求 props，而不是自己写 loading state 和基于 effect 的请求胶水逻辑。</li>
+<li>如果多个界面需要共享 reload 或编排逻辑，可以抽 feature hook，但叶子组件合同应保持简单。</li>
+</ul>
+<h3 id="6.-%E4%BA%A4%E4%BA%92%E5%8F%8D%E9%A6%88%E4%B8%8E%E9%81%AE%E7%BD%A9%E5%B1%82%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8-useapp" tabindex="-1">6. 交互反馈与遮罩层优先使用 <code>useApp</code></h3>
+<ul>
+<li>在被 <code>App</code> 包裹的子树中，使用 <code>useApp()</code> 获取 <code>message</code>、<code>notification</code>、<code>setModalProps</code> 和 <code>setDrawerProps</code>。</li>
+<li>轻量成功 / 警告反馈使用 <code>message</code>。</li>
+<li>需要标题、描述或更长停留时间的反馈使用 <code>notification</code>。</li>
+<li>确认类流程与短暂阻断流程使用 <code>setModalProps</code>。</li>
+<li>新建、编辑或详情面板需要保留页面上下文时，使用 <code>setDrawerProps</code>。</li>
+<li>只有当你明确需要在共享应用壳外创建隔离实例时，才使用本地 <code>useModal</code> 或 <code>useDrawer</code>。</li>
+</ul>
+<h3 id="7.-%E5%9C%A8%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%AD%E5%AE%8C%E6%88%90%E7%9A%84%E6%96%B0%E5%BB%BA-%2F-%E7%BC%96%E8%BE%91%E6%B5%81%E7%A8%8B%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8-drawer" tabindex="-1">7. 在上下文中完成的新建 / 编辑流程优先使用 drawer</h3>
+<ul>
+<li>当用户需要持续看到列表上下文时，应通过 <code>useApp</code> 在共享 drawer 中打开表单。</li>
+<li>当流程具有破坏性，或需要显式确认时，使用 modal。</li>
+<li>只有当该流程值得拥有独立 URL、导航状态或更大的独立布局时，才使用独立 route page。</li>
+</ul>
+<h3 id="8.-%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E6%AE%B5%E8%A1%8C%E4%B8%BA%E5%BA%94%E6%8F%90%E5%8D%87%E5%88%B0-extendtypes" tabindex="-1">8. 重复出现的自定义字段行为应提升到 <code>extendTypes</code></h3>
+<ul>
+<li>当某个自定义字段类型出现不止一次，或已经属于项目领域模型的一部分时，使用 <code>extendTypes</code>。</li>
+<li>一次性定制保留在单个 item 上即可。</li>
+<li>当你引入项目特有 type names 时，优先为 <code>Form</code>、<code>Table</code> 或 <code>Description</code> 建立带类型的封装。</li>
+<li>不要把同样的自定义 renderer 复制到很多 item definitions 中。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">ExtendFormItemProps</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FormProps</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Input</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserFormItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ExtendFormItemProps</span> {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;password&#x27;</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">FormProps</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">UserFormItem</span>&gt;</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
+      {<span class="hljs-attr">...props</span>}
+      <span class="hljs-attr">extendTypes</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">password:</span> {
+          <span class="hljs-attr">children:</span> &lt;<span class="hljs-attr">Input.Password</span> /&gt;</span>,
+        },
+      }}
+    /&gt;</span>
+  )
+}
+</code></pre>
+<h3 id="9.-%E5%8F%AA%E6%9C%89%E5%BD%93%E8%A7%86%E5%9B%BE%E5%B7%AE%E5%BC%82%E7%9C%9F%E5%AE%9E%E5%AD%98%E5%9C%A8%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-surface-specific-overrides" tabindex="-1">9. 只有当视图差异真实存在时才使用 surface-specific overrides</h3>
+<ul>
+<li><code>children</code> 与 <code>render</code> 是通用 override。</li>
+<li><code>formChildren</code> 与 <code>formRender</code> 是 form-only override。</li>
+<li><code>descriptionChildren</code> 与 <code>descriptionRender</code> 是 description-only override。</li>
+<li><code>tableChildren</code> 与 <code>tableRender</code> 是 table-only override。</li>
+<li>在展示方式没有真正分叉前，应优先维持共享 metadata。</li>
+<li>不要仅仅为了改渲染，就把一个字段拆成 <code>statusForForm</code>、<code>statusForTable</code>、<code>statusForDescription</code> 这类假的 ids。</li>
+</ul>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li>该 feature 遵循了 <code>pages/</code>、<code>components/</code>、<code>hooks/</code>、<code>api/</code> 结构</li>
+<li>路由通过 <code>Routes</code> 与 <code>lazy</code> 接线</li>
+<li>API 文件与 routing-mapping 保持对齐</li>
+<li>页面入口主要在组合 feature 组件，而不是把全部逻辑内联进去</li>
+<li>字段定义通过共享 <code>items</code> metadata 建模</li>
+<li>简单请求流使用的是 <code>faas</code> 与 <code>faasData</code></li>
+<li>CRUD 页面主要使用 <code>Table</code>、<code>Description</code> 与 <code>Form</code></li>
+<li>在适配场景时，优先使用 FaasJS 封装组件，而不是直接下沉到原始 Ant Design primitives</li>
+<li>除非现有组件不适配，否则不会随意手写基于 <code>div</code> 的自定义 UI</li>
+<li>当必须自定义布局时，通过 <code>useThemeToken</code> 读取视觉值，而不是硬编码</li>
+<li>交互反馈通过 <code>useApp</code> 统一处理，而不是零散本地 message / modal</li>
+<li>在需要保留页面上下文时，新建 / 编辑覆盖层使用 <code>setDrawerProps</code></li>
+<li>确认类流程使用 <code>setModalProps</code></li>
+<li>重复自定义字段行为被抽到了 <code>extendTypes</code></li>
+<li>只有渲染确实不同，才使用 surface-specific overrides</li>
+</ul>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/zh/guidelines/file-conventions.html">文件约定</a></li>
+<li><a href="/zh/guidelines/define-api.html">defineApi 指南</a></li>
+<li><a href="/zh/guidelines/react-data-fetching.html">React 数据请求指南</a></li>
+<li><a href="/doc/ant-design/">@faasjs/ant-design</a></li>
+<li><a href="/doc/ant-design/functions/App.html">App</a></li>
+<li><a href="/doc/ant-design/functions/Routes.html">Routes</a></li>
+<li><a href="/doc/ant-design/functions/Form.html">Form</a></li>
+<li><a href="/doc/ant-design/functions/Description.html">Description</a></li>
+<li><a href="/doc/ant-design/functions/Table.html">Table</a></li>
+<li><a href="/doc/ant-design/functions/useApp.html">useApp</a></li>
+<li><a href="/doc/ant-design/functions/useModal.html">useModal</a></li>
+<li><a href="/doc/ant-design/functions/useDrawer.html">useDrawer</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

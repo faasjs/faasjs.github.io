@@ -93,6 +93,9 @@
 <li>Edit skill definitions and supporting guides under <code>skills/**</code></li>
 <li><code>skills/faasjs-best-practices/**</code> is end-user guidance for building with FaasJS, not an internal guide for developing the FaasJS framework itself</li>
 <li>When framework behavior, public APIs, file conventions, or recommended usage changes, update the matching <code>skills/faasjs-best-practices/**</code> content in the same change or verify it is still accurate so code and guidance do not drift apart</li>
+<li><code>docs/guidelines/**</code> and <code>docs/specs/**</code> publish the English best-practices guides/specs from <code>skills/faasjs-best-practices/**</code></li>
+<li><code>docs/zh/guidelines/**</code> and <code>docs/zh/specs/**</code> publish the Chinese docs for the same best-practices content</li>
+<li>When updating <code>skills/faasjs-best-practices/**</code>, keep the matching <code>docs/guidelines/**</code>, <code>docs/specs/**</code>, <code>docs/zh/guidelines/**</code>, and <code>docs/zh/specs/**</code> pages in sync in the same change, or explicitly verify they still match</li>
 <li>Edit framework specifications under <code>skills/*/references/specs/**</code></li>
 <li>Edit Docker image definitions and related docs/configs under <code>images/**</code></li>
 <li>Do not hand-edit <code>dist/**</code>; those directories are generated artifacts</li>
@@ -138,6 +141,8 @@ vp run ci
 <ul>
 <li><code>vp run doc</code> runs <a href="/build-docs.ts"><code>build-docs.ts</code></a> and refreshes the tracked API Markdown under each package</li>
 <li>The docs site build lives in <a href="/docs/package.json"><code>docs/package.json</code></a></li>
+<li><code>docs/guide/README.md</code>, <code>docs/guidelines/**</code>, <code>docs/specs/**</code>, <code>docs/zh/guide/README.md</code>, <code>docs/zh/guidelines/**</code>, and <code>docs/zh/specs/**</code> are tracked docs source files; <code>docs/dist/**</code> is generated output</li>
+<li>For the code-to-doc sync workflow, use the repo-local skill at <a href="/.agents/skills/faasjs-documentation-sync/SKILL.md"><code>.agents/skills/faasjs-documentation-sync/SKILL.md</code></a></li>
 <li>Root <code>.gitignore</code> ignores local artifacts such as <code>dist</code>, <code>coverage</code>, <code>tmp</code>, logs, and generated report files</li>
 </ul>
 <h2 id="collaboration-expectations" tabindex="-1">Collaboration Expectations</h2>

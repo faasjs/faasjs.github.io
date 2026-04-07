@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>React 数据请求指南 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/react-data-fetching.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/react-data-fetching.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/react-data-fetching.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/react-data-fetching.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="react-%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82%E6%8C%87%E5%8D%97" tabindex="-1">React 数据请求指南</h1>
+<p>当你在 React 组件中创建或评审 FaasJS 数据请求时，请使用这份指南。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>在 React 中请求常规 request-response 数据</li>
+<li>在 React 中请求 streaming 响应</li>
+<li>在 <code>useFaas</code>、<code>useFaasStream</code>、<code>faas</code>、<code>FaasDataWrapper</code> 和 <code>withFaasData</code> 之间做选择</li>
+<li>配置 <code>FaasReactClient</code></li>
+<li>处理请求的 loading、error 与 retry 状态</li>
+</ul>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>标准组件级请求使用 <code>useFaas</code>。</li>
+<li>流式文本或 chunked 输出使用 <code>useFaasStream</code>。</li>
+<li>事件处理器中的命令式请求使用 <code>faas</code>。</li>
+<li>只有在组合方式确实受益时，才使用 <code>FaasDataWrapper</code> 或 <code>withFaasData</code>。</li>
+<li>在应用初始化阶段统一配置一次 <code>FaasReactClient</code>。</li>
+<li>显式处理 loading、error 与 retry 状态。</li>
+</ol>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E6%A0%87%E5%87%86%E8%AF%B7%E6%B1%82%E4%BD%BF%E7%94%A8-usefaas" tabindex="-1">1. 标准请求使用 <code>useFaas</code></h3>
+<ul>
+<li>当组件需要 <code>loading</code>、<code>data</code>、<code>error</code> 与 <code>reload</code> 时，<code>useFaas</code> 是默认选择。</li>
+<li>让请求尽量靠近真正拥有或渲染这份数据的组件。</li>
+<li>在面向用户的代码里，始终显式处理 error 与 retry 状态。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { id })
+
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+
+  <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+        Refresh
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="2.-%E6%B5%81%E5%BC%8F%E5%93%8D%E5%BA%94%E4%BD%BF%E7%94%A8-usefaasstream" tabindex="-1">2. 流式响应使用 <code>useFaasStream</code></h3>
+<ul>
+<li>聊天、日志、增量文本输出或其他 streaming payload 场景使用 <code>useFaasStream</code>。</li>
+<li>要显式暴露 loading 与 error 状态。</li>
+<li>渲染逻辑应尽量保持简单，让 streaming 行为更容易推理。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaasStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Chat</span>(<span class="hljs-params">{ prompt }: { prompt: <span class="hljs-built_in">string</span> }</span>) {
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;/pages/chat/stream&#x27;</span>, { prompt })
+
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Streaming...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+
+  <span class="hljs-keyword">if</span> (error) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Stream failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span></span>
+}
+</code></pre>
+<h3 id="3.-%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%B7%E6%B1%82%E4%BD%BF%E7%94%A8-faas" tabindex="-1">3. 命令式请求使用 <code>faas</code></h3>
+<ul>
+<li>在事件处理器、提交处理器或其他命令式流程中使用 <code>faas</code>。</li>
+<li>在本地组件中自行管理 pending 与 failure 状态。</li>
+<li>不要只是为了发请求，就把一个事件驱动的提交流程硬改成 hook。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">FormEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+<span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+
+<span class="hljs-keyword">import</span> { faas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">const</span> [name, setName] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)
+  <span class="hljs-keyword">const</span> [saving, setSaving] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>)
+  <span class="hljs-keyword">const</span> [submitError, setSubmitError] = useState&lt;<span class="hljs-built_in">string</span>&gt;()
+
+  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">onSubmit</span>(<span class="hljs-params"><span class="hljs-attr">e</span>: <span class="hljs-title class_">FormEvent</span>&lt;<span class="hljs-title class_">HTMLFormElement</span>&gt;</span>) {
+    e.<span class="hljs-title function_">preventDefault</span>()
+
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-title function_">setSaving</span>(<span class="hljs-literal">true</span>)
+      <span class="hljs-title function_">setSubmitError</span>(<span class="hljs-literal">undefined</span>)
+
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/set&#x27;</span>, {
+        id,
+        name,
+      })
+    } <span class="hljs-keyword">catch</span> (<span class="hljs-attr">error</span>: <span class="hljs-built_in">any</span>) {
+      <span class="hljs-title function_">setSubmitError</span>(error.<span class="hljs-property">message</span> || <span class="hljs-string">&#x27;Save failed&#x27;</span>)
+    } <span class="hljs-keyword">finally</span> {
+      <span class="hljs-title function_">setSaving</span>(<span class="hljs-literal">false</span>)
+    }
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{onSubmit}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setName(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{saving}</span>&gt;</span>
+        {saving ? &#x27;Saving...&#x27; : &#x27;Save&#x27;}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      {submitError ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{submitError}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : null}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="4.-%E5%8F%AA%E6%9C%89-wrapper-%E7%BB%84%E5%90%88%E6%9B%B4%E5%90%88%E9%80%82%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-faasdatawrapper" tabindex="-1">4. 只有 wrapper 组合更合适时才使用 <code>FaasDataWrapper</code></h3>
+<ul>
+<li>当 render-prop 或 wrapper 组合比直接调用 <code>useFaas</code> 更适合页面结构时，再使用 <code>FaasDataWrapper</code>。</li>
+<li>使用 <code>children</code> 时，<code>FaasDataWrapper</code> 会 clone 子元素，并注入 <code>data</code>、<code>error</code>、<code>reload</code> 等请求属性。</li>
+<li>对新的函数组件，除非 wrapper 组合明显更简单，否则优先使用 <code>useFaas</code>。</li>
+</ul>
+<p>使用 <code>render</code> 的 <code>FaasDataWrapper</code> 示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanelWithRender</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span>
+      <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/get&quot;</span>
+      <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span> }}
+      <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
+      render={({ data, error, reload }) =&gt;
+        error ? (
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+              Retry
+            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        ) : (
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )
+      }
+    /&gt;</span>
+  )
+}
+</code></pre>
+<p>使用 <code>children</code> 的 <code>FaasDataWrapper</code> 示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserContent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: {
+  data?: { name: <span class="hljs-built_in">string</span> }
+  error?: { message?: <span class="hljs-built_in">string</span> } | <span class="hljs-literal">null</span>
+  reload?(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;
+}</span>) {
+  <span class="hljs-keyword">if</span> (props.<span class="hljs-property">error</span>) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {props.error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> props.reload?.()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanelWithChildren</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/get&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span> }} <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">UserContent</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="5.-%E5%8F%AA%E6%9C%89%E5%9C%A8-wrapper-style-export-%E6%88%96%E5%9B%BA%E5%AE%9A%E9%9B%86%E6%88%90%E8%BE%B9%E7%95%8C%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-withfaasdata" tabindex="-1">5. 只有在 wrapper-style export 或固定集成边界时才使用 <code>withFaasData</code></h3>
+<ul>
+<li>只有当 HOC 是最清晰的集成点时，才使用 <code>withFaasData</code>。</li>
+<li>典型场景是 wrapper-style export，或一个你在本次改动中无法移除的既有组件边界。</li>
+<li>对新代码，不要默认选择 HOC；当 <code>useFaas</code> 或 <code>FaasDataWrapper</code> 更简单时，就用它们。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">UserName</span> = <span class="hljs-title function_">withFaasData</span>(
+  <span class="hljs-function">(<span class="hljs-params">{ data, error, reload }</span>) =&gt;</span>
+    error ? (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+        Retry
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+    ) : (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+    ),
+  {
+    <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/get&#x27;</span>,
+    <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> },
+  },
+)
+</code></pre>
+<h3 id="6.-%E8%AE%A9-faasreactclient-%E9%85%8D%E7%BD%AE%E9%9B%86%E4%B8%AD%E5%8C%96" tabindex="-1">6. 让 <code>FaasReactClient</code> 配置集中化</h3>
+<ul>
+<li>在应用初始化阶段创建并注册一次浏览器 client 配置。</li>
+<li>使用 <code>onError</code> 在统一位置收集或上报请求错误。</li>
+<li>不要在组件树深处到处创建临时 client。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, <span class="hljs-title class_">ResponseError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title class_">FaasReactClient</span>({
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api/&#x27;</span>,
+  <span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (error) =&gt; {
+    <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ResponseError</span>) {
+      <span class="hljs-title function_">reportErrorToSentry</span>(error, {
+        <span class="hljs-attr">tags</span>: { action },
+        <span class="hljs-attr">extra</span>: { params },
+      })
+    }
+  },
+})
+</code></pre>
+<h3 id="7.-getclient-%E5%8F%AA%E7%94%A8%E4%BA%8E%E5%A4%9A-client-%E5%9C%BA%E6%99%AF" tabindex="-1">7. <code>getClient</code> 只用于多 client 场景</h3>
+<ul>
+<li><code>getClient</code> 只适用于多个 Faas client 拥有不同 base URL 的特殊场景。</li>
+<li>对普通的单 client 应用代码，不要动不动就使用 <code>getClient</code>。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-title class_">FaasReactClient</span>({
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-a.example.com/api/&#x27;</span>,
+})
+
+<span class="hljs-title class_">FaasReactClient</span>({
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>,
+})
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>)
+</code></pre>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li>每个请求都选择了最小且最合适的 API：<code>useFaas</code>、<code>useFaasStream</code>、<code>faas</code>、<code>FaasDataWrapper</code> 或 <code>withFaasData</code></li>
+<li>loading、error 与 retry 状态被显式处理</li>
+<li>action 路径遵循 file-conventions 指南，并使用 <code>/pages/...</code> 映射</li>
+<li>wrapper 风格的请求组合只在确实能改善结构时使用</li>
+<li><code>FaasReactClient</code> 配置保持集中</li>
+<li><code>getClient</code> 只用于特殊的多 client 场景</li>
+</ul>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/zh/guidelines/react.html">React 指南</a></li>
+<li><a href="/zh/guidelines/react-testing.html">React 测试指南</a></li>
+<li><a href="/doc/react/functions/useFaas.html">useFaas</a></li>
+<li><a href="/doc/react/functions/useFaasStream.html">useFaasStream</a></li>
+<li><a href="/doc/react/functions/faas.html">faas</a></li>
+<li><a href="/doc/react/variables/FaasDataWrapper.html">FaasDataWrapper</a></li>
+<li><a href="/doc/react/functions/withFaasData.html">withFaasData</a></li>
+<li><a href="/doc/react/functions/FaasReactClient.html">FaasReactClient</a></li>
+<li><a href="/doc/react/functions/getClient.html">getClient</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

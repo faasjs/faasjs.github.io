@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Node Utils 指南 | FaasJS</title>
+    <meta name="description" content="一个基于 Typescript 的原子化应用框架" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/node-utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/node-utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code 插件" rel="noopener noreferrer" target="_blank">VS Code 插件</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/node-utils.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/node-utils.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="node-utils-%E6%8C%87%E5%8D%97" tabindex="-1">Node Utils 指南</h1>
+<p>当你需要用于 FaasJS 运行时引导、本地工具、配置解析或日志的 Node.js 专用 helpers 时，请使用这份指南。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>在 Node.js 中直接运行 FaasJS handler、CLI、测试或 bootstrap 脚本</li>
+<li>在应用引导前加载 <code>.env</code> 文件</li>
+<li>读取某个函数文件对应的、已合并分阶段的 <code>faas.yaml</code> 配置</li>
+<li>在自定义 Node.js 工具中解析 FaasJS 支持的 YAML 子集</li>
+<li>把一个函数模块变成可运行的导出 handler</li>
+<li>把 YAML 中定义的 plugins 加载到 <code>Func</code> 实例中</li>
+<li>在原生 Node 环境中导入带有 tsconfig path alias 的本地 TypeScript 模块</li>
+<li>复用运行时日志，或把日志发往 transport</li>
+</ul>
+<h2 id="%40faasjs%2Fnode-utils-%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88" tabindex="-1"><code>@faasjs/node-utils</code> 提供什么</h2>
+<ul>
+<li>环境与配置加载：<code>loadEnvFileIfExists</code>、<code>loadConfig</code>、<code>parseYaml</code></li>
+<li>函数加载：<code>loadFunc</code>、<code>loadPlugins</code></li>
+<li>Node 模块引导：<code>loadPackage</code>、<code>registerNodeModuleHooks</code>、<code>detectNodeRuntime</code>、<code>resetRuntime</code></li>
+<li>日志与日志转运：<code>Logger</code>、<code>formatLogger</code>、<code>getTransport</code>、<code>Transport</code>、<code>colorfy</code></li>
+</ul>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>仅在 Node-only entrypoints、tests、CLIs 或 adapters 中导入 <code>@faasjs/node-utils</code>。</li>
+<li>如果进程依赖本地 dotenv 文件，尽早用 <code>loadEnvFileIfExists()</code> 加载 env。</li>
+<li>当你只需要分阶段的 <code>faas.yaml</code> 数据时，使用 <code>loadConfig()</code>。</li>
+<li>当你需要在自定义工具中处理 FaasJS 原始 YAML 子集、且不需要 staged discovery 时，使用 <code>parseYaml()</code>。</li>
+<li>当你需要最终可运行的导出 handler 时使用 <code>loadFunc()</code>；如果你已经有了 <code>Func</code> 实例，则使用 <code>loadPlugins()</code>。</li>
+<li>当直接在 Node 中执行并且需要理解本地 TypeScript 文件或 tsconfig aliases 时，优先使用 FaasJS TypeScript loader，并保持本地导入不带 <code>.ts</code> 或 <code>.tsx</code> 后缀。</li>
+<li>复用 <code>Logger</code> 和共享 transport，而不是自己再包一套日志封装。</li>
+</ol>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E8%AE%A9-node-utils-%E5%8F%AA%E5%AD%98%E5%9C%A8%E4%BA%8E-node-only-%E4%BB%A3%E7%A0%81%E8%B7%AF%E5%BE%84%E4%B8%AD" tabindex="-1">1. 让 <code>node-utils</code> 只存在于 Node-only 代码路径中</h3>
+<ul>
+<li>这个 package 依赖 <code>node:module</code>、<code>node:process</code> 和文件系统等 Node API。</li>
+<li>不要把它导入浏览器代码、React 组件，或必须运行在 edge runtime 的代码中。</li>
+<li>可移植 helpers 请使用 <code>@faasjs/utils</code>，框架 / runtime primitives 请使用 <code>@faasjs/core</code> 或 <code>@faasjs/dev</code>。</li>
+</ul>
+<h3 id="2.-%E6%98%BE%E5%BC%8F%E4%B8%94%E5%B0%BD%E6%97%A9%E5%8A%A0%E8%BD%BD-.env-%E6%96%87%E4%BB%B6" tabindex="-1">2. 显式且尽早加载 <code>.env</code> 文件</h3>
+<ul>
+<li>当本地脚本或测试依赖 dotenv 文件时，<code>loadEnvFileIfExists()</code> 是一个小而安全的入口。</li>
+<li>在读取 <code>process.env</code>、构造配置对象，或加载依赖环境变量的模块之前调用它。</li>
+<li>它会返回解析后的文件名或 <code>null</code>，这对 debug log 很有用。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;bootstrap&#x27;</span>)
+<span class="hljs-keyword">const</span> envFile = <span class="hljs-title function_">loadEnvFileIfExists</span>({
+  <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
+  <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;.env.local&#x27;</span>,
+})
+
+logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;env file: %s&#x27;</span>, envFile || <span class="hljs-string">&#x27;not found&#x27;</span>)
+</code></pre>
+<h3 id="3.-%E8%AE%A9-loadconfig()-%E8%B4%9F%E8%B4%A3%E8%A7%A3%E6%9E%90-staged-faas.yaml" tabindex="-1">3. 让 <code>loadConfig()</code> 负责解析 staged <code>faas.yaml</code></h3>
+<ul>
+<li>不要自己重写目录遍历或手动 deep merge <code>faas.yaml</code>。</li>
+<li><code>loadConfig()</code> 会从项目根目录一路走到函数目录，合并嵌套文件，应用 <code>defaults</code>，并为 plugin 条目标注解析后的 <code>name</code>。</li>
+<li>这样能保证运行时行为与 FaasJS 的 plugin 加载逻辑一致。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>, <span class="hljs-string">&#x27;production&#x27;</span>)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(config.<span class="hljs-property">plugins</span>?.<span class="hljs-property">http</span>)
+</code></pre>
+<h3 id="4.-%E4%B8%BA%E4%BB%BB%E5%8A%A1%E9%80%89%E6%8B%A9%E6%9C%80%E5%B0%8F%E5%8F%AF%E7%94%A8-loader" tabindex="-1">4. 为任务选择最小可用 loader</h3>
+<ul>
+<li>当脚本直接接收 YAML 文本，并且你希望得到与 FaasJS 配置解析相同的受支持子集与错误信息时，使用 <code>parseYaml()</code>。</li>
+<li><code>parseYaml()</code> 不会遍历目录、应用 staging fallback，也不会校验 <code>faas.yaml</code> schema；当你没有走 <code>loadConfig()</code> 时，需要自行校验解析结果的结构。</li>
+<li>需要最终 handler 时，使用 <code>loadFunc()</code>。</li>
+<li>当你已经有 <code>Func</code> 实例，并希望在导出或挂载前附加 YAML 驱动的 plugins 与 config 时，使用 <code>loadPlugins()</code>。</li>
+<li>一般性的 Node 动态模块加载，尤其目标是本地 TypeScript 文件或支持 path alias 的模块时，使用 <code>loadPackage()</code>。</li>
+<li>优先使用这些 helpers，而不是临时写 <code>import()</code> 包装，这样 cache busting、tsconfig 解析和 plugin 装载行为才能保持一致。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">loadEnvFileIfExists</span>()
+
+<span class="hljs-keyword">const</span> pluginDefaults = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">`defaults:
+  plugins:
+    http:
+      type: http
+`</span>)
+
+<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(
+  process.<span class="hljs-title function_">cwd</span>(),
+  <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>,
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
+)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(pluginDefaults)
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>(event, context)
+</code></pre>
+<h3 id="5.-%E5%8F%AA%E5%9C%A8%E8%BF%9B%E7%A8%8B%E5%BC%95%E5%AF%BC%E9%98%B6%E6%AE%B5%E6%B3%A8%E5%86%8C-module-hooks" tabindex="-1">5. 只在进程引导阶段注册 module hooks</h3>
+<ul>
+<li><code>registerNodeModuleHooks()</code> 适用于 CLI、dev server 或 bootstrap script 这种长生命周期的 Node entrypoint，尤其当它们需要 tsconfig path alias 解析时。</li>
+<li>直接在 Node 中执行时，优先使用 preload 入口 <code>node --import @faasjs/node-utils/register-hooks &lt;entry&gt;</code>，这样脚本仍可保持标准的无扩展名本地导入。</li>
+<li>它应在启动时调用一次。重复调用虽然安全，但分散在多个模块里会让启动意图更难理解。</li>
+<li>在依赖全新 loader 状态的隔离测试里，请在 case 之间调用 <code>resetRuntime()</code>，而不是反复重建整个进程。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { registerNodeModuleHooks } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-title function_">registerNodeModuleHooks</span>({
+  <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>(),
+})
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./scripts/sync-users&#x27;</span>)
+</code></pre>
+<h3 id="6.-node-%E4%BE%A7%E6%97%A5%E5%BF%97%E4%BF%9D%E6%8C%81%E5%9C%A8%E5%85%B1%E4%BA%AB%E5%8E%9F%E8%AF%AD%E4%B9%8B%E4%B8%8A" tabindex="-1">6. Node 侧日志保持在共享原语之上</h3>
+<ul>
+<li>使用 <code>Logger</code> 获得结构化级别、labels、timers 和环境变量驱动的日志详细度。</li>
+<li>只有当日志必须被缓冲并转发到其他 sink 时，才使用 <code>getTransport()</code>。</li>
+<li><code>colorfy()</code> 和 <code>formatLogger()</code> 是更底层的 helpers；除非你在实现日志基础设施，否则优先使用 <code>Logger</code>。</li>
+</ul>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li><code>@faasjs/node-utils</code> 的导入只出现在 Node-only 代码中</li>
+<li>本地脚本在依赖环境变量的 bootstrap 逻辑前先加载了 <code>.env</code></li>
+<li>staged <code>faas.yaml</code> 通过 <code>loadConfig()</code> 或 <code>loadFunc()</code> 读取，而不是自定义 merge 逻辑</li>
+<li>原始 FaasJS 兼容 YAML 使用 <code>parseYaml()</code> 解析，而不是另一个 YAML parser</li>
+<li>加载逻辑使用 <code>loadFunc()</code>、<code>loadPlugins()</code> 或 <code>loadPackage()</code>，而不是自定义动态 import 包装</li>
+<li>module hooks 在进程启动阶段注册，而不是深埋在 feature 代码中</li>
+<li>依赖全新 loader 状态的测试使用了 <code>resetRuntime()</code></li>
+<li>日志使用 <code>Logger</code> 或共享 transport，而不是直接包裹 <code>console</code></li>
+</ul>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/zh/guidelines/logger.html">Logger 指南</a></li>
+<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
+<li><a href="/doc/node-utils/functions/loadEnvFileIfExists.html">loadEnvFileIfExists</a></li>
+<li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
+<li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>
+<li><a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a></li>
+<li><a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a></li>
+<li><a href="/doc/node-utils/functions/parseYaml.html">parseYaml</a></li>
+<li><a href="/doc/node-utils/functions/registerNodeModuleHooks.html">registerNodeModuleHooks</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

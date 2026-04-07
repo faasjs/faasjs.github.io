@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Plugin Specification | FaasJS</title>
+    <meta name="description" content="An atomic application framework built for the TypeScript developer." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/plugin.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/plugin.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/examples" aria-label="Examples" rel="noopener noreferrer" target="_blank">Examples</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/specs/plugin.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/specs/plugin.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/faas-yaml.html" aria-label="faas.yaml Configuration Specification">faas.yaml Configuration Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/http-protocol.html" aria-label="HTTP Protocol Specification">HTTP Protocol Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/jsdoc-authoring.html" aria-label="JSDoc Authoring Specification">JSDoc Authoring Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/specs/plugin.html" aria-label="Plugin Specification">Plugin Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/specs/routing-mapping.html" aria-label="Routing Mapping Specification">Routing Mapping Specification</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="plugin-specification" tabindex="-1">Plugin Specification</h1>
+<h2 id="background" tabindex="-1">Background</h2>
+<p>FaasJS supports plugins in two complementary layers:</p>
+<ul>
+<li>code registers plugin instances on <code>Func</code></li>
+<li><code>faas.yaml</code> provides staged, directory-aware plugin configuration</li>
+</ul>
+<p>The runtime behavior is already stable across <code>@faasjs/core</code> and <code>@faasjs/node-utils</code>, but the contract is currently spread across source code, tests, and legacy docs.</p>
+<p>This specification defines the baseline for plugin identity, lifecycle execution, config layering, and config-driven loading.</p>
+<p>Related references:</p>
+<ul>
+<li><code>packages/core/src/func/index.ts</code></li>
+<li><code>packages/core/src/index.ts</code></li>
+<li><code>packages/node-utils/src/load_config.ts</code></li>
+<li><code>packages/core/src/plugins/http/index.ts</code></li>
+<li><code>docs/zh/guide/excel/plugin.md</code></li>
+</ul>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>Keep plugin authoring and loading behavior predictable.</li>
+<li>Define how plugin identity, ordering, config precedence, and deduplication work.</li>
+<li>Make code registration and <code>faas.yaml</code> config play together without ambiguous ownership.</li>
+<li>Align config-driven loading with current <code>defineApi()</code> behavior.</li>
+</ul>
+<h2 id="non-goals" tabindex="-1">Non-goals</h2>
+<ul>
+<li>Defining each plugin package's private <code>config</code> schema.</li>
+<li>Standardizing npm publishing, versioning, or marketplace metadata for plugins.</li>
+</ul>
+<h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
+<h3 id="1.-runtime-plugin-contract" tabindex="-1">1. Runtime Plugin Contract</h3>
+<ol>
+<li>A plugin instance MUST expose string <code>type</code> and string <code>name</code> fields.</li>
+<li>Plugin <code>name</code> MUST identify the runtime plugin id.</li>
+<li>Plugin <code>type</code> MUST identify the plugin source, family, or module specifier rather than the runtime instance id.</li>
+<li>Plugin <code>name</code> SHOULD stay stable within the same function because ordering, deduplication, logs, and config lookup rely on it.</li>
+<li>A plugin MAY implement <code>onMount</code>, <code>onInvoke</code>, or both.</li>
+<li>Plugins auto-loaded by <code>defineApi()</code> MUST be created from a constructor whose prototype implements at least one lifecycle method: <code>onMount</code> or <code>onInvoke</code>.</li>
+<li>Plugins registered in code MAY implement <code>applyConfig(resolvedConfig)</code> to receive the final merged config for their plugin id before first mount.</li>
+</ol>
+<h3 id="2.-lifecycle-execution-model" tabindex="-1">2. Lifecycle Execution Model</h3>
+<ol>
+<li>User plugins MUST execute before the built-in run-handler plugin.</li>
+<li><code>onMount</code> hooks MUST run in plugin order and MUST run at most once per <code>Func</code> instance.</li>
+<li><code>onInvoke</code> hooks MUST run in plugin order for every invocation.</li>
+<li>Plugins MUST use <code>await next()</code> to continue the lifecycle chain.</li>
+<li>Calling <code>next()</code> multiple times from the same lifecycle hook MUST reject with <code>next() called multiple times</code>.</li>
+<li>Plugins MAY mutate mount or invoke data to inject fields, prepare context, or control the final response.</li>
+<li>Errors thrown by a plugin or downstream handler MUST stop the current chain and propagate to the caller.</li>
+</ol>
+<h3 id="3.-configuration-layering-and-precedence" tabindex="-1">3. Configuration Layering And Precedence</h3>
+<ol>
+<li>Plugin configuration MAY be authored in code, in <code>faas.yaml</code>, or both.</li>
+<li><code>faas.yaml</code> plugin config MUST support directory-level layering from project root toward the target function directory.</li>
+<li>When multiple <code>faas.yaml</code> files contribute config for the same plugin id, the deeper directory MUST override the shallower directory while preserving unspecified fields through deep merge.</li>
+<li>Code-authored plugin config MUST override merged <code>faas.yaml</code> config for the same plugin id.</li>
+<li>Plugin config merging MUST use plugin <code>name</code> as the identity key.</li>
+<li>Resolved plugin config exposed on <code>func.config.plugins</code> MUST reflect the final merged view after directory layering and code overrides.</li>
+</ol>
+<h3 id="4.-manual-registration" tabindex="-1">4. Manual Registration</h3>
+<ol>
+<li><code>new Func({ plugins: [...] })</code> MUST preserve the provided plugin order.</li>
+<li>Manual plugin arrays MUST NOT perform implicit deduplication; callers are responsible for avoiding duplicate plugin names when that matters.</li>
+<li>When code registers a plugin instance, that instance remains the source of runtime behavior; config resolution MAY augment its settings but MUST NOT silently replace it with another instance from YAML.</li>
+<li>When a pre-registered plugin instance implements <code>applyConfig</code>, the loader SHOULD call it with the final merged config for that plugin id.</li>
+</ol>
+<h3 id="5.-config-driven-loading-in-defineapi()" tabindex="-1">5. Config-Driven Loading In <code>defineApi()</code></h3>
+<ol>
+<li><code>defineApi()</code> MUST resolve staged <code>faas.yaml</code> config and <code>func.config.plugins</code> before the first mount or invoke.</li>
+<li>The loader MUST inspect only own enumerable keys on <code>config.plugins</code>.</li>
+<li>Plugin config entries in <code>func.config.plugins</code> MUST be keyed by plugin id.</li>
+<li>For config-driven loading, resolved plugin <code>name</code> MUST default to the entry key and therefore represent the plugin id.</li>
+<li>For an object config entry, resolved plugin <code>type</code> MUST come from <code>type</code>, then fall back to the entry key only for built-in aliases explicitly supported by the runtime.</li>
+<li>The loader MUST instantiate plugins with the resolved config object plus resolved <code>name</code> and <code>type</code>.</li>
+<li>If a plugin with the same resolved <code>name</code> already exists on the function, config-driven loading MUST NOT create a duplicate runtime instance.</li>
+<li>When a plugin instance already exists in code and config exists for the same id, the resolved config MUST still be attached to <code>func.config.plugins[name]</code> with code values taking precedence.</li>
+</ol>
+<h3 id="6.-module-and-constructor-resolution" tabindex="-1">6. Module And Constructor Resolution</h3>
+<ol>
+<li>Plugin type <code>http</code> and alias <code>@faasjs/http</code> MUST resolve to module <code>@faasjs/core</code>.</li>
+<li>Unscoped bare plugin types such as <code>mysql</code> MUST resolve to <code>@faasjs/&lt;type&gt;</code>.</li>
+<li>Scoped package names, relative paths, absolute paths, and <code>file://</code> local file URLs MUST resolve as authored after stripping an optional <code>npm:</code> prefix.</li>
+<li>When resolving a class export from a module, the loader MUST first try normalized PascalCase class names derived from the plugin type or trailing path segments.</li>
+<li>If the named class export is not available, the loader MUST fall back to the module's default export.</li>
+<li>If neither export is a valid lifecycle plugin constructor, the loader MUST throw an error.</li>
+<li>If constructor execution throws or returns a non-object plugin instance, the loader MUST throw an error.</li>
+</ol>
+<h3 id="7.-defineapi()-requirements" tabindex="-1">7. <code>defineApi()</code> Requirements</h3>
+<ol>
+<li>A <code>defineApi()</code> function MUST have an <code>http</code> plugin available after plugin resolution.</li>
+<li>If the <code>http</code> plugin is missing, invocation MUST fail with an error that indicates the required <code>http</code> plugin is missing.</li>
+<li>Additional plugins MAY inject fields into the handler data by mutating invoke data before the business handler runs.</li>
+<li>Plugin packages that inject extra handler fields SHOULD provide TypeScript module augmentation for <code>DefineApiInject</code>.</li>
+</ol>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<h3 id="manual-lifecycle-plugin" tabindex="-1">Manual lifecycle plugin</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">InvokeData</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Next</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TracePlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;trace&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;@/plugins/trace&#x27;</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    data.<span class="hljs-property">context</span>.<span class="hljs-property">trace</span> = [<span class="hljs-string">&#x27;before&#x27;</span>]
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    data.<span class="hljs-property">context</span>.<span class="hljs-property">trace</span>.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;after&#x27;</span>)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-keyword">new</span> <span class="hljs-title class_">TracePlugin</span>()],
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ context }</span>) {
+    context.<span class="hljs-property">trace</span>.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;handler&#x27;</span>)
+    <span class="hljs-keyword">return</span> context.<span class="hljs-property">trace</span>
+  },
+})
+</code></pre>
+<h3 id="config-layering-with-code-precedence" tabindex="-1">Config layering with code precedence</h3>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># src/faas.yaml</span>
+<span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">auth:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">file://./plugins/auth-plugin.ts</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">provider:</span> <span class="hljs-string">jwt</span>
+        <span class="hljs-attr">secret:</span> <span class="hljs-string">from-root</span>
+</code></pre>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># src/admin/faas.yaml</span>
+<span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">auth:</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">secret:</span> <span class="hljs-string">from-admin</span>
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ config, current_user }</span>) {
+    <span class="hljs-keyword">return</span> {
+      current_user,
+      <span class="hljs-attr">auth</span>: config.<span class="hljs-property">plugins</span>?.<span class="hljs-property">auth</span>,
+    }
+  },
+})
+
+func.<span class="hljs-property">config</span> = {
+  <span class="hljs-attr">plugins</span>: {
+    <span class="hljs-attr">auth</span>: {
+      <span class="hljs-attr">config</span>: {
+        <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;from-code&#x27;</span>,
+      },
+    },
+    <span class="hljs-attr">http</span>: {
+      <span class="hljs-attr">config</span>: {},
+    },
+  },
+}
+</code></pre>
+<p>In the resolved config:</p>
+<ul>
+<li>plugin id is <code>auth</code>, so runtime <code>name === 'auth'</code></li>
+<li>plugin source comes from the configured <code>type</code></li>
+<li><code>secret</code> resolves to <code>'from-code'</code></li>
+<li><code>provider</code> remains <code>'jwt'</code></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
