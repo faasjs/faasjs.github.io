@@ -65,45 +65,13 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useFaasOptions</p>
 <h1 id="type-alias%3A-usefaasoptions%3Cpathordata%3E" tabindex="-1">Type Alias: useFaasOptions&lt;PathOrData&gt;</h1>
 <blockquote>
-<p><strong>useFaasOptions</strong>&lt;<code>PathOrData</code>&gt; = <code>object</code></p>
+<p><strong>useFaasOptions</strong>&lt;<code>PathOrData</code>&gt; = <code>SharedUseFaasOptions</code>&lt;<a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;, <a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;</p>
 </blockquote>
 <p>Options that customize the <a href="/doc/react/functions/useFaas.html">useFaas</a> request lifecycle.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
 <p>Action path or response data type used for inference.</p>
-<h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
-<blockquote>
-<p><code>optional</code> <strong>baseUrl?</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
-</blockquote>
-<p>Override the default base URL for this hook instance.</p>
-<h3 id="data%3F" tabindex="-1">data?</h3>
-<blockquote>
-<p><code>optional</code> <strong>data?</strong>: <a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;</p>
-</blockquote>
-<p>Controlled data value used instead of the hook's internal state.</p>
-<h3 id="debounce%3F" tabindex="-1">debounce?</h3>
-<blockquote>
-<p><code>optional</code> <strong>debounce?</strong>: <code>number</code></p>
-</blockquote>
-<p>Delay the latest automatic request by the given number of milliseconds.</p>
-<h3 id="params%3F" tabindex="-1">params?</h3>
-<blockquote>
-<p><code>optional</code> <strong>params?</strong>: <a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
-</blockquote>
-<p>Override the current request params without changing the hook's stored params state.</p>
-<h3 id="setdata%3F" tabindex="-1">setData?</h3>
-<blockquote>
-<p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
-</blockquote>
-<p>Controlled setter that is called instead of the hook's internal <code>setData</code>.</p>
-<h3 id="skip%3F" tabindex="-1">skip?</h3>
-<blockquote>
-<p><code>optional</code> <strong>skip?</strong>: <code>boolean</code> | ((<code>params</code>) =&gt; <code>boolean</code>)</p>
-</blockquote>
-<p>If skip is true, the request will not be sent.</p>
-<p>However, you can still use reload to send the request.</p>
 </div></div>
           </div>
           

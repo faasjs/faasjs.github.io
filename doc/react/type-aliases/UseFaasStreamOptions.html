@@ -65,41 +65,9 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / UseFaasStreamOptions</p>
 <h1 id="type-alias%3A-usefaasstreamoptions" tabindex="-1">Type Alias: UseFaasStreamOptions</h1>
 <blockquote>
-<p><strong>UseFaasStreamOptions</strong> = <code>object</code></p>
+<p><strong>UseFaasStreamOptions</strong> = <code>SharedUseFaasOptions</code>&lt;<code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;, <code>string</code>&gt;</p>
 </blockquote>
 <p>Options that customize the <a href="/doc/react/functions/useFaasStream.html">useFaasStream</a> request lifecycle.</p>
-<h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
-<blockquote>
-<p><code>optional</code> <strong>baseUrl?</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
-</blockquote>
-<p>Override the default base URL for this hook instance.</p>
-<h3 id="data%3F" tabindex="-1">data?</h3>
-<blockquote>
-<p><code>optional</code> <strong>data?</strong>: <code>string</code></p>
-</blockquote>
-<p>Controlled stream text used instead of the hook's internal state.</p>
-<h3 id="debounce%3F" tabindex="-1">debounce?</h3>
-<blockquote>
-<p><code>optional</code> <strong>debounce?</strong>: <code>number</code></p>
-</blockquote>
-<p>Delay the latest automatic request by the given number of milliseconds.</p>
-<h3 id="params%3F" tabindex="-1">params?</h3>
-<blockquote>
-<p><code>optional</code> <strong>params?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
-</blockquote>
-<p>Override the current request params without changing the hook's stored params state.</p>
-<h3 id="setdata%3F" tabindex="-1">setData?</h3>
-<blockquote>
-<p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;</p>
-</blockquote>
-<p>Controlled setter that is called instead of the hook's internal <code>setData</code>.</p>
-<h3 id="skip%3F" tabindex="-1">skip?</h3>
-<blockquote>
-<p><code>optional</code> <strong>skip?</strong>: <code>boolean</code> | ((<code>params</code>) =&gt; <code>boolean</code>)</p>
-</blockquote>
-<p>If skip is true, the request will not be sent.</p>
-<p>However, you can still use reload to send the request.</p>
 </div></div>
           </div>
           
