@@ -142,6 +142,9 @@ decoded into the returned <code>cookie</code> and <code>session</code> objects.<
 <h6 id="headers%3F" tabindex="-1">headers?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
 <p>Extra request headers merged into the JSON test request.</p>
+<h6 id="path%3F" tabindex="-1">path?</h6>
+<p><code>string</code></p>
+<p>Request path attached to <code>event.path</code> during invocation. This path is the URL pathname without the query string. Defaults to the inferred path from the wrapped function filename when available.</p>
 <h6 id="session%3F" tabindex="-1">session?</h6>
 <p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
 <p>Session key-value pairs encoded into the request cookie before invocation.</p>
