@@ -64,7 +64,7 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="%E8%B7%AF%E7%94%B1%E6%98%A0%E5%B0%84%E8%A7%84%E8%8C%83" tabindex="-1">路由映射规范</h1>
 <h2 id="%E8%83%8C%E6%99%AF" tabindex="-1">背景</h2>
-<p>FaasJS 的路由解析是基于文件系统的。这份规范把这种映射方式标准化，并明确 Zero-Mapping 是默认行为：文件路径与 URL 路径保持一一对应。</p>
+<p>FaasJS 的路由解析是基于文件系统的。这份规范同时标准化 API 路由与网页路由，并明确 Zero-Mapping 是默认行为：文件路径与 URL 路径默认保持一一对应。</p>
 <p>相关参考：</p>
 <ul>
 <li><code>packages/core/src/server/routes.ts</code></li>
@@ -73,30 +73,58 @@
 </ul>
 <h2 id="%E7%9B%AE%E6%A0%87" tabindex="-1">目标</h2>
 <ul>
-<li>让开发者无需额外映射表，也能从 URL 直接定位 API 位置。</li>
+<li>让开发者无需额外映射表，也能从 URL 直接定位 API 和网页位置。</li>
 <li>减少人类与 AI coding agents 对路由规则的歧义。</li>
-<li>让行为与当前 server 的路由查找顺序保持一致。</li>
+<li>让服务端渲染与 API 处理的路由查找顺序保持可预测。</li>
 </ul>
 <h2 id="%E9%9D%9E%E7%9B%AE%E6%A0%87" tabindex="-1">非目标</h2>
 <ul>
 <li>引入 path aliases 或 rewrite 层。</li>
 <li>用注册表式路由替代文件系统路由。</li>
+<li>在这个 V1 规范里加入 <code>[id]</code>、<code>[...slug]</code> 这类动态文件名语法。</li>
+<li>为自动发现的页面额外要求一份独立的路由配置文件。</li>
 </ul>
 <h2 id="%E8%A7%84%E8%8C%83%E6%80%A7%E8%A7%84%E5%88%99" tabindex="-1">规范性规则</h2>
 <h3 id="1.-%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D%E4%B8%8E%E6%94%BE%E7%BD%AE%E4%BD%8D%E7%BD%AE" tabindex="-1">1. 文件命名与放置位置</h3>
 <ol>
+<li>网页路由根目录必须是 <code>src/pages</code>。</li>
+<li>网页入口文件必须命名为 <code>index.tsx</code> 或 <code>default.tsx</code>。</li>
+<li>网页入口文件必须使用默认导出页面组件。</li>
+<li>名为 <code>api/</code> 的目录保留给后端路由文件使用，不得生成网页路由。</li>
 <li>API 入口文件必须以 <code>.func.ts</code> 结尾。</li>
 <li>对 SPA 风格项目，API 文件应放在 <code>api/</code> 目录下。</li>
 <li>API 文件不得放在 <code>components/</code> 目录下。</li>
+<li>除 <code>index.tsx</code>、<code>default.tsx</code> 与 <code>*.func.ts</code> 之外，其他文件不得隐式生成路由。</li>
 </ol>
 <h3 id="2.-zero-mapping-%E8%B7%AF%E7%94%B1" tabindex="-1">2. Zero-Mapping 路由</h3>
 <ol>
 <li>URL 路径与文件路径必须保持直接映射（默认采用 Zero-Mapping）。</li>
-<li>实现不得依赖诸如 <code>actions -&gt; api</code> 这样的隐式 rewrite。</li>
+<li>网页路由以 <code>src/pages</code> 为相对根目录映射，URL 不得带 <code>/pages</code> 前缀。这些路由用于 <code>GET</code>、<code>HEAD</code> 等网页请求。</li>
+<li>API 路由继续从 <code>src/</code> 下的完整路径映射；实现不得依赖诸如 <code>actions -&gt; api</code> 这样的隐式 rewrite。</li>
 <li>实现不得增加会破坏路径 / 文件可预测性的隐藏 alias routes。</li>
 </ol>
-<h3 id="3.-%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE%E9%A1%BA%E5%BA%8F" tabindex="-1">3. 路由文件查找顺序</h3>
-<p>给定请求路径 <code>&lt;p&gt;</code>，路由解析必须按以下顺序探测：</p>
+<h3 id="3.-%E7%BD%91%E9%A1%B5%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE%E9%A1%BA%E5%BA%8F" tabindex="-1">3. 网页路由文件查找顺序</h3>
+<p>给定浏览器路径 <code>&lt;p&gt;</code>，网页路由解析必须按以下顺序探测：</p>
+<ol>
+<li><code>src/pages&lt;p&gt;/index.tsx</code></li>
+<li><code>src/pages&lt;p&gt;/default.tsx</code></li>
+<li>父级 fallback 链：<code>src/pages&lt;parent&gt;/default.tsx</code>，一直回退到 <code>src/pages/default.tsx</code></li>
+</ol>
+<p>对于 <code>/</code>，首个探测路径应规范化为 <code>src/pages/index.tsx</code>。</p>
+<p>如果所有候选都不存在，则该请求视为 not found。
+<code>default.tsx</code> 表示当前作用域及其子路径的 fallback，但只有在精确 <code>index.tsx</code> 查找未命中后才会生效。</p>
+<h3 id="4.-%E9%A1%B5%E9%9D%A2%E6%A8%A1%E5%9D%97%E5%A5%91%E7%BA%A6" tabindex="-1">4. 页面模块契约</h3>
+<ol>
+<li>网页路由模块可以导出异步 <code>loader</code>。</li>
+<li>当 <code>loader</code> 存在时，必须在服务端对匹配页面执行 SSR 前运行它。</li>
+<li><code>loader</code> 必须接收路由上下文，其中至少包含 <code>pathname</code>、<code>query</code>、<code>basePath</code> 与 <code>restPath</code>。实现也可以额外提供原始 request/response 对象与日志工具。</li>
+<li><code>loader</code> 的返回结果必须可序列化，以便客户端 hydration 复用。</li>
+<li><code>loader</code> 可以返回 <code>props</code>、<code>statusCode</code> 与 <code>headers</code>。</li>
+<li>当 <code>loader</code> 返回 <code>props</code> 时，这些 props 必须传给页面组件用于 SSR，并在 hydration 时复用。</li>
+<li>这个 V1 网页路由规范不得要求动态文件名语法；嵌套路由仅通过目录层级加 <code>index.tsx</code> 与 <code>default.tsx</code> 表达。</li>
+</ol>
+<h3 id="5.-api-%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE%E9%A1%BA%E5%BA%8F" tabindex="-1">5. API 路由文件查找顺序</h3>
+<p>给定 API 请求路径 <code>&lt;p&gt;</code>，路由解析必须按以下顺序探测：</p>
 <ol>
 <li><code>&lt;p&gt;.func.ts</code></li>
 <li><code>&lt;p&gt;/index.func.ts</code></li>
@@ -105,6 +133,47 @@
 </ol>
 <p>如果所有候选都不存在，则该请求视为 not found。</p>
 <h2 id="%E7%A4%BA%E4%BE%8B" tabindex="-1">示例</h2>
+<h3 id="%E7%BD%91%E9%A1%B5" tabindex="-1">网页</h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>路由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/pages/index.tsx</code></td>
+<td><code>GET /</code></td>
+</tr>
+<tr>
+<td><code>src/pages/about/index.tsx</code></td>
+<td><code>GET /about</code></td>
+</tr>
+<tr>
+<td><code>src/pages/docs/default.tsx</code></td>
+<td>在精确页面未命中后，作为 <code>/docs</code> 与未匹配 <code>/docs/*</code> 的 fallback</td>
+</tr>
+<tr>
+<td><code>src/pages/default.tsx</code></td>
+<td>未匹配网页路由的全局 fallback</td>
+</tr>
+</tbody>
+</table>
+<p>网页 fallback 示例：</p>
+<ul>
+<li>Request: <code>GET /docs/react/ssr</code></li>
+<li>Probe order:
+<ol>
+<li><code>src/pages/docs/react/ssr/index.tsx</code></li>
+<li><code>src/pages/docs/react/ssr/default.tsx</code></li>
+<li><code>src/pages/docs/react/default.tsx</code></li>
+<li><code>src/pages/docs/default.tsx</code></li>
+<li><code>src/pages/default.tsx</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="api" tabindex="-1">API</h3>
 <table>
 <thead>
 <tr>
@@ -131,7 +200,7 @@
 </tr>
 </tbody>
 </table>
-<p>Fallback 示例：</p>
+<p>API fallback 示例：</p>
 <ul>
 <li>Request: <code>POST /pages/todo/item/unknown</code></li>
 <li>Probe order:

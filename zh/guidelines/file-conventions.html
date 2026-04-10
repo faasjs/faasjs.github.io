@@ -68,14 +68,14 @@
 <ul>
 <li>创建新页面、组件或 hook</li>
 <li>重组前端目录结构</li>
-<li>使用 <code>Routes</code> 与 <code>lazy</code> 接线路由</li>
+<li>在 <code>pages/</code> 下新增自动发现的页面路由</li>
 <li>创建或移动 <code>.func.ts</code> 后端文件</li>
 <li>评审文件名与文件位置是否对人类和 AI agent 都保持可预测</li>
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>前端页面放到 <code>pages/</code> 下。</li>
-<li>使用 <code>index.tsx</code> 作为页面入口文件。</li>
+<li>精确页面入口使用 <code>index.tsx</code>，<code>default.tsx</code> 只用于 fallback 页面。</li>
 <li>在有明确拆分理由前，把一次性的页面局部逻辑保留在当前文件内。</li>
 <li>当组件或 hook 真正形成边界时，再给它单独文件。</li>
 <li>以前端页面或 feature 为单位组织代码。</li>
@@ -90,7 +90,7 @@
 <li>React 组件一旦被抽出，就应该放在自己的文件中。</li>
 <li>文件名应与组件名完全一致。</li>
 <li>文件名大小写应保留组件自身的命名大小写。</li>
-<li>页面文件是例外：页面入口文件应使用 <code>index.tsx</code>。</li>
+<li>页面文件是例外：页面入口文件应使用 <code>index.tsx</code> 或 <code>default.tsx</code>。</li>
 </ul>
 <p>示例：</p>
 <ul>
@@ -114,8 +114,13 @@
 <ul>
 <li>前端页面应放在 <code>pages/</code> 下。</li>
 <li>每个页面或 feature 应在 <code>pages/</code> 下使用自己的目录。</li>
-<li>页面入口文件必须命名为 <code>index.tsx</code>。</li>
+<li>精确页面入口文件必须命名为 <code>index.tsx</code>。</li>
+<li>fallback 页面入口文件必须命名为 <code>default.tsx</code>。</li>
 <li>页面入口文件应 <code>export default</code> 页面组件。</li>
+<li>当 SSR 需要服务端数据时，页面入口文件可以导出 <code>loader</code>。</li>
+<li>自动发现的页面不需要单独的路由配置文件。</li>
+<li>默认的 React SSR 场景可以直接复用 <code>@faasjs/react/auto-pages/client-entry</code>、<code>server-entry</code> 和 <code>serve.js</code>，不必再保留本地 bootstrap 入口文件。</li>
+<li>名为 <code>api/</code> 的目录保留给后端处理器使用，不得生成网页路由。</li>
 <li>组件必须放在 <code>components/</code>。</li>
 <li>hooks 必须放在 <code>hooks/</code>。</li>
 <li>该页面或 feature 的后端处理器应放在 <code>api/</code>。</li>
@@ -125,6 +130,9 @@
 </ul>
 <p>优先这样组织：</p>
 <pre><code class="hljs language-text">src/pages/
+  index.tsx
+  docs/
+    default.tsx
   feature-name/
     index.tsx
     components/
@@ -135,7 +143,6 @@
       useFeatureNameFilters.ts
     api/
       list.func.ts
-  index.tsx
 </code></pre>
 <p>避免这样组织：</p>
 <pre><code class="hljs language-text">src/pages/
@@ -147,27 +154,27 @@
     useFeatureNameFilters.ts
 </code></pre>
 <p>页面入口示例：</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FeatureNamePage</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
-}
-</code></pre>
-<p>基于 <code>@faasjs/ant-design</code> <code>Routes</code> 的根路由示例：</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">PageLoaderContext</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react/auto-pages&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Pages</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>
-      <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
-        {
-          <span class="hljs-attr">path:</span> &#x27;<span class="hljs-attr">feature-name</span>&#x27;,
-          <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./feature-name&#x27;)),
-        },
-      ]}
-    /&gt;</span>
-  )
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">loader</span>(<span class="hljs-params"><span class="hljs-attr">_context</span>: <span class="hljs-title class_">PageLoaderContext</span></span>) {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">props</span>: {
+      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Feature Name&#x27;</span>,
+    },
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FeatureNamePage</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { title: <span class="hljs-built_in">string</span> }</span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{props.title}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
 }
 </code></pre>
-<p>前端页面路由由 <code>Routes</code> 配置定义。后端 API 路由是独立的，仍然遵循 <code>src/</code> 全路径上的 Zero-Mapping 规则。</p>
+<p>页面路由发现示例：</p>
+<pre><code class="hljs language-text">src/pages/index.tsx         -&gt; /
+src/pages/feature-name/index.tsx
+                         -&gt; /feature-name
+src/pages/docs/default.tsx -&gt; /docs 与未匹配 /docs/* 的 fallback
+</code></pre>
+<p>前端页面路由按照 routing-mapping 规范从 <code>src/pages</code> 自动发现。使用 React SSR auto-pages 时，优先使用内置的 <code>@faasjs/react/auto-pages</code>，不要在应用里重复实现页面发现或路由胶水代码。后端 API 路由是独立的，仍然遵循 <code>src/</code> 全路径上的 Zero-Mapping 规则。</p>
 <h3 id="4.-%E5%90%8E%E7%AB%AF%E6%96%87%E4%BB%B6%E9%81%B5%E5%BE%AA-routing-mapping" tabindex="-1">4. 后端文件遵循 routing-mapping</h3>
 <ul>
 <li>后端路由文件必须遵循 routing-mapping 规范。</li>
@@ -201,8 +208,10 @@ src/pages/feature-name/api/default.func.ts
 <li>抽离后的 hooks 拥有自己的文件</li>
 <li>组件文件名与组件名一致</li>
 <li>hook 文件名与 hook 名一致</li>
-<li>页面入口文件命名为 <code>index.tsx</code></li>
+<li>精确页面入口文件命名为 <code>index.tsx</code></li>
+<li>fallback 页面入口文件命名为 <code>default.tsx</code></li>
 <li>页面入口文件默认导出页面组件</li>
+<li>page <code>loader</code> 只用于 SSR 数据需求</li>
 <li>前端页面位于 <code>pages/</code></li>
 <li>前端组件位于 <code>components/</code></li>
 <li>前端 hooks 位于 <code>hooks/</code></li>
