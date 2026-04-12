@@ -77,15 +77,14 @@
 <li>
 <p><code>@faasjs/react</code></p>
 <ul>
-<li>[Feature] Add <code>@faasjs/react/auto-pages</code>, <code>@faasjs/react/auto-pages/client</code>, and <code>@faasjs/react/auto-pages/server</code> so React SSR page discovery, loader execution, and hydration bootstrap can live in the framework instead of app templates.</li>
-<li>[Feature] Add built-in <code>@faasjs/react/auto-pages</code> client, SSR, and server entry modules so the React SSR template no longer needs local <code>src/main.tsx</code>, <code>src/entry-server.tsx</code>, or <code>server.ts</code>.</li>
+<li>[Feature] Add <code>@faasjs/react/routing</code>, plus matching client/server/entry subpaths, as the preferred name for React SSR file-based routing while keeping <code>@faasjs/react/auto-pages*</code> as compatibility aliases.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/dev</code></p>
 <ul>
-<li>[Feature] Expose the <code>virtual:faasjs-pages</code> module from <code>viteFaasJsServer()</code> so <code>@faasjs/react/auto-pages</code> can discover <code>src/pages</code> during client and SSR builds.</li>
-<li>[Feature] Add <code>createReactAutoPagesViteConfig()</code> so React SSR auto-pages apps can emit both client and SSR bundles from a single <code>vp build</code>.</li>
+<li>[Feature] Expose the <code>virtual:faasjs-pages</code> module from <code>viteFaasJsServer()</code> so <code>@faasjs/react/routing</code> can discover <code>src/pages</code> during client and SSR builds.</li>
+<li>[Feature] Add <code>createReactRoutingViteConfig()</code> and <code>ReactRoutingViteConfigOptions</code>, while keeping <code>createReactAutoPagesViteConfig()</code> as a compatibility alias for existing apps.</li>
 </ul>
 </li>
 </ul>

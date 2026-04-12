@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: createReactAutoPagesViteConfig() | FaasJS</title>
+    <title>~~Function: createReactAutoPagesViteConfig()~~ | FaasJS</title>
     <meta name="description" content="An atomic application framework built for the TypeScript developer." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,28 +63,17 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / createReactAutoPagesViteConfig</p>
-<h1 id="function%3A-createreactautopagesviteconfig()" tabindex="-1">Function: createReactAutoPagesViteConfig()</h1>
+<h1 id="function%3A-createreactautopagesviteconfig()" tabindex="-1"><s>Function: createReactAutoPagesViteConfig()</s></h1>
 <blockquote>
 <p><strong>createReactAutoPagesViteConfig</strong>(<code>options?</code>): <code>UserConfig</code></p>
 </blockquote>
-<p>Create the shared Vite config for React SSR apps that use auto-discovered pages.</p>
-<p>This extends <a href="/doc/dev/variables/viteConfig.html">viteConfig</a> with a second SSR build environment so a plain
-<code>vp build</code> emits both the client bundle and the React SSR <code>dist-server</code>
-bundle. Use it when the app relies on <code>@faasjs/react/auto-pages</code> and should
-not keep a local SSR build script.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/dev/type-aliases/ReactAutoPagesViteConfigOptions.html"><code>ReactAutoPagesViteConfigOptions</code></a> = <code>{}</code></p>
-<p>Optional SSR build overrides.</p>
+<p><a href="/doc/dev/type-aliases/ReactRoutingViteConfigOptions.html"><code>ReactRoutingViteConfigOptions</code></a> = <code>{}</code></p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>UserConfig</code></p>
-<p>Vite config with both client and SSR builds configured.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
-<span class="hljs-keyword">import</span> { createReactAutoPagesViteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(<span class="hljs-title function_">createReactAutoPagesViteConfig</span>())
-</code></pre>
+<h2 id="deprecated" tabindex="-1">Deprecated</h2>
+<p>Use <a href="/doc/dev/functions/createReactRoutingViteConfig.html">createReactRoutingViteConfig</a> instead.</p>
 </div></div>
           </div>
           
