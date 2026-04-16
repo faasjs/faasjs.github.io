@@ -68,18 +68,6 @@
 <p><strong>FormFaasProps</strong>&lt;<code>Values</code>&gt; = <code>object</code></p>
 </blockquote>
 <p>Built-in FaasJS submit handler configuration for <a href="/doc/ant-design/functions/Form.html">Form</a>.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> faas = {
-  <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;user/create&#x27;</span>,
-  <span class="hljs-attr">params</span>: <span class="hljs-function">(<span class="hljs-params">values</span>) =&gt;</span> ({
-    ...values,
-    <span class="hljs-attr">role</span>: values.<span class="hljs-property">role</span> || <span class="hljs-string">&#x27;user&#x27;</span>,
-  }),
-  <span class="hljs-attr">onSuccess</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)
-  },
-}
-</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>

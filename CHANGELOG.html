@@ -64,30 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<h2 id="unreleased" tabindex="-1">Unreleased</h2>
-<ul>
-<li>
-<p><code>@faasjs/core</code></p>
-<ul>
-<li>[Feature] Add <code>reactSsrHandler()</code> to serve built assets first and fall back to HTML SSR through <code>Server.beforeHandle</code>.</li>
-<li>[Fix] Always expose <code>root</code> in middleware context for <code>Server.beforeHandle</code>, <code>useMiddleware()</code>, and <code>useMiddlewares()</code> so server-only middleware can share consistent path resolution.</li>
-<li>[Fix] Keep matched FaasJS function routes ahead of React SSR fallback pages and serve cache-busted static assets correctly.</li>
-</ul>
-</li>
-<li>
-<p><code>@faasjs/react</code></p>
-<ul>
-<li>[Feature] Add <code>@faasjs/react/routing</code>, plus matching client/server/entry subpaths, as the preferred name for React SSR file-based routing while keeping <code>@faasjs/react/auto-pages*</code> as compatibility aliases.</li>
-</ul>
-</li>
-<li>
-<p><code>@faasjs/dev</code></p>
-<ul>
-<li>[Feature] Expose the <code>virtual:faasjs-pages</code> module from <code>viteFaasJsServer()</code> so <code>@faasjs/react/routing</code> can discover <code>src/pages</code> during client and SSR builds.</li>
-<li>[Feature] Add <code>createReactRoutingViteConfig()</code> and <code>ReactRoutingViteConfigOptions</code>, while keeping <code>createReactAutoPagesViteConfig()</code> as a compatibility alias for existing apps.</li>
-</ul>
-</li>
-</ul>
 <p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.20...%3Ev8.0.0-beta.21" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.21 (2026-04-08)</code></a></p>
 <ul>
 <li>

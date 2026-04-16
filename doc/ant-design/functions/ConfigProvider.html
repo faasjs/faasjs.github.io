@@ -79,10 +79,19 @@ provider infers a default language from <code>navigator.language</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span>, <span class="hljs-title class_">ConfigProvider</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">OrdersEmptyState</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span></span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">OrdersPage</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">Empty</span>&#x27; } }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span>
+      <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">orders</span> <span class="hljs-attr">yet</span>&#x27; },
+        <span class="hljs-attr">Title:</span> { <span class="hljs-attr">suffix:</span> &#x27;<span class="hljs-attr">Acme</span> <span class="hljs-attr">Admin</span>&#x27; },
+      }}
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">OrdersEmptyState</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
   )
 }

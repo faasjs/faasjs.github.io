@@ -72,18 +72,28 @@
 <p><code>ConfigContextValue</code></p>
 <p>Current config context value containing the resolved theme.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span>, <span class="hljs-title class_">ConfigProvider</span>, useConfigContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigProvider</span>, useConfigContext } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">EmptyState</span>(<span class="hljs-params"></span>) {
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">OrdersSummary</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { theme } = <span class="hljs-title function_">useConfigContext</span>()
 
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{theme.common.blank}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{`Orders - ${theme.Title.suffix}`}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>{theme.common.blank}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  )
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">OrdersPage</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">N</span>/<span class="hljs-attr">A</span>&#x27; } }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">EmptyState</span> /&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span>
+      <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">orders</span> <span class="hljs-attr">yet</span>&#x27; },
+        <span class="hljs-attr">Title:</span> { <span class="hljs-attr">suffix:</span> &#x27;<span class="hljs-attr">Acme</span> <span class="hljs-attr">Admin</span>&#x27; },
+      }}
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">OrdersSummary</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
   )
 }

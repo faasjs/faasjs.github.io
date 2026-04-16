@@ -104,46 +104,11 @@ See <a href="/doc/react/type-aliases/Options.html">Options</a> for supported req
 <li>Async function - must return a Promise</li>
 <li>Receives the fully merged options including default headers</li>
 </ul>
-<h2 id="examples" tabindex="-1">Examples</h2>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action, params, options) =&gt; {
-  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;user&#x27;</span>) {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-      <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: params.<span class="hljs-property">id</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Mock User&#x27;</span> },
-    }
-  }
-  <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">404</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;Not found&#x27;</span> } }
-})
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action, params) =&gt; {
-  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;login&#x27;</span>) {
-    <span class="hljs-keyword">if</span> (params.<span class="hljs-property">email</span> === <span class="hljs-string">&#x27;admin@example.com&#x27;</span> &amp;&amp; params.<span class="hljs-property">password</span> === <span class="hljs-string">&#x27;admin&#x27;</span>) {
-      <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;admin-token&#x27;</span>, <span class="hljs-attr">role</span>: <span class="hljs-string">&#x27;admin&#x27;</span> } }
-    }
-    <span class="hljs-keyword">return</span> { <span class="hljs-attr">status</span>: <span class="hljs-number">401</span>, <span class="hljs-attr">data</span>: { <span class="hljs-attr">error</span>: <span class="hljs-string">&#x27;Invalid credentials&#x27;</span> } }
-  }
-})
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action) =&gt; {
-  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;protected&#x27;</span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Unauthorized access&#x27;</span>)
-    <span class="hljs-comment">// This will be wrapped in ResponseError and thrown</span>
-  }
-})
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (action) =&gt; {
-  <span class="hljs-keyword">if</span> (action === <span class="hljs-string">&#x27;delete&#x27;</span>) {
-    <span class="hljs-comment">// Return void for 204 No Content</span>
-    <span class="hljs-keyword">return</span>
-  }
-  <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: { <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span> } }
-})
-</code></pre>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
-<li>setMock for setting up mock handlers</li>
-<li>ResponseProps for response structure</li>
-<li>ResponseError for error handling</li>
+<li><a href="/doc/react/functions/setMock.html">setMock</a> for setting up mock handlers.</li>
+<li><a href="/doc/react/type-aliases/ResponseProps.html">ResponseProps</a> for response structure.</li>
+<li><a href="/doc/react/classes/ResponseError.html">ResponseError</a> for error handling.</li>
 </ul>
 </div></div>
           </div>

@@ -75,38 +75,6 @@
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> = <code>any</code></p>
 <p>Whole record or row type that contains the value.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-keyword">type</span> <span class="hljs-title class_">UnionFaasItemElement</span>, <span class="hljs-title class_">Form</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Table</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">NameComponent</span>: <span class="hljs-title class_">UnionFaasItemElement</span> = <span class="hljs-function">(<span class="hljs-params">{ scene, value }</span>) =&gt;</span> {
-  <span class="hljs-keyword">switch</span> (scene) {
-    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;form&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> /&gt;</span></span>
-    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;description&#x27;</span>:
-    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;table&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{value}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
-    <span class="hljs-attr">default</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
-  }
-}
-
-<span class="hljs-keyword">const</span> items = [
-  {
-    <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;name&#x27;</span>,
-    <span class="hljs-attr">children</span>: <span class="hljs-title class_">NameComponent</span>, <span class="hljs-comment">// both `NameComponent` and `&lt;NameComponent /&gt;` are valid</span>
-  },
-]
-
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Form</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span> /&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Description</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">name:</span> &#x27;<span class="hljs-attr">John</span>&#x27; }} /&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Table</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">name:</span> &#x27;<span class="hljs-attr">John</span>&#x27; }]} /&gt;</span>
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
-}
-</code></pre>
 </div></div>
           </div>
           
