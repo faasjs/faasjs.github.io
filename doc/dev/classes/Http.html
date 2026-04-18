@@ -148,9 +148,14 @@ and <code>session</code> before invoking the next handler in the chain.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="config" tabindex="-1">config</h3>
 <blockquote>
-<p><strong>config</strong>: <a href="/doc/dev/type-aliases/HttpConfig.html"><code>HttpConfig</code></a></p>
+<p><strong>config</strong>: <code>object</code></p>
 </blockquote>
 <p>Active HTTP plugin configuration after mount-time merging.</p>
+<h4 id="cookie%3F" tabindex="-1">cookie?</h4>
+<blockquote>
+<p><code>optional</code> <strong>cookie?</strong>: <a href="/doc/dev/type-aliases/CookieOptions.html"><code>CookieOptions</code></a></p>
+</blockquote>
+<p>Cookie and session configuration injected into invoke data.</p>
 <h3 id="name" tabindex="-1">name</h3>
 <blockquote>
 <p><code>readonly</code> <strong>name</strong>: <code>string</code> = <code>Name</code></p>

@@ -218,6 +218,7 @@
   "/doc/node-utils/functions/detectNodeRuntime.html",
   "/doc/node-utils/functions/formatLogger.html",
   "/doc/node-utils/functions/getTransport.html",
+  "/doc/node-utils/functions/isPathInsideRoot.html",
   "/doc/node-utils/functions/loadConfig.html",
   "/doc/node-utils/functions/loadEnvFileIfExists.html",
   "/doc/node-utils/functions/loadFunc.html",

@@ -93,9 +93,9 @@
 <h4 id="default-2" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-number">100</span>
 </code></pre>
-<h3 id="key" tabindex="-1">key</h3>
+<h3 id="key%3F" tabindex="-1">key?</h3>
 <blockquote>
-<p><strong>key</strong>: <code>string</code></p>
+<p><code>optional</code> <strong>key?</strong>: <code>string</code></p>
 </blockquote>
 <p>Cookie key used to store the encrypted session payload.</p>
 <h3 id="keylen%3F" tabindex="-1">keylen?</h3>
@@ -119,6 +119,8 @@
 <p><strong>secret</strong>: <code>string</code></p>
 </blockquote>
 <p>Secret source used to derive encryption and signing keys.</p>
+<p>This must be configured explicitly. FaasJS throws during session
+initialization when it is missing.</p>
 <h3 id="signedsalt%3F" tabindex="-1">signedSalt?</h3>
 <blockquote>
 <p><code>optional</code> <strong>signedSalt?</strong>: <code>string</code></p>

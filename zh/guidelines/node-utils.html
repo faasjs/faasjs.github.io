@@ -73,6 +73,7 @@
 <li>把一个函数模块变成可运行的导出 handler</li>
 <li>把 YAML 中定义的 plugins 加载到 <code>Func</code> 实例中</li>
 <li>在原生 Node 环境中导入带有 tsconfig path alias 的本地 TypeScript 模块</li>
+<li>校验候选文件路径在解析后是否仍然停留在允许的 root 目录内</li>
 <li>复用运行时日志，或把日志发往 transport</li>
 </ul>
 <h2 id="%40faasjs%2Fnode-utils-%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88" tabindex="-1"><code>@faasjs/node-utils</code> 提供什么</h2>
@@ -80,6 +81,7 @@
 <li>环境与配置加载：<code>loadEnvFileIfExists</code>、<code>loadConfig</code>、<code>parseYaml</code></li>
 <li>函数加载：<code>loadFunc</code>、<code>loadPlugins</code></li>
 <li>Node 模块引导：<code>loadPackage</code>、<code>registerNodeModuleHooks</code>、<code>detectNodeRuntime</code>、<code>resetRuntime</code></li>
+<li>文件系统边界校验：<code>isPathInsideRoot</code></li>
 <li>日志与日志转运：<code>Logger</code>、<code>formatLogger</code>、<code>getTransport</code>、<code>Transport</code>、<code>colorfy</code></li>
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
@@ -90,6 +92,7 @@
 <li>当你需要在自定义工具中处理 FaasJS 原始 YAML 子集、且不需要 staged discovery 时，使用 <code>parseYaml()</code>。</li>
 <li>当你需要最终可运行的导出 handler 时使用 <code>loadFunc()</code>；如果你已经有了 <code>Func</code> 实例，则使用 <code>loadPlugins()</code>。</li>
 <li>当直接在 Node 中执行并且需要理解本地 TypeScript 文件或 tsconfig aliases 时，优先使用 FaasJS TypeScript loader，并保持本地导入不带 <code>.ts</code> 或 <code>.tsx</code> 后缀。</li>
+<li>当你要从用户输入或 URL 推导出 root-scoped 文件路径时，先用 <code>isPathInsideRoot()</code> 做校验。</li>
 <li>复用 <code>Logger</code> 和共享 transport，而不是自己再包一套日志封装。</li>
 </ol>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
@@ -144,6 +147,10 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
   plugins:
     http:
       type: http
+      config:
+        cookie:
+          session:
+            secret: &#x27;replace-me&#x27;
 `</span>)
 
 <span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(
@@ -176,6 +183,23 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <li>只有当日志必须被缓冲并转发到其他 sink 时，才使用 <code>getTransport()</code>。</li>
 <li><code>colorfy()</code> 和 <code>formatLogger()</code> 是更底层的 helpers；除非你在实现日志基础设施，否则优先使用 <code>Logger</code>。</li>
 </ul>
+<h3 id="7.-%E7%94%A8-ispathinsideroot()-%E6%A0%A1%E9%AA%8C-root-scoped-%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84" tabindex="-1">7. 用 <code>isPathInsideRoot()</code> 校验 root-scoped 文件路径</h3>
+<ul>
+<li>在打开由 request URL、CLI 参数、配置值或其他用户可控片段拼出来的文件前，先调用 <code>isPathInsideRoot()</code>。</li>
+<li>它会先规范化两边路径，对已存在路径使用 <code>realpath</code> 跟随 symlink，并且在目标文件尚不存在时，也会通过最近的已存在父目录完成规范化。</li>
+<li>这让它很适合用于 static file serving、route lookup、template resolution，或任何必须拒绝 <code>../</code> traversal 和 symlink escape 的场景。</li>
+<li>先把候选路径 <code>resolve()</code> 成绝对路径，再拿这个结果和预期 root 做校验。</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isPathInsideRoot } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<span class="hljs-keyword">import</span> { resolve } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+
+<span class="hljs-keyword">const</span> root = <span class="hljs-title function_">resolve</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;public&#x27;</span>)
+<span class="hljs-keyword">const</span> candidate = <span class="hljs-title function_">resolve</span>(root, requestPath)
+
+<span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isPathInsideRoot</span>(candidate, root)) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Path escapes the static root&#x27;</span>)
+}
+</code></pre>
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li><code>@faasjs/node-utils</code> 的导入只出现在 Node-only 代码中</li>
@@ -184,6 +208,7 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <li>原始 FaasJS 兼容 YAML 使用 <code>parseYaml()</code> 解析，而不是另一个 YAML parser</li>
 <li>加载逻辑使用 <code>loadFunc()</code>、<code>loadPlugins()</code> 或 <code>loadPackage()</code>，而不是自定义动态 import 包装</li>
 <li>module hooks 在进程启动阶段注册，而不是深埋在 feature 代码中</li>
+<li>root-scoped 文件访问会用 <code>isPathInsideRoot()</code> 校验已解析路径</li>
 <li>依赖全新 loader 状态的测试使用了 <code>resetRuntime()</code></li>
 <li>日志使用 <code>Logger</code> 或共享 transport，而不是直接包裹 <code>console</code></li>
 </ul>
@@ -192,6 +217,7 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <li><a href="/zh/guidelines/logger.html">Logger 指南</a></li>
 <li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
 <li><a href="/doc/node-utils/functions/loadEnvFileIfExists.html">loadEnvFileIfExists</a></li>
+<li><a href="/doc/node-utils/functions/isPathInsideRoot.html">isPathInsideRoot</a></li>
 <li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
 <li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>
 <li><a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a></li>
