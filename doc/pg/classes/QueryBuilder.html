@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Class: QueryBuilder\&lt;T, TResult\&gt; | FaasJS</title>
+    <meta name="description" content="An agent-friendly TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon no-sidebar">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/pg/classes/QueryBuilder.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/pg/classes/QueryBuilder.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / QueryBuilder</p>
+<h1 id="class%3A-querybuilder%3Ct%2C-tresult%3E" tabindex="-1">Class: QueryBuilder&lt;T, TResult&gt;</h1>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="t" tabindex="-1">T</h3>
+<p><code>T</code> <em>extends</em> <code>string</code> = <code>string</code></p>
+<h3 id="tresult" tabindex="-1">TResult</h3>
+<p><code>TResult</code> = <code>InferTResult</code>&lt;<code>T</code>&gt;[]</p>
+<h2 id="constructors" tabindex="-1">Constructors</h2>
+<h3 id="constructor" tabindex="-1">Constructor</h3>
+<blockquote>
+<p><strong>new QueryBuilder</strong>&lt;<code>T</code>, <code>TResult</code>&gt;(<code>client</code>, <code>table</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<h4 id="parameters" tabindex="-1">Parameters</h4>
+<h5 id="client" tabindex="-1">client</h5>
+<p><a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
+<h5 id="table" tabindex="-1">table</h5>
+<p><code>T</code></p>
+<h4 id="returns" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h2 id="methods" tabindex="-1">Methods</h2>
+<h3 id="count()" tabindex="-1">count()</h3>
+<blockquote>
+<p><strong>count</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;</p>
+</blockquote>
+<p>Executes a SQL query to count the number of rows in the specified table.</p>
+<h4 id="returns-1" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>number</code>&gt;</p>
+<p>A promise that resolves to the count of rows in the table.</p>
+<h4 id="example" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">count</span>() <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<h3 id="delete()" tabindex="-1">delete()</h3>
+<blockquote>
+<p><strong>delete</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
+</blockquote>
+<p>Deletes records from the specified table based on the provided where conditions.</p>
+<h4 id="returns-2" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
+<p>The result of the raw SQL execution.</p>
+<h4 id="throws" tabindex="-1">Throws</h4>
+<p>If no where conditions are provided.</p>
+<h4 id="example-1" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">delete</span>() <span class="hljs-comment">// DELETE FROM users WHERE id = 1</span>
+</code></pre>
+<h3 id="first()" tabindex="-1">first()</h3>
+<blockquote>
+<p><strong>first</strong>(): <code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;</p>
+</blockquote>
+<h4 id="returns-3" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;</p>
+<h3 id="insert()" tabindex="-1">insert()</h3>
+<blockquote>
+<p><strong>insert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+</blockquote>
+<p>Inserts one or more rows into the table.</p>
+<h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
+<h5 id="firstvalue" tabindex="-1">FirstValue</h5>
+<p><code>FirstValue</code> <em>extends</em> <code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
+<p>The type of the first value to insert, which must be a partial of the table type.</p>
+<h5 id="returning" tabindex="-1">Returning</h5>
+<p><code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] | keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[]</p>
+<p>The type of the columns to return, which can be an array of keys of the table type or ['*'].</p>
+<h4 id="parameters-1" tabindex="-1">Parameters</h4>
+<h5 id="values" tabindex="-1">values</h5>
+<p><code>FirstValue</code> | [<code>FirstValue</code>, <code>...{ [K in string]: ColumnValue&lt;T, K&gt; }[]</code>]</p>
+<p>The value or array of values to insert. If an array, the first value is used to determine the columns.</p>
+<h5 id="options%3F" tabindex="-1">options?</h5>
+<p>Optional settings for the insert operation.</p>
+<h6 id="returning%3F" tabindex="-1">returning?</h6>
+<p><code>Returning</code></p>
+<p>An array of columns to return, or ['*'] to return all columns.</p>
+<h4 id="returns-4" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+<h4 id="example-2" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Charlie&#x27;</span> }) <span class="hljs-comment">// =&gt; []</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Charlie&#x27;</span> }, { <span class="hljs-attr">returning</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; [{ name: &#x27;Charlie&#x27; }]</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>([
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;David&#x27;</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Eve&#x27;</span> },
+]) <span class="hljs-comment">// =&gt; []</span>
+</code></pre>
+<h3 id="join()" tabindex="-1">join()</h3>
+<h4 id="call-signature" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds an INNER JOIN clause.</p>
+<h5 id="parameters-2" tabindex="-1">Parameters</h5>
+<h6 id="table-1" tabindex="-1">table</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="left" tabindex="-1">left</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="right" tabindex="-1">right</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h5 id="returns-5" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h4 id="call-signature-1" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds an INNER JOIN clause.</p>
+<h5 id="parameters-3" tabindex="-1">Parameters</h5>
+<h6 id="table-2" tabindex="-1">table</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="left-1" tabindex="-1">left</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="operator" tabindex="-1">operator</h6>
+<p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
+<h6 id="right-1" tabindex="-1">right</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h5 id="returns-6" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h3 id="leftjoin()" tabindex="-1">leftJoin()</h3>
+<h4 id="call-signature-2" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds a LEFT JOIN clause.</p>
+<h5 id="parameters-4" tabindex="-1">Parameters</h5>
+<h6 id="table-3" tabindex="-1">table</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="left-2" tabindex="-1">left</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="right-2" tabindex="-1">right</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h5 id="returns-7" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h4 id="call-signature-3" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds a LEFT JOIN clause.</p>
+<h5 id="parameters-5" tabindex="-1">Parameters</h5>
+<h6 id="table-4" tabindex="-1">table</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="left-3" tabindex="-1">left</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h6 id="operator-1" tabindex="-1">operator</h6>
+<p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
+<h6 id="right-3" tabindex="-1">right</h6>
+<p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<h5 id="returns-8" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h3 id="limit()" tabindex="-1">limit()</h3>
+<blockquote>
+<p><strong>limit</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Sets the limit value for the query.</p>
+<h4 id="parameters-6" tabindex="-1">Parameters</h4>
+<h5 id="value" tabindex="-1">value</h5>
+<p><code>number</code></p>
+<p>The maximum number of records to retrieve.</p>
+<h4 id="returns-9" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h4 id="example-3" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">limit</span>(<span class="hljs-number">10</span>) <span class="hljs-comment">// LIMIT 10</span>
+</code></pre>
+<h3 id="offset()" tabindex="-1">offset()</h3>
+<blockquote>
+<p><strong>offset</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Sets the offset value for the query.</p>
+<h4 id="parameters-7" tabindex="-1">Parameters</h4>
+<h5 id="value-1" tabindex="-1">value</h5>
+<p><code>number</code></p>
+<p>The number of records to skip.</p>
+<h4 id="returns-10" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h4 id="example-4" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">offset</span>(<span class="hljs-number">10</span>) <span class="hljs-comment">// OFFSET 10</span>
+</code></pre>
+<h3 id="orderby()" tabindex="-1">orderBy()</h3>
+<blockquote>
+<p><strong>orderBy</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>direction?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Sets the order by column and direction for the query.</p>
+<h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
+<h5 id="c" tabindex="-1">C</h5>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h4 id="parameters-8" tabindex="-1">Parameters</h4>
+<h5 id="column" tabindex="-1">column</h5>
+<p><code>C</code></p>
+<p>The column to order by.</p>
+<h5 id="direction%3F" tabindex="-1">direction?</h5>
+<p><code>&quot;ASC&quot;</code> | <code>&quot;DESC&quot;</code> | <code>&quot;asc&quot;</code> | <code>&quot;desc&quot;</code></p>
+<p>The direction to order by.</p>
+<h4 id="returns-11" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h4 id="example-5" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">orderBy</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;DESC&#x27;</span>) <span class="hljs-comment">// ORDER BY id DESC</span>
+</code></pre>
+<h3 id="orderbyraw()" tabindex="-1">orderByRaw()</h3>
+<blockquote>
+<p><strong>orderByRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds a raw SQL expression to ORDER BY with parameter bindings.</p>
+<h4 id="parameters-9" tabindex="-1">Parameters</h4>
+<h5 id="sql" tabindex="-1">sql</h5>
+<p><code>string</code></p>
+<h5 id="params" tabindex="-1">params</h5>
+<p>...<code>any</code>[]</p>
+<h4 id="returns-12" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h3 id="orwhere()" tabindex="-1">orWhere()</h3>
+<h4 id="call-signature-4" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-3" tabindex="-1">Type Parameters</h5>
+<h6 id="c-1" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-10" tabindex="-1">Parameters</h5>
+<h6 id="column-1" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-2" tabindex="-1">operator</h6>
+<p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value%3F" tabindex="-1">value?</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-13" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-6" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h4 id="call-signature-5" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-4" tabindex="-1">Type Parameters</h5>
+<h6 id="c-2" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-11" tabindex="-1">Parameters</h5>
+<h6 id="column-2" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-3" tabindex="-1">operator</h6>
+<p><code>&quot;IN&quot;</code> | <code>&quot;NOT IN&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-2" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]</p>
+<p>The value to compare against.</p>
+<h5 id="returns-14" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-7" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h4 id="call-signature-6" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-5" tabindex="-1">Type Parameters</h5>
+<h6 id="c-3" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-12" tabindex="-1">Parameters</h5>
+<h6 id="column-3" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-4" tabindex="-1">operator</h6>
+<p><code>&quot;IS NULL&quot;</code> | <code>&quot;IS NOT NULL&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h5 id="returns-15" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-8" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h4 id="call-signature-7" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-6" tabindex="-1">Type Parameters</h5>
+<h6 id="c-4" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-13" tabindex="-1">Parameters</h5>
+<h6 id="column-4" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-5" tabindex="-1">operator</h6>
+<p><code>&quot;LIKE&quot;</code> | <code>&quot;ILIKE&quot;</code> | <code>&quot;NOT LIKE&quot;</code> | <code>&quot;NOT ILIKE&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-3" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-16" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-9" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h4 id="call-signature-8" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-7" tabindex="-1">Type Parameters</h5>
+<h6 id="c-5" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-14" tabindex="-1">Parameters</h5>
+<h6 id="column-5" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-6" tabindex="-1">operator</h6>
+<p><code>&quot;@&gt;&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-4" tabindex="-1">value</h6>
+<p><code>Partial</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-17" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-10" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h4 id="call-signature-9" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies an OR WHERE condition to the query builder.</p>
+<h5 id="type-parameters-8" tabindex="-1">Type Parameters</h5>
+<h6 id="c-6" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-15" tabindex="-1">Parameters</h5>
+<h6 id="column-6" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="value-5" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-18" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-11" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
+</code></pre>
+<h3 id="orwhereraw()" tabindex="-1">orWhereRaw()</h3>
+<blockquote>
+<p><strong>orWhereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds a raw SQL expression to the WHERE clause using OR with parameter bindings.</p>
+<h4 id="parameters-16" tabindex="-1">Parameters</h4>
+<h5 id="sql-1" tabindex="-1">sql</h5>
+<p><code>string</code></p>
+<h5 id="params-1" tabindex="-1">params</h5>
+<p>...<code>any</code>[]</p>
+<h4 id="returns-19" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h3 id="pluck()" tabindex="-1">pluck()</h3>
+<blockquote>
+<p><strong>pluck</strong>&lt;<code>C</code>&gt;(<code>column</code>): <code>Promise</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]&gt;</p>
+</blockquote>
+<p>Asynchronously retrieves the values of a specified column from the database.</p>
+<h4 id="type-parameters-9" tabindex="-1">Type Parameters</h4>
+<h5 id="c-7" tabindex="-1">C</h5>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<p>The type of the column name.</p>
+<h4 id="parameters-17" tabindex="-1">Parameters</h4>
+<h5 id="column-7" tabindex="-1">column</h5>
+<p><code>C</code></p>
+<p>The name of the column to pluck values from.</p>
+<h4 id="returns-20" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]&gt;</p>
+<p>A promise that resolves to an array of values from the specified column.</p>
+<h4 id="example-12" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">pluck</span>(<span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// =&gt; [&#x27;Alice&#x27;, &#x27;Bob&#x27;]</span>
+</code></pre>
+<h3 id="select()" tabindex="-1">select()</h3>
+<blockquote>
+<p><strong>select</strong>&lt;<code>ColumnNames</code>&gt;(...<code>columns</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>InferTResult</code>&lt;<code>T</code>, <code>ColumnNames</code>&gt;[]&gt;</p>
+</blockquote>
+<p>Selects specific columns for the query.</p>
+<h4 id="type-parameters-10" tabindex="-1">Type Parameters</h4>
+<h5 id="columnnames" tabindex="-1">ColumnNames</h5>
+<p><code>ColumnNames</code> <em>extends</em> (<code>JsonSelectField</code>&lt;<code>T</code>&gt; | <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>T</code>&gt;)[]</p>
+<h4 id="parameters-18" tabindex="-1">Parameters</h4>
+<h5 id="columns" tabindex="-1">columns</h5>
+<p>...<code>ColumnNames</code></p>
+<p>The columns to select.</p>
+<h4 id="returns-21" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>InferTResult</code>&lt;<code>T</code>, <code>ColumnNames</code>&gt;[]&gt;</p>
+<h4 id="example-13" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// SELECT id, name FROM users</span>
+
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, { <span class="hljs-attr">column</span>: <span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-attr">fields</span>: [<span class="hljs-string">&#x27;email&#x27;</span>] }) <span class="hljs-comment">// SELECT id, jsonb_build_object(&#x27;email&#x27;, data-&gt;&#x27;email&#x27;) AS data FROM users</span>
+</code></pre>
+<h3 id="then()" tabindex="-1">then()</h3>
+<blockquote>
+<p><strong>then</strong>&lt;<code>TResult1</code>, <code>TResult2</code>&gt;(<code>onfulfilled?</code>, <code>onrejected?</code>): <code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;</p>
+</blockquote>
+<h4 id="type-parameters-11" tabindex="-1">Type Parameters</h4>
+<h5 id="tresult1" tabindex="-1">TResult1</h5>
+<p><code>TResult1</code> = <code>TResult</code></p>
+<h5 id="tresult2" tabindex="-1">TResult2</h5>
+<p><code>TResult2</code> = <code>never</code></p>
+<h4 id="parameters-19" tabindex="-1">Parameters</h4>
+<h5 id="onfulfilled%3F" tabindex="-1">onfulfilled?</h5>
+<p>((<code>value</code>) =&gt; <code>TResult1</code> | <code>PromiseLike</code>&lt;<code>TResult1</code>&gt;) | <code>null</code></p>
+<h5 id="onrejected%3F" tabindex="-1">onrejected?</h5>
+<p>((<code>reason</code>) =&gt; <code>TResult2</code> | <code>PromiseLike</code>&lt;<code>TResult2</code>&gt;) | <code>null</code></p>
+<h4 id="returns-22" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;</p>
+<h3 id="tosql()" tabindex="-1">toSql()</h3>
+<blockquote>
+<p><strong>toSql</strong>(): <code>object</code></p>
+</blockquote>
+<h4 id="returns-23" tabindex="-1">Returns</h4>
+<p><code>object</code></p>
+<h5 id="params-2" tabindex="-1">params</h5>
+<blockquote>
+<p><strong>params</strong>: <code>any</code>[]</p>
+</blockquote>
+<h5 id="sql-2" tabindex="-1">sql</h5>
+<blockquote>
+<p><strong>sql</strong>: <code>string</code></p>
+</blockquote>
+<h3 id="update()" tabindex="-1">update()</h3>
+<blockquote>
+<p><strong>update</strong>&lt;<code>Returning</code>&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+</blockquote>
+<p>Updates records in the table with the specified values and returns the updated records.</p>
+<h4 id="type-parameters-12" tabindex="-1">Type Parameters</h4>
+<h5 id="returning-1" tabindex="-1">Returning</h5>
+<p><code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] | keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[]</p>
+<p>An array of keys of the table type or ['*'] to return all columns.</p>
+<h4 id="parameters-20" tabindex="-1">Parameters</h4>
+<h5 id="values-1" tabindex="-1">values</h5>
+<p><code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
+<p>The values to update in the table.</p>
+<h5 id="options%3F-1" tabindex="-1">options?</h5>
+<p>Optional settings for the update operation.</p>
+<h6 id="returning%3F-1" tabindex="-1">returning?</h6>
+<p><code>Returning</code></p>
+<p>An array of columns to return after the update.</p>
+<h4 id="returns-24" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+<h4 id="example-14" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">update</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }) <span class="hljs-comment">// =&gt; []</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
+  .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>)
+  .<span class="hljs-title function_">update</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }, { <span class="hljs-attr">returning</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; [{ name: &#x27;Alice&#x27; }]</span>
+</code></pre>
+<h3 id="upsert()" tabindex="-1">upsert()</h3>
+<blockquote>
+<p><strong>upsert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+</blockquote>
+<p>Inserts or updates records in the database table.</p>
+<h4 id="type-parameters-13" tabindex="-1">Type Parameters</h4>
+<h5 id="firstvalue-1" tabindex="-1">FirstValue</h5>
+<p><code>FirstValue</code> <em>extends</em> <code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
+<p>A partial type of the table's row type.</p>
+<h5 id="returning-2" tabindex="-1">Returning</h5>
+<p><code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] | keyof <code>FirstValue</code>[]</p>
+<h4 id="parameters-21" tabindex="-1">Parameters</h4>
+<h5 id="values-2" tabindex="-1">values</h5>
+<p><code>FirstValue</code> | [<code>FirstValue</code>, <code>...{ [K in string]: ColumnValue&lt;T, K&gt; }[]</code>]</p>
+<p>The values to insert or update. Can be a single object or an array of objects.</p>
+<h5 id="options" tabindex="-1">options</h5>
+<p>The options for the upsert operation.</p>
+<h6 id="conflict" tabindex="-1">conflict</h6>
+<p><a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>T</code>&gt;[]</p>
+<p>The columns to check for conflicts.</p>
+<h6 id="returning%3F-2" tabindex="-1">returning?</h6>
+<p><code>Returning</code></p>
+<p>The columns to return after the upsert operation.</p>
+<h6 id="update%3F" tabindex="-1">update?</h6>
+<p>keyof <code>FirstValue</code>[]</p>
+<p>The columns to update if a conflict occurs.</p>
+<h4 id="returns-25" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
+<ul>
+<li>A promise that resolves to the result of the upsert operation.</li>
+</ul>
+<h4 id="example-15" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">upsert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }, { <span class="hljs-attr">conflict</span>: [<span class="hljs-string">&#x27;id&#x27;</span>], <span class="hljs-attr">update</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; []</span>
+</code></pre>
+<h3 id="where()" tabindex="-1">where()</h3>
+<h4 id="call-signature-10" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-14" tabindex="-1">Type Parameters</h5>
+<h6 id="c-8" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-22" tabindex="-1">Parameters</h5>
+<h6 id="column-8" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-7" tabindex="-1">operator</h6>
+<p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value%3F-1" tabindex="-1">value?</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-26" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-16" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h4 id="call-signature-11" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-15" tabindex="-1">Type Parameters</h5>
+<h6 id="c-9" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-23" tabindex="-1">Parameters</h5>
+<h6 id="column-9" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-8" tabindex="-1">operator</h6>
+<p><code>&quot;IN&quot;</code> | <code>&quot;NOT IN&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-6" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]</p>
+<p>The value to compare against.</p>
+<h5 id="returns-27" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-17" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h4 id="call-signature-12" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-16" tabindex="-1">Type Parameters</h5>
+<h6 id="c-10" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-24" tabindex="-1">Parameters</h5>
+<h6 id="column-10" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-9" tabindex="-1">operator</h6>
+<p><code>&quot;IS NULL&quot;</code> | <code>&quot;IS NOT NULL&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h5 id="returns-28" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-18" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h4 id="call-signature-13" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-17" tabindex="-1">Type Parameters</h5>
+<h6 id="c-11" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-25" tabindex="-1">Parameters</h5>
+<h6 id="column-11" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-10" tabindex="-1">operator</h6>
+<p><code>&quot;LIKE&quot;</code> | <code>&quot;ILIKE&quot;</code> | <code>&quot;NOT LIKE&quot;</code> | <code>&quot;NOT ILIKE&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-7" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-29" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-19" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h4 id="call-signature-14" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-18" tabindex="-1">Type Parameters</h5>
+<h6 id="c-12" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-26" tabindex="-1">Parameters</h5>
+<h6 id="column-12" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="operator-11" tabindex="-1">operator</h6>
+<p><code>&quot;@&gt;&quot;</code></p>
+<p>The operator to use for comparison.</p>
+<h6 id="value-8" tabindex="-1">value</h6>
+<p><code>Partial</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-30" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-20" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h4 id="call-signature-15" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Applies a WHERE condition to the query builder.</p>
+<h5 id="type-parameters-19" tabindex="-1">Type Parameters</h5>
+<h6 id="c-13" tabindex="-1">C</h6>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h5 id="parameters-27" tabindex="-1">Parameters</h5>
+<h6 id="column-13" tabindex="-1">column</h6>
+<p><code>C</code></p>
+<p>The column to filter on.</p>
+<h6 id="value-9" tabindex="-1">value</h6>
+<p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
+<p>The value to compare against.</p>
+<h5 id="returns-31" tabindex="-1">Returns</h5>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+<h5 id="example-21" tabindex="-1">Example</h5>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;IN&#x27;</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// WHERE id IN (1, 2, 3)</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;@&gt;&#x27;</span>, { <span class="hljs-attr">email</span>: <span class="hljs-string">&#x27;example@example.com&#x27;</span> }) <span class="hljs-comment">// WHERE data @&gt; &#x27;{&quot;email&quot;: &quot;example@example.com&quot;}&#x27;</span>
+</code></pre>
+<h3 id="whereraw()" tabindex="-1">whereRaw()</h3>
+<blockquote>
+<p><strong>whereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</blockquote>
+<p>Adds a raw SQL expression to the WHERE clause with parameter bindings.</p>
+<h4 id="parameters-28" tabindex="-1">Parameters</h4>
+<h5 id="sql-3" tabindex="-1">sql</h5>
+<p><code>string</code></p>
+<h5 id="params-3" tabindex="-1">params</h5>
+<p>...<code>any</code>[]</p>
+<h4 id="returns-32" tabindex="-1">Returns</h4>
+<p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
