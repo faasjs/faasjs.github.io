@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>PG Schema and Migrations Guide | FaasJS</title>
+    <meta name="description" content="An agent-friendly full-stack TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/pg-schema-and-migrations.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/pg-schema-and-migrations.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/code-comments.html" aria-label="Code Comments Guide">Code Comments Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/testing.html" aria-label="Testing Guide">Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-query-builder.html" aria-label="PG Query Builder Guide">PG Query Builder Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-table-types.html" aria-label="PG Table Types Guide">PG Table Types Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema and Migrations Guide">PG Schema and Migrations Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-raw-sql-and-client.html" aria-label="PG Raw SQL and Client Guide">PG Raw SQL and Client Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-testing.html" aria-label="PG Testing Guide">PG Testing Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="pg-schema-and-migrations-guide" tabindex="-1">PG Schema and Migrations Guide</h1>
+<p>When implementing or reviewing DDL with <code>@faasjs/pg</code>, default to <code>SchemaBuilder</code>, <code>TableBuilder</code>, and timestamped migration files.</p>
+<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
+<ul>
+<li>creating or updating migrations</li>
+<li>changing tables, columns, indexes, or constraints</li>
+<li>deciding whether a schema change should use builder helpers or raw SQL</li>
+<li>reviewing rollback expectations for an app-level schema change</li>
+</ul>
+<h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
+<ol>
+<li>Create a timestamped <code>.ts</code> migration file, usually with <code>faasjs-pg new &lt;name&gt;</code>.</li>
+<li>Implement <code>up(builder)</code> with <code>SchemaBuilder</code> and <code>TableBuilder</code> helpers first.</li>
+<li>Implement <code>down(builder)</code> for rollback when practical.</li>
+<li>Keep related DDL in one builder run so it stays transactional.</li>
+<li>Fall back to <code>raw()</code> only for SQL the current helpers do not support.</li>
+</ol>
+<h2 id="minimal-example" tabindex="-1">Minimal Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">SchemaBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">up</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
+  builder.<span class="hljs-title function_">createTable</span>(<span class="hljs-string">&#x27;users&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">table</span>) =&gt;</span> {
+    table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;id&#x27;</span>).<span class="hljs-title function_">primary</span>()
+    table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;name&#x27;</span>)
+    table.<span class="hljs-title function_">jsonb</span>(<span class="hljs-string">&#x27;metadata&#x27;</span>).<span class="hljs-title function_">defaultTo</span>(<span class="hljs-string">&#x27;{}&#x27;</span>)
+    table.<span class="hljs-title function_">timestamps</span>()
+    table.<span class="hljs-title function_">index</span>(<span class="hljs-string">&#x27;name&#x27;</span>)
+  })
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">down</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
+  builder.<span class="hljs-title function_">dropTable</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
+}
+</code></pre>
+<h2 id="rules" tabindex="-1">Rules</h2>
+<h3 id="1.-keep-migration-filenames-lexically-sortable" tabindex="-1">1. Keep migration filenames lexically sortable</h3>
+<ul>
+<li>Migration files should remain timestamp-based and sortable by filename.</li>
+<li>Prefer the generated <code>faasjs-pg new &lt;name&gt;</code> naming pattern unless there is a strong reason not to.</li>
+<li>Avoid custom naming schemes that break lexical ordering.</li>
+</ul>
+<h3 id="2.-prefer-builder-helpers-over-handwritten-ddl" tabindex="-1">2. Prefer builder helpers over handwritten DDL</h3>
+<ul>
+<li>Use <code>createTable</code>, <code>alterTable</code>, <code>renameTable</code>, <code>dropTable</code>, and <code>TableBuilder</code> column helpers first.</li>
+<li>Use <code>specificType(...)</code> when the schema needs a PostgreSQL type not covered by a built-in helper.</li>
+<li>Use raw DDL only for unsupported features or carefully scoped one-off statements.</li>
+</ul>
+<h3 id="3.-preserve-transactional-schema-execution" tabindex="-1">3. Preserve transactional schema execution</h3>
+<ul>
+<li><code>SchemaBuilder.run()</code> executes accumulated statements in a single transaction.</li>
+<li>Write migrations assuming the batch should succeed or fail as one unit.</li>
+<li>Do not split one logical schema change across unrelated builder runs unless partial application is intentional.</li>
+</ul>
+<h3 id="4.-keep-migrations-deterministic-and-reversible" tabindex="-1">4. Keep migrations deterministic and reversible</h3>
+<ul>
+<li><code>up</code> and <code>down</code> should be direct, readable descriptions of the schema transition.</li>
+<li>Avoid time-sensitive or environment-sensitive SQL inside migrations unless it is explicitly required.</li>
+<li>Prefer reversible changes when practical so <code>down()</code> can restore the previous state.</li>
+</ul>
+<h3 id="5.-keep-migration-history-semantics-stable" tabindex="-1">5. Keep migration history semantics stable</h3>
+<ul>
+<li><code>typed_pg_migrations</code> is the source of migration history.</li>
+<li><code>migrate()</code> applies all pending files, <code>up()</code> applies the next pending file, and <code>down()</code> rolls back the latest recorded file.</li>
+<li>Treat those behaviors as the default mental model for app code, tooling, and troubleshooting.</li>
+</ul>
+<h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
+<ul>
+<li>the migration file name remains timestamp-sorted</li>
+<li><code>up</code> and <code>down</code> are both present when rollback is practical</li>
+<li>builder helpers are used before raw DDL</li>
+<li>schema changes expect <code>SchemaBuilder.run()</code> to be atomic</li>
+<li>risky schema changes are covered by focused migration or integration tests</li>
+</ul>
+<h2 id="read-next" tabindex="-1">Read Next</h2>
+<ul>
+<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a></li>
+<li><a href="/doc/pg/">@faasjs/pg package reference</a></li>
+<li><a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a></li>
+<li><a href="/doc/pg/classes/TableBuilder.html">TableBuilder</a></li>
+<li><a href="/doc/pg/classes/Migrator.html">Migrator</a></li>
+<li><a href="/doc/pg/classes/Client.html">Client</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
