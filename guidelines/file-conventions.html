@@ -68,14 +68,14 @@
 <ul>
 <li>creating a new page, component, or hook</li>
 <li>reorganizing frontend folders</li>
-<li>adding auto-discovered page routes under <code>pages/</code></li>
+<li>adding page or feature folders under <code>pages/</code></li>
 <li>creating or moving <code>.func.ts</code> backend files</li>
 <li>reviewing whether file names and locations stay predictable for humans and agents</li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Put frontend pages under <code>pages/</code>.</li>
-<li>Use <code>index.tsx</code> for exact page entries and <code>default.tsx</code> only for fallback pages.</li>
+<li>Use <code>index.tsx</code> for the main page entry when it keeps the folder easy to scan.</li>
 <li>Keep one-off page-local logic inline until extraction is justified.</li>
 <li>When a component or hook earns its own abstraction, give it its own file.</li>
 <li>Group frontend code by page or feature.</li>
@@ -114,17 +114,13 @@
 <ul>
 <li>Frontend pages SHOULD be placed under <code>pages/</code>.</li>
 <li>Each page or feature SHOULD use its own directory under <code>pages/</code>.</li>
-<li>Exact page entry files MUST be named <code>index.tsx</code>.</li>
-<li>Fallback page entry files MUST be named <code>default.tsx</code>.</li>
+<li>Main page entry files SHOULD use <code>index.tsx</code> when the folder maps cleanly to one feature page.</li>
 <li>Page entry files SHOULD <code>export default</code> the page component.</li>
-<li>Page entry files MUST NOT rely on special route loader exports.</li>
-<li>No separate route configuration file is required for discovered pages.</li>
-<li>Default React routing setups MAY reuse <code>@faasjs/react/routing/client-entry</code> instead of keeping a local browser bootstrap entry file.</li>
-<li>The legacy <code>@faasjs/react/auto-pages/*</code> paths remain compatibility aliases during migration.</li>
-<li>A directory named <code>api/</code> is reserved for backend handlers and MUST NOT create webpage routes.</li>
+<li>Frontend routing SHOULD be defined explicitly in app code or the chosen UI framework.</li>
+<li>A directory named <code>api/</code> is reserved for backend handlers.</li>
 <li>Components MUST be placed under <code>components/</code>.</li>
 <li>Hooks MUST be placed under <code>hooks/</code>.</li>
-<li>Backend handlers for that page or feature SHOULD be placed under <code>api/</code>.</li>
+<li>Backend handlers for that page or feature SHOULD be placed under <code>api/</code> when they are feature-local.</li>
 <li>Only page entry files MAY be placed directly in the outer page or feature directory.</li>
 <li>Shared code that belongs to the same page or feature SHOULD stay inside that page or feature scope instead of being flattened at the root.</li>
 <li>If a page or feature file grows too large to scan comfortably, split it at a real component, hook, or API boundary instead of creating placeholder helper files.</li>
@@ -133,7 +129,7 @@
 <pre><code class="hljs language-text">src/pages/
   index.tsx
   docs/
-    default.tsx
+    index.tsx
   feature-name/
     index.tsx
     components/
@@ -159,13 +155,12 @@
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Feature Name<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
 }
 </code></pre>
-<p>Page route discovery example:</p>
-<pre><code class="hljs language-text">src/pages/index.tsx         -&gt; /
+<p>Page layout example:</p>
+<pre><code class="hljs language-text">src/pages/index.tsx
 src/pages/feature-name/index.tsx
-                         -&gt; /feature-name
-src/pages/docs/default.tsx -&gt; fallback for /docs and unmatched /docs/*
+src/pages/docs/index.tsx
 </code></pre>
-<p>Frontend page routes are auto-discovered from <code>src/pages</code> according to the routing-mapping specification. When using React file-based routing, prefer the built-in <code>@faasjs/react/routing</code> helpers instead of duplicating page discovery or routing glue in the app. The legacy <code>@faasjs/react/auto-pages</code> path remains a compatibility alias. Backend API routing is separate and still follows Zero-Mapping from the full path under <code>src/</code>.</p>
+<p>Frontend page organization under <code>src/pages</code> is a project convention, not an implicit FaasJS router. Define browser routes explicitly in your app or UI framework. Backend API routing is separate and still follows Zero-Mapping from the full path under <code>src/</code>.</p>
 <h3 id="4.-follow-routing-mapping-for-backend-files" tabindex="-1">4. Follow routing-mapping for backend files</h3>
 <ul>
 <li>Backend route files MUST follow the routing-mapping specification.</li>
@@ -199,10 +194,8 @@ src/pages/feature-name/api/default.func.ts
 <li>extracted hooks have their own file</li>
 <li>component file names match component names</li>
 <li>hook file names match hook names</li>
-<li>exact page entry files are named <code>index.tsx</code></li>
-<li>fallback page entry files are named <code>default.tsx</code></li>
+<li>main page entry files use <code>index.tsx</code> when that keeps the folder easy to scan</li>
 <li>page entry files default-export the page component</li>
-<li>page entry files do not depend on special route loader exports</li>
 <li>frontend pages live under <code>pages/</code></li>
 <li>frontend components live in <code>components/</code></li>
 <li>frontend hooks live in <code>hooks/</code></li>

@@ -64,7 +64,12 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="routing-mapping-specification" tabindex="-1">Routing Mapping Specification</h1>
 <h2 id="background" tabindex="-1">Background</h2>
-<p>FaasJS route resolution is file-based. This spec standardizes both API routing and webpage routing so Zero-Mapping remains explicit: file path and URL path stay in one-to-one alignment by default.</p>
+<p>FaasJS API route resolution is file-based. This spec standardizes backend route
+mapping so Zero-Mapping remains explicit: file path and request path stay in
+one-to-one alignment by default.</p>
+<p>Frontend page components may still live under <code>src/pages</code>, but FaasJS does not
+auto-discover webpage routes for React applications anymore. Browser routing is
+an application concern and is out of scope for this spec.</p>
 <p>Related references:</p>
 <ul>
 <li><code>packages/core/src/server/routes.ts</code></li>
@@ -73,54 +78,32 @@
 </ul>
 <h2 id="goals" tabindex="-1">Goals</h2>
 <ul>
-<li>Keep API and webpage locations discoverable from URL without an extra mapping table.</li>
+<li>Keep API locations discoverable from the request path without an extra mapping table.</li>
 <li>Reduce ambiguity for humans and AI coding agents.</li>
-<li>Keep route search order predictable across webpage rendering and API handling.</li>
+<li>Keep backend route search order predictable.</li>
 </ul>
 <h2 id="non-goals" tabindex="-1">Non-goals</h2>
 <ul>
 <li>Introducing path aliases or rewrite layers.</li>
 <li>Replacing file-system routing with a registry-based router.</li>
 <li>Adding dynamic filename segments such as <code>[id]</code> or <code>[...slug]</code> in this V1 spec.</li>
-<li>Requiring a separate route configuration file for discovered pages.</li>
+<li>Defining browser routing or SPA page discovery behavior.</li>
 </ul>
 <h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
 <h3 id="1.-file-naming-and-placement" tabindex="-1">1. File naming and placement</h3>
 <ol>
-<li>Webpage route root MUST be <code>src/pages</code>.</li>
-<li>Webpage entry files MUST be named <code>index.tsx</code> or <code>default.tsx</code>.</li>
-<li>Webpage entry files MUST default-export the page component.</li>
-<li>A directory named <code>api/</code> is reserved for backend route files and MUST NOT create webpage routes.</li>
 <li>API entry files MUST end with <code>.func.ts</code>.</li>
 <li>API files SHOULD be placed under <code>api/</code> directories for SPA-style projects.</li>
 <li>API files MUST NOT be placed under <code>components/</code> directories.</li>
-<li>Files other than <code>index.tsx</code>, <code>default.tsx</code>, and <code>*.func.ts</code> MUST NOT create routes implicitly.</li>
+<li>Files other than <code>*.func.ts</code> MUST NOT create API routes implicitly.</li>
 </ol>
 <h3 id="2.-zero-mapping-routing" tabindex="-1">2. Zero-mapping routing</h3>
 <ol>
-<li>URL path and file path MUST keep direct mapping (Zero-Mapping by default).</li>
-<li>Webpage routes map relative to <code>src/pages</code> and MUST NOT use a <code>/pages</code> URL prefix. These routes are resolved for webpage requests such as <code>GET</code> and <code>HEAD</code>.</li>
-<li>API routes continue to map from the full path under <code>src/</code>; implementations MUST NOT rely on implicit rewrites such as <code>actions -&gt; api</code>.</li>
+<li>Request path and file path MUST keep direct mapping (Zero-Mapping by default).</li>
+<li>API routes MUST map from the full path under <code>src/</code>; implementations MUST NOT rely on implicit rewrites such as <code>actions -&gt; api</code>.</li>
 <li>Implementations MUST NOT add hidden alias routes that break path/file predictability.</li>
 </ol>
-<h3 id="3.-webpage-route-file-search-order" tabindex="-1">3. Webpage route file search order</h3>
-<p>Given browser path <code>&lt;p&gt;</code>, webpage route resolution MUST probe in this order:</p>
-<ol>
-<li><code>src/pages&lt;p&gt;/index.tsx</code></li>
-<li><code>src/pages&lt;p&gt;/default.tsx</code></li>
-<li>Parent fallback chain: <code>src/pages&lt;parent&gt;/default.tsx</code> up to <code>src/pages/default.tsx</code></li>
-</ol>
-<p>Normalize <code>/</code> so the first probe is <code>src/pages/index.tsx</code>.</p>
-<p>If no candidate exists, the request is treated as not found.
-<code>default.tsx</code> acts as the fallback for the current scope and its descendants after exact <code>index.tsx</code> lookup misses.</p>
-<h3 id="4.-page-module-contract" tabindex="-1">4. Page module contract</h3>
-<ol>
-<li>A webpage route module MUST default-export the page component.</li>
-<li>Route resolution MUST depend only on the discovered file path plus the default export.</li>
-<li>Named exports MAY exist, but they MUST NOT affect route matching or page rendering semantics.</li>
-<li>This V1 webpage routing spec MUST NOT require dynamic filename syntax; nested routing is represented only by directories plus <code>index.tsx</code> and <code>default.tsx</code>.</li>
-</ol>
-<h3 id="5.-api-route-file-search-order" tabindex="-1">5. API route file search order</h3>
+<h3 id="3.-api-route-file-search-order" tabindex="-1">3. API route file search order</h3>
 <p>Given API request path <code>&lt;p&gt;</code>, route resolution MUST probe in this order:</p>
 <ol>
 <li><code>&lt;p&gt;.func.ts</code></li>
@@ -130,47 +113,6 @@
 </ol>
 <p>If no candidate exists, the request is treated as not found.</p>
 <h2 id="examples" tabindex="-1">Examples</h2>
-<h3 id="webpages" tabindex="-1">Webpages</h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Route</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src/pages/index.tsx</code></td>
-<td><code>GET /</code></td>
-</tr>
-<tr>
-<td><code>src/pages/about/index.tsx</code></td>
-<td><code>GET /about</code></td>
-</tr>
-<tr>
-<td><code>src/pages/docs/default.tsx</code></td>
-<td>fallback for <code>/docs</code> and unmatched <code>/docs/*</code> after exact page lookup misses</td>
-</tr>
-<tr>
-<td><code>src/pages/default.tsx</code></td>
-<td>global fallback for unmatched webpage routes</td>
-</tr>
-</tbody>
-</table>
-<p>Webpage fallback example:</p>
-<ul>
-<li>Request: <code>GET /docs/react/routing</code></li>
-<li>Probe order:
-<ol>
-<li><code>src/pages/docs/react/routing/index.tsx</code></li>
-<li><code>src/pages/docs/react/routing/default.tsx</code></li>
-<li><code>src/pages/docs/react/default.tsx</code></li>
-<li><code>src/pages/docs/default.tsx</code></li>
-<li><code>src/pages/default.tsx</code></li>
-</ol>
-</li>
-</ul>
-<h3 id="apis" tabindex="-1">APIs</h3>
 <table>
 <thead>
 <tr>
