@@ -67,7 +67,6 @@
 <h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
 <ul>
 <li>在 Node.js 中直接运行 FaasJS handler、CLI、测试或 bootstrap 脚本</li>
-<li>在应用引导前加载 <code>.env</code> 文件</li>
 <li>读取某个函数文件对应的、已合并分阶段的 <code>faas.yaml</code> 配置</li>
 <li>在自定义 Node.js 工具中解析 FaasJS 支持的 YAML 子集</li>
 <li>把一个函数模块变成可运行的导出 handler</li>
@@ -78,7 +77,7 @@
 </ul>
 <h2 id="%40faasjs%2Fnode-utils-%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88" tabindex="-1"><code>@faasjs/node-utils</code> 提供什么</h2>
 <ul>
-<li>环境与配置加载：<code>loadEnvFileIfExists</code>、<code>loadConfig</code>、<code>parseYaml</code></li>
+<li>配置加载：<code>loadConfig</code>、<code>parseYaml</code></li>
 <li>函数加载：<code>loadFunc</code>、<code>loadPlugins</code></li>
 <li>Node 模块引导：<code>loadPackage</code>、<code>registerNodeModuleHooks</code>、<code>detectNodeRuntime</code>、<code>resetRuntime</code></li>
 <li>文件系统边界校验：<code>isPathInsideRoot</code></li>
@@ -87,7 +86,7 @@
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>仅在 Node-only entrypoints、tests、CLIs 或 adapters 中导入 <code>@faasjs/node-utils</code>。</li>
-<li>如果进程依赖本地 dotenv 文件，尽早用 <code>loadEnvFileIfExists()</code> 加载 env。</li>
+<li>如果进程依赖本地 dotenv 文件，尽早用 Node 内置的 <code>loadEnvFile()</code> 加载 env。</li>
 <li>当你只需要分阶段的 <code>faas.yaml</code> 数据时，使用 <code>loadConfig()</code>。</li>
 <li>当你需要在自定义工具中处理 FaasJS 原始 YAML 子集、且不需要 staged discovery 时，使用 <code>parseYaml()</code>。</li>
 <li>当你需要最终可运行的导出 handler 时使用 <code>loadFunc()</code>；如果你已经有了 <code>Func</code> 实例，则使用 <code>loadPlugins()</code>。</li>
@@ -104,19 +103,17 @@
 </ul>
 <h3 id="2.-%E6%98%BE%E5%BC%8F%E4%B8%94%E5%B0%BD%E6%97%A9%E5%8A%A0%E8%BD%BD-.env-%E6%96%87%E4%BB%B6" tabindex="-1">2. 显式且尽早加载 <code>.env</code> 文件</h3>
 <ul>
-<li>当本地脚本或测试依赖 dotenv 文件时，<code>loadEnvFileIfExists()</code> 是一个小而安全的入口。</li>
+<li>当本地脚本或测试依赖 dotenv 文件时，直接使用 <code>node:process</code> 里的 <code>loadEnvFile()</code>。</li>
 <li>在读取 <code>process.env</code>、构造配置对象，或加载依赖环境变量的模块之前调用它。</li>
-<li>它会返回解析后的文件名或 <code>null</code>，这对 debug log 很有用。</li>
+<li>当 <code>.env</code> 是可选项且启动不该被中断时，用 <code>try/catch</code> 包起来。</li>
 </ul>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
 
-<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;bootstrap&#x27;</span>)
-<span class="hljs-keyword">const</span> envFile = <span class="hljs-title function_">loadEnvFileIfExists</span>({
-  <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
-  <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;.env.local&#x27;</span>,
-})
-
-logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;env file: %s&#x27;</span>, envFile || <span class="hljs-string">&#x27;not found&#x27;</span>)
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-title function_">loadEnvFile</span>()
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">&#x27;Failed to load env file&#x27;</span>, error)
+}
 </code></pre>
 <h3 id="3.-%E8%AE%A9-loadconfig()-%E8%B4%9F%E8%B4%A3%E8%A7%A3%E6%9E%90-staged-faas.yaml" tabindex="-1">3. 让 <code>loadConfig()</code> 负责解析 staged <code>faas.yaml</code></h3>
 <ul>
@@ -139,9 +136,10 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <li>一般性的 Node 动态模块加载，尤其目标是本地 TypeScript 文件或支持 path alias 的模块时，使用 <code>loadPackage()</code>。</li>
 <li>优先使用这些 helpers，而不是临时写 <code>import()</code> 包装，这样 cache busting、tsconfig 解析和 plugin 装载行为才能保持一致。</li>
 </ul>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
+<span class="hljs-keyword">import</span> { loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
-<span class="hljs-title function_">loadEnvFileIfExists</span>()
+<span class="hljs-title function_">loadEnvFile</span>()
 
 <span class="hljs-keyword">const</span> pluginDefaults = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">`defaults:
   plugins:
@@ -216,7 +214,6 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <ul>
 <li><a href="/zh/guidelines/logger.html">Logger 指南</a></li>
 <li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
-<li><a href="/doc/node-utils/functions/loadEnvFileIfExists.html">loadEnvFileIfExists</a></li>
 <li><a href="/doc/node-utils/functions/isPathInsideRoot.html">isPathInsideRoot</a></li>
 <li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
 <li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>

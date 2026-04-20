@@ -67,7 +67,6 @@
 <h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
 <ul>
 <li>running FaasJS handlers, CLIs, tests, or bootstrap scripts directly in Node.js</li>
-<li>loading <code>.env</code> files before bootstrapping the app</li>
 <li>reading merged staged <code>faas.yaml</code> config for a specific function file</li>
 <li>parsing the FaasJS YAML subset in custom Node.js tooling</li>
 <li>turning a function module into a runnable exported handler</li>
@@ -78,7 +77,7 @@
 </ul>
 <h2 id="what-%40faasjs%2Fnode-utils-gives-you" tabindex="-1">What <code>@faasjs/node-utils</code> Gives You</h2>
 <ul>
-<li>environment and config loading: <code>loadEnvFileIfExists</code>, <code>loadConfig</code>, <code>parseYaml</code></li>
+<li>config loading: <code>loadConfig</code>, <code>parseYaml</code></li>
 <li>function loading: <code>loadFunc</code>, <code>loadPlugins</code></li>
 <li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>detectNodeRuntime</code>, <code>resetRuntime</code></li>
 <li>filesystem containment checks: <code>isPathInsideRoot</code></li>
@@ -87,7 +86,7 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Keep <code>@faasjs/node-utils</code> imports in Node-only entrypoints, tests, CLIs, or adapters.</li>
-<li>Load env files early with <code>loadEnvFileIfExists()</code> if the process relies on local dotenv files.</li>
+<li>Load env files early with Node's built-in <code>loadEnvFile()</code> if the process relies on local dotenv files.</li>
 <li>Use <code>loadConfig()</code> when you only need staged <code>faas.yaml</code> data.</li>
 <li>Use <code>parseYaml()</code> when you need the raw FaasJS YAML subset in custom tooling without staged discovery.</li>
 <li>Use <code>loadFunc()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
@@ -104,19 +103,17 @@
 </ul>
 <h3 id="2.-load-.env-files-explicitly-and-early" tabindex="-1">2. Load <code>.env</code> files explicitly and early</h3>
 <ul>
-<li><code>loadEnvFileIfExists()</code> is the small, safe entrypoint when local scripts or tests depend on dotenv files.</li>
+<li><code>loadEnvFile()</code> from <code>node:process</code> is the direct entrypoint when local scripts or tests depend on dotenv files.</li>
 <li>Call it before reading <code>process.env</code>, building config objects, or loading modules that depend on env values.</li>
-<li>It returns the resolved filename or <code>null</code>, which is useful for debug logs.</li>
+<li>Wrap it in <code>try/catch</code> when the env file is optional and startup should continue without it.</li>
 </ul>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, <span class="hljs-title class_">Logger</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
 
-<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;bootstrap&#x27;</span>)
-<span class="hljs-keyword">const</span> envFile = <span class="hljs-title function_">loadEnvFileIfExists</span>({
-  <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
-  <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;.env.local&#x27;</span>,
-})
-
-logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;env file: %s&#x27;</span>, envFile || <span class="hljs-string">&#x27;not found&#x27;</span>)
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-title function_">loadEnvFile</span>()
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">&#x27;Failed to load env file&#x27;</span>, error)
+}
 </code></pre>
 <h3 id="3.-let-loadconfig()-resolve-staged-faas.yaml" tabindex="-1">3. Let <code>loadConfig()</code> resolve staged <code>faas.yaml</code></h3>
 <ul>
@@ -139,9 +136,10 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <li>Use <code>loadPackage()</code> for general dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
 <li>Prefer these helpers over ad hoc <code>import()</code> wrappers so cache busting, tsconfig resolution, and plugin wiring stay consistent.</li>
 </ul>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFileIfExists, loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
+<span class="hljs-keyword">import</span> { loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
-<span class="hljs-title function_">loadEnvFileIfExists</span>()
+<span class="hljs-title function_">loadEnvFile</span>()
 
 <span class="hljs-keyword">const</span> pluginDefaults = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">`defaults:
   plugins:
@@ -216,7 +214,6 @@ logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">
 <ul>
 <li><a href="/guidelines/logger.html">Logger Guide</a></li>
 <li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
-<li><a href="/doc/node-utils/functions/loadEnvFileIfExists.html">loadEnvFileIfExists</a></li>
 <li><a href="/doc/node-utils/functions/isPathInsideRoot.html">isPathInsideRoot</a></li>
 <li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
 <li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>

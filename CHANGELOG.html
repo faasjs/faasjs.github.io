@@ -66,7 +66,32 @@
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
 <h2 id="unreleased" tabindex="-1">Unreleased</h2>
 <ul>
-<li><code>@faasjs/pg</code>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Break] Stop auto loading <code>.env</code> during <code>Server</code> initialization. Load env files explicitly in your entrypoint when needed.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/dev</code></p>
+<ul>
+<li>[Break] Stop auto loading <code>.env</code> for <code>faas run</code> and <code>faas types</code>. Scripts that depend on dotenv files must load them explicitly.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Break] Remove the <code>loadEnvFileIfExists</code> helper. Use Node's built-in <code>loadEnvFile()</code> directly in bootstrap code instead.</li>
+</ul>
+</li>
+<li>
+<p><code>create-faas-app</code></p>
+<ul>
+<li>[Feature] Scaffold <code>server.ts</code> to call Node's built-in <code>loadEnvFile()</code> explicitly and warn without blocking startup when loading fails.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
 <ul>
 <li>[Break] Rename the <code>@faasjs/pg</code> CLI command from <code>typed-pg</code> to <code>faasjs-pg</code>.</li>
 </ul>
