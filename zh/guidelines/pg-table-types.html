@@ -73,13 +73,16 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>在应用代码里通过 <code>declare module '@faasjs/pg'</code> 扩展 <code>Tables</code>。</li>
-<li>让每张表的定义都贴近它的真实运行时 row shape。</li>
-<li>让 <code>client.query</code>、<code>TableType</code>、<code>ColumnName</code> 与 <code>ColumnValue</code> 都从这里推导。</li>
+<li>在应用自己拥有的类型文件里放置 augmentation，例如 <code>src/types/faasjs-pg.d.ts</code>，并先确认 <code>tsconfig.json</code> 已经包含这个文件，再期待推导结果发生变化。</li>
+<li>在这个文件里通过 <code>declare module '@faasjs/pg'</code> 扩展 <code>Tables</code>。</li>
+<li>让每张表的定义都贴近它的真实运行时 row shape，并把 JSON 与 JSONB 的对象结构也统一放进这个 merged interface。</li>
+<li>让 <code>client.query</code>、<code>TableType</code>、<code>ColumnName</code> 与 <code>ColumnValue</code> 都从这里推导，而不是用 <code>as</code> 强行指定结果类型。</li>
+<li>只有在把 <code>client.raw(...)</code> 或其它 raw 边界返回的数据转换成应用类型时，才使用收敛范围明确的类型断言。</li>
 <li>当共享 helper 或包级变更影响推导时，补上或更新 <code>expectTypeOf(...)</code> 覆盖。</li>
 </ol>
 <h2 id="%E6%9C%80%E5%B0%8F%E7%A4%BA%E4%BE%8B" tabindex="-1">最小示例</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
+<pre><code class="hljs language-ts"><span class="hljs-comment">// src/types/faasjs-pg.d.ts</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tables</span> {
     <span class="hljs-attr">users</span>: {
       <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>
@@ -98,6 +101,9 @@
 <li><code>Tables</code> 驱动表名推导以及列级别类型推导。</li>
 <li>当表结构变化时，先更新 merged interface，再调整查询代码。</li>
 <li>让类型定义尽量靠近真正拥有这张表的应用边界。</li>
+<li>augmentation 应放在 TypeScript 已经包含进应用的 <code>.d.ts</code> 或 <code>.ts</code> 文件里。</li>
+<li>JSON 与 JSONB 列的类型统一定义在 <code>declare module '@faasjs/pg'</code> 里，不要在别处散落重复的类型别名。</li>
+<li>如果推导结果没有变化，先检查 <code>tsconfig.json</code> 的 <code>include</code>、<code>files</code> 或 project references，再考虑加类型断言。</li>
 </ul>
 <h3 id="2.-%E8%AE%A9%E8%A1%8C%E7%BB%93%E6%9E%84%E4%BF%9D%E6%8C%81%E5%85%B7%E4%BD%93" tabindex="-1">2. 让行结构保持具体</h3>
 <ul>
@@ -105,19 +111,25 @@
 <li>JSON 或 JSONB 列优先使用精确对象类型，而不是 <code>any</code>。</li>
 <li>只有当存储结构真的可选时，才把属性标成 optional。</li>
 </ul>
-<h3 id="3.-%E4%BF%9D%E6%8C%81%E9%9D%A2%E5%90%91%E6%B6%88%E8%B4%B9%E8%80%85%E7%9A%84%E6%89%A9%E5%B1%95%E6%A8%A1%E5%BC%8F" tabindex="-1">3. 保持面向消费者的扩展模式</h3>
+<h3 id="3.-%E4%BC%98%E5%85%88%E4%BE%9D%E8%B5%96%E6%8E%A8%E5%AF%BC%E8%80%8C%E4%B8%8D%E6%98%AF%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80" tabindex="-1">3. 优先依赖推导而不是类型断言</h3>
+<ul>
+<li>让 typed query 的结果类型从 <code>Tables</code>、<code>select(...)</code>、<code>first()</code> 以及共享 helper 的泛型自然流出。</li>
+<li>除非数据来自 <code>client.raw(...)</code> 或其它 raw 边界，否则不要用 <code>as</code> 去强制指定查询结果类型。</li>
+<li>如果 typed query 代码看起来必须依赖类型断言，应该先修正表定义、选择列或 helper 签名。</li>
+</ul>
+<h3 id="4.-%E4%BF%9D%E6%8C%81%E9%9D%A2%E5%90%91%E6%B6%88%E8%B4%B9%E8%80%85%E7%9A%84%E6%89%A9%E5%B1%95%E6%A8%A1%E5%BC%8F" tabindex="-1">4. 保持面向消费者的扩展模式</h3>
 <ul>
 <li>应用代码应继续通过 module augmentation 扩展 <code>Tables</code>。</li>
 <li>不要把 declaration merging 换成应用私有 registry 或只在运行时存在的 typing。</li>
 <li>如果你在修改 <code>@faasjs/pg</code> 本身，要让未声明表时的 fallback 行为保持明确并且有文档说明。</li>
 </ul>
-<h3 id="4.-%E4%BF%9D%E6%8C%81-helper-types-%E5%AF%B9%E9%BD%90" tabindex="-1">4. 保持 helper types 对齐</h3>
+<h3 id="5.-%E4%BF%9D%E6%8C%81-helper-types-%E5%AF%B9%E9%BD%90" tabindex="-1">5. 保持 helper types 对齐</h3>
 <ul>
 <li><code>TableType&lt;T&gt;</code> 应表示已知表的 row shape。</li>
 <li><code>ColumnName&lt;T&gt;</code> 应始终和该表的真实 keys 对齐。</li>
 <li><code>ColumnValue&lt;T, C&gt;</code> 应解析为该列的值类型。</li>
 </ul>
-<h3 id="5.-surface-%E5%8F%98%E6%9B%B4%E6%97%B6%E6%9B%B4%E6%96%B0%E7%B1%BB%E5%9E%8B%E8%A6%86%E7%9B%96" tabindex="-1">5. surface 变更时更新类型覆盖</h3>
+<h3 id="6.-surface-%E5%8F%98%E6%9B%B4%E6%97%B6%E6%9B%B4%E6%96%B0%E7%B1%BB%E5%9E%8B%E8%A6%86%E7%9B%96" tabindex="-1">6. surface 变更时更新类型覆盖</h3>
 <ul>
 <li>当 declaration merging、共享 helpers 或查询推导发生变化时，补上或更新 <code>expectTypeOf(...)</code> 断言。</li>
 <li>如果新的 query-builder 特性会影响结果结构，就同时测试运行时输出和推导出的类型。</li>
@@ -126,7 +138,9 @@
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li><code>Tables</code> 里是否包含新的或变更后的表结构</li>
-<li>JSON 与 JSONB 列是否使用了具体对象类型</li>
+<li>augmentation 文件是否位于 <code>tsconfig.json</code> 已包含的 source/type root 中</li>
+<li>JSON 与 JSONB 列是否在 <code>declare module '@faasjs/pg'</code> 中定义了具体对象类型</li>
+<li>typed query 的结果是否没有在 raw 边界之外依赖 <code>as</code></li>
 <li>declaration merging 是否仍然能从消费者代码里生效</li>
 <li>helper types 是否仍与 merged table definition 对齐</li>
 <li>公开或共享类型变更是否包含 <code>expectTypeOf(...)</code> 覆盖</li>

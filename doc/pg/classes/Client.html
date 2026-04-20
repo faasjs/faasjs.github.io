@@ -94,7 +94,7 @@
 <p><a href="/doc/pg/classes/QueryBuilder.html"><code>QueryBuilder</code></a>&lt;<code>T</code>&gt;</p>
 <p>A new instance of the QueryBuilder for the specified table.</p>
 <h4 id="example" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;*&#x27;</span>).<span class="hljs-title function_">where</span>({ <span class="hljs-attr">id</span>: userId })
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, userId)
 </code></pre>
 <h3 id="quit()" tabindex="-1">quit()</h3>
 <blockquote>
@@ -123,13 +123,13 @@
 <p>A promise that resolves to an array of objects of type <code>T</code>.</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// using a template string array</span>
-<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>[]&gt;<span class="hljs-string">`SELECT * FROM users`</span>
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>&gt;<span class="hljs-string">`SELECT * FROM users`</span>
 <span class="hljs-comment">// using a string</span>
-<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>[]&gt;(<span class="hljs-string">&#x27;SELECT * FROM users&#x27;</span>)
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>&gt;(<span class="hljs-string">&#x27;SELECT * FROM users&#x27;</span>)
 <span class="hljs-comment">// template string array with parameters</span>
-<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>[]&gt;<span class="hljs-string">`SELECT * FROM users WHERE id = <span class="hljs-subst">${userId}</span>`</span>
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>&gt;<span class="hljs-string">`SELECT * FROM users WHERE id = <span class="hljs-subst">${userId}</span>`</span>
 <span class="hljs-comment">// string with parameters</span>
-<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>[]&gt;(<span class="hljs-string">&#x27;SELECT * FROM users WHERE id = $1&#x27;</span>, userId)
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>&gt;(<span class="hljs-string">&#x27;SELECT * FROM users WHERE id = ?&#x27;</span>, userId)
 </code></pre>
 <h3 id="transaction()" tabindex="-1">transaction()</h3>
 <blockquote>

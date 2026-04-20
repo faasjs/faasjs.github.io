@@ -73,7 +73,7 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>优先使用 <code>TypedPgVitestPlugin()</code>，让 Vitest 自动启动临时数据库、在开启 file parallelism 时为每个 worker 分配一个数据库、运行 migrations，并在每个测试前清空表数据。</li>
+<li>优先使用 <code>TypedPgVitestPlugin()</code>，让 Vitest 自动启动临时数据库、在开启 file parallelism 时为每个 worker 分配一个数据库、运行 migrations，并在每个测试前清空表数据。混合工作区里要记住：它默认会跳过 <code>jsdom</code> 和 <code>happy-dom</code> 项目，除非你通过 <code>environments</code> 或 <code>projects</code> 显式启用。</li>
 <li>让 <code>TypedPgVitestPlugin()</code> 注入 <code>DATABASE_URL</code>，然后用 <code>getClient()</code> 做 seed 和断言，让应用代码与测试共享同一条连接 bootstrap 路径。</li>
 <li>只补充该 suite 真正额外需要的 setup 或 fixtures。</li>
 <li>当查询推导、declaration merging 或共享 wrappers 影响类型时，让 runtime assertions 和 <code>expectTypeOf(...)</code> 成对出现。</li>
@@ -138,6 +138,7 @@
 <h3 id="5.-%E9%80%9A%E8%BF%87-vitest-plugin-%E4%BD%BF%E7%94%A8-%40faasjs%2Fpg-dev" tabindex="-1">5. 通过 Vitest plugin 使用 <code>@faasjs/pg-dev</code></h3>
 <ul>
 <li>工作区测试默认优先使用 <code>TypedPgVitestPlugin()</code>。</li>
+<li>在混合 Vitest 工作区里，如果 <code>jsdom</code> 或 <code>happy-dom</code> suites 也要接入插件，就显式传 <code>environments</code> 或 <code>projects</code>。</li>
 <li>测试里让插件注入 <code>DATABASE_URL</code>，然后直接使用 <code>getClient()</code> 做 fixtures 与断言。</li>
 <li>只有在某个 suite 真的需要自定义 <code>postgres.js</code> options 或额外连接时，才使用 <code>createClient(process.env.DATABASE_URL, options)</code>。</li>
 <li>更底层的数据库 bootstrap 细节应留在 test support layer 内部，公开示例只展示插件用法。</li>
@@ -147,6 +148,7 @@
 <li>runtime behavior changes 是否有测试覆盖</li>
 <li>类型敏感变更是否有 <code>expectTypeOf(...)</code> 覆盖</li>
 <li>测试是否放在变更对应的功能区域附近</li>
+<li>混合工作区是否在需要浏览器类项目时显式配置了插件范围</li>
 <li>suites 是否依赖了插件重置，或自行清理了额外 setup</li>
 <li>验证命令是否与变更面匹配</li>
 </ul>

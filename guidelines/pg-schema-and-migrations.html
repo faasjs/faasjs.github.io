@@ -76,6 +76,8 @@
 <li>Create a timestamped <code>.ts</code> migration file, usually with <code>faasjs-pg new &lt;name&gt;</code>.</li>
 <li>Implement <code>up(builder)</code> with <code>SchemaBuilder</code> and <code>TableBuilder</code> helpers first.</li>
 <li>Implement <code>down(builder)</code> for rollback when practical.</li>
+<li>Run <code>faasjs-pg status</code> from the project root to inspect migration history, then use <code>faasjs-pg migrate</code>, <code>faasjs-pg up</code>, or <code>faasjs-pg down</code> for the execution path you need.</li>
+<li>Keep migration files in <code>./migrations</code> unless you intentionally reconfigure tooling, because both the CLI and <code>TypedPgVitestPlugin()</code> look there by default.</li>
 <li>Keep related DDL in one builder run so it stays transactional.</li>
 <li>Fall back to <code>raw()</code> only for SQL the current helpers do not support.</li>
 </ol>
@@ -84,7 +86,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">up</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
   builder.<span class="hljs-title function_">createTable</span>(<span class="hljs-string">&#x27;users&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">table</span>) =&gt;</span> {
-    table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;id&#x27;</span>).<span class="hljs-title function_">primary</span>()
+    table.<span class="hljs-title function_">number</span>(<span class="hljs-string">&#x27;id&#x27;</span>).<span class="hljs-title function_">primary</span>()
     table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;name&#x27;</span>)
     table.<span class="hljs-title function_">jsonb</span>(<span class="hljs-string">&#x27;metadata&#x27;</span>).<span class="hljs-title function_">defaultTo</span>(<span class="hljs-string">&#x27;{}&#x27;</span>)
     table.<span class="hljs-title function_">timestamps</span>()
@@ -127,10 +129,17 @@
 <li><code>migrate()</code> applies all pending files, <code>up()</code> applies the next pending file, and <code>down()</code> rolls back the latest recorded file.</li>
 <li>Treat those behaviors as the default mental model for app code, tooling, and troubleshooting.</li>
 </ul>
+<h3 id="6.-keep-the-execution-path-obvious" tabindex="-1">6. Keep the execution path obvious</h3>
+<ul>
+<li>Keep migrations in the project-root <code>./migrations</code> folder unless project tooling is configured otherwise.</li>
+<li>Use <code>faasjs-pg status</code> to inspect history, <code>faasjs-pg migrate</code> to apply all pending files, <code>faasjs-pg up</code> for the next file, and <code>faasjs-pg down</code> for the latest rollback.</li>
+<li>If a project customizes the folder or wrapper commands, document that override explicitly in the project README or contributor guide.</li>
+</ul>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>the migration file name remains timestamp-sorted</li>
 <li><code>up</code> and <code>down</code> are both present when rollback is practical</li>
+<li>the <code>status</code>/<code>migrate</code>/<code>up</code>/<code>down</code> execution flow is obvious for the project</li>
 <li>builder helpers are used before raw DDL</li>
 <li>schema changes expect <code>SchemaBuilder.run()</code> to be atomic</li>
 <li>risky schema changes are covered by focused migration or integration tests</li>

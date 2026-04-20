@@ -76,6 +76,8 @@
 <li>先创建一个带时间戳的 <code>.ts</code> migration file，通常通过 <code>faasjs-pg new &lt;name&gt;</code>。</li>
 <li>先用 <code>SchemaBuilder</code> 与 <code>TableBuilder</code> helpers 实现 <code>up(builder)</code>。</li>
 <li>在可行时实现 <code>down(builder)</code> 用于回滚。</li>
+<li>在项目根目录运行 <code>faasjs-pg status</code> 查看 migration history，再按需使用 <code>faasjs-pg migrate</code>、<code>faasjs-pg up</code> 或 <code>faasjs-pg down</code>。</li>
+<li>除非你明确配置了别的位置，否则把 migration files 放在 <code>./migrations</code>，因为 CLI 和 <code>TypedPgVitestPlugin()</code> 默认都从这里读取。</li>
 <li>把相关 DDL 保持在同一次 builder run 里，以维持事务性。</li>
 <li>只有在现有 helpers 不支持时，才回退到 <code>raw()</code>。</li>
 </ol>
@@ -84,7 +86,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">up</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
   builder.<span class="hljs-title function_">createTable</span>(<span class="hljs-string">&#x27;users&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">table</span>) =&gt;</span> {
-    table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;id&#x27;</span>).<span class="hljs-title function_">primary</span>()
+    table.<span class="hljs-title function_">number</span>(<span class="hljs-string">&#x27;id&#x27;</span>).<span class="hljs-title function_">primary</span>()
     table.<span class="hljs-title function_">string</span>(<span class="hljs-string">&#x27;name&#x27;</span>)
     table.<span class="hljs-title function_">jsonb</span>(<span class="hljs-string">&#x27;metadata&#x27;</span>).<span class="hljs-title function_">defaultTo</span>(<span class="hljs-string">&#x27;{}&#x27;</span>)
     table.<span class="hljs-title function_">timestamps</span>()
@@ -127,10 +129,17 @@
 <li><code>migrate()</code> 会执行所有 pending files，<code>up()</code> 执行下一个 pending file，<code>down()</code> 回滚最近一次已记录的 file。</li>
 <li>对 app code、tooling 与问题排查来说，都把这套行为当作默认心智模型。</li>
 </ul>
+<h3 id="6.-%E8%AE%A9%E6%89%A7%E8%A1%8C%E5%85%A5%E5%8F%A3%E4%BF%9D%E6%8C%81%E6%98%8E%E7%A1%AE" tabindex="-1">6. 让执行入口保持明确</h3>
+<ul>
+<li>除非工具配置另有说明，否则把 migrations 放在项目根目录的 <code>./migrations</code>。</li>
+<li>用 <code>faasjs-pg status</code> 查看 history，<code>faasjs-pg migrate</code> 执行全部 pending files，<code>faasjs-pg up</code> 执行下一个 file，<code>faasjs-pg down</code> 回滚最近一次记录。</li>
+<li>如果项目自定义了 migrations 目录或包装命令，就在项目 README 或 contributor guide 里显式写清楚。</li>
+</ul>
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li>migration file name 是否仍然按时间戳排序</li>
 <li>在可回滚时，<code>up</code> 与 <code>down</code> 是否都已存在</li>
+<li>项目的 <code>status</code>/<code>migrate</code>/<code>up</code>/<code>down</code> 执行路径是否清晰可见</li>
 <li>是否先用了 builder helpers，再退回 raw DDL</li>
 <li>schema changes 是否依赖 <code>SchemaBuilder.run()</code> 的原子性</li>
 <li>高风险 schema changes 是否有聚焦的 migration 或 integration tests 覆盖</li>

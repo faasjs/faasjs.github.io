@@ -73,7 +73,7 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest boots a temporary database, provisions one database per worker when file parallelism is enabled, runs migrations, and clears table contents before each test.</li>
+<li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest boots a temporary database, provisions one database per worker when file parallelism is enabled, runs migrations, and clears table contents before each test. In mixed workspaces, remember it skips <code>jsdom</code> and <code>happy-dom</code> projects unless you opt in with <code>environments</code> or <code>projects</code>.</li>
 <li>Let <code>TypedPgVitestPlugin()</code> inject <code>DATABASE_URL</code>, then use <code>getClient()</code> to seed data and run assertions so app code and tests share the same connection bootstrap path.</li>
 <li>Add only the suite-specific setup or fixtures that the plugin does not already provide.</li>
 <li>Pair runtime assertions with <code>expectTypeOf(...)</code> when query inference, declaration merging, or shared wrappers affect types.</li>
@@ -138,6 +138,7 @@
 <h3 id="5.-use-%40faasjs%2Fpg-dev-through-the-vitest-plugin" tabindex="-1">5. Use <code>@faasjs/pg-dev</code> through the Vitest plugin</h3>
 <ul>
 <li>Prefer <code>TypedPgVitestPlugin()</code> for workspace test runs.</li>
+<li>In mixed Vitest workspaces, pass <code>environments</code> or <code>projects</code> when <code>jsdom</code> or <code>happy-dom</code> suites should participate.</li>
 <li>In tests, let the plugin inject <code>DATABASE_URL</code> and use <code>getClient()</code> directly for fixture setup and assertions.</li>
 <li>Reach for <code>createClient(process.env.DATABASE_URL, options)</code> only when a suite genuinely needs custom <code>postgres.js</code> options or an extra connection.</li>
 <li>Keep lower-level database bootstrapping internal to the test support layer; public examples should only show the plugin.</li>
@@ -147,6 +148,7 @@
 <li>runtime behavior changes have test coverage</li>
 <li>type-sensitive changes have <code>expectTypeOf(...)</code> coverage</li>
 <li>tests live close to the feature area that changed</li>
+<li>mixed workspaces configure the plugin scope explicitly when browser-like projects need it</li>
 <li>suites either rely on the plugin reset or clean up their own extra setup</li>
 <li>validation commands match the change surface</li>
 </ul>
