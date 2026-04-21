@@ -81,7 +81,7 @@
 <h2 id="guidelines" tabindex="-1">Guidelines</h2>
 <ul>
 <li><a href="/guidelines/ant-design.html">Ant Design Guide</a>: Covers <code>@faasjs/ant-design</code> page structure, routing, CRUD composition, feature-local APIs, and UI feedback patterns.</li>
-<li><a href="/guidelines/file-conventions.html">File Conventions</a>: Covers where to place pages, components, hooks, and <code>.func.ts</code> files, plus when separate files are worth creating.</li>
+<li><a href="/guidelines/file-conventions.html">File Conventions</a>: Covers where to place pages, components, hooks, and <code>.api.ts</code> files, plus when separate files are worth creating.</li>
 <li><a href="/guidelines/code-comments.html">Code Comments Guide</a>: Covers export JSDoc expectations, public JSDoc language/tag conventions, when internal helpers need brief comments, and how to explain non-standard code without narrating it line by line.</li>
 <li><a href="/guidelines/node-utils.html">Node Utils Guide</a>: Covers Node-only helpers for env/config loading, function and plugin bootstrapping, module loading, and shared logging.</li>
 <li><a href="/guidelines/project-config.html">Project Config Guide</a>: Covers how to keep <code>tsconfig.json</code>, <code>vite.config.ts</code>, and shared tooling config aligned with FaasJS defaults.</li>
@@ -89,7 +89,7 @@
 <li><a href="/guidelines/react.html">React Guide</a>: Covers React component and hook patterns in FaasJS, especially avoiding native <code>useEffect</code> and handling non-primitive dependencies safely.</li>
 <li><a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>: Covers when to use <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, or wrapper components, and how to handle loading, error, and retry states.</li>
 <li><a href="/guidelines/react-testing.html">React Testing Guide</a>: Covers request-related React testing with <code>setMock</code>, shared cleanup, <code>jsdom</code>, and common request-flow scenarios on top of the shared Testing Guide.</li>
-<li><a href="/guidelines/define-api.html">defineApi Guide</a>: Covers building <code>.func.ts</code> endpoints with <code>defineApi</code>, inline schemas, typed <code>params</code>, error handling, and validation expectations.</li>
+<li><a href="/guidelines/define-api.html">defineApi Guide</a>: Covers building <code>.api.ts</code> endpoints with <code>defineApi</code>, inline schemas, typed <code>params</code>, error handling, and validation expectations.</li>
 <li><a href="/guidelines/logger.html">Logger Guide</a>: Covers when to reuse injected loggers versus creating <code>Logger</code> instances, how to choose log levels, and how to time slow operations.</li>
 <li><a href="/guidelines/utils.html">Utils Guide</a>: Covers portable helpers from <code>@faasjs/utils</code> for deep merging and converting text or JSON to and from streams.</li>
 <li><a href="/guidelines/pg-query-builder.html">PG Query Builder and Raw SQL Guide</a>: Covers preferring <code>QueryBuilder</code> clauses, choosing raw SQL fallbacks deliberately, keeping client bootstrap consistent, and narrowing row shapes intentionally.</li>

@@ -86,12 +86,12 @@ npx create-faas-app --name faasjs-admin --template antd
 </code></pre>
 <p>默认模板是 <code>basic</code>，如果你想直接生成 Ant Design 应用骨架，可以加上 <code>--template antd</code>。</p>
 <h2 id="%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B" tabindex="-1">代码示例</h2>
-<h3 id="%E4%BA%91%E5%87%BD%E6%95%B0%E6%96%87%E4%BB%B6" tabindex="-1">云函数文件</h3>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// index.func.ts</span>
-<span class="hljs-comment">// 云函数文件都以 .func.ts 结尾</span>
+<h3 id="api-%E6%96%87%E4%BB%B6" tabindex="-1">API 文件</h3>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// index.api.ts</span>
+<span class="hljs-comment">// API 入口文件都以 .api.ts 结尾</span>
 <span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello, world&#x27;</span> <span class="hljs-comment">// 返回的内容</span>
   },
@@ -102,15 +102,15 @@ npx create-faas-app --name faasjs-admin --template antd
 <span class="hljs-comment">// 普通单元测试文件以 .test.ts 结尾</span>
 <span class="hljs-comment">// 需要 jsdom 的 UI 测试使用 .ui.test.ts 或 .ui.test.tsx</span>
 <span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> { func } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.func&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should work&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-comment">// 包装云函数</span>
-    <span class="hljs-keyword">const</span> testFunc = <span class="hljs-title function_">test</span>(func)
+    <span class="hljs-comment">// 包装 API 模块</span>
+    <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
 
     <span class="hljs-comment">// 模拟请求</span>
-    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> testFunc.<span class="hljs-title class_">JSON</span>handler()
+    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler()
 
     <span class="hljs-comment">// 断言返回 200 状态</span>
     <span class="hljs-title function_">expect</span>(statusCode).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">200</span>)

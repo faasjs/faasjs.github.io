@@ -198,7 +198,7 @@
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+<span class="hljs-keyword">const</span> api = <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ config, current_user }</span>) {
     <span class="hljs-keyword">return</span> {
       current_user,
@@ -207,7 +207,7 @@
   },
 })
 
-func.<span class="hljs-property">config</span> = {
+api.<span class="hljs-property">config</span> = {
   <span class="hljs-attr">plugins</span>: {
     <span class="hljs-attr">auth</span>: {
       <span class="hljs-attr">config</span>: {
@@ -219,6 +219,8 @@ func.<span class="hljs-property">config</span> = {
     },
   },
 }
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> api
 </code></pre>
 <p>在最终解析后的配置中：</p>
 <ul>

@@ -67,9 +67,9 @@
 <h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
 <ul>
 <li>running FaasJS handlers, CLIs, tests, or bootstrap scripts directly in Node.js</li>
-<li>reading merged staged <code>faas.yaml</code> config for a specific function file</li>
+<li>reading merged staged <code>faas.yaml</code> config for a specific API file</li>
 <li>parsing the FaasJS YAML subset in custom Node.js tooling</li>
-<li>turning a function module into a runnable exported handler</li>
+<li>turning an API module into a runnable exported handler</li>
 <li>loading YAML-defined plugins into a <code>Func</code> instance</li>
 <li>importing local TypeScript modules with tsconfig path aliases in plain Node</li>
 <li>validating whether a candidate file path still stays inside an allowed root directory</li>
@@ -78,7 +78,7 @@
 <h2 id="what-%40faasjs%2Fnode-utils-gives-you" tabindex="-1">What <code>@faasjs/node-utils</code> Gives You</h2>
 <ul>
 <li>config loading: <code>loadConfig</code>, <code>parseYaml</code></li>
-<li>function loading: <code>loadFunc</code>, <code>loadPlugins</code></li>
+<li>API loading: <code>loadApiHandler</code>, <code>loadPlugins</code></li>
 <li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>detectNodeRuntime</code>, <code>resetRuntime</code></li>
 <li>filesystem containment checks: <code>isPathInsideRoot</code></li>
 <li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorfy</code></li>
@@ -89,7 +89,7 @@
 <li>Load env files early with Node's built-in <code>loadEnvFile()</code> if the process relies on local dotenv files.</li>
 <li>Use <code>loadConfig()</code> when you only need staged <code>faas.yaml</code> data.</li>
 <li>Use <code>parseYaml()</code> when you need the raw FaasJS YAML subset in custom tooling without staged discovery.</li>
-<li>Use <code>loadFunc()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
+<li>Use <code>loadApiHandler()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
 <li>Prefer the FaasJS TypeScript loader when direct Node execution must understand local TypeScript files or tsconfig aliases, and keep local imports extensionless without <code>.ts</code> or <code>.tsx</code> suffixes.</li>
 <li>Use <code>isPathInsideRoot()</code> before reading or loading root-scoped files from user-controlled or URL-derived paths.</li>
 <li>Reuse <code>Logger</code> and the shared transport instead of building a custom logging wrapper.</li>
@@ -118,12 +118,12 @@
 <h3 id="3.-let-loadconfig()-resolve-staged-faas.yaml" tabindex="-1">3. Let <code>loadConfig()</code> resolve staged <code>faas.yaml</code></h3>
 <ul>
 <li>Do not reimplement directory walking or manual deep merging for <code>faas.yaml</code>.</li>
-<li><code>loadConfig()</code> walks from project root to the function directory, merges nested files, applies <code>defaults</code>, and annotates plugin entries with their resolved <code>name</code>.</li>
+<li><code>loadConfig()</code> walks from project root to the target API directory, merges nested files, applies <code>defaults</code>, and annotates plugin entries with their resolved <code>name</code>.</li>
 <li>This keeps runtime behavior consistent with FaasJS plugin loading.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
-<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>, <span class="hljs-string">&#x27;production&#x27;</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/orders/create.api.ts&#x27;</span>, <span class="hljs-string">&#x27;production&#x27;</span>)
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(config.<span class="hljs-property">plugins</span>?.<span class="hljs-property">http</span>)
 </code></pre>
@@ -131,13 +131,13 @@
 <ul>
 <li>Use <code>parseYaml()</code> when your script receives YAML text directly and you want the same supported subset and error messages as FaasJS config parsing.</li>
 <li><code>parseYaml()</code> does not walk directories, apply staging fallbacks, or validate the <code>faas.yaml</code> schema, so validate the parsed shape yourself when you are not calling <code>loadConfig()</code>.</li>
-<li>Use <code>loadFunc()</code> when you need the final handler that a runtime or test will invoke.</li>
+<li>Use <code>loadApiHandler()</code> when you need the final handler that a runtime or test will invoke.</li>
 <li>Use <code>loadPlugins()</code> when you already have a <code>Func</code> instance and want YAML-driven plugins and config attached before exporting or mounting it.</li>
 <li>Use <code>loadPackage()</code> for general dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
 <li>Prefer these helpers over ad hoc <code>import()</code> wrappers so cache busting, tsconfig resolution, and plugin wiring stay consistent.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
-<span class="hljs-keyword">import</span> { loadFunc, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<span class="hljs-keyword">import</span> { loadApiHandler, parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 
 <span class="hljs-title function_">loadEnvFile</span>()
 
@@ -151,9 +151,9 @@
             secret: &#x27;replace-me&#x27;
 `</span>)
 
-<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadFunc</span>(
+<span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadApiHandler</span>(
   process.<span class="hljs-title function_">cwd</span>(),
-  <span class="hljs-string">&#x27;/project/src/orders/create.func.ts&#x27;</span>,
+  <span class="hljs-string">&#x27;/project/src/orders/create.api.ts&#x27;</span>,
   process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
 )
 
@@ -202,9 +202,9 @@
 <ul>
 <li><code>@faasjs/node-utils</code> imports stay in Node-only code</li>
 <li>local scripts load <code>.env</code> before env-dependent bootstrap logic</li>
-<li>staged <code>faas.yaml</code> is read through <code>loadConfig()</code> or <code>loadFunc()</code>, not custom merge code</li>
+<li>staged <code>faas.yaml</code> is read through <code>loadConfig()</code> or <code>loadApiHandler()</code>, not custom merge code</li>
 <li>raw FaasJS-compatible YAML parsing uses <code>parseYaml()</code> instead of a different YAML parser</li>
-<li>loaders use <code>loadFunc()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>
+<li>loaders use <code>loadApiHandler()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>
 <li>module hooks are registered at process startup, not deep inside feature code</li>
 <li>root-scoped file access validates resolved paths with <code>isPathInsideRoot()</code></li>
 <li>tests that depend on fresh loader state use <code>resetRuntime()</code></li>
@@ -213,14 +213,14 @@
 <h2 id="read-next" tabindex="-1">Read Next</h2>
 <ul>
 <li><a href="/guidelines/logger.html">Logger Guide</a></li>
-<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
-<li><a href="/doc/node-utils/functions/isPathInsideRoot.html">isPathInsideRoot</a></li>
-<li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
-<li><a href="/doc/node-utils/functions/loadFunc.html">loadFunc</a></li>
-<li><a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a></li>
-<li><a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a></li>
-<li><a href="/doc/node-utils/functions/parseYaml.html">parseYaml</a></li>
-<li><a href="/doc/node-utils/functions/registerNodeModuleHooks.html">registerNodeModuleHooks</a></li>
+<li><a href="/references/packages/node-utils/README.md">@faasjs/node-utils package reference</a></li>
+<li><a href="/references/packages/node-utils/functions/isPathInsideRoot.md">isPathInsideRoot</a></li>
+<li><a href="/references/packages/node-utils/functions/loadConfig.md">loadConfig</a></li>
+<li><a href="/references/packages/node-utils/functions/loadApiHandler.md">loadApiHandler</a></li>
+<li><a href="/references/packages/node-utils/functions/loadPackage.md">loadPackage</a></li>
+<li><a href="/references/packages/node-utils/functions/loadPlugins.md">loadPlugins</a></li>
+<li><a href="/references/packages/node-utils/functions/parseYaml.md">parseYaml</a></li>
+<li><a href="/references/packages/node-utils/functions/registerNodeModuleHooks.md">registerNodeModuleHooks</a></li>
 </ul>
 </div></div>
           </div>

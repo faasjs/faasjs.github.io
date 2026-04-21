@@ -65,29 +65,29 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / test</p>
 <h1 id="function%3A-test()" tabindex="-1">Function: test()</h1>
 <blockquote>
-<p><strong>test</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
+<p><strong>test</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <a href="/doc/dev/classes/ApiTester.html"><code>ApiTester</code></a>&lt;<code>TFunc</code>&gt;</p>
 </blockquote>
-<p>Create a bound <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a> for tests.</p>
+<p>Create a bound <a href="/doc/dev/classes/ApiTester.html">ApiTester</a> for tests.</p>
 <p>The returned wrapper binds <code>mount()</code>, <code>handler()</code>, and <code>JSONhandler()</code> so
 they can be passed around without losing their instance context.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tfunc" tabindex="-1">TFunc</h3>
 <p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
-<p>Wrapped FaasJS function type.</p>
+<p>Wrapped FaasJS API type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initby" tabindex="-1">initBy</h3>
-<p><code>TFunc</code></p>
-<p>Function instance passed to <a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a>.</p>
+<p><code>TFunc</code> | { <code>default?</code>: <code>TFunc</code>; <code>func?</code>: <code>TFunc</code>; }</p>
+<p>API instance passed to <a href="/doc/dev/classes/ApiTester.html">ApiTester</a>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a>&lt;<code>TFunc</code>&gt;</p>
+<p><a href="/doc/dev/classes/ApiTester.html"><code>ApiTester</code></a>&lt;<code>TFunc</code>&gt;</p>
 <p>Bound wrapper instance.</p>
 <h2 id="see" tabindex="-1">See</h2>
-<p><a href="/doc/dev/classes/FuncWarper.html">FuncWarper</a></p>
+<p><a href="/doc/dev/classes/ApiTester.html">ApiTester</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> { func } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.func&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
 
-<span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(func)
+<span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
 
 <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
 </code></pre>

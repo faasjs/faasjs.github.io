@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: isTypegenSourceFile() | FaasJS</title>
+    <title>~~Function: isTypegenSourceFile()~~ | FaasJS</title>
     <meta name="description" content="An agent-friendly full-stack TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,24 +63,17 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / isTypegenSourceFile</p>
-<h1 id="function%3A-istypegensourcefile()" tabindex="-1">Function: isTypegenSourceFile()</h1>
+<h1 id="function%3A-istypegensourcefile()" tabindex="-1"><s>Function: isTypegenSourceFile()</s></h1>
 <blockquote>
 <p><strong>isTypegenSourceFile</strong>(<code>filePath</code>): <code>boolean</code></p>
 </blockquote>
-<p>Determine whether a file change should trigger Faas type generation.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="filepath" tabindex="-1">filePath</h3>
 <p><code>string</code></p>
-<p>Absolute or relative path reported by a file watcher.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>boolean</code></p>
-<p><code>true</code> when the changed file can affect generated route declarations.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isTypegenSourceFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-
-<span class="hljs-title function_">isTypegenSourceFile</span>(<span class="hljs-string">&#x27;src/orders/create.func.ts&#x27;</span>) <span class="hljs-comment">// true</span>
-<span class="hljs-title function_">isTypegenSourceFile</span>(<span class="hljs-string">&#x27;src/orders/service.ts&#x27;</span>) <span class="hljs-comment">// false</span>
-</code></pre>
+<h2 id="deprecated" tabindex="-1">Deprecated</h2>
+<p>Use <a href="/doc/dev/functions/isTypegenInputFile.html">isTypegenInputFile</a> instead.</p>
 </div></div>
           </div>
           

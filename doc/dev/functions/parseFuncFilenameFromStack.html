@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: parseFuncFilenameFromStack() | FaasJS</title>
+    <title>~~Function: parseFuncFilenameFromStack()~~ | FaasJS</title>
     <meta name="description" content="An agent-friendly full-stack TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,23 +63,17 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / parseFuncFilenameFromStack</p>
-<h1 id="function%3A-parsefuncfilenamefromstack()" tabindex="-1">Function: parseFuncFilenameFromStack()</h1>
+<h1 id="function%3A-parsefuncfilenamefromstack()" tabindex="-1"><s>Function: parseFuncFilenameFromStack()</s></h1>
 <blockquote>
 <p><strong>parseFuncFilenameFromStack</strong>(<code>stack?</code>): <code>string</code> | <code>undefined</code></p>
 </blockquote>
-<p>Extract a <code>.func.ts</code> file path from a captured stack trace.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="stack%3F" tabindex="-1">stack?</h3>
 <p><code>string</code></p>
-<p>Stack trace text to inspect.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code> | <code>undefined</code></p>
-<p>Absolute or file URL converted source path when found.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseFuncFilenameFromStack } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-
-<span class="hljs-keyword">const</span> filename = <span class="hljs-title function_">parseFuncFilenameFromStack</span>(<span class="hljs-string">&#x27;Error\\n    at file:///project/src/demo.func.ts:3:1&#x27;</span>)
-</code></pre>
+<h2 id="deprecated" tabindex="-1">Deprecated</h2>
+<p>Use <a href="/doc/dev/functions/parseApiFilenameFromStack.html">parseApiFilenameFromStack</a> instead.</p>
 </div></div>
           </div>
           

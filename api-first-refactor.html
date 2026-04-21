@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>API-First Terminology Refactor | FaasJS</title>
+    <meta name="description" content="An agent-friendly full-stack TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon no-sidebar">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/api-first-refactor.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://marketplace.visualstudio.com/items?itemName=FaasJS.faasjs-snippets" aria-label="VS Code Plugin" rel="noopener noreferrer" target="_blank">VS Code Plugin</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/api-first-refactor.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="api-first-terminology-refactor" tabindex="-1">API-First Terminology Refactor</h1>
+<p>Status: phases 1-7 implemented, full validation green
+Owner: maintainers / framework contributors
+Scope: next major release</p>
+<h2 id="summary" tabindex="-1">Summary</h2>
+<p>This refactor moves FaasJS application-facing terminology from <code>func</code> to <code>api</code>
+without renaming the low-level runtime primitive <code>Func</code>.</p>
+<p>The end state should feel consistent to app authors:</p>
+<ul>
+<li>API files end with <code>.api.ts</code></li>
+<li>API examples use <code>export default defineApi(...)</code></li>
+<li>user-facing helper names prefer <code>api</code> over <code>func</code></li>
+</ul>
+<p>The low-level runtime surface stays intentionally stable:</p>
+<ul>
+<li>keep <code>Func</code></li>
+<li>keep <code>FuncConfig</code></li>
+<li>keep <code>FuncPluginConfig</code></li>
+<li>keep <code>loadPlugins</code></li>
+<li>keep plugin lifecycle terminology</li>
+</ul>
+<p>This is a major-breaking refactor. Do not merge it as a partial rename.</p>
+<h2 id="progress-log" tabindex="-1">Progress Log</h2>
+<ul>
+<li>2026-04-20: completed Phase 1 in <code>packages/core</code>
+<ul>
+<li>route lookup now resolves <code>.api.ts</code>, <code>index.api.ts</code>, and <code>default.api.ts</code></li>
+<li>server loader now prefers default exports and still falls back to legacy <code>{ func }</code></li>
+<li>added <code>parseApiFilenameFromStack()</code> and kept <code>parseFuncFilenameFromStack()</code> as a deprecated alias</li>
+<li>refreshed generated API docs with <code>npx vp run doc</code></li>
+<li>validated with <code>npx vp test run packages/core/src/server/__tests__ packages/core/src/__tests__/parseFuncFilenameFromStack.test.ts packages/core/src/func/__tests__/coverage.test.ts</code></li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 2 in <code>packages/dev</code> and added the Phase 3 type-surface prerequisite
+<ul>
+<li>typegen now scans <code>.api.ts</code> files, emits <code>InferFaasApi</code>, and exposes <code>isTypegenInputFile()</code></li>
+<li>kept <code>isTypegenSourceFile()</code> as a deprecated alias during migration</li>
+<li>Vite dev integration now anchors config discovery at <code>index.api.ts</code> and watches <code>.api.ts</code> inputs</li>
+<li>added <code>InferFaasApi&lt;TModule&gt;</code> in <code>packages/types</code> with default-export-first inference while keeping <code>InferFaasFunc&lt;TModule&gt;</code> as a deprecated alias</li>
+<li>refreshed generated API docs with <code>npx vp run doc</code></li>
+<li>validated with <code>npx vp test run packages/dev/src/typegen/__tests__/typegen.test.ts packages/dev/src/vite/__tests__/vite.test.ts packages/dev/src/vite/__tests__/vite-typegen.test.ts packages/dev/src/shared/__tests__/server_config.test.ts packages/dev/src/cli/__tests__/index.test.ts packages/dev/src/__tests__/index.test.ts packages/types/src/__tests__/index.test.ts</code></li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 3 in <code>packages/node-utils</code> and <code>packages/types</code>
+<ul>
+<li>added <code>loadApiHandler()</code> and kept <code>loadFunc()</code> as a deprecated alias</li>
+<li>updated node-utils examples and helper docs to use <code>.api.ts</code> wording and <code>['default', 'func']</code> loader preference</li>
+<li>exported <code>loadApiHandler</code> ahead of <code>loadFunc</code> from the package root while keeping legacy compatibility</li>
+<li>refreshed generated API docs with <code>npx vp run doc</code></li>
+<li>validated with <code>npx vp test run packages/node-utils/src/__tests__/load_func.test.ts packages/node-utils/src/__tests__/load_package.test.ts packages/node-utils/src/__tests__/load_config.test.ts packages/node-utils/src/__tests__/load_plugins.test.ts packages/node-utils/src/__tests__/index.test.ts</code></li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 4 in <code>packages/dev</code>
+<ul>
+<li>renamed the public test helper to <code>ApiTester</code> and kept <code>FuncWarper</code> as a deprecated alias</li>
+<li>switched test-helper path inference to <code>.api.ts</code> and updated public JSDoc/examples to prefer default-exported API modules</li>
+<li>renamed dev testing fixtures from <code>.func.ts</code> to <code>.api.ts</code> and updated tests to import default exports</li>
+<li>refreshed generated API docs with <code>npx vp run doc</code></li>
+<li>validated with <code>npx vp test run packages/dev/src/testing/__tests__ packages/dev/src/__tests__/index.test.ts</code></li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 5 in <code>packages/create-faas-app</code>, <code>templates</code>, and <code>benchmarks</code>
+<ul>
+<li>renamed scaffolded and template API entry files from <code>.func.ts</code> to <code>.api.ts</code></li>
+<li>switched scaffolded and template API modules to <code>export default defineApi(...)</code></li>
+<li>updated <code>create-faas-app</code> expectations and template tests to import default-exported API modules</li>
+<li>refreshed local package builds with <code>npx vp pack</code> so standalone template validation used the current package outputs</li>
+<li>validated with <code>npx vp test run packages/create-faas-app/src/__tests__/action.test.ts</code></li>
+<li>validated template examples with:
+<ul>
+<li><code>cd packages/create-faas-app/template/basic &amp;&amp; npx vp test run src/pages/home/api/__tests__/hello.test.ts</code></li>
+<li><code>cd packages/create-faas-app/template/antd &amp;&amp; npx vp test run src/pages/home/api/__tests__/hello.test.ts</code></li>
+<li><code>cd templates/hello-api &amp;&amp; npx vp test run src/hello/api/__tests__/hello.test.ts</code></li>
+<li><code>cd templates/params-and-errors &amp;&amp; npx vp test run src/orders/api/__tests__/create.test.ts</code></li>
+<li><code>cd templates/routing-fallback &amp;&amp; npx vp test run src/blog/api/__tests__/routing.test.ts</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 6 in <code>skills/faasjs-best-practices</code> and <code>docs</code>
+<ul>
+<li>updated source-of-truth guidelines and specs to teach <code>.api.ts</code>, <code>export default defineApi(...)</code>, <code>loadApiHandler()</code>, <code>ApiTester</code>, and <code>InferFaasApi</code></li>
+<li>synced the published English and Chinese docs plus guide indexes to the API-first terminology</li>
+<li>reviewed docs navigation and kept <code>docs/site/site.config.ts</code> unchanged because no route or label move was required</li>
+<li>validated with <code>cd docs &amp;&amp; npx vp run build</code></li>
+</ul>
+</li>
+<li>2026-04-21: completed Phase 7 follow-up work across generated outputs, changelog, and validation
+<ul>
+<li>updated <code>packages/types</code> JSDoc and regenerated API docs so <code>InferFaasApi</code> no longer teaches the legacy named-export pattern</li>
+<li>added an unreleased changelog entry covering the <code>.api.ts</code> rename, default-export authoring pattern, and deprecated compatibility aliases</li>
+<li>renamed missed <code>packages/core/src/middleware/__tests__/funcs/*.func.ts</code> fixtures to <code>.api.ts</code> and updated static-handler expectations after full-suite validation exposed the gap</li>
+<li>validated the middleware follow-up with <code>npx vp test run packages/core/src/middleware/__tests__/index.test.ts packages/core/src/middleware/__tests__/static.test.ts</code></li>
+<li>stabilized <code>packages/node-utils/src/__tests__/logger.test.ts</code> against ambient <code>TERM</code> state and hardened the React request/stream helpers plus static stream mocks after wide validation exposed follow-up regressions</li>
+<li>final validation is now green, including <code>npx vp check</code>, <code>npx vp test</code>, <code>npx vp run doc</code>, <code>cd docs &amp;&amp; npx vp install &amp;&amp; npx vp run build</code>, and <code>npx vp run ci</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>make the public FaasJS authoring path read as API-first</li>
+<li>remove <code>.func.ts</code> from templates, docs, and generated examples</li>
+<li>reduce <code>func</code> as a user-facing term outside the low-level runtime</li>
+<li>make <code>defineApi()</code> + default export the canonical application pattern</li>
+<li>keep runtime terminology precise instead of renaming everything to <code>api</code></li>
+</ul>
+<h2 id="non-goals" tabindex="-1">Non-Goals</h2>
+<ul>
+<li>do not rename the <code>Func</code> class to <code>Api</code></li>
+<li>do not rename <code>FuncConfig</code> or <code>FuncPluginConfig</code></li>
+<li>do not rename <code>loadPlugins</code></li>
+<li>do not introduce a new named export convention such as <code>export const api = ...</code></li>
+<li>do not support both <code>.func.ts</code> and <code>.api.ts</code> as a long-term routing mode</li>
+<li>do not broaden framework semantics beyond API entry files</li>
+</ul>
+<h2 id="fixed-decisions" tabindex="-1">Fixed Decisions</h2>
+<ul>
+<li>API entry files switch from <code>.func.ts</code> to <code>.api.ts</code></li>
+<li>application docs and templates switch from <code>export const func = defineApi(...)</code>
+to <code>export default defineApi(...)</code></li>
+<li>runtime loaders and type inference may support legacy named <code>func</code> during the
+migration window, but docs and scaffolding must not generate it</li>
+<li>do not add a named <code>api</code> export convention</li>
+<li>deprecated symbol aliases are acceptable for one release cycle after the major
+cutover; file suffixes do not get the same dual-support period</li>
+<li><code>InferFaasAction</code> stays as-is</li>
+<li><code>FuncEventType</code> and <code>FuncReturnType</code> stay as-is for this refactor because they
+describe the low-level <code>Func</code> primitive directly</li>
+</ul>
+<h2 id="current-baseline" tabindex="-1">Current Baseline</h2>
+<p>Snapshot taken while drafting this plan:</p>
+<ul>
+<li><code>*.func.ts</code> files in repo: 56</li>
+<li><code>*.api.ts</code> files in repo: 0</li>
+<li><code>loadFunc</code> references: 51</li>
+<li><code>FuncWarper</code> references: 91</li>
+<li><code>InferFaasFunc</code> references: 21</li>
+</ul>
+<p>Use this only as a planning baseline. Re-run the search commands before
+implementation starts.</p>
+<h2 id="rename-matrix" tabindex="-1">Rename Matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current</th>
+<th>Target</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API file suffix</td>
+<td><code>.func.ts</code></td>
+<td><code>.api.ts</code></td>
+<td>hard break</td>
+</tr>
+<tr>
+<td>API module export</td>
+<td><code>export const func = ...</code></td>
+<td><code>export default ...</code></td>
+<td>canonical</td>
+</tr>
+<tr>
+<td>Node helper</td>
+<td><code>loadFunc</code></td>
+<td><code>loadApiHandler</code></td>
+<td>add deprecated alias</td>
+</tr>
+<tr>
+<td>Stack helper</td>
+<td><code>parseFuncFilenameFromStack</code></td>
+<td><code>parseApiFilenameFromStack</code></td>
+<td>add deprecated alias</td>
+</tr>
+<tr>
+<td>Type inference</td>
+<td><code>InferFaasFunc</code></td>
+<td><code>InferFaasApi</code></td>
+<td>add deprecated alias</td>
+</tr>
+<tr>
+<td>Test helper class</td>
+<td><code>FuncWarper</code></td>
+<td><code>ApiTester</code></td>
+<td>add deprecated alias</td>
+</tr>
+<tr>
+<td>Typegen watcher helper</td>
+<td><code>isTypegenSourceFile</code></td>
+<td><code>isTypegenInputFile</code></td>
+<td>add deprecated alias</td>
+</tr>
+<tr>
+<td>Low-level runtime primitive</td>
+<td><code>Func</code></td>
+<td><code>Func</code></td>
+<td>keep</td>
+</tr>
+<tr>
+<td>Runtime config types</td>
+<td><code>FuncConfig</code>, <code>FuncPluginConfig</code></td>
+<td>unchanged</td>
+<td>keep</td>
+</tr>
+<tr>
+<td>Action inference</td>
+<td><code>InferFaasAction</code></td>
+<td>unchanged</td>
+<td>keep</td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementation-principles" tabindex="-1">Implementation Principles</h2>
+<ul>
+<li>Change source-of-truth docs before copied or published docs.</li>
+<li>Do not hand-edit generated API docs. Update source JSDoc and run <code>vp run doc</code>.</li>
+<li>Do not leave templates or tests teaching the old convention after merge.</li>
+<li>Prefer default export in examples and generators. Do not add <code>export const api</code>.</li>
+<li>Keep runtime naming accurate: use <code>api</code> for app-facing file/module concepts and
+keep <code>Func</code> for the low-level executable unit.</li>
+<li>Land this work in a major-release branch or as a tightly coordinated major PR.</li>
+</ul>
+<h2 id="phase-checklist" tabindex="-1">Phase Checklist</h2>
+<h3 id="phase-0---freeze-the-contract" tabindex="-1">Phase 0 - Freeze The Contract</h3>
+<ul>
+<li>[ ] Confirm the release target is a major version.</li>
+<li>[ ] Confirm the canonical authoring pattern is <code>export default defineApi(...)</code>.</li>
+<li>[ ] Confirm named <code>api</code> exports are out of scope.</li>
+<li>[ ] Confirm file suffix migration is one-way: final merged state must not route
+both <code>.func.ts</code> and <code>.api.ts</code>.</li>
+<li>[ ] Confirm deprecated symbol aliases will remain for one release cycle, then
+be removed in the following major.</li>
+<li>[ ] Confirm <code>FuncEventType</code> and <code>FuncReturnType</code> remain unchanged in this pass.</li>
+</ul>
+<h3 id="phase-1---runtime-routing-and-core-helpers" tabindex="-1">Phase 1 - Runtime Routing And Core Helpers</h3>
+<p>Primary files:</p>
+<ul>
+<li><code>packages/core/src/server/routes.ts</code></li>
+<li><code>packages/core/src/server/index.ts</code></li>
+<li><code>packages/core/src/func/index.ts</code></li>
+</ul>
+<p>Checklist:</p>
+<ul>
+<li>[x] Update route lookup from <code>.func.ts</code> to <code>.api.ts</code>.</li>
+<li>[x] Update fallback lookup order to:
+<ol>
+<li><code>&lt;p&gt;.api.ts</code></li>
+<li><code>&lt;p&gt;/index.api.ts</code></li>
+<li><code>&lt;p&gt;/default.api.ts</code></li>
+<li>parent fallback chain using <code>default.api.ts</code></li>
+</ol>
+</li>
+<li>[x] Update any user-facing route errors from &quot;function file&quot; to &quot;API file&quot;.</li>
+<li>[x] Add <code>parseApiFilenameFromStack()</code> and make it detect <code>.api.ts</code>.</li>
+<li>[x] Keep <code>parseFuncFilenameFromStack()</code> as a deprecated alias that forwards to
+<code>parseApiFilenameFromStack()</code> during the migration window.</li>
+<li>[x] Update the <code>Func</code> constructor to use the new parser internally.</li>
+<li>[x] Update JSDoc examples and comments that still say <code>.func.ts</code>.</li>
+<li>[x] Update server loader export preference to default export first.</li>
+<li>[x] Keep legacy named <code>func</code> support temporarily in runtime loaders; do not add
+named <code>api</code> support.</li>
+</ul>
+<p>Tests to update in this phase:</p>
+<ul>
+<li>[x] <code>packages/core/src/server/__tests__/**</code></li>
+<li>[x] <code>packages/core/src/__tests__/parseFuncFilenameFromStack.test.ts</code></li>
+<li>[x] <code>packages/core/src/func/__tests__/coverage.test.ts</code></li>
+<li>[x] any fixtures under <code>packages/core/src/server/__tests__/**</code> that use
+<code>.func.ts</code> names</li>
+</ul>
+<h3 id="phase-2---typegen%2C-vite%2C-and-dev-runtime-integration" tabindex="-1">Phase 2 - Typegen, Vite, And Dev Runtime Integration</h3>
+<p>Primary files:</p>
+<ul>
+<li><code>packages/dev/src/typegen/index.ts</code></li>
+<li><code>packages/dev/src/vite/server.ts</code></li>
+<li><code>packages/dev/src/shared/server_config.ts</code></li>
+<li><code>packages/dev/src/index.ts</code></li>
+</ul>
+<p>Checklist:</p>
+<ul>
+<li>[x] Rename internal typegen file scanning from <code>readFuncFiles()</code> to
+<code>readApiFiles()</code>.</li>
+<li>[x] Change typegen scanning from <code>.func.ts</code> to <code>.api.ts</code>.</li>
+<li>[x] Rename <code>isTypegenSourceFile()</code> to <code>isTypegenInputFile()</code>.</li>
+<li>[x] Keep <code>isTypegenSourceFile()</code> as a deprecated alias during migration.</li>
+<li>[x] Switch generated route imports from <code>InferFaasFunc</code> to <code>InferFaasApi</code>.</li>
+<li>[x] Update route normalization logic from <code>.func</code> endings to <code>.api</code> endings.</li>
+<li>[x] Update Vite watcher logic to restart on <code>.api.ts</code> changes.</li>
+<li>[x] Update any example or comment that still references <code>.func.ts</code>.</li>
+<li>[x] Update the default source anchor in server config helpers from
+<code>index.func.ts</code> to <code>index.api.ts</code>.</li>
+</ul>
+<p>Tests to update in this phase:</p>
+<ul>
+<li>[x] <code>packages/dev/src/typegen/__tests__/typegen.test.ts</code></li>
+<li>[x] <code>packages/dev/src/vite/__tests__/vite.test.ts</code></li>
+<li>[x] <code>packages/dev/src/vite/__tests__/vite-typegen.test.ts</code></li>
+<li>[x] <code>packages/dev/src/shared/__tests__/server_config.test.ts</code></li>
+<li>[x] <code>packages/dev/src/cli/__tests__/index.test.ts</code></li>
+</ul>
+<h3 id="phase-3---node-utils%2C-type-surface%2C-and-public-helper-names" tabindex="-1">Phase 3 - Node Utils, Type Surface, And Public Helper Names</h3>
+<p>Primary files:</p>
+<ul>
+<li><code>packages/node-utils/src/load_func.ts</code></li>
+<li><code>packages/node-utils/src/index.ts</code></li>
+<li><code>packages/node-utils/src/load_package.ts</code></li>
+<li><code>packages/node-utils/src/load_config.ts</code></li>
+<li><code>packages/node-utils/src/load_plugins.ts</code></li>
+<li><code>packages/types/src/index.ts</code></li>
+</ul>
+<p>Checklist:</p>
+<ul>
+<li>[x] Add a new public helper named <code>loadApiHandler()</code>.</li>
+<li>[x] Keep <code>loadFunc()</code> as a deprecated alias that forwards to <code>loadApiHandler()</code>
+for one release cycle.</li>
+<li>[x] Update <code>loadApiHandler()</code> docs and examples to reference <code>.api.ts</code>.</li>
+<li>[x] Update package root exports to expose the new name first.</li>
+<li>[x] Add <code>InferFaasApi&lt;TModule&gt;</code> in <code>packages/types/src/index.ts</code>.</li>
+<li>[x] Keep <code>InferFaasFunc&lt;TModule&gt;</code> as a deprecated alias during migration.</li>
+<li>[x] Make <code>InferFaasApi</code> prefer <code>default</code> export first, then fall back to legacy
+<code>{ func }</code>.</li>
+<li>[x] Do not add <code>{ api }</code> inference support.</li>
+<li>[x] Update <code>loadPackage()</code> examples that currently show <code>['func', 'default']</code>
+to prefer <code>['default', 'func']</code> during migration and <code>['default']</code> after alias
+removal.</li>
+<li>[x] Update helper docs that say &quot;function file&quot; when the text is application-
+facing; keep low-level <code>Func</code> wording when the API really is about <code>Func</code>.</li>
+</ul>
+<p>Tests to update in this phase:</p>
+<ul>
+<li>[x] <code>packages/node-utils/src/__tests__/load_func.test.ts</code></li>
+<li>[x] <code>packages/node-utils/src/__tests__/load_package.test.ts</code></li>
+<li>[x] <code>packages/node-utils/src/__tests__/load_config.test.ts</code></li>
+<li>[x] <code>packages/node-utils/src/__tests__/load_plugins.test.ts</code></li>
+<li>[x] <code>packages/node-utils/src/__tests__/index.test.ts</code></li>
+</ul>
+<h3 id="phase-4---test-helpers-and-dev-ergonomics" tabindex="-1">Phase 4 - Test Helpers And Dev Ergonomics</h3>
+<p>Primary files:</p>
+<ul>
+<li><code>packages/dev/src/testing/func_warper.ts</code></li>
+<li><code>packages/dev/src/testing/index.ts</code></li>
+<li><code>packages/dev/src/index.ts</code></li>
+</ul>
+<p>Checklist:</p>
+<ul>
+<li>[x] Rename the public wrapper class from <code>FuncWarper</code> to <code>ApiTester</code>.</li>
+<li>[x] Keep <code>FuncWarper</code> as a deprecated alias during migration.</li>
+<li>[x] Keep <code>test()</code> as the convenience helper name.</li>
+<li>[x] Update path inference inside the tester to look for <code>.api.ts</code>.</li>
+<li>[x] Update examples to import default exports instead of named <code>func</code>.</li>
+<li>[x] Update JSDoc to talk about wrapped APIs where appropriate while keeping
+<code>Func</code> references only where the low-level type matters.</li>
+</ul>
+<p>Tests to update in this phase:</p>
+<ul>
+<li>[x] <code>packages/dev/src/testing/__tests__/basic.test.ts</code></li>
+<li>[x] <code>packages/dev/src/testing/__tests__/encoding.test.ts</code></li>
+<li>[x] <code>packages/dev/src/testing/__tests__/http.test.ts</code></li>
+<li>[x] <code>packages/dev/src/testing/__tests__/initByFunc.test.ts</code></li>
+<li>[x] <code>packages/dev/src/testing/__tests__/use.test.ts</code></li>
+<li>[x] any fixtures under <code>packages/dev/src/testing/fixtures/**</code></li>
+</ul>
+<h3 id="phase-5---templates%2C-scaffolding%2C-benchmarks%2C-and-fixtures" tabindex="-1">Phase 5 - Templates, Scaffolding, Benchmarks, And Fixtures</h3>
+<p>Primary files and directories:</p>
+<ul>
+<li><code>packages/create-faas-app/src/action.ts</code></li>
+<li><code>packages/create-faas-app/src/__tests__/action.test.ts</code></li>
+<li><code>packages/create-faas-app/template/**</code></li>
+<li><code>templates/**</code></li>
+<li><code>benchmarks/**</code></li>
+</ul>
+<p>Checklist:</p>
+<ul>
+<li>[x] Rename scaffolded API files from <code>.func.ts</code> to <code>.api.ts</code>.</li>
+<li>[x] Switch scaffolded API modules to <code>export default defineApi(...)</code>.</li>
+<li>[x] Update <code>create-faas-app</code> expectations and snapshot-style tests.</li>
+<li>[x] Update template READMEs to explain <code>.api.ts</code>.</li>
+<li>[x] Update routing fallback examples to <code>index.api.ts</code> and <code>default.api.ts</code>.</li>
+<li>[x] Rename benchmark fixtures that currently use <code>.func.ts</code>.</li>
+<li>[x] Update any hard-coded generated-path assertions to <code>.api.ts</code>.</li>
+<li>[x] Keep internal fixture directory names such as <code>funcs/</code> unchanged unless they
+actively confuse the implementation. File suffixes are the priority.</li>
+</ul>
+<p>Minimum file groups to review:</p>
+<ul>
+<li>[x] <code>packages/create-faas-app/template/basic/**</code></li>
+<li>[x] <code>packages/create-faas-app/template/antd/**</code></li>
+<li>[x] <code>templates/hello-api/**</code></li>
+<li>[x] <code>templates/params-and-errors/**</code></li>
+<li>[x] <code>templates/routing-fallback/**</code></li>
+<li>[x] <code>benchmarks/server/raw/**</code></li>
+</ul>
+<h3 id="phase-6---source-of-truth-docs%2C-published-docs%2C-and-navigation" tabindex="-1">Phase 6 - Source-Of-Truth Docs, Published Docs, And Navigation</h3>
+<p>Follow <code>contributing/documentation-sync.md</code>.</p>
+<p>Source-of-truth docs to update first:</p>
+<ul>
+<li>[x] <code>skills/faasjs-best-practices/SKILL.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/guidelines/file-conventions.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/guidelines/define-api.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/guidelines/node-utils.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/guidelines/ant-design.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/references/specs/routing-mapping.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/references/specs/faas-yaml.md</code></li>
+<li>[x] <code>skills/faasjs-best-practices/references/specs/plugin.md</code></li>
+</ul>
+<p>Published docs to sync after source-of-truth updates:</p>
+<ul>
+<li>[x] <code>docs/guidelines/**</code></li>
+<li>[x] <code>docs/specs/**</code></li>
+<li>[x] <code>docs/zh/guidelines/**</code></li>
+<li>[x] <code>docs/zh/specs/**</code></li>
+<li>[x] <code>docs/README.md</code></li>
+<li>[x] <code>docs/zh/README.md</code></li>
+<li>[x] <code>docs/guide/README.md</code></li>
+<li>[x] <code>docs/zh/guide/README.md</code></li>
+<li>[x] <code>docs/site/site.config.ts</code> if navigation labels or routes change</li>
+</ul>
+<p>Documentation content changes required:</p>
+<ul>
+<li>[x] replace <code>.func.ts</code> examples with <code>.api.ts</code></li>
+<li>[x] replace <code>export const func = defineApi(...)</code> examples with default export</li>
+<li>[x] replace <code>loadFunc()</code> guidance with <code>loadApiHandler()</code></li>
+<li>[x] replace <code>FuncWarper</code> guidance with <code>ApiTester</code></li>
+<li>[x] replace <code>InferFaasFunc</code> examples with <code>InferFaasApi</code></li>
+<li>[x] keep low-level <code>Func</code> examples only where the docs are intentionally about
+low-level runtime composition</li>
+<li>[x] update English and Chinese docs in the same change</li>
+</ul>
+<h3 id="phase-7---generated-outputs%2C-changelog%2C-and-validation" tabindex="-1">Phase 7 - Generated Outputs, Changelog, And Validation</h3>
+<p>Generated and derived outputs:</p>
+<ul>
+<li>[x] run <code>vp run doc</code> after JSDoc and public API changes</li>
+<li>[x] do not hand-edit generated API docs</li>
+<li>[x] review generated diffs under checked-in API doc outputs before merge</li>
+</ul>
+<p>Release notes:</p>
+<ul>
+<li>[x] add a major-breaking changelog entry in <code>CHANGELOG.md</code></li>
+<li>[x] call out the required file rename from <code>.func.ts</code> to <code>.api.ts</code></li>
+<li>[x] call out the move to default export examples</li>
+<li>[x] call out deprecated aliases and their removal timeline</li>
+</ul>
+<p>Validation:</p>
+<ul>
+<li>[x] run <code>vp check</code> (known <code>vitest.ui.setup.ts</code> warnings remain)</li>
+<li>[x] run <code>vp test</code></li>
+<li>[x] run <code>vp run doc</code></li>
+<li>[x] run <code>cd docs &amp;&amp; vp install &amp;&amp; vp run build</code></li>
+<li>[x] for a wide refactor branch, run <code>vp run ci</code> before merge</li>
+</ul>
+<h2 id="deprecated-alias-plan" tabindex="-1">Deprecated Alias Plan</h2>
+<p>Allowed temporary aliases after the major cutover:</p>
+<ul>
+<li><code>loadFunc</code> -&gt; <code>loadApiHandler</code></li>
+<li><code>parseFuncFilenameFromStack</code> -&gt; <code>parseApiFilenameFromStack</code></li>
+<li><code>InferFaasFunc</code> -&gt; <code>InferFaasApi</code></li>
+<li><code>FuncWarper</code> -&gt; <code>ApiTester</code></li>
+<li><code>isTypegenSourceFile</code> -&gt; <code>isTypegenInputFile</code></li>
+</ul>
+<p>Not allowed:</p>
+<ul>
+<li><code>.func.ts</code> route support in final merged behavior</li>
+<li>named <code>api</code> export support</li>
+<li>docs or templates that still teach the old names</li>
+</ul>
+<p>Alias removal target:</p>
+<ul>
+<li>remove deprecated symbol aliases in the next major after the migration release</li>
+<li>remove any remaining docs references before alias removal lands</li>
+</ul>
+<h2 id="search-commands" tabindex="-1">Search Commands</h2>
+<p>Run these before and after implementation:</p>
+<pre><code class="hljs language-sh">rg --files -g <span class="hljs-string">&#x27;*.func.ts&#x27;</span>
+rg --files -g <span class="hljs-string">&#x27;*.api.ts&#x27;</span>
+rg -n <span class="hljs-string">&#x27;\.func\.ts|loadFunc|FuncWarper|InferFaasFunc|parseFuncFilenameFromStack|isTypegenSourceFile|export const func = defineApi&#x27;</span> packages docs skills templates README.md
+rg -n <span class="hljs-string">&#x27;function file|cloud function file|Not found function file&#x27;</span> packages docs skills templates README.md
+</code></pre>
+<p>Suggested targeted searches during migration:</p>
+<pre><code class="hljs language-sh">rg -n <span class="hljs-string">&#x27;\.func\.ts&#x27;</span> packages/create-faas-app templates benchmarks
+rg -n <span class="hljs-string">&#x27;\.func\.ts|InferFaasFunc|isTypegenSourceFile&#x27;</span> packages/dev
+rg -n <span class="hljs-string">&#x27;\.func\.ts|loadFunc|function file&#x27;</span> packages/node-utils
+rg -n <span class="hljs-string">&#x27;\.func\.ts|parseFuncFilenameFromStack|Not found function file&#x27;</span> packages/core
+rg -n <span class="hljs-string">&#x27;\.func\.ts|export const func = defineApi|loadFunc|FuncWarper&#x27;</span> skills docs
+</code></pre>
+<h2 id="acceptance-criteria" tabindex="-1">Acceptance Criteria</h2>
+<p>The refactor is complete when all of the following are true:</p>
+<ul>
+<li>no runtime route lookup still targets <code>.func.ts</code></li>
+<li>no template or scaffold generates <code>.func.ts</code></li>
+<li>no public docs teach <code>export const func = defineApi(...)</code></li>
+<li>no public docs teach <code>loadFunc</code>, <code>FuncWarper</code>, or <code>InferFaasFunc</code> as the
+preferred names</li>
+<li>typegen outputs reference <code>InferFaasApi</code></li>
+<li>Vite watcher and typegen respond to <code>.api.ts</code></li>
+<li>tests pass after renaming fixture files</li>
+<li>generated docs and docs site build successfully</li>
+<li>remaining <code>func</code> references are limited to:
+<ul>
+<li>low-level runtime terms such as <code>Func</code> and <code>FuncConfig</code></li>
+<li>deprecated alias shims during the migration window</li>
+<li>changelog / migration notes that intentionally describe the old name</li>
+</ul>
+</li>
+</ul>
+<h2 id="known-risks" tabindex="-1">Known Risks</h2>
+<ul>
+<li>Leaving both <code>.func.ts</code> and <code>.api.ts</code> lookup support in merged code creates
+route ambiguity and extra agent confusion.</li>
+<li>Updating docs without templates will keep regenerating the wrong examples.</li>
+<li>Updating code without generated docs will leave stale API pages checked in.</li>
+<li>Snapshot and string-based tests are likely to fail on user-facing error text
+such as &quot;function file&quot; versus &quot;API file&quot;.</li>
+<li>Some low-level docs legitimately keep <code>Func</code>; avoid over-correcting those
+references into misleading <code>api</code> terms.</li>
+</ul>
+<h2 id="explicitly-out-of-scope-for-this-refactor" tabindex="-1">Explicitly Out Of Scope For This Refactor</h2>
+<ul>
+<li>renaming <code>packages/core/src/func</code></li>
+<li>renaming <code>Func</code> to <code>Api</code></li>
+<li>renaming <code>FuncConfig</code> or <code>FuncPluginConfig</code></li>
+<li>renaming <code>InferFaasAction</code></li>
+<li>adding new <code>ApiEventType</code> / <code>ApiReturnType</code> aliases</li>
+<li>renaming internal fixture directories named <code>funcs/</code> unless necessary</li>
+</ul>
+<h2 id="recommended-pr-breakdown" tabindex="-1">Recommended PR Breakdown</h2>
+<p>If this work is split across multiple PRs or commits, prefer this order:</p>
+<ol>
+<li>runtime + tests</li>
+<li>typegen + node-utils + type surface</li>
+<li>templates + scaffolding + benchmarks</li>
+<li>source-of-truth docs + published docs + changelog</li>
+<li>generated docs + full validation</li>
+</ol>
+<p>Do not merge the series halfway through unless every user-facing surface already
+agrees on the new terminology.</p>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

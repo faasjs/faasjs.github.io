@@ -69,7 +69,7 @@
 <li>创建新页面、组件或 hook</li>
 <li>重组前端目录结构</li>
 <li>在 <code>pages/</code> 下新增页面或 feature 目录</li>
-<li>创建或移动 <code>.func.ts</code> 后端文件</li>
+<li>创建或移动 <code>.api.ts</code> 后端文件</li>
 <li>评审文件名与文件位置是否对人类和 AI agent 都保持可预测</li>
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
@@ -139,7 +139,7 @@
       useFeatureNameData.ts
       useFeatureNameFilters.ts
     api/
-      list.func.ts
+      list.api.ts
 </code></pre>
 <p>避免这样组织：</p>
 <pre><code class="hljs language-text">src/pages/
@@ -164,15 +164,15 @@ src/pages/docs/index.tsx
 <h3 id="4.-%E5%90%8E%E7%AB%AF%E6%96%87%E4%BB%B6%E9%81%B5%E5%BE%AA-routing-mapping" tabindex="-1">4. 后端文件遵循 routing-mapping</h3>
 <ul>
 <li>后端路由文件必须遵循 routing-mapping 规范。</li>
-<li>API 入口文件必须以 <code>.func.ts</code> 结尾。</li>
+<li>API 入口文件必须以 <code>.api.ts</code> 结尾。</li>
 <li>API 文件应放在该页面或 feature 的 <code>api/</code> 目录下。</li>
 <li>路由路径与文件路径必须保持直接的 Zero-Mapping 对齐。</li>
-<li>只有在规范定义的语义下，才使用 <code>index.func.ts</code> 和 <code>default.func.ts</code>。</li>
+<li>只有在规范定义的语义下，才使用 <code>index.api.ts</code> 和 <code>default.api.ts</code>。</li>
 </ul>
 <p>优先这样组织：</p>
-<pre><code class="hljs language-text">src/pages/feature-name/api/list.func.ts
-src/pages/feature-name/api/index.func.ts
-src/pages/feature-name/api/default.func.ts
+<pre><code class="hljs language-text">src/pages/feature-name/api/list.api.ts
+src/pages/feature-name/api/index.api.ts
+src/pages/feature-name/api/default.api.ts
 </code></pre>
 <p>它会直接映射为：</p>
 <ul>
@@ -201,7 +201,7 @@ src/pages/feature-name/api/default.func.ts
 <li>前端 hooks 位于 <code>hooks/</code></li>
 <li>前端对应的后端处理器位于 <code>api/</code></li>
 <li>只有页面入口文件位于外层页面或 feature 目录</li>
-<li>后端 <code>.func.ts</code> 文件遵循 routing-mapping</li>
+<li>后端 <code>.api.ts</code> 文件遵循 routing-mapping</li>
 <li>导入路径在适用时遵循 <code>tsconfig.json</code> 已定义的 alias</li>
 <li>相邻模块保持相对导入，不强行把所有导入都改成 alias</li>
 </ul>

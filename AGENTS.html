@@ -63,6 +63,20 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="agent-guide" tabindex="-1">Agent Guide</h1>
+<p>This file routes agents to the right guide before making changes in this repo.</p>
+<h2 id="choose-your-path" tabindex="-1">Choose Your Path</h2>
+<ul>
+<li>If you want to build an app with FaasJS, use FaasJS APIs, follow FaasJS app structure, or ask for FaasJS best practices, read <a href="/skills/faasjs-best-practices/SKILL.md"><code>skills/faasjs-best-practices/SKILL.md</code></a> first.</li>
+<li>If you want to develop or maintain FaasJS itself in this monorepo, read <a href="/CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a> first.</li>
+<li>If a framework change could affect product positioning, supported stacks, dependency policy, abstractions, or default workflows, also read <a href="/contributing/target-users.md"><code>contributing/target-users.md</code></a>.</li>
+<li>If a framework change may affect docs, generated docs, translations, navigation, or changelog entries, also read <a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a>.</li>
+</ul>
+<h2 id="guide-boundaries" tabindex="-1">Guide Boundaries</h2>
+<ul>
+<li><code>skills/**</code> is the source of truth for public guidance aimed at people building with FaasJS.</li>
+<li><code>contributing/**</code> is the source of truth for framework contribution workflows and maintainer-facing rules.</li>
+<li>Public framework specifications live under <code>skills/*/references/specs/**</code>.</li>
+</ul>
 <h2 id="repo-snapshot" tabindex="-1">Repo Snapshot</h2>
 <p>FaasJS is a TypeScript monorepo built with npm workspaces and <a href="https://viteplus.dev/" target="_blank" rel="noopener noreferrer" class="external-link">vite plus</a>.</p>
 <ul>
@@ -74,83 +88,13 @@
 <li><code>packages/types</code>: shared types and base TS config</li>
 <li><code>packages/create-faas-app</code>: project scaffolding CLI</li>
 <li><code>docs</code>: documentation site</li>
-<li><code>skills</code>: user-facing agent skills, workflow guides, best-practices guides, and bundled framework specifications/references</li>
-<li><code>images</code>: Docker image definitions and related assets/configs</li>
+<li><code>skills</code>: user-facing agent skills, workflow guides, best-practices guides, and bundled framework specifications and references</li>
+<li><code>contributing</code>: framework contribution guides and maintainer-facing workflows</li>
+<li><code>images</code>: Docker image definitions and related assets and configs</li>
 <li><code>templates/*</code>: runnable templates and smoke-test references</li>
 <li><code>benchmarks</code>: benchmark suite</li>
 </ul>
 <p>Most package source code lives in <code>packages/*/src</code>, and package entrypoints are defined in each package's <code>package.json</code>.</p>
-<h2 id="environment" tabindex="-1">Environment</h2>
-<ul>
-<li>Node <code>&gt;=24.0.0</code></li>
-<li>npm <code>&gt;=11.0.0</code></li>
-<li><code>package-lock.json</code> is the canonical lockfile</li>
-<li><code>vp</code> from <code>vite-plus</code>; if <code>vp</code> is not available on your PATH locally, use <code>npx vp ...</code></li>
-</ul>
-<h2 id="source-of-truth" tabindex="-1">Source Of Truth</h2>
-<ul>
-<li>Edit source files under <code>packages/*/src</code>, <code>templates/*/src</code>, or <code>docs/**</code></li>
-<li>Edit skill definitions and supporting guides under <code>skills/**</code></li>
-<li>Content under <code>skills/**</code> is user-facing guidance, skills, or reference material for people building with FaasJS; it is not the internal maintainer guide for developing the FaasJS framework itself</li>
-<li>Keep repo-specific maintainer workflows, release steps, and validation requirements in <code>AGENTS.md</code> or repo-local agent skills under <code>.agents/skills/**</code>, not in user-facing <code>skills/**</code></li>
-<li><code>skills/faasjs-best-practices/**</code> is the source of truth for public best-practices guidance</li>
-<li>When framework behavior, public APIs, file conventions, recommended usage, docs navigation, or public workflows change, follow the repo-local documentation sync workflow at <a href="/.agents/skills/faasjs-documentation-sync/SKILL.md"><code>.agents/skills/faasjs-documentation-sync/SKILL.md</code></a></li>
-<li>Edit framework specifications under <code>skills/*/references/specs/**</code></li>
-<li>Edit Docker image definitions and related docs/configs under <code>images/**</code></li>
-<li>Do not hand-edit <code>dist/**</code>; those directories are generated artifacts</li>
-<li>Do not directly edit generated API Markdown under <code>packages/*/{classes,functions,interfaces,type-aliases,variables}</code>; update JSDoc in <code>packages/*/src</code> and use the documentation sync workflow to regenerate and validate derived docs instead</li>
-<li>Keep changes scoped to the affected package(s); avoid unrelated formatting churn</li>
-</ul>
-<h2 id="style-and-conventions" tabindex="-1">Style And Conventions</h2>
-<p>The root <a href="/vite.config.ts"><code>vite.config.ts</code></a> is the source of truth for formatting, linting, packing, and test config.</p>
-<ul>
-<li>TypeScript + ESM throughout the repo</li>
-<li>Single quotes, no semicolons, sorted imports</li>
-<li>Prefer <code>import type</code> where appropriate</li>
-<li>Type-aware linting is enabled</li>
-<li>Root TS path aliases map <code>@faasjs/*</code> to <code>packages/*/src</code></li>
-</ul>
-<h2 id="validation" tabindex="-1">Validation</h2>
-<p>Prefer the smallest useful validation for the files you touched, then run broader checks before final handoff when the change is significant.</p>
-<ul>
-<li>Install dependencies: <code>vp install</code></li>
-<li>Run tests: <code>vp test</code></li>
-<li>Run coverage suite: <code>vp run ci</code></li>
-<li>Run lint/format/static checks: <code>vp check</code></li>
-<li>Build packages: <code>vp pack</code></li>
-<li>Regenerate API docs: <code>vp run doc</code></li>
-<li>Build docs site: <code>cd docs &amp;&amp; vp install &amp;&amp; vp run build</code></li>
-</ul>
-<p>CI currently runs the equivalent of:</p>
-<pre><code class="hljs language-bash">vp install
-vp pack
-vp check
-vp run ci
-</code></pre>
-<p>If <code>vp</code> is not on PATH locally, use <code>npx vp ...</code> instead.</p>
-<h2 id="testing-notes" tabindex="-1">Testing Notes</h2>
-<ul>
-<li>Node tests are primarily <code>packages/**/*.test.ts</code> and <code>packages/**/*.test.tsx</code></li>
-<li>Tests that require <code>jsdom</code> must use <code>packages/**/*.ui.test.ts</code> or <code>packages/**/*.ui.test.tsx</code></li>
-<li>Type tests use <code>packages/**/*.types.test.ts</code> and <code>packages/**/*.types.test.tsx</code></li>
-<li>Templates also have local test scripts and are useful for targeted regression checks</li>
-</ul>
-<h2 id="docs-and-generated-files" tabindex="-1">Docs And Generated Files</h2>
-<ul>
-<li><code>vp run doc</code> runs <a href="/build-docs.ts"><code>build-docs.ts</code></a> and refreshes the tracked API Markdown under each package</li>
-<li>The docs site build lives in <a href="/docs/package.json"><code>docs/package.json</code></a></li>
-<li>For source-of-truth paths, translation sync, generated-doc rules, docs validation, and changelog triage, use the repo-local skill at <a href="/.agents/skills/faasjs-documentation-sync/SKILL.md"><code>.agents/skills/faasjs-documentation-sync/SKILL.md</code></a></li>
-<li>Root <code>.gitignore</code> ignores local artifacts such as <code>dist</code>, <code>coverage</code>, <code>tmp</code>, logs, and generated report files</li>
-</ul>
-<h2 id="collaboration-expectations" tabindex="-1">Collaboration Expectations</h2>
-<ul>
-<li>Follow the existing contribution flow in <a href="/CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a></li>
-<li>Keep PRs small and focused</li>
-<li>Mention affected packages clearly</li>
-<li>Link PRs to issues with <code>Closes #...</code></li>
-<li>Use Conventional Commits</li>
-<li><code>main</code> is merged through squash PRs</li>
-</ul>
 </div></div>
           </div>
           

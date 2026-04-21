@@ -67,6 +67,13 @@
 <h2 id="unreleased" tabindex="-1">Unreleased</h2>
 <ul>
 <li>
+<p><code>faasjs</code></p>
+<ul>
+<li>[Break] Rename application API entry files from <code>.func.ts</code> to <code>.api.ts</code>, update fallback routing filenames to <code>index.api.ts</code> and <code>default.api.ts</code>, and make <code>export default defineApi(...)</code> the canonical authoring pattern across scaffolds, templates, and docs.</li>
+<li>[Feature] Add API-first migration aliases including <code>loadApiHandler</code>, <code>ApiTester</code>, <code>InferFaasApi</code>, <code>parseApiFilenameFromStack</code>, and <code>isTypegenInputFile</code>, while keeping <code>loadFunc</code>, <code>FuncWarper</code>, <code>InferFaasFunc</code>, <code>parseFuncFilenameFromStack</code>, and <code>isTypegenSourceFile</code> as deprecated compatibility aliases for the migration release.</li>
+</ul>
+</li>
+<li>
 <p><code>@faasjs/core</code></p>
 <ul>
 <li>[Break] Stop auto loading <code>.env</code> during <code>Server</code> initialization. Load env files explicitly in your entrypoint when needed.</li>

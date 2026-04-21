@@ -69,7 +69,7 @@
 <li>creating a new page, component, or hook</li>
 <li>reorganizing frontend folders</li>
 <li>adding page or feature folders under <code>pages/</code></li>
-<li>creating or moving <code>.func.ts</code> backend files</li>
+<li>creating or moving <code>.api.ts</code> backend files</li>
 <li>reviewing whether file names and locations stay predictable for humans and agents</li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
@@ -139,7 +139,7 @@
       useFeatureNameData.ts
       useFeatureNameFilters.ts
     api/
-      list.func.ts
+      list.api.ts
 </code></pre>
 <p>Avoid this:</p>
 <pre><code class="hljs language-text">src/pages/
@@ -164,15 +164,15 @@ src/pages/docs/index.tsx
 <h3 id="4.-follow-routing-mapping-for-backend-files" tabindex="-1">4. Follow routing-mapping for backend files</h3>
 <ul>
 <li>Backend route files MUST follow the routing-mapping specification.</li>
-<li>API entry files MUST end with <code>.func.ts</code>.</li>
+<li>API entry files MUST end with <code>.api.ts</code>.</li>
 <li>API files SHOULD be placed under the page or feature's <code>api/</code> directory.</li>
 <li>Route paths and file paths MUST keep direct Zero-Mapping alignment.</li>
-<li>Use <code>index.func.ts</code> and <code>default.func.ts</code> only for the meanings defined by the spec.</li>
+<li>Use <code>index.api.ts</code> and <code>default.api.ts</code> only for the meanings defined by the spec.</li>
 </ul>
 <p>Prefer this:</p>
-<pre><code class="hljs language-text">src/pages/feature-name/api/list.func.ts
-src/pages/feature-name/api/index.func.ts
-src/pages/feature-name/api/default.func.ts
+<pre><code class="hljs language-text">src/pages/feature-name/api/list.api.ts
+src/pages/feature-name/api/index.api.ts
+src/pages/feature-name/api/default.api.ts
 </code></pre>
 <p>This maps directly to:</p>
 <ul>
@@ -201,13 +201,13 @@ src/pages/feature-name/api/default.func.ts
 <li>frontend hooks live in <code>hooks/</code></li>
 <li>frontend backend handlers live in <code>api/</code></li>
 <li>only page entry files stay at the outer page or feature level</li>
-<li>backend <code>.func.ts</code> files follow routing-mapping</li>
+<li>backend <code>.api.ts</code> files follow routing-mapping</li>
 <li>imports follow aliases already defined in <code>tsconfig.json</code> when available</li>
 <li>nearby imports stay relative instead of forcing alias usage everywhere</li>
 </ul>
 <h2 id="read-next" tabindex="-1">Read Next</h2>
 <ul>
-<li><a href="/specs/routing-mapping.html">Routing Mapping Specification</a></li>
+<li><a href="/references/specs/routing-mapping.md">Routing Mapping Specification</a></li>
 <li><a href="/guidelines/define-api.html">defineApi Guide</a></li>
 </ul>
 </div></div>

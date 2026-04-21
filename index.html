@@ -101,12 +101,12 @@ npx create-faas-app --name faasjs-admin --template antd
 </code></pre>
 <p><code>basic</code> is the default starter. Use <code>--template antd</code> when you want the Ant Design app shell.</p>
 <h2 id="examples" tabindex="-1">Examples</h2>
-<h3 id="cloud-function's-file" tabindex="-1">Cloud function's file</h3>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// index.func.ts</span>
-<span class="hljs-comment">// all cloud function file should be ended with .func.ts</span>
+<h3 id="api-file" tabindex="-1">API file</h3>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// index.api.ts</span>
+<span class="hljs-comment">// all API entry files should end with .api.ts</span>
 <span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">defineApi</span>({
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hello, world&#x27;</span> <span class="hljs-comment">// response content</span>
   },
@@ -117,15 +117,15 @@ npx create-faas-app --name faasjs-admin --template antd
 <span class="hljs-comment">// unit test files should end with .test.ts</span>
 <span class="hljs-comment">// jsdom UI tests should use .ui.test.ts or .ui.test.tsx</span>
 <span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">Func</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.func&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should work&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-comment">// wrap the cloud function</span>
-    <span class="hljs-keyword">const</span> func = <span class="hljs-title function_">test</span>(<span class="hljs-title class_">Func</span>)
+    <span class="hljs-comment">// wrap the API module</span>
+    <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
 
     <span class="hljs-comment">// mock the request</span>
-    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> func.<span class="hljs-title class_">JSON</span>handler()
+    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler()
 
     <span class="hljs-comment">// expect the response with 200 status</span>
     <span class="hljs-title function_">expect</span>(statusCode).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">200</span>)
