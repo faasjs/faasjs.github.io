@@ -116,16 +116,16 @@ npx create-faas-app --name faasjs-admin --template antd
 <pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts</span>
 <span class="hljs-comment">// unit test files should end with .test.ts</span>
 <span class="hljs-comment">// jsdom UI tests should use .ui.test.ts or .ui.test.tsx</span>
-<span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should work&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-comment">// wrap the API module</span>
-    <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
+    <span class="hljs-comment">// create a test handler</span>
+    <span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
 
     <span class="hljs-comment">// mock the request</span>
-    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler()
+    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>()
 
     <span class="hljs-comment">// expect the response with 200 status</span>
     <span class="hljs-title function_">expect</span>(statusCode).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">200</span>)

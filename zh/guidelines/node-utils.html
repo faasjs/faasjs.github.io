@@ -86,7 +86,7 @@
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>仅在 Node-only entrypoints、tests、CLIs 或 adapters 中导入 <code>@faasjs/node-utils</code>。</li>
-<li>如果进程依赖本地 dotenv 文件，尽早用 Node 内置的 <code>loadEnvFile()</code> 加载 env。</li>
+<li>当 bootstrap 由 <code>Server</code> 或 <code>viteFaasJsServer()</code> 接管时，让它们自动加载应用 <code>.env</code>；其他依赖本地 dotenv 的 entrypoint 再自行调用 Node 内置 <code>loadEnvFile()</code>。</li>
 <li>当你只需要分阶段的 <code>faas.yaml</code> 数据时，使用 <code>loadConfig()</code>。</li>
 <li>当你需要在自定义工具中处理 FaasJS 原始 YAML 子集、且不需要 staged discovery 时，使用 <code>parseYaml()</code>。</li>
 <li>当你需要最终可运行的导出 handler 时使用 <code>loadApiHandler()</code>；如果你已经有了 <code>Func</code> 实例，则使用 <code>loadPlugins()</code>。</li>
@@ -101,9 +101,10 @@
 <li>不要把它导入浏览器代码、React 组件，或必须运行在 edge runtime 的代码中。</li>
 <li>可移植 helpers 请使用 <code>@faasjs/utils</code>，框架 / runtime primitives 请使用 <code>@faasjs/core</code> 或 <code>@faasjs/dev</code>。</li>
 </ul>
-<h3 id="2.-%E6%98%BE%E5%BC%8F%E4%B8%94%E5%B0%BD%E6%97%A9%E5%8A%A0%E8%BD%BD-.env-%E6%96%87%E4%BB%B6" tabindex="-1">2. 显式且尽早加载 <code>.env</code> 文件</h3>
+<h3 id="2.-%E5%9C%A8-entrypoint-%E9%9C%80%E8%A6%81%E6%97%B6%E5%B0%BD%E6%97%A9%E5%8A%A0%E8%BD%BD-.env-%E6%96%87%E4%BB%B6" tabindex="-1">2. 在 entrypoint 需要时尽早加载 <code>.env</code> 文件</h3>
 <ul>
-<li>当本地脚本或测试依赖 dotenv 文件时，直接使用 <code>node:process</code> 里的 <code>loadEnvFile()</code>。</li>
+<li><code>@faasjs/core</code> 的 <code>Server</code> 和 <code>@faasjs/dev</code> 的 <code>viteFaasJsServer()</code> 已经会在 handlers 运行前尝试加载项目 <code>.env</code>。</li>
+<li>对于本地脚本、测试、CLI，以及那些会在这些 helpers 启动前读取 <code>process.env</code> 的配置文件，仍然直接使用 <code>node:process</code> 里的 <code>loadEnvFile()</code>。</li>
 <li>在读取 <code>process.env</code>、构造配置对象，或加载依赖环境变量的模块之前调用它。</li>
 <li>当 <code>.env</code> 是可选项且启动不该被中断时，用 <code>try/catch</code> 包起来。</li>
 </ul>
@@ -201,7 +202,7 @@
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li><code>@faasjs/node-utils</code> 的导入只出现在 Node-only 代码中</li>
-<li>本地脚本在依赖环境变量的 bootstrap 逻辑前先加载了 <code>.env</code></li>
+<li>本地脚本会在依赖环境变量的 bootstrap 逻辑前先加载 <code>.env</code>，除非 bootstrap 本身由 <code>Server</code> 或 <code>viteFaasJsServer()</code> 接管</li>
 <li>staged <code>faas.yaml</code> 通过 <code>loadConfig()</code> 或 <code>loadApiHandler()</code> 读取，而不是自定义 merge 逻辑</li>
 <li>原始 FaasJS 兼容 YAML 使用 <code>parseYaml()</code> 解析，而不是另一个 YAML parser</li>
 <li>加载逻辑使用 <code>loadApiHandler()</code>、<code>loadPlugins()</code> 或 <code>loadPackage()</code>，而不是自定义动态 import 包装</li>

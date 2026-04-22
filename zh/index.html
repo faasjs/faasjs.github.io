@@ -101,16 +101,16 @@ npx create-faas-app --name faasjs-admin --template antd
 <pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts</span>
 <span class="hljs-comment">// 普通单元测试文件以 .test.ts 结尾</span>
 <span class="hljs-comment">// 需要 jsdom 的 UI 测试使用 .ui.test.ts 或 .ui.test.tsx</span>
-<span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;index&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should work&#x27;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-comment">// 包装 API 模块</span>
-    <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
+    <span class="hljs-comment">// 创建测试 handler</span>
+    <span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
 
     <span class="hljs-comment">// 模拟请求</span>
-    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler()
+    <span class="hljs-keyword">const</span> { statusCode, data } = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>()
 
     <span class="hljs-comment">// 断言返回 200 状态</span>
     <span class="hljs-title function_">expect</span>(statusCode).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">200</span>)

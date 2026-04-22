@@ -86,7 +86,7 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Keep <code>@faasjs/node-utils</code> imports in Node-only entrypoints, tests, CLIs, or adapters.</li>
-<li>Load env files early with Node's built-in <code>loadEnvFile()</code> if the process relies on local dotenv files.</li>
+<li>Let <code>Server</code> or <code>viteFaasJsServer()</code> auto-load the app <code>.env</code> when they own bootstrap, and call Node's built-in <code>loadEnvFile()</code> yourself for other entrypoints that rely on local dotenv files.</li>
 <li>Use <code>loadConfig()</code> when you only need staged <code>faas.yaml</code> data.</li>
 <li>Use <code>parseYaml()</code> when you need the raw FaasJS YAML subset in custom tooling without staged discovery.</li>
 <li>Use <code>loadApiHandler()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
@@ -101,9 +101,10 @@
 <li>Do not import it into browser code, React components, or code that must run on edge runtimes.</li>
 <li>Use <code>@faasjs/utils</code> for portable helpers and <code>@faasjs/core</code> or <code>@faasjs/dev</code> for framework/runtime primitives.</li>
 </ul>
-<h3 id="2.-load-.env-files-explicitly-and-early" tabindex="-1">2. Load <code>.env</code> files explicitly and early</h3>
+<h3 id="2.-load-.env-files-early-when-your-entrypoint-needs-them" tabindex="-1">2. Load <code>.env</code> files early when your entrypoint needs them</h3>
 <ul>
-<li><code>loadEnvFile()</code> from <code>node:process</code> is the direct entrypoint when local scripts or tests depend on dotenv files.</li>
+<li><code>@faasjs/core</code> <code>Server</code> and <code>@faasjs/dev</code> <code>viteFaasJsServer()</code> already try to load the project <code>.env</code> before handlers run.</li>
+<li><code>loadEnvFile()</code> from <code>node:process</code> is still the direct entrypoint for local scripts, tests, CLIs, and config files that read <code>process.env</code> before those helpers start.</li>
 <li>Call it before reading <code>process.env</code>, building config objects, or loading modules that depend on env values.</li>
 <li>Wrap it in <code>try/catch</code> when the env file is optional and startup should continue without it.</li>
 </ul>
@@ -201,7 +202,7 @@
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li><code>@faasjs/node-utils</code> imports stay in Node-only code</li>
-<li>local scripts load <code>.env</code> before env-dependent bootstrap logic</li>
+<li>local scripts load <code>.env</code> before env-dependent bootstrap logic unless <code>Server</code> or <code>viteFaasJsServer()</code> owns that bootstrap</li>
 <li>staged <code>faas.yaml</code> is read through <code>loadConfig()</code> or <code>loadApiHandler()</code>, not custom merge code</li>
 <li>raw FaasJS-compatible YAML parsing uses <code>parseYaml()</code> instead of a different YAML parser</li>
 <li>loaders use <code>loadApiHandler()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>

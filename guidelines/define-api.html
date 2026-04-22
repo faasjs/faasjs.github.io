@@ -77,7 +77,7 @@
 <li>Keep business logic direct inside <code>handler({ params })</code> unless a shared boundary already exists.</li>
 <li>Return business data directly unless protocol-level response control is required.</li>
 <li>After creating, renaming, or moving an API file, run <code>faas types</code> to update <code>src/.faasjs/types.d.ts</code>.</li>
-<li>Add a focused test with <code>test(api).JSONhandler(...)</code>.</li>
+<li>Add a focused test with <code>testApi(api)(data, options?)</code>.</li>
 </ol>
 <h2 id="minimal-example" tabindex="-1">Minimal Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
@@ -220,16 +220,16 @@
 <li>cookie/session behavior when used</li>
 </ul>
 <p>Example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus/test&#x27;</span>
 
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../create.api&#x27;</span>
 
 <span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;orders/api/create&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
+  <span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;returns 400 when params are invalid&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
-    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({
       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;&#x27;</span>,
       <span class="hljs-attr">price</span>: -<span class="hljs-number">1</span>,
       <span class="hljs-attr">quantity</span>: <span class="hljs-number">1</span>,
@@ -240,7 +240,7 @@
   })
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;returns 500 for plain Error&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
-    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({
       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;duplicate&#x27;</span>,
       <span class="hljs-attr">price</span>: <span class="hljs-number">10</span>,
       <span class="hljs-attr">quantity</span>: <span class="hljs-number">1</span>,
@@ -251,7 +251,7 @@
   })
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;returns custom status for HttpError&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
-    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({
       <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;conflict&#x27;</span>,
       <span class="hljs-attr">price</span>: <span class="hljs-number">10</span>,
       <span class="hljs-attr">quantity</span>: <span class="hljs-number">1</span>,
@@ -269,7 +269,7 @@
 <li><a href="/references/packages/core/type-aliases/DefineApiData.md">DefineApiData</a></li>
 <li><a href="/references/packages/core/type-aliases/DefineApiOptions.md">DefineApiOptions</a></li>
 <li><a href="/references/packages/core/classes/HttpError.md">HttpError</a></li>
-<li><a href="/references/packages/dev/functions/test.md">test</a></li>
+<li><a href="/references/packages/dev/functions/testApi.md">testApi</a></li>
 <li><a href="/references/packages/dev/classes/ApiTester.md">ApiTester</a></li>
 <li><a href="/references/packages/dev/functions/generateFaasTypes.md">generateFaasTypes</a></li>
 </ul>

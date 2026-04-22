@@ -68,7 +68,7 @@
 <p>The tester resolves config for the current <code>FaasEnv</code>, mounts lazily, and
 exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
 <h2 id="see" tabindex="-1">See</h2>
-<p><a href="/doc/dev/functions/test.html">test</a></p>
+<p><a href="/doc/dev/functions/testApi.html">testApi</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApiTester</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
@@ -77,10 +77,6 @@ exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
 
 <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
 </code></pre>
-<h2 id="extended-by" tabindex="-1">Extended by</h2>
-<ul>
-<li><a href="/doc/dev/classes/FuncWarper.html"><code>FuncWarper</code></a></li>
-</ul>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tfunc" tabindex="-1">TFunc</h3>
 <p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt; = <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
@@ -128,7 +124,7 @@ migration.</p>
 <p>Handler result.</p>
 <h3 id="jsonhandler()" tabindex="-1">JSONhandler()</h3>
 <blockquote>
-<p><strong>JSONhandler</strong>&lt;<code>TData</code>&gt;(<code>body?</code>, <code>options?</code>): <code>Promise</code>&lt;{ <code>body</code>: <code>any</code>; <code>cookie?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>data?</code>: <code>TData</code>; <code>error?</code>: { <code>message</code>: <code>string</code>; }; <code>headers</code>: {[<code>key</code>: <code>string</code>]: <code>string</code>; }; <code>session?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>statusCode</code>: <code>number</code>; }&gt;</p>
+<p><strong>JSONhandler</strong>&lt;<code>TData</code>&gt;(<code>body?</code>, <code>options?</code>): <code>Promise</code>&lt;<code>JsonHandlerResult</code>&lt;<code>TData</code>&gt;&gt;</p>
 </blockquote>
 <p>Invoke an HTTP-enabled API with JSON body helpers and decoded cookies.</p>
 <p>JSON responses populate <code>data</code> and <code>error</code>, while <code>Set-Cookie</code> headers are
@@ -139,33 +135,22 @@ decoded into the returned <code>cookie</code> and <code>session</code> objects.<
 <p>Expected JSON <code>data</code> payload returned by the API.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="body%3F" tabindex="-1">body?</h5>
-<p><a href="/doc/dev/type-aliases/FuncEventType.html"><code>FuncEventType</code></a>&lt;<code>TFunc</code>&gt; <em>extends</em> <code>object</code> ? <code>0</code> <em>extends</em> <code>1</code> &amp; <code>TParams</code> ? <code>string</code> | <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | <code>null</code> : <code>string</code> | <code>TParams</code> | <code>null</code> : <code>string</code> | <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; | <code>null</code></p>
+<p><code>JsonHandlerBody</code>&lt;<code>TFunc</code>&gt;</p>
 <p>Request body object or raw JSON string.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
+<p><code>JsonHandlerOptions</code> = <code>...</code></p>
 <p>Extra headers, request cookies, and session seed values.</p>
-<h6 id="cookie%3F" tabindex="-1">cookie?</h6>
-<p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
-<p>Cookie key-value pairs preloaded into the request.</p>
-<h6 id="headers%3F" tabindex="-1">headers?</h6>
-<p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
-<p>Extra request headers merged into the JSON test request.</p>
-<h6 id="path%3F" tabindex="-1">path?</h6>
-<p><code>string</code></p>
-<p>Request path attached to <code>event.path</code> during invocation. This path is the URL pathname without the query string. Defaults to the inferred path from the wrapped API filename when available.</p>
-<h6 id="session%3F" tabindex="-1">session?</h6>
-<p>{[<code>key</code>: <code>string</code>]: <code>any</code>; }</p>
-<p>Session key-value pairs encoded into the request cookie before invocation.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;{ <code>body</code>: <code>any</code>; <code>cookie?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>data?</code>: <code>TData</code>; <code>error?</code>: { <code>message</code>: <code>string</code>; }; <code>headers</code>: {[<code>key</code>: <code>string</code>]: <code>string</code>; }; <code>session?</code>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;; <code>statusCode</code>: <code>number</code>; }&gt;</p>
+<p><code>Promise</code>&lt;<code>JsonHandlerResult</code>&lt;<code>TData</code>&gt;&gt;</p>
 <p>Normalized HTTP response payload for assertions.</p>
 <h4 id="throws" tabindex="-1">Throws</h4>
 <p>When the wrapped API does not use the HTTP plugin.</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { test } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
 
-<span class="hljs-keyword">const</span> wrapped = <span class="hljs-title function_">test</span>(api)
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> }, { <span class="hljs-attr">session</span>: { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;1&#x27;</span> } })
+<span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> }, { <span class="hljs-attr">session</span>: { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;1&#x27;</span> } })
 
 <span class="hljs-title function_">expect</span>(response.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello, FaasJS&#x27;</span> })
 </code></pre>
