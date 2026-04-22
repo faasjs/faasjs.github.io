@@ -100,7 +100,8 @@ npx create-faas-app --name faasjs-admin --template antd
 <h3 id="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6" tabindex="-1">单元测试文件</h3>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts</span>
 <span class="hljs-comment">// 普通单元测试文件以 .test.ts 结尾</span>
-<span class="hljs-comment">// 需要 jsdom 的 UI 测试使用 .ui.test.ts 或 .ui.test.tsx</span>
+<span class="hljs-comment">// 带 TSX 的 UI 测试使用 .test.tsx</span>
+<span class="hljs-comment">// 不带 TSX 的 UI 测试使用 .ui.test.ts</span>
 <span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 

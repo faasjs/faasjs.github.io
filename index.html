@@ -115,7 +115,8 @@ npx create-faas-app --name faasjs-admin --template antd
 <h3 id="unit-test's-file" tabindex="-1">Unit test's file</h3>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// __tests__/index.test.ts</span>
 <span class="hljs-comment">// unit test files should end with .test.ts</span>
-<span class="hljs-comment">// jsdom UI tests should use .ui.test.ts or .ui.test.tsx</span>
+<span class="hljs-comment">// TSX-based UI tests should use .test.tsx</span>
+<span class="hljs-comment">// UI tests without TSX should use .ui.test.ts</span>
 <span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../index.api&#x27;</span>
 

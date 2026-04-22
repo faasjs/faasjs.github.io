@@ -151,15 +151,38 @@
 <li><code>vite.config.ts</code> 应定义项目运行时行为，例如 plugins、aliases、server 选项、tests 和 build 设置。</li>
 <li>共享的格式化与 lint 规则应来自 <code>@faasjs/dev</code>。</li>
 <li>使用 <code>fmt</code> 和 <code>lint</code> 时，<code>defineConfig</code> 应来自 <code>vite-plus</code>，而不是 <code>vite</code>。</li>
+<li>当一个项目同时包含 Node 测试和 UI 测试时，把 UI 测试放进单独的 <code>test.projects</code> 项。<code>*.test.tsx</code> 按 UI 测试处理，而 <code>*.ui.test.ts</code> 只保留给那些不使用 TSX 语法的 UI 测试，而不是全局设置 <code>environment: 'jsdom'</code>。</li>
 </ul>
 <p>预设示例：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
+<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
+<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   ...viteConfig,
   <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+    <span class="hljs-attr">projects</span>: [
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+          <span class="hljs-attr">include</span>: tests,
+          <span class="hljs-attr">exclude</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+        },
+      },
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
+          <span class="hljs-attr">include</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
+        },
+      },
+    ],
   },
 })
 </code></pre>
@@ -189,6 +212,9 @@
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
+<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
+<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   ...viteConfig,
   <span class="hljs-attr">server</span>: {
@@ -196,7 +222,26 @@
     <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
   },
   <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+    <span class="hljs-attr">projects</span>: [
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+          <span class="hljs-attr">include</span>: tests,
+          <span class="hljs-attr">exclude</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+        },
+      },
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
+          <span class="hljs-attr">include</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
+        },
+      },
+    ],
   },
 })
 </code></pre>
@@ -239,6 +284,7 @@
 <li>配置了 <code>fmt</code> 或 <code>lint</code> 时，<code>vite.config.ts</code> 使用的是 <code>vite-plus</code></li>
 <li><code>vite.config.ts</code> 以 <code>viteConfig</code> 为起点，或复用了 <code>@faasjs/dev</code> 的共享 <code>fmt</code> / <code>lint</code> 规则</li>
 <li>配置没有在无明确理由时重复 FaasJS 基线设置</li>
+<li>当一个项目混合 UI 与 Node 测试时，UI 测试放进单独且使用 <code>environment: 'jsdom'</code> 的 project，UI 分组里使用 <code>*.test.tsx</code>，以及那些不含 TSX 的 <code>*.ui.test.ts</code></li>
 <li>本地配置文件让项目特有行为易于辨认</li>
 <li>导入路径在合适时遵循 <code>tsconfig.json</code> 已定义的 alias</li>
 <li><code>tsconfig.json</code> 中定义的 alias 也被运行时或 bundler 支持</li>

@@ -151,15 +151,38 @@
 <li><code>vite.config.ts</code> SHOULD define project runtime behavior such as plugins, aliases, server options, tests, and build settings.</li>
 <li>Shared formatting and lint rules SHOULD come from <code>@faasjs/dev</code>.</li>
 <li>When using <code>fmt</code> and <code>lint</code>, <code>defineConfig</code> SHOULD come from <code>vite-plus</code>, not <code>vite</code>.</li>
+<li>In mixed Node + UI test suites, keep UI tests in a dedicated <code>test.projects</code> entry. Treat <code>*.test.tsx</code> as UI tests, and use <code>*.ui.test.ts</code> only for UI tests that do not use TSX syntax, instead of setting <code>environment: 'jsdom'</code> globally.</li>
 </ul>
 <p>Preset example:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
+<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
+<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   ...viteConfig,
   <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+    <span class="hljs-attr">projects</span>: [
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+          <span class="hljs-attr">include</span>: tests,
+          <span class="hljs-attr">exclude</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+        },
+      },
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
+          <span class="hljs-attr">include</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
+        },
+      },
+    ],
   },
 })
 </code></pre>
@@ -189,6 +212,9 @@
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
+<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
+<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
+
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   ...viteConfig,
   <span class="hljs-attr">server</span>: {
@@ -196,7 +222,26 @@
     <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
   },
   <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+    <span class="hljs-attr">projects</span>: [
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+          <span class="hljs-attr">include</span>: tests,
+          <span class="hljs-attr">exclude</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
+        },
+      },
+      {
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+        <span class="hljs-attr">test</span>: {
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
+          <span class="hljs-attr">include</span>: uiTests,
+          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
+          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
+        },
+      },
+    ],
   },
 })
 </code></pre>
@@ -239,6 +284,7 @@
 <li><code>vite.config.ts</code> uses <code>vite-plus</code> when <code>fmt</code> or <code>lint</code> is configured</li>
 <li><code>vite.config.ts</code> starts from <code>viteConfig</code> or reuses shared <code>fmt</code> and <code>lint</code> rules from <code>@faasjs/dev</code></li>
 <li>the config does not duplicate FaasJS baseline settings without a clear reason</li>
+<li>UI tests use a dedicated project with <code>environment: 'jsdom'</code>, with <code>*.test.tsx</code> plus any non-TSX <code>*.ui.test.ts</code> files in that UI bucket</li>
 <li>local config files make project-specific behavior easy to identify</li>
 <li>imports follow aliases already defined in <code>tsconfig.json</code> when appropriate</li>
 <li>aliases defined in <code>tsconfig.json</code> are also supported by the runtime or bundler</li>
