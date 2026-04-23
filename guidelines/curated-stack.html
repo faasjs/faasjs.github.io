@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Curated Stack Guide | FaasJS</title>
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/curated-stack.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/curated-stack.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/curated-stack.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/curated-stack.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/curated-stack.html" aria-label="Curated Stack Guide">Curated Stack Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/application-slices.html" aria-label="Application Slices Guide">Application Slices Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/code-comments.html" aria-label="Code Comments Guide">Code Comments Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/testing.html" aria-label="Testing Guide">Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-query-builder.html" aria-label="PG Query Builder and Raw SQL Guide">PG Query Builder and Raw SQL Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-table-types.html" aria-label="PG Table Types Guide">PG Table Types Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema and Migrations Guide">PG Schema and Migrations Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-testing.html" aria-label="PG Testing Guide">PG Testing Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="curated-stack-guide" tabindex="-1">Curated Stack Guide</h1>
+<p>Use this guide when choosing defaults, reviewing architecture, or asking an AI coding agent to build a FaasJS feature.</p>
+<p>FaasJS is a Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications. It gives projects a chef-selected main path instead of asking every team to assemble its own framework from independent tools.</p>
+<h2 id="default-stack" tabindex="-1">Default Stack</h2>
+<p>The curated FaasJS path is:</p>
+<ul>
+<li>React for frontend applications</li>
+<li><code>@faasjs/ant-design</code> and Ant Design for business UI</li>
+<li>PostgreSQL for relational data</li>
+<li><code>@faasjs/pg</code> for typed database queries, migrations, and table inference</li>
+<li><code>defineApi</code> for typed backend endpoints</li>
+<li>schema validation at system boundaries such as user input and external requests</li>
+<li>Vitest-based tests, including <code>@faasjs/pg-dev</code> for PostgreSQL workflows</li>
+<li>Vite Plus for development and build tooling</li>
+<li>plugins for business-specific extension points</li>
+<li>stable file conventions and examples that humans and AI coding agents can follow</li>
+</ul>
+<p>Prefer this path for admin panels, back-office systems, internal tools, SaaS dashboards, BFF/API layers, and business workflow systems.</p>
+<h2 id="react-is-the-official-frontend-path" tabindex="-1">React Is The Official Frontend Path</h2>
+<p>Use React for FaasJS frontend applications.</p>
+<p>Do not add another frontend framework as an official equal path unless it clearly improves the curated React path. Alternative frontend stacks may be possible in user projects, but they should not drive core APIs, templates, or default docs.</p>
+<h2 id="ant-design-is-the-business-ui-path" tabindex="-1">Ant Design Is The Business UI Path</h2>
+<p>Use <code>@faasjs/ant-design</code> for common business UI needs such as pages, routes, forms, tables, descriptions, loading states, and feedback.</p>
+<p>Prefer FaasJS Ant Design wrappers before hand-writing glue code around raw Ant Design components when the wrapper covers the scenario. This keeps business UI code predictable and easier for agents to generate and review.</p>
+<h2 id="postgresql-is-the-relational-data-path" tabindex="-1">PostgreSQL Is The Relational Data Path</h2>
+<p>Use PostgreSQL through <code>@faasjs/pg</code> for database-driven application work.</p>
+<p>Prefer typed query builder patterns, explicit returning columns, concrete table declarations, timestamped migrations, and <code>@faasjs/pg-dev</code> tests. Avoid reshaping core design around database-neutral abstractions unless the change also improves the PostgreSQL path.</p>
+<h2 id="typed-apis-and-validation" tabindex="-1">Typed APIs And Validation</h2>
+<p>Use <code>defineApi</code> for backend endpoints and keep request validation at system boundaries.</p>
+<p>Prefer inline schemas close to the API handler, explicit params and response shapes, and tests that verify both runtime behavior and important type expectations. Do not hide API contracts behind implicit behavior or broad untyped helpers.</p>
+<h2 id="plugins-are-business-extension-points" tabindex="-1">Plugins Are Business Extension Points</h2>
+<p>Use plugins for project-specific cross-cutting concerns such as auth context, permissions, tenant context, request metadata, service clients, or scheduled tasks.</p>
+<p>Plugins should make extension points explicit without turning FaasJS into a configuration-heavy framework. Keep business rules in app code or plugins rather than pushing them into core packages.</p>
+<h2 id="auth-and-permissions" tabindex="-1">Auth And Permissions</h2>
+<p>Do not treat auth or permissions as built-in FaasJS core features.</p>
+<p>Production auth varies across password login, SSO, OAuth, sessions, JWTs, multi-tenancy, RBAC, ABAC, and product-specific policies. A starter or example may show a simple auth plugin pattern, but it should be understood as a demo for injecting current-user context and protecting APIs, not as a mandatory auth system.</p>
+<h2 id="replacement-paths" tabindex="-1">Replacement Paths</h2>
+<p>Teams may replace parts of the curated stack, but replacement paths are escape hatches rather than parallel first-class tracks.</p>
+<p>When reviewing a proposal, do not add core complexity only to support an alternative UI library, database, validation strategy, or architecture style. Accept replacement-oriented changes only when they also make the curated main path clearer, safer, or easier to maintain.</p>
+<h2 id="agent-readable-application-work" tabindex="-1">Agent-readable Application Work</h2>
+<p>FaasJS does not rely on Rails-style generators as its main productivity mechanism.</p>
+<p>Instead, keep file structure, examples, tests, schemas, and typed contracts predictable enough that AI coding agents can create and modify complete application slices directly. Favor clear repeated code over clever abstractions when repetition makes review and generation safer.</p>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

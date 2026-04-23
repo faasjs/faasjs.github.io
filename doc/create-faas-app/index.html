@@ -35,7 +35,7 @@
     </script>
     <link rel="icon" href="/logo.jpg" />
     <title>create-faas-app | FaasJS</title>
-    <meta name="description" content="A React-only, agent-friendly full-stack TypeScript framework for building predictable, type-safe applications with minimal dependencies." />
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
@@ -64,7 +64,57 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / create-faas-app</p>
 <h1 id="create-faas-app" tabindex="-1">create-faas-app</h1>
-<h2 id="functions" tabindex="-1">Functions</h2>
+<p>Create a new FaasJS app from a curated starter template.</p>
+<p>FaasJS is optimized for database-driven React business applications. <code>create-faas-app</code> gives new projects a working starting point for the official path instead of asking every team to assemble React, API, database, testing, and UI conventions from scratch.</p>
+<h2 id="quick-start" tabindex="-1">Quick Start</h2>
+<pre><code class="hljs language-bash">npx create-faas-app --name my-faas-app
+<span class="hljs-built_in">cd</span> my-faas-app
+npm run dev
+</code></pre>
+<p>The default template is <code>admin</code>, which demonstrates the curated React + Ant Design + PostgreSQL path.</p>
+<h2 id="templates" tabindex="-1">Templates</h2>
+<h3 id="admin" tabindex="-1"><code>admin</code></h3>
+<p>Use <code>admin</code> for the golden-path FaasJS starter.</p>
+<pre><code class="hljs language-bash">npx create-faas-app --name my-admin --template admin
+</code></pre>
+<p>It includes:</p>
+<ul>
+<li>React app structure powered by Vite Plus</li>
+<li><code>@faasjs/ant-design</code> and Ant Design for business UI</li>
+<li><code>defineApi</code> endpoints for typed backend APIs</li>
+<li>a copyable users slice with create, list, detail, update, migration, table types, and API tests</li>
+<li><code>@faasjs/pg</code> for PostgreSQL access and migrations</li>
+<li><code>@faasjs/pg-dev</code> for pg-dev-powered tests</li>
+<li><code>.env.example</code> for local database configuration</li>
+<li>type declarations for PostgreSQL table inference</li>
+</ul>
+<p>This is the best starting point for admin panels, internal tools, SaaS dashboards, and other database-driven business applications.</p>
+<h3 id="minimal" tabindex="-1"><code>minimal</code></h3>
+<p>Use <code>minimal</code> when you want a smaller React starter without the database and Ant Design stack.</p>
+<pre><code class="hljs language-bash">npx create-faas-app --name my-minimal-app --template minimal
+</code></pre>
+<p>It is useful for learning the core FaasJS runtime, building API-only or BFF-style projects, or adding a custom UI/database path intentionally.</p>
+<h2 id="recommended-path" tabindex="-1">Recommended Path</h2>
+<p>Start with <code>admin</code> unless you have a specific reason not to. It shows how FaasJS expects complete application slices to fit together:</p>
+<ul>
+<li>UI pages call typed APIs</li>
+<li>APIs validate inputs at system boundaries</li>
+<li>APIs use PostgreSQL through the shared database workflow</li>
+<li>migrations and table types keep data contracts explicit</li>
+<li>tests cover the API and database behavior</li>
+</ul>
+<p>FaasJS allows teams to replace parts of the stack, but the templates, docs, and examples optimize this curated path first.</p>
+<h2 id="auth-and-permissions" tabindex="-1">Auth And Permissions</h2>
+<p>Authentication and permissions are intentionally not built into FaasJS core because production auth requirements vary by product.</p>
+<p>The admin starter includes a small auth plugin demo. Treat it as a plugin pattern that shows how to inject current-user context, protect APIs, and model project-specific permissions. It is not a mandatory framework auth system.</p>
+<h2 id="next-steps" tabindex="-1">Next Steps</h2>
+<ul>
+<li>Read the FaasJS guide at <a href="https://faasjs.com/guide/" target="_blank" rel="noopener noreferrer" class="external-link">https://faasjs.com/guide/</a>.</li>
+<li>Review the root README for the project direction and package overview.</li>
+<li>Explore runnable templates in <a href="https://github.com/faasjs/faasjs/tree/main/templates" target="_blank" rel="noopener noreferrer" class="external-link">https://github.com/faasjs/faasjs/tree/main/templates</a>.</li>
+<li>Use the admin starter users slice as the reference for complete UI/API/database/test examples.</li>
+</ul>
+<h2 id="api-docs" tabindex="-1">API Docs</h2>
 <ul>
 <li><a href="/doc/create-faas-app/functions/main.html">main</a></li>
 </ul>

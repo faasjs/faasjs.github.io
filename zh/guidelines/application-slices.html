@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>应用切片指南 | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/application-slices.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/application-slices.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/application-slices.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/application-slices.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选栈指南">精选栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建与原生 SQL 指南">PG 查询构建与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema 与迁移指南">PG Schema 与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="%E5%BA%94%E7%94%A8%E5%88%87%E7%89%87%E6%8C%87%E5%8D%97" tabindex="-1">应用切片指南</h1>
+<p>当你为 FaasJS 应用添加业务功能，或让 AI coding agent 构建功能时，请使用本指南。</p>
+<p>FaasJS 应用切片是一个小而完整的垂直功能，它让 UI、API、校验、数据库变更、类型和测试能被一起发现和评审。切片通过稳定约定让人类和 Agent 直接编写代码，从而替代 generator-heavy 工作流。</p>
+<h2 id="%E4%B8%80%E4%B8%AA%E5%88%87%E7%89%87%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88" tabindex="-1">一个切片包含什么</h2>
+<p>数据库驱动的 React 业务切片通常包括：</p>
+<ul>
+<li><code>src/pages/**</code> 下的页面或 feature-local 组件</li>
+<li>靠近页面或功能的一个或多个 <code>.api.ts</code> 文件</li>
+<li>用于边界校验的内联 <code>defineApi</code> schema</li>
+<li>当数据结构变化时，放在 <code>migrations/**</code> 下的 PostgreSQL migration</li>
+<li><code>src/types/**</code> 下的 <code>@faasjs/pg</code> 表声明</li>
+<li>靠近 API 文件的 API 测试</li>
+<li>当数据库行为重要时的 PG 断言</li>
+<li>当 UI 请求流、加载、错误或用户交互重要时的 React 测试</li>
+</ul>
+<p>保持切片足够小，让评审者不用跳转到无关框架层也能理解行为。</p>
+<h2 id="%E6%8E%A8%E8%8D%90%E5%B8%83%E5%B1%80" tabindex="-1">推荐布局</h2>
+<p><code>create-faas-app</code> 生成的 <code>admin</code> starter 包含一个可复制的 users 切片。users 切片建议使用类似布局：</p>
+<pre><code class="hljs language-text">migrations/20250101000000_create_users.ts
+src/types/faasjs-pg.d.ts
+src/pages/users/index.tsx
+src/pages/users/api/list.api.ts
+src/pages/users/api/create.api.ts
+src/pages/users/api/__tests__/list.test.ts
+src/pages/users/api/__tests__/create.test.ts
+</code></pre>
+<p>对于嵌套或 feature-local API，把 API 路径放在拥有它的页面附近：</p>
+<pre><code class="hljs language-text">src/pages/settings/users/index.tsx
+src/pages/settings/users/api/list.api.ts
+src/pages/settings/users/api/update-role.api.ts
+src/pages/settings/users/api/__tests__/update-role.test.ts
+</code></pre>
+<p>切片内部优先使用短相对导入，除非项目已经配置了对应 TypeScript alias。</p>
+<h2 id="api-%E4%B8%8E%E6%A0%A1%E9%AA%8C" tabindex="-1">API 与校验</h2>
+<p>每个 API 入口都应使用 <code>defineApi</code>。</p>
+<p>除非 schema 被多个 API 复用或形成真实边界，否则将 schema 放在 handler 附近。优先使用明确 params、显式 returning columns 和收窄 response 结构，让 UI 代码和测试保持类型可感知。</p>
+<p>避免用泛化 helper 隐藏校验、数据库访问或 response 契约。当重复能让切片更容易被 Agent 和评审者理解时，少量重复是可以接受的。</p>
+<h2 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%98%E6%9B%B4" tabindex="-1">数据库变更</h2>
+<p>当切片改变数据结构时：</p>
+<ul>
+<li>在 <code>migrations/**</code> 下添加时间戳 migration</li>
+<li>更新 <code>src/types/**</code> 下的 <code>@faasjs/pg</code> 表声明</li>
+<li>保持表 row 类型具体</li>
+<li>用 <code>@faasjs/pg-dev</code> 测试重要数据库行为</li>
+</ul>
+<p>不要对业务表依赖宽泛的 <code>Record&lt;string, any&gt;</code> row 结构。</p>
+<h2 id="ui-%E5%8F%98%E6%9B%B4" tabindex="-1">UI 变更</h2>
+<p>业务 UI 使用 React 和 FaasJS Ant Design 路径。</p>
+<p>当场景适合时，优先使用 <code>@faasjs/ant-design</code> wrapper，例如 <code>Form</code>、<code>Table</code>、<code>Description</code>、<code>Title</code>、<code>Tabs</code>、<code>Loading</code> 和 <code>ErrorBoundary</code>。只有当 wrapper 不适合或自定义 UI 更清晰时，才降级到原始 Ant Design 组件。</p>
+<p>保持页面级状态和请求流可读。只有当组件、hook 或 helper 被复用、形成真实边界，或能简化大块代码时再抽取。</p>
+<h2 id="%E6%B5%8B%E8%AF%95" tabindex="-1">测试</h2>
+<p>API 测试应放在 API 文件附近的 <code>__tests__</code> 目录中。</p>
+<p>测试定义切片行为的内容：</p>
+<ul>
+<li>合法输入和期望输出</li>
+<li>校验失败和重要错误路径</li>
+<li>相关数据库写入、读取、排序和计数</li>
+<li>plugin 影响 API 时的权限或当前用户行为</li>
+<li>页面包含有意义交互时的 UI 请求流</li>
+</ul>
+<p>除非测试明确是 unit-scoped，否则避免用宽泛 mock 绕过 FaasJS plugin、校验或数据库行为。</p>
+<h2 id="agent-%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">Agent 工作流</h2>
+<p>让 AI coding agent 添加或修改功能时，描述切片，而不是要求 generator 命令。</p>
+<p>推荐 prompt 形态：</p>
+<pre><code class="hljs language-text">Add a users slice with a list page, create API, PostgreSQL migration, table types, and API tests. Follow the FaasJS curated stack and keep files near src/pages/users.
+</code></pre>
+<p>Agent 应该：</p>
+<ul>
+<li>先检查附近切片和指南</li>
+<li>创建或更新垂直行为所需的全部文件</li>
+<li>将业务特定关注点保留在应用代码或 plugin 中</li>
+<li>运行最小有意义测试</li>
+<li>避免无关重构</li>
+</ul>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF-rails-style-generators" tabindex="-1">为什么不是 Rails-style generators</h2>
+<p>Rails generators 帮助人类创建重复结构。FaasJS 假设当约定、示例、schema 和测试足够清晰时，AI coding agent 可以直接编写这些结构。</p>
+<p>在添加 generator 命令之前，优先投入更好的切片、示例和文档。只有当 generator 明确改善精选主路径，且无法被更好的约定或示例替代时，才考虑添加。</p>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
