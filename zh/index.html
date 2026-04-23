@@ -83,9 +83,10 @@
 <p><a href="https://github.com/faasjs/faasjs/tree/main/templates" target="_blank" rel="noopener noreferrer" class="external-link">🧪 FaasJS Templates</a></p>
 <h3 id="%E4%BB%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BC%80%E5%A7%8B" tabindex="-1">从命令行开始</h3>
 <pre><code class="hljs language-bash">npx create-faas-app --name faasjs
-npx create-faas-app --name faasjs-admin --template antd
+npx create-faas-app --name faasjs-admin --template admin
+npx create-faas-app --name faasjs-minimal --template minimal
 </code></pre>
-<p>默认模板是 <code>basic</code>，如果你需要面向常见业务系统的推荐 Ant Design 应用骨架，可以加上 <code>--template antd</code>。</p>
+<p>默认模板是 <code>admin</code>：它按官方推荐路径预装了 React、Ant Design、PostgreSQL，以及基于 <code>@faasjs/pg-dev</code> 的测试环境。如果你想要一个不带数据库栈的轻量 React starter，可以使用 <code>--template minimal</code>。</p>
 <h2 id="%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B" tabindex="-1">代码示例</h2>
 <h3 id="api-%E6%96%87%E4%BB%B6" tabindex="-1">API 文件</h3>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// index.api.ts</span>
