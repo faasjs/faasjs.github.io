@@ -80,6 +80,7 @@
 <li>让 mock 设置保持显式、贴近场景，并且比它替代的真实行为更小、更简单。</li>
 <li>覆盖 success path，以及调用方真正依赖的失败路径或状态变化。</li>
 <li>在 case 之间重置共享的全局状态、timers、env 与 mocks。</li>
+<li>交付前将 <code>vp check</code> 和 <code>vp test</code> 作为验收门禁执行；如果当前环境无法运行其中任一命令，记录阻塞原因以及已经完成的更小范围验证。</li>
 </ol>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
 <h3 id="1.-%E6%B5%8B%E5%85%AC%E5%BC%80%E8%A1%8C%E4%B8%BA%EF%BC%8C%E4%B8%8D%E6%B5%8B%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82" tabindex="-1">1. 测公开行为，不测实现细节</h3>

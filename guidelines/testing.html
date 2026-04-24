@@ -64,13 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="testing-guide" tabindex="-1">Testing Guide</h1>
 <p>Use this guide when writing or reviewing tests in FaasJS projects.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>writing or reviewing tests for APIs, utilities, hooks, components, or runtime helpers</li>
-<li>deciding whether to keep a dependency real or replace it with a mock</li>
-<li>choosing the smallest useful test level for a scenario</li>
-<li>checking whether a test protects behavior instead of implementation details</li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Start from the public behavior or regression the test should catch.</li>
@@ -80,6 +73,7 @@
 <li>Keep mock setup explicit, local to the scenario, and smaller than the real behavior it replaces.</li>
 <li>Cover the success path plus the failure or state-transition paths callers actually rely on.</li>
 <li>Reset shared global state, timers, env, and mocks between cases.</li>
+<li>Before handoff, run <code>vp check</code> and <code>vp test</code> as acceptance gates; if either command cannot run in the current environment, record the blocker and the narrower validation that still ran.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-test-public-behavior-instead-of-implementation-details" tabindex="-1">1. Test public behavior instead of implementation details</h3>
@@ -124,12 +118,6 @@
 <li>the chosen test level matches the risk and avoids unnecessary internal mocking</li>
 <li>success and meaningful failure paths are covered</li>
 <li>shared state, timers, env, and globals are reset between cases</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/define-api.html">defineApi Guide</a></li>
-<li><a href="/guidelines/react-testing.html">React Testing Guide</a></li>
-<li><a href="/guidelines/node-utils.html">Node Utils Guide</a></li>
 </ul>
 </div></div>
           </div>

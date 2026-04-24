@@ -64,13 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="pg-schema-and-migrations-guide" tabindex="-1">PG Schema and Migrations Guide</h1>
 <p>When implementing or reviewing DDL with <code>@faasjs/pg</code>, default to <code>SchemaBuilder</code>, <code>TableBuilder</code>, and timestamped migration files.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>creating or updating migrations</li>
-<li>changing tables, columns, indexes, or constraints</li>
-<li>deciding whether a schema change should use builder helpers or raw SQL</li>
-<li>reviewing rollback expectations for an app-level schema change</li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Create a timestamped <code>.ts</code> migration file, usually with <code>faasjs-pg new &lt;name&gt;</code>.</li>
@@ -145,15 +138,6 @@
 <li>raw DDL does not hide drift with <code>IF EXISTS</code> or <code>IF NOT EXISTS</code></li>
 <li>schema changes expect <code>SchemaBuilder.run()</code> to be atomic</li>
 <li>risky schema changes are covered by focused migration or integration tests</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a></li>
-<li><a href="/doc/pg/">@faasjs/pg package reference</a></li>
-<li><a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a></li>
-<li><a href="/doc/pg/classes/TableBuilder.html">TableBuilder</a></li>
-<li><a href="/doc/pg/classes/Migrator.html">Migrator</a></li>
-<li><a href="/doc/pg/classes/Client.html">Client</a></li>
 </ul>
 </div></div>
           </div>

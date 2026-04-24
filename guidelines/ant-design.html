@@ -63,83 +63,41 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="ant-design-guide" tabindex="-1">Ant Design Guide</h1>
-<p>Use this guide when developing or reviewing frontend features built with <code>@faasjs/ant-design</code>.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>creating a new page or feature under <code>pages/</code></li>
-<li>wiring routes with <code>Routes</code> and <code>lazy</code></li>
-<li>building list, detail, create, update, or delete flows</li>
-<li>deciding how to split frontend files for a feature</li>
-<li>deciding whether a request should use <code>faas</code>, <code>faasData</code>, or a custom hook</li>
-<li>implementing messages, notifications, modal confirmations, or drawer workflows</li>
-</ul>
+<p>Use for <code>@faasjs/ant-design</code> pages, CRUD surfaces, routes, app feedback, modals, and drawers.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Follow the <a href="/guidelines/file-conventions.html">File Conventions</a> guide first and place the feature under <code>pages/&lt;feature-name&gt;/</code>.</li>
-<li>Use <code>App</code> once near the frontend root and use <code>Routes</code> plus <code>lazy</code> to mount feature pages.</li>
-<li>Keep the feature page focused on composition and move concrete UI pieces into <code>components/</code>.</li>
-<li>Put feature-local request files under <code>api/</code> and keep route paths aligned with file paths.</li>
-<li>Model business fields as <code>items</code> metadata and reuse them across <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
-<li>For standard CRUD flows, start with <code>Table</code> for list, <code>Description</code> for detail, and <code>Form</code> for create or edit.</li>
-<li>For interaction feedback, prefer <code>useApp()</code> for <code>message</code>, <code>notification</code>, <code>setModalProps</code>, and <code>setDrawerProps</code>.</li>
+<li>Follow <a href="/guidelines/file-conventions.html">File Conventions</a> and place features under <code>pages/&lt;feature-name&gt;/</code>.</li>
+<li>Use <code>App</code> once near the frontend root, then <code>Routes</code> plus <code>lazy</code> for feature pages.</li>
+<li>Keep page entries mostly compositional; move concrete UI to <code>components/</code> only when it earns a boundary.</li>
+<li>Put feature-local request files under <code>api/</code> and keep action paths aligned with file paths.</li>
+<li>Model business fields as shared <code>items</code> metadata reused by <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
+<li>Start CRUD with <code>Table</code>, <code>Description</code>, and <code>Form</code>; use <code>useApp()</code> for <code>message</code>, <code>notification</code>, <code>setModalProps</code>, and <code>setDrawerProps</code>.</li>
 </ol>
-<h2 id="recommended-feature-layout" tabindex="-1">Recommended Feature Layout</h2>
-<p>For a typical CRUD feature such as users, prefer a layout like this:</p>
-<pre><code class="hljs language-text">src/pages/
+<h2 id="recommended-layout" tabindex="-1">Recommended Layout</h2>
+<pre><code class="hljs language-text">src/pages/users/
   index.tsx
-  users/
-    index.tsx
-    components/
-      UserDescription.tsx
-      UserForm.tsx
-      UserTable.tsx
-    hooks/
-      useUserItems.ts
-    api/
-      create.api.ts
-      detail.api.ts
-      list.api.ts
-      remove.api.ts
-      update.api.ts
+  components/
+    UserDescription.tsx
+    UserForm.tsx
+    UserTable.tsx
+  hooks/
+    useUserItems.ts
+  api/
+    create.api.ts
+    detail.api.ts
+    list.api.ts
+    remove.api.ts
+    update.api.ts
 </code></pre>
-<p>This keeps:</p>
-<ul>
-<li>routing in <code>pages/</code></li>
-<li>feature UI in <code>components/</code></li>
-<li>feature-local reusable logic in <code>hooks/</code></li>
-<li>backend handlers in <code>api/</code></li>
-</ul>
-<p>The corresponding action paths will map directly to:</p>
-<ul>
-<li><code>/pages/users/api/list</code></li>
-<li><code>/pages/users/api/detail</code></li>
-<li><code>/pages/users/api/create</code></li>
-<li><code>/pages/users/api/update</code></li>
-<li><code>/pages/users/api/remove</code></li>
-</ul>
-<h2 id="project-pattern" tabindex="-1">Project Pattern</h2>
-<p>Root routes should stay simple and let each feature lazy-load its own page entry:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<p>Actions map directly to <code>/pages/users/api/list</code>, <code>/detail</code>, <code>/create</code>, <code>/update</code>, and <code>/remove</code>.</p>
+<h2 id="core-patterns" tabindex="-1">Core Patterns</h2>
+<h3 id="routes-and-page-entries" tabindex="-1">Routes and page entries</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Pages</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>
-      <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
-        {
-          <span class="hljs-attr">path:</span> &#x27;<span class="hljs-attr">users</span>&#x27;,
-          <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./users&#x27;)),
-        },
-      ]}
-    /&gt;</span>
-  )
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Pages</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span> <span class="hljs-attr">routes</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">path:</span> &#x27;<span class="hljs-attr">users</span>&#x27;, <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./users&#x27;)) }]} /&gt;</span>
 }
-</code></pre>
-<p>Feature entry files should mainly compose existing components and trigger shared app interactions through <code>useApp</code>:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-<span class="hljs-keyword">import</span> { useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserForm</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/UserForm&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserTable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/UserTable&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UsersPage</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { setDrawerProps } = <span class="hljs-title function_">useApp</span>()
@@ -149,508 +107,115 @@
       <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
         <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span>
         <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
-          setDrawerProps({
-            open: true,
-            title: &#x27;Create User&#x27;,
-            width: 720,
-            children: <span class="hljs-tag">&lt;<span class="hljs-name">UserForm</span> /&gt;</span>,
-          })
+          setDrawerProps({ open: true, title: &#x27;Create User&#x27;, width: 720, children: <span class="hljs-tag">&lt;<span class="hljs-name">UserForm</span> /&gt;</span> })
         }
       &gt;
         Create User
       <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-
       <span class="hljs-tag">&lt;<span class="hljs-name">UserTable</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">Space</span>&gt;</span></span>
   )
 }
 </code></pre>
-<h2 id="typical-crud-flow" tabindex="-1">Typical CRUD Flow</h2>
-<h3 id="1.-list%2C-detail%2C-edit%2C-delete" tabindex="-1">1. List, Detail, Edit, Delete</h3>
-<p>For most CRUD pages:</p>
+<h3 id="list%2C-detail%2C-edit%2C-delete" tabindex="-1">List, detail, edit, delete</h3>
 <ul>
-<li>use <code>Table</code> for list pages</li>
-<li>use <code>Description</code> for detail panels</li>
-<li>use <code>Form</code> for create and edit flows</li>
-<li>use <code>setDrawerProps</code> for in-context detail and edit panels</li>
-<li>use <code>setModalProps</code> for delete confirmation</li>
-<li>use <code>message</code> and <code>notification</code> from <code>useApp</code> for feedback</li>
-<li>reuse one shared <code>items</code> definition across list, detail, and form</li>
+<li>Use <code>Table.faasData</code> for list fetches and <code>Description.faasData</code> for detail fetches.</li>
+<li>Reuse <code>items</code> across list, detail, and form; add surface-specific renderers only when presentation truly differs.</li>
+<li>Open detail/edit in drawers when users should keep list context visible.</li>
+<li>Use modal confirmations for destructive actions.</li>
+<li>After create, update, or delete, intentionally close the overlay and refresh or invalidate the affected surface.</li>
 </ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-<span class="hljs-keyword">import</span> { faas, <span class="hljs-title class_">Table</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserDescription</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./UserDescription&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UserForm</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./UserForm&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserTable</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { message, setDrawerProps, setModalProps } = <span class="hljs-title function_">useApp</span>()
-  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span>
-      <span class="hljs-attr">rowKey</span>=<span class="hljs-string">&quot;id&quot;</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-        <span class="hljs-attr">...items</span>,
-        {
-          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">actions</span>&#x27;,
-          <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Actions</span>&#x27;,
-          <span class="hljs-attr">tableRender:</span> (<span class="hljs-attr">_</span>, <span class="hljs-attr">row</span>) =&gt;</span> (
-            <span class="hljs-tag">&lt;<span class="hljs-name">Space</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
-                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
-                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
-                  setDrawerProps({
-                    open: true,
-                    title: `User #${row.id}`,
-                    width: 720,
-                    children: <span class="hljs-tag">&lt;<span class="hljs-name">UserDescription</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{row.id}</span> /&gt;</span>,
-                  })
-                }
-              &gt;
-                Detail
-              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
-                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
-                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
-                  setDrawerProps({
-                    open: true,
-                    title: `Edit User #${row.id}`,
-                    width: 720,
-                    children: <span class="hljs-tag">&lt;<span class="hljs-name">UserForm</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{row.id}</span> <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{row}</span> /&gt;</span>,
-                  })
-                }
-              &gt;
-                Edit
-              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
-                <span class="hljs-attr">danger</span>
-                <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;small&quot;</span>
-                <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
-                  setModalProps({
-                    open: true,
-                    title: &#x27;Delete User&#x27;,
-                    children: &#x27;This action cannot be undone.&#x27;,
-                    onOk: async () =&gt; {
-                      await faas(&#x27;/pages/users/api/remove&#x27;, { id: row.id })
-                      message.success(&#x27;User deleted&#x27;)
-                      setModalProps({ open: false })
-                    },
-                  })
-                }
-              &gt;
-                Delete
-              <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">Space</span>&gt;</span>
-          ),
-        },
-      ]}
-      faasData={{
-        action: &#x27;/pages/users/api/list&#x27;,
-      }}
-      pagination={{
-        pageSize: 20,
-      }}
-      onRow={(record) =&gt; ({
-        onDoubleClick: () =&gt;
-          setDrawerProps({
-            open: true,
-            title: `User #${record.id}`,
-            width: 720,
-            children: <span class="hljs-tag">&lt;<span class="hljs-name">UserDescription</span> <span class="hljs-attr">id</span>=<span class="hljs-string">{record.id}</span> /&gt;</span>,
-          }),
-      })}
-    /&gt;</span>
-  )
-}
+<pre><code class="hljs language-tsx">&lt;<span class="hljs-title class_">Table</span>
+  rowKey=<span class="hljs-string">&quot;id&quot;</span>
+  items={[...items, { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;actions&#x27;</span>, <span class="hljs-attr">tableRender</span>: <span class="hljs-function">(<span class="hljs-params">_, row</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">UserActions</span> <span class="hljs-attr">row</span>=<span class="hljs-string">{row}</span> /&gt;</span></span> }]}
+  faasData={{ <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/api/list&#x27;</span> }}
+/&gt;
 </code></pre>
-<h3 id="2.-detail" tabindex="-1">2. Detail</h3>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserDescription</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
-      <span class="hljs-attr">column</span>=<span class="hljs-string">{1}</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
-      <span class="hljs-attr">faasData</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">detail</span>&#x27;,
-        <span class="hljs-attr">params:</span> {
-          <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span>,
-        },
-      }}
-    /&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="3.-create-or-update" tabindex="-1">3. Create or Update</h3>
-<ul>
-<li>Prefer <code>Form.faas</code> when the submit flow is one direct action call.</li>
-<li>Load edit data outside the form, then pass it through <code>initialValues</code>.</li>
-<li>Let <code>useApp</code> handle success and failure feedback.</li>
-</ul>
+<h3 id="create-and-update-forms" tabindex="-1">Create and update forms</h3>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id?: <span class="hljs-built_in">number</span>; initialValues?: Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: {
+  id?: <span class="hljs-built_in">number</span>
+  initialValues?: Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt;
+  onSuccess?: () =&gt; <span class="hljs-built_in">void</span>
+}</span>) {
   <span class="hljs-keyword">const</span> { message, notification, setDrawerProps } = <span class="hljs-title function_">useApp</span>()
-  <span class="hljs-keyword">const</span> items = <span class="hljs-title function_">useUserItems</span>()
 
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
       <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{props.initialValues}</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{useUserItems()}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
         <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
-        <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({
-          ...values,
-          ...(props.id ? { id: props.id } : {}),
-        }),
+        <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({ ...values, ...(props.id ? { id: props.id } : {}) }),
         onSuccess: () =&gt; {
           message.success(props.id ? &#x27;User updated&#x27; : &#x27;User created&#x27;)
           setDrawerProps({ open: false })
+          props.onSuccess?.()
         },
-        onError: (error) =&gt; {
+        onError: (error) =&gt;
           notification.error({
             message: props.id ? &#x27;Update failed&#x27; : &#x27;Create failed&#x27;,
-            description: error?.message || &#x27;Unknown error&#x27;,
-          })
-        },
+            description: error?.message,
+          }),
       }}
     /&gt;</span>
   )
 }
 </code></pre>
-<h3 id="4.-delete-or-dangerous-operations" tabindex="-1">4. Delete or Dangerous Operations</h3>
-<ul>
-<li>In normal app pages, prefer <code>useApp().setModalProps(...)</code> over ad hoc local modal instances.</li>
-<li>Use <code>message</code> for short success feedback and <code>notification</code> for richer failure feedback.</li>
-</ul>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-<span class="hljs-keyword">import</span> { faas, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<h3 id="delete-and-dangerous-actions" tabindex="-1">Delete and dangerous actions</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> { message, notification, setModalProps } = <span class="hljs-title function_">useApp</span>()
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">RemoveButton</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { message, notification, setModalProps } = <span class="hljs-title function_">useApp</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
-      <span class="hljs-attr">danger</span>
-      <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span>
-        setModalProps({
-          open: true,
-          title: &#x27;Delete User&#x27;,
-          children: &#x27;Please confirm the deletion.&#x27;,
-          onOk: async () =&gt; {
-            try {
-              await faas(&#x27;/pages/users/api/remove&#x27;, { id: props.id })
-              message.success(&#x27;User deleted&#x27;)
-              setModalProps({ open: false })
-            } catch (error: any) {
-              notification.error({
-                message: &#x27;Delete failed&#x27;,
-                description: error?.message || &#x27;Unknown error&#x27;,
-              })
-            }
-          },
-        })
-      }
-    &gt;
-      Delete
-    <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span>
-  )
-}
+<span class="hljs-title function_">setModalProps</span>({
+  <span class="hljs-attr">open</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Delete User&#x27;</span>,
+  <span class="hljs-attr">children</span>: <span class="hljs-string">&#x27;Please confirm the deletion.&#x27;</span>,
+  <span class="hljs-attr">onOk</span>: <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/api/remove&#x27;</span>, { id })
+      message.<span class="hljs-title function_">success</span>(<span class="hljs-string">&#x27;User deleted&#x27;</span>)
+      <span class="hljs-title function_">setModalProps</span>({ <span class="hljs-attr">open</span>: <span class="hljs-literal">false</span> })
+      onSuccess?.()
+    } <span class="hljs-keyword">catch</span> (<span class="hljs-attr">error</span>: <span class="hljs-built_in">any</span>) {
+      notification.<span class="hljs-title function_">error</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Delete failed&#x27;</span>, <span class="hljs-attr">description</span>: error?.<span class="hljs-property">message</span> })
+    }
+  },
+})
 </code></pre>
 <h2 id="preferred-components" tabindex="-1">Preferred Components</h2>
-<h3 id="title" tabindex="-1"><code>Title</code></h3>
-<p>Prefer over hand-written <code>document.title</code> logic when a page needs both title side effects and an optional visible heading.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Title</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UsersPage</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Title</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{[</span>&#x27;<span class="hljs-attr">Users</span>&#x27;, &#x27;<span class="hljs-attr">List</span>&#x27;]} <span class="hljs-attr">h1</span> /&gt;</span></span>
-}
-</code></pre>
-<h3 id="tabs" tabindex="-1"><code>Tabs</code></h3>
-<p>Prefer over raw Ant Design <code>Tabs</code> when you want simpler <code>id</code>-based tab definitions for related subviews such as profile, permissions, and logs.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Tabs</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserTabs</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Tabs</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">profile</span>&#x27;, <span class="hljs-attr">children:</span> &lt;<span class="hljs-attr">div</span>&gt;</span>Profile<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> },
-        { id: &#x27;logs&#x27;, children: <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Logs<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> },
-      ]}
-    /&gt;</span>
-  )
-}
-</code></pre>
-<h3 id="link" tabindex="-1"><code>Link</code></h3>
-<p>Prefer over raw anchors, manual <code>navigate</code>, or button-plus-router glue for internal navigation, external links, and button-style jumps.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Link</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Actions</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/users/create&quot;</span> <span class="hljs-attr">button</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">primary</span>&#x27; }}&gt;</span>
-      Create User
-    <span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="blank" tabindex="-1"><code>Blank</code></h3>
-<p>Prefer over ad hoc <code>'-'</code>, <code>'N/A'</code>, or empty fragments when a field may be empty and should render a consistent placeholder.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserEmail</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { email?: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span> }</span>) {
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{props.email}</span> /&gt;</span></span>
-}
-</code></pre>
-<h3 id="loading" tabindex="-1"><code>Loading</code></h3>
-<p>Prefer over manually placed <code>Spin</code> wrappers for lightweight local loading states, or let <code>FaasDataWrapper</code> use it as the default fallback.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Loading</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanel</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { loading: <span class="hljs-built_in">boolean</span> }</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Loading</span> <span class="hljs-attr">loading</span>=<span class="hljs-string">{props.loading}</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loaded<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">Loading</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="configprovider" tabindex="-1"><code>ConfigProvider</code></h3>
-<p>Prefer when you need to override FaasJS Ant Design copy, theme defaults, or client behavior for a subtree instead of scattering config in leaf components.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span>, <span class="hljs-title class_">ConfigProvider</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">EmptyState</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">theme</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">common:</span> { <span class="hljs-attr">blank:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">data</span>&#x27; } }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Blank</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="errorboundary" tabindex="-1"><code>ErrorBoundary</code></h3>
-<p>Prefer around unstable or isolated regions so a rendering error becomes a visible alert instead of breaking the whole page.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorBoundary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ErrorBoundary</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">DangerousWidget</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ErrorBoundary</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="faasdatawrapper-or-withfaasdata" tabindex="-1"><code>FaasDataWrapper</code> or <code>withFaasData</code></h3>
-<p>Prefer when a component should fetch data directly but does not fit <code>Table</code> or <code>Description</code>, such as summary cards, dashboards, or small async widgets.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSummary</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
-      {({ data }) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="usethemetoken" tabindex="-1"><code>useThemeToken</code></h3>
-<p>Prefer when a custom component needs Ant Design theme tokens for spacing, colors, or radius, instead of hardcoding design values. If you truly need to build a custom <code>div</code>-based block, use this hook to keep the UI aligned with the rest of the app.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useThemeToken } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Section</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { colorPrimary, borderRadius } = <span class="hljs-title function_">useThemeToken</span>()
-
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">border:</span> `<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> ${<span class="hljs-attr">colorPrimary</span>}`, <span class="hljs-attr">borderRadius</span> }} /&gt;</span></span>
-}
-</code></pre>
-<h3 id="usemodal-and-usedrawer" tabindex="-1"><code>useModal</code> and <code>useDrawer</code></h3>
-<p>Use only when you intentionally need a local isolated modal or drawer instance outside the shared <code>App</code> shell. In normal feature pages, still prefer <code>useApp().setModalProps(...)</code> and <code>useApp().setDrawerProps(...)</code>.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-<span class="hljs-keyword">import</span> { useDrawer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">LocalPreview</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { drawer, setDrawerProps } = <span class="hljs-title function_">useDrawer</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>
-        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setDrawerProps({ open: true, title: &#x27;Preview&#x27;, children: <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Body<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> })}
-      &gt;
-        Open
-      <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span>
-      {drawer}
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
-}
-</code></pre>
+<ul>
+<li><code>Title</code>: page or section headings; prefer over ad hoc heading markup in app surfaces.</li>
+<li><code>Tabs</code>: tabbed business views that should share the FaasJS/Ant Design look.</li>
+<li><code>Link</code>: navigation that should integrate with the configured router.</li>
+<li><code>Blank</code>: empty states instead of hand-written placeholder blocks.</li>
+<li><code>Loading</code>: explicit loading surfaces outside component-owned <code>faasData</code> lifecycles.</li>
+<li><code>ConfigProvider</code>: app-level theme, locale, or client config.</li>
+<li><code>ErrorBoundary</code>: page or feature boundaries where errors should not take down the whole app.</li>
+<li><code>FaasDataWrapper</code> / <code>withFaasData</code>: only when wrapper composition or fixed integration boundaries help.</li>
+<li><code>useThemeToken</code>: custom layout tokens; do not hardcode common spacing, radius, or colors.</li>
+<li><code>useModal</code> / <code>useDrawer</code>: only for intentionally isolated local instances; otherwise use shared <code>useApp()</code> overlays.</li>
+</ul>
 <h2 id="rules" tabindex="-1">Rules</h2>
-<h3 id="1.-follow-file-conventions-when-building-ant-design-features" tabindex="-1">1. Follow file conventions when building Ant Design features</h3>
-<ul>
-<li>Put frontend pages under <code>pages/</code>.</li>
-<li>Use <code>index.tsx</code> as the page entry file.</li>
-<li>Keep page entries focused on composition.</li>
-<li>Place feature components in <code>components/</code>, hooks in <code>hooks/</code>, and request handlers in <code>api/</code>.</li>
-<li>Keep all files scoped to the feature instead of flattening them globally.</li>
-</ul>
-<h3 id="2.-use-app-once-as-the-application-shell" tabindex="-1">2. Use <code>App</code> once as the application shell</h3>
-<ul>
-<li>Prefer one root <code>App</code> wrapper instead of wrapping each page separately.</li>
-<li><code>App</code> is the default home for shared message, notification, modal, and drawer behavior.</li>
-<li><code>App</code> also wires FaasJS error handling and optional browser routing.</li>
-<li>Use <code>ConfigProvider</code> alone only when you intentionally need a smaller boundary.</li>
-</ul>
-<h3 id="3.-treat-items-metadata-as-the-source-of-truth" tabindex="-1">3. Treat <code>items</code> metadata as the source of truth</h3>
-<ul>
-<li>Start from <code>id</code>, <code>type</code>, <code>title</code>, <code>options</code>, and nested <code>object</code> definitions.</li>
-<li>Reuse the same metadata across <code>Form</code>, <code>Description</code>, and <code>Table</code> whenever the field meaning is the same.</li>
-<li>Let the built-in normalization logic handle labels, options, and value conversion.</li>
-<li>Avoid duplicating one field into separate config objects for list, detail, and form unless the domain meaning is different.</li>
-</ul>
-<h3 id="4.-prefer-built-in-components-for-common-crud-surfaces" tabindex="-1">4. Prefer built-in components for common CRUD surfaces</h3>
-<ul>
-<li>For list pages, start with <code>Table</code>.</li>
-<li>For detail pages, start with <code>Description</code>.</li>
-<li>For create and edit pages, start with <code>Form</code>.</li>
-<li>Also prefer FaasJS wrappers such as <code>Title</code>, <code>Tabs</code>, <code>Link</code>, <code>Blank</code>, <code>Loading</code>, <code>ErrorBoundary</code>, and <code>FaasDataWrapper</code> before dropping to raw Ant Design primitives or hand-written glue code.</li>
-<li>Avoid hand-building layout or state display with ad hoc <code>div</code> blocks when an existing component already fits the scenario.</li>
-<li>Only build lower-level custom UI when the existing components clearly do not fit the feature.</li>
-</ul>
-<h3 id="4.1.-if-custom-layout-is-necessary%2C-use-usethemetoken" tabindex="-1">4.1. If custom layout is necessary, use <code>useThemeToken</code></h3>
-<ul>
-<li>If you have to build a custom <code>div</code>-based block, read spacing, colors, radius, and similar values from <code>useThemeToken()</code>.</li>
-<li>Do not hardcode visual tokens such as border color, radius, or spacing unless there is a strong reason.</li>
-<li>This keeps custom UI aligned with Ant Design and the surrounding FaasJS components.</li>
-</ul>
-<p>Prefer this:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useThemeToken } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SummaryCard</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { children: React.ReactNode }</span>) {
-  <span class="hljs-keyword">const</span> { colorBorder, borderRadiusLG, padding } = <span class="hljs-title function_">useThemeToken</span>()
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
-      <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">padding</span>,
-        <span class="hljs-attr">border:</span> `<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> ${<span class="hljs-attr">colorBorder</span>}`,
-        <span class="hljs-attr">borderRadius:</span> <span class="hljs-attr">borderRadiusLG</span>,
-      }}
-    &gt;</span>
-      {props.children}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<p>Avoid this:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SummaryCard</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { children: React.ReactNode }</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
-      <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">padding:</span> <span class="hljs-attr">12</span>,
-        <span class="hljs-attr">border:</span> &#x27;<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> #<span class="hljs-attr">d9d9d9</span>&#x27;,
-        <span class="hljs-attr">borderRadius:</span> <span class="hljs-attr">8</span>,
-      }}
-    &gt;</span>
-      {props.children}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="5.-prefer-faas-and-faasdata-for-straightforward-request-lifecycles" tabindex="-1">5. Prefer <code>faas</code> and <code>faasData</code> for straightforward request lifecycles</h3>
-<ul>
-<li>Use <code>Form.faas</code> when the submit flow is one direct action call.</li>
-<li>Use <code>Description.faasData</code> and <code>Table.faasData</code> when the component can own its fetch lifecycle.</li>
-<li>Prefer these built-in request props over manual loading state and effect-based request plumbing for simple cases.</li>
-<li>If multiple surfaces need shared reload or orchestration logic, extract a feature hook, but keep the leaf component contracts simple.</li>
-</ul>
-<h3 id="6.-prefer-useapp-for-interactive-feedback-and-overlays" tabindex="-1">6. Prefer <code>useApp</code> for interactive feedback and overlays</h3>
-<ul>
-<li>Inside a subtree wrapped by <code>App</code>, use <code>useApp()</code> for <code>message</code>, <code>notification</code>, <code>setModalProps</code>, and <code>setDrawerProps</code>.</li>
-<li>Prefer <code>message</code> for lightweight success or warning feedback.</li>
-<li>Prefer <code>notification</code> when the feedback needs a title, description, or longer persistence.</li>
-<li>Prefer <code>setModalProps</code> for confirmations and short interruptive flows.</li>
-<li>Prefer <code>setDrawerProps</code> for create, edit, or detail panels that should keep page context visible.</li>
-<li>Reach for local <code>useModal</code> or <code>useDrawer</code> only when you intentionally need an isolated instance outside the shared app shell.</li>
-</ul>
-<h3 id="7.-prefer-drawers-for-in-context-create-or-edit-flows" tabindex="-1">7. Prefer drawers for in-context create or edit flows</h3>
-<ul>
-<li>When the user should keep the list context visible, open forms in a shared drawer via <code>useApp</code>.</li>
-<li>When the workflow is destructive or requires explicit confirmation, use a modal.</li>
-<li>Use a dedicated route page only when the flow deserves its own URL, navigation state, or larger standalone layout.</li>
-</ul>
-<h3 id="8.-promote-repeated-custom-field-behavior-into-extendtypes" tabindex="-1">8. Promote repeated custom field behavior into <code>extendTypes</code></h3>
-<ul>
-<li>Use <code>extendTypes</code> when a custom field type appears more than once or belongs to the project domain.</li>
-<li>Keep one-off customization on the item itself.</li>
-<li>Prefer typed wrappers around <code>Form</code>, <code>Table</code>, or <code>Description</code> when you introduce project-specific type names.</li>
-<li>Do not copy the same custom renderer into many item definitions.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">ExtendFormItemProps</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FormProps</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Input</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-
-<span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserFormItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ExtendFormItemProps</span> {
-  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;password&#x27;</span>
-}
-
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">FormProps</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">UserFormItem</span>&gt;</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
-      {<span class="hljs-attr">...props</span>}
-      <span class="hljs-attr">extendTypes</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">password:</span> {
-          <span class="hljs-attr">children:</span> &lt;<span class="hljs-attr">Input.Password</span> /&gt;</span>,
-        },
-      }}
-    /&gt;</span>
-  )
-}
-</code></pre>
-<h3 id="9.-use-surface-specific-overrides-only-for-real-view-differences" tabindex="-1">9. Use surface-specific overrides only for real view differences</h3>
-<ul>
-<li><code>children</code> and <code>render</code> are shared overrides.</li>
-<li><code>formChildren</code> and <code>formRender</code> are form-only overrides.</li>
-<li><code>descriptionChildren</code> and <code>descriptionRender</code> are description-only overrides.</li>
-<li><code>tableChildren</code> and <code>tableRender</code> are table-only overrides.</li>
-<li>Prefer shared metadata until the presentation truly diverges by surface.</li>
-<li>Do not fork a field into fake ids such as <code>statusForForm</code>, <code>statusForTable</code>, and <code>statusForDescription</code> just to change rendering.</li>
-</ul>
+<ol>
+<li>Follow the <code>pages/</code>, <code>components/</code>, <code>hooks/</code>, <code>api/</code> structure and routing-mapping for feature-local APIs.</li>
+<li>Use <code>App</code> once as the application shell; do not scatter independent app shells through features.</li>
+<li>Treat <code>items</code> as the source of truth for business fields across <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
+<li>Prefer FaasJS wrappers over raw Ant Design primitives when the wrapper fits common CRUD, loading, empty, route, or feedback surfaces.</li>
+<li>If custom layout is necessary, read visual values from <code>useThemeToken()</code> instead of hardcoding tokens.</li>
+<li>Use <code>Form.faas</code>, <code>Table.faasData</code>, <code>Description.faasData</code>, and <code>faas</code> for straightforward request lifecycles before custom loading/effect plumbing.</li>
+<li>Use <code>useApp()</code> for shared feedback and overlays; prefer drawers for in-context create/edit/detail and modals for confirmations.</li>
+<li>Promote repeated custom field behavior into <code>extendTypes</code>; keep one-off customization on the item itself.</li>
+<li>Use <code>formRender</code>, <code>descriptionRender</code>, or <code>tableRender</code> only when a field truly differs by surface; do not fork fake field ids.</li>
+</ol>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
-<li>the feature follows the <code>pages/</code>, <code>components/</code>, <code>hooks/</code>, <code>api/</code> structure</li>
-<li>routes are wired with <code>Routes</code> and <code>lazy</code></li>
-<li>API files stay aligned with routing-mapping</li>
-<li>the page entry mostly composes feature components instead of containing all logic inline</li>
-<li>field definitions are modeled through shared <code>items</code> metadata</li>
-<li><code>faas</code> and <code>faasData</code> are used for straightforward request flows</li>
-<li>CRUD pages primarily use <code>Table</code>, <code>Description</code>, and <code>Form</code></li>
-<li>FaasJS-provided wrappers are preferred over raw Ant Design primitives when they cover the scenario</li>
-<li>custom <code>div</code>-based UI is avoided unless existing components do not fit</li>
-<li>when custom layout is necessary, it uses <code>useThemeToken</code> instead of hardcoded visual values</li>
-<li>interaction feedback uses <code>useApp</code> instead of scattered local modal or message usage</li>
-<li>create or edit overlays use <code>setDrawerProps</code> when staying in page context is desirable</li>
-<li>confirmations use <code>setModalProps</code></li>
-<li>repeated custom field behavior is extracted into <code>extendTypes</code></li>
-<li>surface-specific overrides are used only when rendering truly differs</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/file-conventions.html">File Conventions</a></li>
-<li><a href="/guidelines/define-api.html">defineApi Guide</a></li>
-<li><a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a></li>
-<li><a href="/doc/ant-design/">@faasjs/ant-design</a></li>
-<li><a href="/doc/ant-design/functions/App.html">App</a></li>
-<li><a href="/doc/ant-design/functions/Routes.html">Routes</a></li>
-<li><a href="/doc/ant-design/functions/Form.html">Form</a></li>
-<li><a href="/doc/ant-design/functions/Description.html">Description</a></li>
-<li><a href="/doc/ant-design/functions/Table.html">Table</a></li>
-<li><a href="/doc/ant-design/functions/useApp.html">useApp</a></li>
-<li><a href="/doc/ant-design/functions/useModal.html">useModal</a></li>
-<li><a href="/doc/ant-design/functions/useDrawer.html">useDrawer</a></li>
+<li>feature layout and action paths follow conventions</li>
+<li>routes use <code>Routes</code> and <code>lazy</code></li>
+<li>page entry composes feature components instead of containing all logic inline</li>
+<li>shared <code>items</code> metadata drives <code>Form</code>, <code>Description</code>, and <code>Table</code></li>
+<li>wrappers and <code>faas</code>/<code>faasData</code> cover straightforward request flows</li>
+<li>create/update/delete flows provide feedback and refresh, close, or invalidate intentionally</li>
+<li>custom layout uses <code>useThemeToken</code>; repeated field behavior uses <code>extendTypes</code></li>
 </ul>
 </div></div>
           </div>

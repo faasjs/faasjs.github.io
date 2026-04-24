@@ -64,13 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="pg-testing-guide" tabindex="-1">PG Testing Guide</h1>
 <p>When changing <code>@faasjs/pg</code>-backed code, every behavior change should come with runtime tests, and type-sensitive surface changes should come with <code>expectTypeOf(...)</code> coverage.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>adding or changing query-builder usage in app code</li>
-<li>changing shared query helpers, repository wrappers, or table typing</li>
-<li>updating schema or migration helpers</li>
-<li>writing integration tests for <code>@faasjs/pg</code> or <code>@faasjs/pg-dev</code></li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
@@ -183,15 +176,6 @@
 <li>pg-backed runtime tests stay in a node-scoped project (<code>node</code> or <code>node-pg</code>) in mixed workspaces</li>
 <li>suites either rely on the plugin reset or clean up their own extra setup</li>
 <li>validation commands match the change surface</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/pg-query-builder.html">PG Query Builder Guide</a></li>
-<li><a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a></li>
-<li><a href="/doc/pg-dev/">@faasjs/pg-dev package reference</a></li>
-<li><a href="/doc/pg-dev/functions/TypedPgVitestPlugin.html">TypedPgVitestPlugin</a></li>
-<li><a href="/doc/pg-dev/functions/setupTypedPgVitest.html">setupTypedPgVitest</a></li>
-<li><a href="/doc/pg/functions/getClient.html">getClient</a></li>
 </ul>
 </div></div>
           </div>

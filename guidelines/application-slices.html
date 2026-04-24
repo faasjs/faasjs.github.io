@@ -95,10 +95,12 @@ src/pages/settings/users/api/update-role.api.ts
 src/pages/settings/users/api/__tests__/update-role.test.ts
 </code></pre>
 <p>Use short relative imports inside the slice unless an existing TypeScript alias is already configured.</p>
-<h2 id="api-and-validation" tabindex="-1">API And Validation</h2>
+<h2 id="api%2C-validation%2C-and-security" tabindex="-1">API, Validation, And Security</h2>
 <p>Use <code>defineApi</code> for every API entrypoint.</p>
 <p>Keep schemas close to the handler unless they are reused across multiple APIs or form a real boundary. Prefer explicit params, explicit returning columns, and narrow response shapes so UI code and tests stay type-aware.</p>
-<p>Avoid generic helpers that hide validation, database access, or response contracts. A little repetition is acceptable when it makes the slice easier for agents and reviewers to understand.</p>
+<p>Before reading or mutating data, check whether the slice needs current-user, tenant, organization, project, role, or permission scoping. Put cross-cutting business context in project plugins, then type the injected fields so handlers stay explicit.</p>
+<p>Use explicit HTTP status codes for expected business, auth, permission, missing-resource, and conflict failures. Reserve plain unexpected failures for real internal errors.</p>
+<p>Avoid generic helpers that hide validation, authorization, database access, or response contracts. A little repetition is acceptable when it makes the slice easier for agents and reviewers to understand.</p>
 <h2 id="database-changes" tabindex="-1">Database Changes</h2>
 <p>When a slice changes data shape:</p>
 <ul>
@@ -111,7 +113,7 @@ src/pages/settings/users/api/__tests__/update-role.test.ts
 <h2 id="ui-changes" tabindex="-1">UI Changes</h2>
 <p>Use React and the FaasJS Ant Design path for business UI.</p>
 <p>Prefer <code>@faasjs/ant-design</code> wrappers such as <code>Form</code>, <code>Table</code>, <code>Description</code>, <code>Title</code>, <code>Tabs</code>, <code>Loading</code>, and <code>ErrorBoundary</code> when they cover the scenario. Drop to raw Ant Design components only when the wrapper does not fit or the custom UI is clearer.</p>
-<p>Keep page-level state and request flow readable. Extract components, hooks, or helpers only when they are reused, create a real boundary, or simplify a large block.</p>
+<p>Keep page-level state and request flow readable. After create, update, or delete flows, intentionally refresh, close, or invalidate the affected surface and show user feedback. Extract components, hooks, or helpers only when they are reused, create a real boundary, or simplify a large block.</p>
 <h2 id="tests" tabindex="-1">Tests</h2>
 <p>Put API tests close to the API files under <code>__tests__</code>.</p>
 <p>Test the behavior that defines the slice:</p>
@@ -119,7 +121,7 @@ src/pages/settings/users/api/__tests__/update-role.test.ts
 <li>valid input and expected output</li>
 <li>validation failures and important error paths</li>
 <li>database writes, reads, ordering, and counts when relevant</li>
-<li>permission or current-user behavior when a plugin affects the API</li>
+<li>permission, tenant, or current-user behavior when a plugin or scoped query affects the API</li>
 <li>UI request flow when the page contains meaningful interaction</li>
 </ul>
 <p>Avoid wide mocks that bypass FaasJS plugins, validation, or database behavior unless the test is intentionally unit-scoped.</p>
@@ -132,6 +134,7 @@ src/pages/settings/users/api/__tests__/update-role.test.ts
 <ul>
 <li>inspect nearby slices and guides first</li>
 <li>create or update all files needed for the vertical behavior</li>
+<li>include auth, tenant, and permission scope when the data is user- or organization-specific</li>
 <li>keep business-specific concerns in app code or plugins</li>
 <li>run the smallest meaningful tests</li>
 <li>avoid unrelated refactors</li>

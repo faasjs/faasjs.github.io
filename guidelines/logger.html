@@ -64,14 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="logger-guide" tabindex="-1">Logger Guide</h1>
 <p>Use this guide when you need readable runtime logs in FaasJS handlers, middleware, cron jobs, server hooks, or standalone Node.js scripts.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>writing logs inside middleware, plugins, or cron jobs</li>
-<li>adding request, lifecycle, or failure logs to a FaasJS server</li>
-<li>creating a standalone script that needs a shared logger</li>
-<li>timing slow operations</li>
-<li>tuning log noise for local development, CI, or production</li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Reuse the injected <code>logger</code> when FaasJS already gives you one.</li>
@@ -206,16 +198,6 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <li>environment variables are used to change verbosity</li>
 <li>secrets and sensitive payloads are not logged</li>
 <li>transport handlers call <code>stop()</code> during shutdown when transport is enabled</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
-<li><a href="/doc/node-utils/classes/Logger.html">Logger</a></li>
-<li><a href="/doc/node-utils/functions/getTransport.html">getTransport</a></li>
-<li><a href="/doc/node-utils/functions/formatLogger.html">formatLogger</a></li>
-<li><a href="/doc/core/functions/useMiddleware.html">useMiddleware</a></li>
-<li><a href="/doc/core/classes/CronJob.html">CronJob</a></li>
-<li><a href="/doc/core/type-aliases/ServerOptions.html">ServerOptions</a></li>
 </ul>
 </div></div>
           </div>

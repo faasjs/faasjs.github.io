@@ -63,63 +63,23 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="project-config-guide" tabindex="-1">Project Config Guide</h1>
-<p>Use this guide when creating or reviewing a FaasJS project's <code>tsconfig.json</code>, <code>vite.config.ts</code>, or shared workspace tooling config.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>bootstrapping a new FaasJS app or package</li>
-<li>simplifying an existing <code>tsconfig.json</code></li>
-<li>simplifying an existing <code>vite.config.ts</code></li>
-<li>deciding whether a project should inherit framework defaults or define local tooling rules</li>
-<li>reviewing whether config files duplicate settings that FaasJS already publishes</li>
-</ul>
+<p>Use for <code>tsconfig.json</code>, <code>vite.config.ts</code>, and shared workspace tooling config.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Start from the shared TypeScript preset in <code>@faasjs/types/tsconfig/*</code>.</li>
-<li>Keep local <code>tsconfig.json</code> focused on project-specific <code>types</code>, <code>include</code>, <code>exclude</code>, and aliases.</li>
-<li>Start from <code>viteConfig</code> when the project uses the standard FaasJS React + local server stack.</li>
-<li>Keep local <code>vite.config.ts</code> focused on runtime plugins and project behavior.</li>
-<li>Reuse <code>oxfmtConfig</code> and <code>oxlintConfig</code> from <code>@faasjs/dev</code> instead of duplicating common rules.</li>
-<li>Extend shared config when needed, rather than replacing it wholesale.</li>
+<li>Start from <code>@faasjs/types/tsconfig/*</code> instead of hand-writing a TypeScript baseline.</li>
+<li>Keep local <code>tsconfig.json</code> focused on project-specific <code>types</code>, <code>include</code>, <code>exclude</code>, <code>baseUrl</code>, and <code>paths</code>.</li>
+<li>Start from <code>viteConfig</code> for standard FaasJS React + local server apps.</li>
+<li>Keep local <code>vite.config.ts</code> focused on runtime plugins, aliases, server options, tests, and build behavior.</li>
+<li>Reuse <code>oxfmtConfig</code> and <code>oxlintConfig</code> from <code>@faasjs/dev</code>; extend shared config instead of replacing it.</li>
 </ol>
-<h2 id="rules" tabindex="-1">Rules</h2>
-<h3 id="1.-prefer-shared-typescript-presets" tabindex="-1">1. Prefer shared TypeScript presets</h3>
+<h2 id="typescript-rules" tabindex="-1">TypeScript Rules</h2>
 <ul>
-<li>Do not hand-write a full TypeScript baseline when <code>@faasjs/types</code> already provides the shared one.</li>
-<li>Use <code>@faasjs/types/tsconfig/build.json</code> for most FaasJS apps created with Vite, including the <code>create-faas-app</code> starters.</li>
+<li>Use <code>@faasjs/types/tsconfig/build.json</code> for most Vite apps and packages.</li>
 <li>Use <code>@faasjs/types/tsconfig/base.json</code> for non-React TypeScript apps.</li>
-<li>Use <code>@faasjs/types/tsconfig/react.json</code> when a React project only needs the JSX defaults without the build-oriented module and declaration settings.</li>
-<li>The extensionless <code>@faasjs/types/tsconfig/*</code> paths still work, but the explicit <code>.json</code> paths match the generated starters and avoid ambiguity.</li>
+<li>Use <code>@faasjs/types/tsconfig/react.json</code> only when a React project needs JSX defaults without build-oriented settings.</li>
+<li>Do not duplicate strict mode, JSX, module resolution, or other shared baseline settings unless intentionally changing behavior.</li>
+<li>Prefer explicit <code>.json</code> preset paths because generated starters use them.</li>
 </ul>
-<p>React app example:</p>
-<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;extends&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@faasjs/types/tsconfig/build.json&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;types&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vitest/globals&quot;</span><span class="hljs-punctuation">]</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;src&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vite.config.ts&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;server.ts&quot;</span><span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<p>Non-React app example:</p>
-<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;extends&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@faasjs/types/tsconfig/base.json&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;types&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vitest/globals&quot;</span><span class="hljs-punctuation">]</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;src&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vite.config.ts&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;server.ts&quot;</span><span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<p>Package example:</p>
-<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;extends&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@faasjs/types/tsconfig/build.json&quot;</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<h3 id="2.-keep-local-tsconfig-overrides-minimal" tabindex="-1">2. Keep local tsconfig overrides minimal</h3>
-<ul>
-<li>Local <code>compilerOptions</code> SHOULD only contain project-specific additions.</li>
-<li>Good local additions include <code>types</code>, <code>paths</code>, <code>baseUrl</code>, <code>include</code>, and <code>exclude</code>.</li>
-<li>Do not duplicate strict-mode, JSX, module resolution, or other shared baseline settings unless the project intentionally needs a different behavior.</li>
-</ul>
-<p>Prefer this:</p>
 <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;extends&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@faasjs/types/tsconfig/build.json&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
@@ -131,107 +91,18 @@
   <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;src&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vite.config.ts&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;server.ts&quot;</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-<p>Avoid this:</p>
-<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;compilerOptions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ESNext&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;jsx&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;react-jsx&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;strict&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;moduleResolution&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;bundler&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;exactOptionalPropertyTypes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;verbatimModuleSyntax&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;types&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vitest/globals&quot;</span><span class="hljs-punctuation">]</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;src&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;vite.config.ts&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;server.ts&quot;</span><span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<h3 id="3.-keep-vite-config-focused-on-app-behavior" tabindex="-1">3. Keep Vite config focused on app behavior</h3>
+<h2 id="vite-rules" tabindex="-1">Vite Rules</h2>
 <ul>
-<li>If the project matches the standard FaasJS React setup, prefer <code>viteConfig</code> from <code>@faasjs/dev</code> as the base preset.</li>
-<li><code>vite.config.ts</code> SHOULD define project runtime behavior such as plugins, aliases, server options, tests, and build settings.</li>
-<li>Shared formatting and lint rules SHOULD come from <code>@faasjs/dev</code>.</li>
-<li>When using <code>fmt</code> and <code>lint</code>, <code>defineConfig</code> SHOULD come from <code>vite-plus</code>, not <code>vite</code>.</li>
-<li>In mixed Node + UI test suites, keep UI tests in a dedicated <code>test.projects</code> entry. Treat <code>*.test.tsx</code> as UI tests, and use <code>*.ui.test.ts</code> only for UI tests that do not use TSX syntax, instead of setting <code>environment: 'jsdom'</code> globally.</li>
-<li>When a suite also includes <code>*.types.test.ts</code> or <code>*.types.test.tsx</code>, keep those files in a dedicated <code>types</code> project. Exclude them from runtime projects because globs such as <code>src/**/*.test.ts</code> also match <code>*.types.test.ts</code>. Only add <code>typecheck: { enabled: false }</code> to runtime projects when they inherit a shared root <code>typecheck</code> config that would otherwise run the same type tests multiple times.</li>
-<li>PG-backed runtime tests are still Node runtime tests. Prefer keeping them in the main <code>node</code> project, but if project-level setup must only apply to that subset, split them into a node-scoped project such as <code>node-pg</code> rather than a standalone <code>pg</code> runtime bucket.</li>
+<li>Import <code>defineConfig</code> from <code>vite-plus</code> when using <code>fmt</code> or <code>lint</code>.</li>
+<li>Prefer <code>viteConfig</code> from <code>@faasjs/dev</code> when the standard stack fits.</li>
+<li>For local differences, spread the shared config and add only the delta.</li>
+<li>In mixed Node + UI tests, put UI tests in a dedicated <code>test.projects</code> entry with <code>environment: 'jsdom'</code>.</li>
+<li>Treat <code>*.test.tsx</code> as UI tests; use <code>*.ui.test.ts</code> only for UI tests without TSX syntax.</li>
+<li>Put <code>*.types.test.ts(x)</code> files in a dedicated <code>types</code> project and exclude them from runtime projects.</li>
+<li>Keep PG-backed tests in the main Node runtime project unless setup must be isolated; then use a node-scoped project such as <code>node-pg</code>.</li>
 </ul>
-<p>Preset example:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
-
-<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
-<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
-<span class="hljs-keyword">const</span> typeTests = [<span class="hljs-string">&#x27;src/**/*.types.test.ts&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.types.test.tsx&#x27;</span>]
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  ...viteConfig,
-  <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">projects</span>: [
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-          <span class="hljs-attr">include</span>: tests,
-          <span class="hljs-attr">exclude</span>: uiTests.<span class="hljs-title function_">concat</span>(typeTests),
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-        },
-      },
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
-          <span class="hljs-attr">include</span>: uiTests,
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
-          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
-          <span class="hljs-attr">exclude</span>: typeTests,
-        },
-      },
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;types&#x27;</span>,
-          <span class="hljs-attr">include</span>: typeTests,
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-          <span class="hljs-attr">typecheck</span>: {
-            <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">only</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">include</span>: typeTests,
-          },
-        },
-      },
-    ],
-  },
-})
-</code></pre>
-<p>Manual composition example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteFaasJsServer, oxfmtConfig, oxlintConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> react <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vitejs/plugin-react&#x27;</span>
-<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">react</span>(), <span class="hljs-title function_">viteFaasJsServer</span>()],
-  <span class="hljs-attr">resolve</span>: {
-    <span class="hljs-attr">tsconfigPaths</span>: <span class="hljs-literal">true</span>,
-  },
-  <span class="hljs-attr">server</span>: {
-    <span class="hljs-attr">host</span>: <span class="hljs-string">&#x27;0.0.0.0&#x27;</span>,
-  },
-  <span class="hljs-attr">fmt</span>: oxfmtConfig,
-  <span class="hljs-attr">lint</span>: oxlintConfig,
-})
-</code></pre>
-<h3 id="4.-extend-shared-vite-rules-instead-of-replacing-them" tabindex="-1">4. Extend shared Vite rules instead of replacing them</h3>
-<ul>
-<li>If the project needs one or two local differences, spread <code>viteConfig</code> or the shared lint and format config and add only the delta.</li>
-<li>Do not copy the entire FaasJS shared config into each app.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
-
-<span class="hljs-keyword">const</span> tests = [<span class="hljs-string">&#x27;src/**/*.test.ts&#x27;</span>]
-<span class="hljs-keyword">const</span> uiTests = [<span class="hljs-string">&#x27;src/**/*.test.tsx&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.ui.test.ts&#x27;</span>]
-<span class="hljs-keyword">const</span> typeTests = [<span class="hljs-string">&#x27;src/**/*.types.test.ts&#x27;</span>, <span class="hljs-string">&#x27;src/**/*.types.test.tsx&#x27;</span>]
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
   ...viteConfig,
@@ -239,95 +110,36 @@
     ...viteConfig.<span class="hljs-property">server</span>,
     <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
   },
-  <span class="hljs-attr">test</span>: {
-    <span class="hljs-attr">projects</span>: [
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-          <span class="hljs-attr">include</span>: tests,
-          <span class="hljs-attr">exclude</span>: uiTests.<span class="hljs-title function_">concat</span>(typeTests),
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-        },
-      },
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;ui&#x27;</span>,
-          <span class="hljs-attr">include</span>: uiTests,
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span>,
-          <span class="hljs-attr">setupFiles</span>: [<span class="hljs-string">&#x27;vitest.ui.setup.ts&#x27;</span>],
-          <span class="hljs-attr">exclude</span>: typeTests,
-        },
-      },
-      {
-        <span class="hljs-attr">extends</span>: <span class="hljs-literal">true</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
-        <span class="hljs-attr">test</span>: {
-          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;types&#x27;</span>,
-          <span class="hljs-attr">include</span>: typeTests,
-          <span class="hljs-attr">environment</span>: <span class="hljs-string">&#x27;node&#x27;</span>,
-          <span class="hljs-attr">typecheck</span>: {
-            <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">only</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">include</span>: typeTests,
-          },
-        },
-      },
-    ],
-  },
 })
 </code></pre>
-<p>If only lint or format differs, it is still fine to extend <code>oxfmtConfig</code> or <code>oxlintConfig</code> directly:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { oxfmtConfig, oxlintConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<p>Manual composition is only for projects that cannot use <code>viteConfig</code> directly:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { oxfmtConfig, oxlintConfig, viteFaasJsServer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> react <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vitejs/plugin-react&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">fmt</span>: {
-    ...oxfmtConfig,
-  },
-  <span class="hljs-attr">lint</span>: {
-    ...oxlintConfig,
-    <span class="hljs-attr">rules</span>: {
-      ...oxlintConfig.<span class="hljs-property">rules</span>,
-      <span class="hljs-string">&#x27;no-console&#x27;</span>: <span class="hljs-string">&#x27;warn&#x27;</span>,
-    },
-  },
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">react</span>(), <span class="hljs-title function_">viteFaasJsServer</span>()],
+  <span class="hljs-attr">resolve</span>: { <span class="hljs-attr">tsconfigPaths</span>: <span class="hljs-literal">true</span> },
+  <span class="hljs-attr">fmt</span>: oxfmtConfig,
+  <span class="hljs-attr">lint</span>: oxlintConfig,
 })
 </code></pre>
-<h3 id="5.-make-project-specific-intent-obvious" tabindex="-1">5. Make project-specific intent obvious</h3>
+<h2 id="alias-rules" tabindex="-1">Alias Rules</h2>
 <ul>
-<li>A reader should be able to tell which settings come from FaasJS and which ones are local decisions.</li>
-<li>Shared framework defaults SHOULD be inherited.</li>
-<li>Local files SHOULD only highlight the settings that affect this specific app, package, or workspace.</li>
-</ul>
-<h3 id="6.-respect-existing-alias-config" tabindex="-1">6. Respect existing alias config</h3>
-<ul>
-<li>Read <code>tsconfig.json</code> and any config it extends before choosing an import path style.</li>
-<li>If <code>compilerOptions.paths</code> defines aliases, use those existing aliases instead of deep relative imports.</li>
-<li>Prefer package imports such as <code>@faasjs/core</code> or <code>@faasjs/react</code> over long relative imports into another package.</li>
-<li>Keep short relative imports for nearby files in the same feature or directory.</li>
-<li>Do not introduce an alias unless <code>tsconfig.json</code> and the runtime or bundler resolver support it.</li>
-<li>In FaasJS workspaces, enabling <code>resolve.tsconfigPaths</code> in <code>vite.config.ts</code> is the preferred way to make <code>tsconfig.json</code> path aliases work at runtime.</li>
+<li>Read <code>tsconfig.json</code> and extended configs before choosing import paths.</li>
+<li>Use aliases already defined in <code>compilerOptions.paths</code>; keep short relative imports for nearby files.</li>
+<li>Prefer package imports such as <code>@faasjs/core</code> over long relative imports into another package.</li>
+<li>Do not introduce an alias unless TypeScript and the runtime or bundler resolver are configured in the same change.</li>
+<li>In FaasJS workspaces, <code>resolve.tsconfigPaths</code> in <code>vite.config.ts</code> is the preferred runtime support for path aliases.</li>
 </ul>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
-<li><code>tsconfig.json</code> extends a shared preset from <code>@faasjs/types</code> when possible</li>
-<li>local TypeScript overrides are limited to project-specific needs</li>
-<li><code>vite.config.ts</code> uses <code>vite-plus</code> when <code>fmt</code> or <code>lint</code> is configured</li>
-<li><code>vite.config.ts</code> starts from <code>viteConfig</code> or reuses shared <code>fmt</code> and <code>lint</code> rules from <code>@faasjs/dev</code></li>
-<li>the config does not duplicate FaasJS baseline settings without a clear reason</li>
-<li>UI tests use a dedicated project with <code>environment: 'jsdom'</code>, with <code>*.test.tsx</code> plus any non-TSX <code>*.ui.test.ts</code> files in that UI bucket</li>
-<li>type tests use a dedicated <code>types</code> project when present, instead of being mixed into runtime projects or re-run by every inherited runtime typecheck</li>
-<li>local config files make project-specific behavior easy to identify</li>
-<li>imports follow aliases already defined in <code>tsconfig.json</code> when appropriate</li>
-<li>aliases defined in <code>tsconfig.json</code> are also supported by the runtime or bundler</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/doc/dev/">@faasjs/dev package reference</a></li>
-<li><a href="/doc/dev/variables/viteConfig.html">viteConfig</a></li>
-<li><a href="/doc/dev/functions/viteFaasJsServer.html">viteFaasJsServer</a></li>
-<li><a href="/doc/types/">@faasjs/types package reference</a></li>
+<li>config inherits shared FaasJS presets where possible</li>
+<li>local overrides only show project-specific behavior</li>
+<li><code>vite-plus</code> is used when <code>fmt</code> or <code>lint</code> is configured</li>
+<li>shared <code>viteConfig</code>, <code>oxfmtConfig</code>, and <code>oxlintConfig</code> are extended rather than copied</li>
+<li>UI and type tests are isolated into the right Vitest projects when present</li>
+<li>imports follow existing aliases and runtime resolver support</li>
 </ul>
 </div></div>
           </div>

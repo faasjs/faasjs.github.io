@@ -64,13 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="pg-query-builder-and-raw-sql-guide" tabindex="-1">PG Query Builder and Raw SQL Guide</h1>
 <p>When implementing or reviewing <code>@faasjs/pg</code> query code, default to the fluent <code>QueryBuilder</code> surface, and fall back to <code>client.raw(...)</code> only when the builder cannot express the SQL cleanly.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>creating or updating <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, or <code>UPSERT</code> queries</li>
-<li>adding joins, ordering, pagination, aggregates, JSONB field selection, or custom predicates</li>
-<li>deciding whether a query can stay inside the typed fluent API or needs a raw SQL fragment</li>
-<li>choosing between <code>getClient()</code> and <code>createClient(...)</code>, or reviewing transaction boundaries</li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Prefer <code>await getClient()</code> for the default client path. The built-in bootstrap reads <code>DATABASE_URL</code>, and tests can override that bootstrap lazily.</li>
@@ -159,18 +152,6 @@
 <li><code>select</code>, <code>first</code>, <code>pluck</code>, or explicit <code>returning</code> narrow rows when appropriate</li>
 <li><code>update</code> and <code>delete</code> stay guarded by <code>where</code>, and multi-step writes use <code>transaction(...)</code> when atomicity matters</li>
 <li>shared query helpers or package changes keep runtime and type coverage aligned</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a></li>
-<li><a href="/guidelines/pg-table-types.html">PG Table Types Guide</a></li>
-<li><a href="/doc/pg/">@faasjs/pg package reference</a></li>
-<li><a href="/doc/pg/classes/QueryBuilder.html">QueryBuilder</a></li>
-<li><a href="/doc/pg/classes/Client.html">Client</a></li>
-<li><a href="/doc/pg/functions/getClient.html">getClient</a></li>
-<li><a href="/doc/pg/functions/createClient.html">createClient</a></li>
-<li><a href="/doc/pg/functions/rawSql.html">rawSql</a></li>
-<li><a href="/doc/pg/functions/escapeIdentifier.html">escapeIdentifier</a></li>
 </ul>
 </div></div>
           </div>

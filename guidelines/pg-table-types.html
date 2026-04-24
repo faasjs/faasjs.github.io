@@ -64,13 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="pg-table-types-guide" tabindex="-1">PG Table Types Guide</h1>
 <p>When implementing or reviewing <code>@faasjs/pg</code> table typing, default to declaration merging on <code>Tables</code>.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>defining application tables for <code>@faasjs/pg</code></li>
-<li>adding columns or JSONB shapes</li>
-<li>reviewing how query inference should flow from the table definition</li>
-<li>extracting helpers that depend on <code>TableType</code>, <code>ColumnName</code>, or <code>ColumnValue</code></li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Put the augmentation in an app-owned type file such as <code>src/types/faasjs-pg.d.ts</code>, and make sure <code>tsconfig.json</code> includes that file before expecting inference to change.</li>
@@ -147,15 +140,6 @@
 <li>declaration merging still works from consumer code</li>
 <li>helper types stay aligned with the merged table definition</li>
 <li>public or shared type changes include <code>expectTypeOf(...)</code> coverage</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/pg-query-builder.html">PG Query Builder Guide</a></li>
-<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a></li>
-<li><a href="/doc/pg/interfaces/Tables.html">Tables</a></li>
-<li><a href="/doc/pg/type-aliases/TableType.html">TableType</a></li>
-<li><a href="/doc/pg/type-aliases/ColumnName.html">ColumnName</a></li>
-<li><a href="/doc/pg/type-aliases/ColumnValue.html">ColumnValue</a></li>
 </ul>
 </div></div>
           </div>

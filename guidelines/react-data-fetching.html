@@ -63,361 +63,95 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="react-data-fetching-guide" tabindex="-1">React Data Fetching Guide</h1>
-<p>Use this guide when creating or reviewing FaasJS data requests in React components.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>fetching normal request-response data in React</li>
-<li>fetching streaming responses in React</li>
-<li>choosing between <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code></li>
-<li>configuring <code>FaasReactClient</code></li>
-<li>handling request loading, error, and retry states</li>
-<li>deciding whether a request should use <code>skip</code>, <code>debounce</code>, <code>polling</code>, or <code>reload(nextParams)</code></li>
-</ul>
+<p>Use for FaasJS requests in React: <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, <code>withFaasData</code>, client setup, loading, error, retry, debounce, polling, and reload behavior.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Use <code>useFaas</code> for standard component-level requests.</li>
+<li>Use <code>useFaas</code> for standard component-owned request state.</li>
 <li>Use <code>useFaasStream</code> for streaming text or chunked output.</li>
-<li>Use <code>faas</code> for imperative requests inside event handlers.</li>
-<li>Use the built-in <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>reload(nextParams)</code> controls before adding custom request effects or timers.</li>
-<li>Reach for <code>FaasDataWrapper</code> or <code>withFaasData</code> only when composition benefits from them.</li>
-<li>Configure <code>FaasReactClient</code> once at app setup.</li>
-<li>Handle loading, error, and retry states explicitly.</li>
+<li>Use <code>faas</code> for imperative event-handler requests.</li>
+<li>Use built-in <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>reload(nextParams)</code> before custom effects or timers.</li>
+<li>Use <code>FaasDataWrapper</code> or <code>withFaasData</code> only when wrapper composition helps.</li>
+<li>Configure <code>FaasReactClient</code> once at app setup; use <code>getClient</code> only for multiple-client scenarios.</li>
+<li>Always handle loading, error, and retry states in user-facing code.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
-<h3 id="1.-use-usefaas-for-standard-requests" tabindex="-1">1. Use <code>useFaas</code> for standard requests</h3>
-<ul>
-<li><code>useFaas</code> is the default choice when a component needs <code>loading</code>, <code>data</code>, <code>error</code>, and <code>reload</code>.</li>
-<li>Keep the request close to the component that actually renders or owns the data.</li>
-<li>Always handle error and retry states explicitly in user-facing code.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { id })
-
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-
-  <span class="hljs-keyword">if</span> (error) {
-    <span class="hljs-keyword">return</span> (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-          Retry
-        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    )
-  }
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-        Refresh
-      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  )
-}
+<h3 id="1.-standard-requests-use-usefaas" tabindex="-1">1. Standard requests use <code>useFaas</code></h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { id })
 </code></pre>
-<h3 id="2.-use-built-in-request-lifecycle-controls-before-custom-effects" tabindex="-1">2. Use built-in request lifecycle controls before custom effects</h3>
 <ul>
-<li>Prefer <code>skip</code> or <code>skip: (params) =&gt; ...</code> when a request should wait for required params or user intent.</li>
-<li>Prefer <code>debounce</code> for search boxes, filters, and other fast-changing inputs instead of hand-written <code>setTimeout</code> plus effect logic.</li>
-<li>Use <code>polling</code> for background auto-refresh scenarios such as dashboards, queues, and tables that should stay current.</li>
-<li>Use <code>reload(nextParams)</code> when a user action needs an immediate refetch with new params. Use <code>reload(nextParams, { silent: true })</code> when that refetch should keep existing content visible.</li>
-<li>Let <code>useFaas</code> and <code>useFaasStream</code> own abort, retry, polling, and reload state instead of rebuilding that lifecycle in each component.</li>
+<li>Keep the request close to the component that renders or owns the data.</li>
+<li>Handle <code>loading</code>, <code>error</code>, and retry explicitly.</li>
+<li>Use <code>reload()</code> for same params and <code>reload(nextParams)</code> for user-triggered param changes.</li>
 </ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSearch</span>(<span class="hljs-params">{ keyword }: { keyword: <span class="hljs-built_in">string</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, loading, reload } = <span class="hljs-title function_">useFaas</span>(
-    <span class="hljs-string">&#x27;/pages/users/search&#x27;</span>,
-    { keyword },
-    {
-      <span class="hljs-attr">skip</span>: <span class="hljs-function">(<span class="hljs-params">params</span>) =&gt;</span> !params.<span class="hljs-property">keyword</span>.<span class="hljs-title function_">trim</span>(),
-      <span class="hljs-attr">debounce</span>: <span class="hljs-number">300</span>,
-    },
-  )
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload({ keyword: &#x27;admin&#x27; })}&gt;
-        Load admins
-      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      {loading ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{JSON.stringify(data, null, 2)}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="3.-use-polling-for-non-blocking-background-refreshes" tabindex="-1">3. Use polling for non-blocking background refreshes</h3>
-<ul>
-<li>Prefer <code>polling</code> over hand-written <code>setInterval</code> or <code>useEffect</code> loops when data should refresh automatically.</li>
-<li>Treat <code>loading</code> as the first-load or blocking reload state; polling uses <code>refreshing</code> so table, chart, and list UIs can remain interactive while new data is fetched.</li>
-<li>Keep rendering old <code>data</code> during <code>refreshing</code>, then let <code>useFaas</code> update the UI after a successful response.</li>
-<li>Use <code>skip</code> or <code>polling: false</code> to stop polling when the data is complete, the user leaves the relevant mode, or required params are missing.</li>
-<li>Show <code>refreshing</code> only as a subtle status indicator when it helps users; do not wire it to blocking table or page spinners.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">PendingOrdersTable</span>(<span class="hljs-params">{ status }: { status: <span class="hljs-string">&#x27;pending&#x27;</span> | <span class="hljs-string">&#x27;done&#x27;</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, refreshing, reload } = <span class="hljs-title function_">useFaas</span>(
-    <span class="hljs-string">&#x27;/pages/orders/list&#x27;</span>,
-    { status },
-    {
-      <span class="hljs-attr">polling</span>: status === <span class="hljs-string">&#x27;pending&#x27;</span> ? <span class="hljs-number">5000</span> : <span class="hljs-literal">false</span>,
-    },
-  )
-
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading orders...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-
-  <span class="hljs-keyword">if</span> (error &amp;&amp; !data) {
-    <span class="hljs-keyword">return</span> (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-          Retry
-        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    )
-  }
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
-      {refreshing ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Refreshing in background...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : null}
-      <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
-          {(data?.items ?? []).map((order: { id: string; title: string }) =&gt; (
-            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{order.id}</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>{order.title}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-          ))}
-        <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="4.-use-usefaasstream-for-streaming-responses" tabindex="-1">4. Use <code>useFaasStream</code> for streaming responses</h3>
-<ul>
-<li>Use <code>useFaasStream</code> for chat, logs, incremental text output, or other streaming payloads.</li>
-<li>Surface loading and error states explicitly.</li>
-<li>Keep the rendering logic simple so the streaming behavior stays easy to reason about.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaasStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Chat</span>(<span class="hljs-params">{ prompt }: { prompt: <span class="hljs-built_in">string</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;/pages/chat/stream&#x27;</span>, { prompt })
-
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Streaming...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-
-  <span class="hljs-keyword">if</span> (error) {
-    <span class="hljs-keyword">return</span> (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Stream failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-          Retry
-        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    )
-  }
-
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span></span>
-}
-</code></pre>
-<h3 id="5.-use-faas-for-imperative-requests" tabindex="-1">5. Use <code>faas</code> for imperative requests</h3>
-<ul>
-<li>Use <code>faas</code> in event handlers, submit handlers, or other imperative flows.</li>
-<li>Manage pending and failure state in the local component.</li>
-<li>Do not convert an event-driven submit flow into a hook just to make a request.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">FormEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
-<span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
-
-<span class="hljs-keyword">import</span> { faas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserForm</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> [name, setName] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)
-  <span class="hljs-keyword">const</span> [saving, setSaving] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>)
-  <span class="hljs-keyword">const</span> [submitError, setSubmitError] = useState&lt;<span class="hljs-built_in">string</span>&gt;()
-
-  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">onSubmit</span>(<span class="hljs-params"><span class="hljs-attr">e</span>: <span class="hljs-title class_">FormEvent</span>&lt;<span class="hljs-title class_">HTMLFormElement</span>&gt;</span>) {
-    e.<span class="hljs-title function_">preventDefault</span>()
-
-    <span class="hljs-keyword">try</span> {
-      <span class="hljs-title function_">setSaving</span>(<span class="hljs-literal">true</span>)
-      <span class="hljs-title function_">setSubmitError</span>(<span class="hljs-literal">undefined</span>)
-
-      <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/set&#x27;</span>, {
-        id,
-        name,
-      })
-    } <span class="hljs-keyword">catch</span> (<span class="hljs-attr">error</span>: <span class="hljs-built_in">any</span>) {
-      <span class="hljs-title function_">setSubmitError</span>(error.<span class="hljs-property">message</span> || <span class="hljs-string">&#x27;Save failed&#x27;</span>)
-    } <span class="hljs-keyword">finally</span> {
-      <span class="hljs-title function_">setSaving</span>(<span class="hljs-literal">false</span>)
-    }
-  }
-
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">onSubmit</span>=<span class="hljs-string">{onSubmit}</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setName(e.target.value)} /&gt;
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{saving}</span>&gt;</span>
-        {saving ? &#x27;Saving...&#x27; : &#x27;Save&#x27;}
-      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      {submitError ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{submitError}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : null}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="6.-use-faasdatawrapper-only-when-wrapper-composition-helps" tabindex="-1">6. Use <code>FaasDataWrapper</code> only when wrapper composition helps</h3>
-<ul>
-<li>Use <code>FaasDataWrapper</code> when render-prop or wrapper composition fits the page structure better than calling <code>useFaas</code> directly.</li>
-<li>When using <code>children</code>, <code>FaasDataWrapper</code> clones the child element and injects request props such as <code>data</code>, <code>error</code>, and <code>reload</code>.</li>
-<li>Prefer <code>useFaas</code> for new function components unless wrapper composition is meaningfully simpler.</li>
-</ul>
-<p><code>FaasDataWrapper</code> with <code>render</code> example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanelWithRender</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span>
-      <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/get&quot;</span>
-      <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span> }}
-      <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
-      render={({ data, error, reload }) =&gt;
-        error ? (
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-              Retry
-            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        ) : (
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        )
-      }
-    /&gt;</span>
-  )
-}
-</code></pre>
-<p><code>FaasDataWrapper</code> with <code>children</code> example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserContent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: {
-  data?: { name: <span class="hljs-built_in">string</span> }
-  error?: { message?: <span class="hljs-built_in">string</span> } | <span class="hljs-literal">null</span>
-  reload?(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;
-}</span>) {
-  <span class="hljs-keyword">if</span> (props.<span class="hljs-property">error</span>) {
-    <span class="hljs-keyword">return</span> (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {props.error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> props.reload?.()}&gt;
-          Retry
-        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-    )
-  }
-
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserPanelWithChildren</span>(<span class="hljs-params">{ id }: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/get&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id</span> }} <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}&gt;
-      <span class="hljs-tag">&lt;<span class="hljs-name">UserContent</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
-  )
-}
-</code></pre>
-<h3 id="7.-use-withfaasdata-only-for-wrapper-style-exports-or-fixed-integration-boundaries" tabindex="-1">7. Use <code>withFaasData</code> only for wrapper-style exports or fixed integration boundaries</h3>
-<ul>
-<li>Use <code>withFaasData</code> only when an HOC is the clearest integration point.</li>
-<li>Typical cases are wrapper-style exports or an existing component boundary that you cannot remove in the same change.</li>
-<li>Do not default to HOCs for new code when <code>useFaas</code> or <code>FaasDataWrapper</code> is simpler.</li>
-</ul>
-<p>Example:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">UserName</span> = <span class="hljs-title function_">withFaasData</span>(
-  <span class="hljs-function">(<span class="hljs-params">{ data, error, reload }</span>) =&gt;</span>
-    error ? (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
-        Retry
-      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
-    ) : (
-      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
-    ),
+<h3 id="2.-lifecycle-controls-beat-custom-effects" tabindex="-1">2. Lifecycle controls beat custom effects</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">useFaas</span>(
+  <span class="hljs-string">&#x27;/pages/users/search&#x27;</span>,
+  { keyword },
   {
-    <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/get&#x27;</span>,
-    <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> },
+    <span class="hljs-attr">skip</span>: <span class="hljs-function">(<span class="hljs-params">params</span>) =&gt;</span> !params.<span class="hljs-property">keyword</span>.<span class="hljs-title function_">trim</span>(),
+    <span class="hljs-attr">debounce</span>: <span class="hljs-number">300</span>,
   },
 )
 </code></pre>
-<h3 id="8.-keep-faasreactclient-setup-centralized" tabindex="-1">8. Keep <code>FaasReactClient</code> setup centralized</h3>
 <ul>
-<li>Create and register the browser client configuration once at app setup.</li>
-<li>Use <code>onError</code> to collect or report request errors in one place.</li>
-<li>Avoid creating ad hoc clients deep in the component tree.</li>
+<li>Use <code>skip</code> for missing params or user intent.</li>
+<li>Use <code>debounce</code> for search boxes and fast-changing filters.</li>
+<li>Use <code>polling</code> for dashboards, queues, and lists that should stay current.</li>
+<li>Use <code>reload(nextParams, { silent: true })</code> when refreshing should keep current content visible.</li>
+<li>Let FaasJS own abort, retry, polling, and reload state instead of rebuilding lifecycle plumbing.</li>
 </ul>
-<p>Example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, <span class="hljs-title class_">ResponseError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-title class_">FaasReactClient</span>({
-  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api/&#x27;</span>,
-  <span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (error) =&gt; {
-    <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ResponseError</span>) {
-      <span class="hljs-title function_">reportErrorToSentry</span>(error, {
-        <span class="hljs-attr">tags</span>: { action },
-        <span class="hljs-attr">extra</span>: { params },
-      })
-    }
+<h3 id="3.-polling-keeps-old-data-visible" tabindex="-1">3. Polling keeps old data visible</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> { data, loading, refreshing } = <span class="hljs-title function_">useFaas</span>(
+  <span class="hljs-string">&#x27;/pages/orders/list&#x27;</span>,
+  { status },
+  {
+    <span class="hljs-attr">polling</span>: status === <span class="hljs-string">&#x27;pending&#x27;</span> ? <span class="hljs-number">5000</span> : <span class="hljs-literal">false</span>,
   },
-})
+)
 </code></pre>
-<h3 id="9.-use-getclient-only-for-multiple-client-scenarios" tabindex="-1">9. Use <code>getClient</code> only for multiple-client scenarios</h3>
 <ul>
-<li><code>getClient</code> is for special cases such as multiple Faas clients with different base URLs.</li>
-<li>Do not reach for <code>getClient</code> in normal single-client app code.</li>
+<li>Treat <code>loading</code> as first-load or blocking reload state.</li>
+<li>Treat <code>refreshing</code> as non-blocking background refresh state.</li>
+<li>Stop polling with <code>skip</code> or <code>polling: false</code> when data is complete or params are missing.</li>
+<li>Do not wire <code>refreshing</code> to blocking table or page spinners.</li>
 </ul>
-<p>Example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
-
-<span class="hljs-title class_">FaasReactClient</span>({
-  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-a.example.com/api/&#x27;</span>,
-})
-
-<span class="hljs-title class_">FaasReactClient</span>({
-  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>,
-})
-
-<span class="hljs-keyword">const</span> client = <span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;https://service-b.example.com/api/&#x27;</span>)
+<h3 id="4.-streaming-uses-usefaasstream" tabindex="-1">4. Streaming uses <code>useFaasStream</code></h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;/pages/chat/stream&#x27;</span>, { prompt })
 </code></pre>
+<ul>
+<li>Use for chat, logs, incremental text, and chunked payloads.</li>
+<li>Render partial <code>data</code> as it arrives.</li>
+<li>Still handle <code>loading</code>, <code>error</code>, and retry.</li>
+</ul>
+<h3 id="5.-imperative-requests-use-faas" tabindex="-1">5. Imperative requests use <code>faas</code></h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/remove&#x27;</span>, { id })
+</code></pre>
+<ul>
+<li>Use in event handlers, confirmations, submit callbacks, or one-off commands.</li>
+<li>Pair mutations with user feedback and an intentional reload, close, or invalidate step.</li>
+<li>For form submissions, prefer <code>Form.faas</code> when available.</li>
+</ul>
+<h3 id="6.-wrappers-are-for-composition-boundaries" tabindex="-1">6. Wrappers are for composition boundaries</h3>
+<ul>
+<li>Use <code>FaasDataWrapper</code> when wrapper composition simplifies an existing tree or render-prop boundary.</li>
+<li>Use <code>withFaasData</code> only when an HOC-style export is the clearest integration point.</li>
+<li>Do not use wrappers merely to avoid writing a small component with <code>useFaas</code>.</li>
+</ul>
+<h3 id="7.-client-setup-stays-centralized" tabindex="-1">7. Client setup stays centralized</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-title class_">FaasReactClient</span>({ <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api&#x27;</span> })
+</code></pre>
+<ul>
+<li>Configure the default client once near app bootstrap.</li>
+<li>Do not create clients inside render functions or feature components.</li>
+<li>Use <code>getClient(host)</code> only for special multiple-client cases.</li>
+</ul>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
-<li>each request chooses the smallest fitting API: <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, or <code>withFaasData</code></li>
-<li>request timing and conditional fetching prefer built-in <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>reload(nextParams)</code> over custom effect orchestration</li>
-<li>loading, refreshing, error, and retry states are handled explicitly</li>
-<li>action paths follow the file-conventions guide and use <code>/pages/...</code> mapping</li>
-<li>wrapper-based request composition is used only when it improves structure</li>
-<li><code>FaasReactClient</code> setup stays centralized</li>
-<li><code>getClient</code> is used only for special multiple-client scenarios</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/react.html">React Guide</a></li>
-<li><a href="/guidelines/react-testing.html">React Testing Guide</a></li>
-<li><a href="/doc/react/functions/useFaas.html">useFaas</a></li>
-<li><a href="/doc/react/functions/useFaasStream.html">useFaasStream</a></li>
-<li><a href="/doc/react/functions/faas.html">faas</a></li>
-<li><a href="/doc/react/variables/FaasDataWrapper.html">FaasDataWrapper</a></li>
-<li><a href="/doc/react/functions/withFaasData.html">withFaasData</a></li>
-<li><a href="/doc/react/functions/FaasReactClient.html">FaasReactClient</a></li>
-<li><a href="/doc/react/functions/getClient.html">getClient</a></li>
+<li>each request chooses the smallest fitting API: <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, wrapper, or HOC</li>
+<li>loading, error, retry, and non-blocking refresh states are explicit</li>
+<li>built-in lifecycle options replace custom effects, intervals, and ad hoc debounce logic</li>
+<li>mutations provide feedback and refresh, close, or invalidate affected data intentionally</li>
+<li>client setup is centralized; <code>getClient</code> is only for multiple-client scenarios</li>
 </ul>
 </div></div>
           </div>

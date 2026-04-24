@@ -67,14 +67,6 @@
 <p>Apply the shared <a href="/guidelines/testing.html">Testing Guide</a> first, then use the React-specific rules below.</p>
 <p>For pure presentational components or hooks that do not touch FaasJS request flows, follow the shared <a href="/guidelines/testing.html">Testing Guide</a> and <a href="/guidelines/react.html">React Guide</a> instead.</p>
 <p>In this guide, &quot;UI tests&quot; means tests routed to the Vitest <code>ui</code> project with <code>environment: 'jsdom'</code>.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>testing hooks that issue FaasJS requests</li>
-<li>testing components that call FaasJS requests</li>
-<li>deciding how to use <code>setMock</code> for request-related React tests</li>
-<li>setting up shared request-mock cleanup in Vitest</li>
-<li>choosing between hook tests and component tests for request flows</li>
-</ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Start with the shared <a href="/guidelines/testing.html">Testing Guide</a>.</li>
@@ -279,15 +271,6 @@
 <li>components are tested through visible behavior</li>
 <li>hooks are tested through <code>renderHook</code> when appropriate</li>
 <li>tests cover relevant loading, error, reload, skip, debounce, or controlled-props flows</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/testing.html">Testing Guide</a></li>
-<li><a href="/guidelines/react.html">React Guide</a></li>
-<li><a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a></li>
-<li><a href="/doc/react/functions/setMock.html">setMock</a></li>
-<li><a href="/doc/react/functions/useFaas.html">useFaas</a></li>
-<li><a href="/doc/react/functions/useFaasStream.html">useFaasStream</a></li>
 </ul>
 </div></div>
           </div>

@@ -64,17 +64,6 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="node-utils-guide" tabindex="-1">Node Utils Guide</h1>
 <p>Use this guide when you need Node.js-only helpers for FaasJS runtime bootstrapping, local tooling, config resolution, or logging.</p>
-<h2 id="use-this-guide-when" tabindex="-1">Use This Guide When</h2>
-<ul>
-<li>running FaasJS handlers, CLIs, tests, or bootstrap scripts directly in Node.js</li>
-<li>reading merged staged <code>faas.yaml</code> config for a specific API file</li>
-<li>parsing the FaasJS YAML subset in custom Node.js tooling</li>
-<li>turning an API module into a runnable exported handler</li>
-<li>loading YAML-defined plugins into a <code>Func</code> instance</li>
-<li>importing local TypeScript modules with tsconfig path aliases in plain Node</li>
-<li>validating whether a candidate file path still stays inside an allowed root directory</li>
-<li>sharing runtime logs or shipping them through a transport</li>
-</ul>
 <h2 id="what-%40faasjs%2Fnode-utils-gives-you" tabindex="-1">What <code>@faasjs/node-utils</code> Gives You</h2>
 <ul>
 <li>config loading: <code>loadConfig</code>, <code>parseYaml</code></li>
@@ -211,18 +200,6 @@
 <li>root-scoped file access validates resolved paths with <code>isPathInsideRoot()</code></li>
 <li>tests that depend on fresh loader state use <code>resetRuntime()</code></li>
 <li>logging uses <code>Logger</code> or the shared transport instead of raw <code>console</code> wrappers</li>
-</ul>
-<h2 id="read-next" tabindex="-1">Read Next</h2>
-<ul>
-<li><a href="/guidelines/logger.html">Logger Guide</a></li>
-<li><a href="/doc/node-utils/">@faasjs/node-utils package reference</a></li>
-<li><a href="/doc/node-utils/functions/isPathInsideRoot.html">isPathInsideRoot</a></li>
-<li><a href="/doc/node-utils/functions/loadConfig.html">loadConfig</a></li>
-<li><a href="/doc/node-utils/functions/loadApiHandler.html">loadApiHandler</a></li>
-<li><a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a></li>
-<li><a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a></li>
-<li><a href="/doc/node-utils/functions/parseYaml.html">parseYaml</a></li>
-<li><a href="/doc/node-utils/functions/registerNodeModuleHooks.html">registerNodeModuleHooks</a></li>
 </ul>
 </div></div>
           </div>
