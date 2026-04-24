@@ -81,60 +81,47 @@
 <li><a href="/guidelines/application-slices.html">Application Slices Guide</a></li>
 </ol>
 <p>FaasJS favors complete application slices over generator-heavy workflows. A slice should keep UI, API, validation, database changes, and tests easy to find, review, and modify together.</p>
-<h2 id="global-rules" tabindex="-1">Global Rules</h2>
-<ul>
-<li>Read <code>tsconfig.json</code> and any extended TypeScript config before choosing import paths.</li>
-<li>Prefer FaasJS TypeScript loader support for direct Node execution, and keep local TypeScript imports extensionless instead of adding <code>.ts</code> or <code>.tsx</code> suffixes.</li>
-<li>Prefer aliases already defined in TypeScript config over deep relative imports.</li>
-<li>Keep short relative imports for nearby files in the same feature or directory.</li>
-<li>Do not invent a new alias in code unless the corresponding <code>tsconfig.json</code> and runtime resolver are configured in the same change.</li>
-<li>Keep changes minimal and task-scoped: no extra features, drive-by refactors, opportunistic cleanup, feature flags, transition shims, or speculative future-proofing.</li>
-<li>Keep code direct: validate at system boundaries such as user input and external APIs, fail fast on invalid internal data, and do not add silent fallbacks or impossible-case handling.</li>
-<li>Extract helpers, hooks, components, or abstractions only when they are reused, create a real boundary, or simplify a large block; keep one-off code inline unless the body is over about 20 lines.</li>
-<li>Document every exported declaration with JSDoc, and add other comments only when names or logic are not obvious; do not add comments, docstrings, or type annotations to untouched code.</li>
-<li>Delete confirmed-dead code directly instead of leaving temporary tricks such as <code>_unused</code> renames, type re-exports, or <code>// removed</code> markers.</li>
-<li>Keep files under about 500 lines by splitting along real boundaries before they grow too large.</li>
-</ul>
 <h2 id="guidelines" tabindex="-1">Guidelines</h2>
 <ul>
-<li><a href="/guidelines/curated-stack.html">Curated Stack Guide</a>: Covers the Rails-inspired default stack, official React/Ant Design/PostgreSQL path, plugin extension boundaries, auth/permission scope, and replacement rules.</li>
-<li><a href="/guidelines/application-slices.html">Application Slices Guide</a>: Covers vertical UI/API/database/test slices, recommended file layout, agent workflow, and why FaasJS avoids generator-heavy development.</li>
-<li><a href="/guidelines/ant-design.html">Ant Design Guide</a>: Covers <code>@faasjs/ant-design</code> page structure, routing, CRUD composition, feature-local APIs, and UI feedback patterns.</li>
-<li><a href="/guidelines/file-conventions.html">File Conventions</a>: Covers where to place pages, components, hooks, and <code>.api.ts</code> files, plus when separate files are worth creating.</li>
-<li><a href="/guidelines/code-comments.html">Code Comments Guide</a>: Covers export JSDoc expectations, public JSDoc language/tag conventions, when internal helpers need brief comments, and how to explain non-standard code without narrating it line by line.</li>
-<li><a href="/guidelines/node-utils.html">Node Utils Guide</a>: Covers Node-only helpers for env/config loading, function and plugin bootstrapping, module loading, and shared logging.</li>
-<li><a href="/guidelines/project-config.html">Project Config Guide</a>: Covers how to keep <code>tsconfig.json</code>, <code>vite.config.ts</code>, and shared tooling config aligned with FaasJS defaults.</li>
-<li><a href="/guidelines/testing.html">Testing Guide</a>: Covers shared testing principles such as choosing test level, keeping mock boundaries narrow, and avoiding unnecessary mocks.</li>
-<li><a href="/guidelines/react.html">React Guide</a>: Covers React component and hook patterns in FaasJS, especially avoiding native <code>useEffect</code> and handling non-primitive dependencies safely.</li>
-<li><a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>: Covers when to use <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, or wrapper components, and how to handle loading, error, and retry states.</li>
-<li><a href="/guidelines/react-testing.html">React Testing Guide</a>: Covers request-related React testing with <code>setMock</code>, shared cleanup, <code>jsdom</code>, and common request-flow scenarios on top of the shared Testing Guide.</li>
-<li><a href="/guidelines/define-api.html">defineApi Guide</a>: Covers building <code>.api.ts</code> endpoints with <code>defineApi</code>, inline schemas, typed <code>params</code>, error handling, and validation expectations.</li>
-<li><a href="/guidelines/logger.html">Logger Guide</a>: Covers when to reuse injected loggers versus creating <code>Logger</code> instances, how to choose log levels, and how to time slow operations.</li>
-<li><a href="/guidelines/utils.html">Utils Guide</a>: Covers portable helpers from <code>@faasjs/utils</code> for deep merging and converting text or JSON to and from streams.</li>
-<li><a href="/guidelines/pg-query-builder.html">PG Query Builder and Raw SQL Guide</a>: Covers preferring <code>QueryBuilder</code> clauses, choosing raw SQL fallbacks deliberately, keeping client bootstrap consistent, and narrowing row shapes intentionally.</li>
-<li><a href="/guidelines/pg-table-types.html">PG Table Types Guide</a>: Covers declaration merging on <code>Tables</code>, concrete row shapes, and keeping query inference aligned with table definitions.</li>
-<li><a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a>: Covers timestamped migrations, <code>SchemaBuilder</code>, <code>TableBuilder</code>, and transactional schema changes.</li>
-<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a>: Covers <code>TypedPgVitestPlugin()</code>, shared <code>DATABASE_URL</code> bootstrap, and pairing runtime assertions with <code>expectTypeOf(...)</code>.</li>
+<li><a href="/guidelines/curated-stack.html">Curated Stack Guide</a>: Use this guide when choosing defaults, reviewing architecture, or asking an AI coding agent to build a FaasJS feature.</li>
+<li><a href="/guidelines/application-slices.html">Application Slices Guide</a>: Use this guide when adding a business feature to a FaasJS app or asking an AI coding agent to build one.</li>
+<li><a href="/guidelines/project-config.html">Project Config Guide</a>: Use this guide when creating or reviewing a FaasJS project's <code>tsconfig.json</code>, <code>vite.config.ts</code>, or shared workspace tooling config.</li>
+<li><a href="/guidelines/file-conventions.html">File Conventions</a>: Use this guide when creating or reviewing frontend pages, React components, hooks, or FaasJS backend route files.</li>
+<li><a href="/guidelines/code-comments.html">Code Comments Guide</a>: Use this guide when adding or reviewing JSDoc, helper comments, or short intent notes in a FaasJS app or package. For docs site pages or tutorials, use the structure that best fits the page instead of forcing source-JSDoc conventions.</li>
+<li><a href="/guidelines/define-api.html">defineApi Guide</a>: When implementing or reviewing a FaasJS HTTP endpoint, default to <code>defineApi</code>.</li>
+<li><a href="/guidelines/testing.html">Testing Guide</a>: Use this guide when writing or reviewing tests in FaasJS projects.</li>
+<li><a href="/guidelines/react.html">React Guide</a>: Use this guide when creating or reviewing React pages, components, or hooks in FaasJS projects.</li>
+<li><a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>: Use this guide when creating or reviewing FaasJS data requests in React components.</li>
+<li><a href="/guidelines/react-testing.html">React Testing Guide</a>: Use this guide when writing or reviewing React tests that exercise FaasJS request flows in hooks or components.</li>
+<li><a href="/guidelines/ant-design.html">Ant Design Guide</a>: Use this guide when developing or reviewing frontend features built with <code>@faasjs/ant-design</code>.</li>
+<li><a href="/guidelines/node-utils.html">Node Utils Guide</a>: Use this guide when you need Node.js-only helpers for FaasJS runtime bootstrapping, local tooling, config resolution, or logging.</li>
+<li><a href="/guidelines/logger.html">Logger Guide</a>: Use this guide when you need readable runtime logs in FaasJS handlers, middleware, cron jobs, server hooks, or standalone Node.js scripts.</li>
+<li><a href="/guidelines/utils.html">Utils Guide</a>: Use this guide when you need lightweight helper functions from <code>@faasjs/utils</code> in app code, tests, or runtime adapters.</li>
+<li><a href="/guidelines/pg-query-builder.html">PG Query Builder and Raw SQL Guide</a>: When implementing or reviewing <code>@faasjs/pg</code> query code, default to the fluent <code>QueryBuilder</code> surface, and fall back to <code>client.raw(...)</code> only when the builder cannot express the SQL cleanly.</li>
+<li><a href="/guidelines/pg-table-types.html">PG Table Types Guide</a>: When implementing or reviewing <code>@faasjs/pg</code> table typing, default to declaration merging on <code>Tables</code>.</li>
+<li><a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a>: When implementing or reviewing DDL with <code>@faasjs/pg</code>, default to <code>SchemaBuilder</code>, <code>TableBuilder</code>, and timestamped migration files.</li>
+<li><a href="/guidelines/pg-testing.html">PG Testing Guide</a>: When changing <code>@faasjs/pg</code>-backed code, every behavior change should come with runtime tests, and type-sensitive surface changes should come with <code>expectTypeOf(...)</code> coverage.</li>
 </ul>
-<h2 id="specs" tabindex="-1">Specs</h2>
+<h2 id="specifications" tabindex="-1">Specifications</h2>
 <ul>
-<li><a href="/specs/faas-yaml.html">faas.yaml Configuration Specification</a></li>
-<li><a href="/specs/http-protocol.html">HTTP Protocol Specification</a></li>
-<li><a href="/specs/plugin.html">Plugin Specification</a></li>
-<li><a href="/specs/routing-mapping.html">Routing Mapping Specification</a></li>
+<li><a href="/specs/faas-yaml.html">faas.yaml Configuration Specification</a>: <code>faas.yaml</code> is the runtime configuration entry used by FaasJS config loading, local dev server resolution, and type generation.</li>
+<li><a href="/specs/http-protocol.html">HTTP Protocol Specification</a>: FaasJS request/response guidance is spread across multiple locations. This spec defines a single internal baseline for transport behavior.</li>
+<li><a href="/specs/plugin.html">Plugin Specification</a>: Defines plugin identity, lifecycle execution, config layering, and config-driven loading.</li>
+<li><a href="/specs/routing-mapping.html">Routing Mapping Specification</a>: Standardizes backend route mapping so file paths and request paths stay predictable.</li>
 </ul>
-<h2 id="packages" tabindex="-1">Packages</h2>
+<h2 id="api-docs" tabindex="-1">API Docs</h2>
 <ul>
-<li><a href="/doc/ant-design/">@faasjs/ant-design</a></li>
 <li><a href="/doc/core/">@faasjs/core</a></li>
-<li><a href="/doc/create-faas-app/">create-faas-app</a></li>
 <li><a href="/doc/dev/">@faasjs/dev</a></li>
+<li><a href="/doc/react/">@faasjs/react</a></li>
+<li><a href="/doc/ant-design/">@faasjs/ant-design</a></li>
 <li><a href="/doc/node-utils/">@faasjs/node-utils</a></li>
 <li><a href="/doc/pg/">@faasjs/pg</a></li>
 <li><a href="/doc/pg-dev/">@faasjs/pg-dev</a></li>
-<li><a href="/doc/react/">@faasjs/react</a></li>
 <li><a href="/doc/types/">@faasjs/types</a></li>
 <li><a href="/doc/utils/">@faasjs/utils</a></li>
+<li><a href="/doc/create-faas-app/">create-faas-app</a></li>
+<li><a href="/doc/docgen/">@faasjs/docgen</a></li>
 </ul>
 </div></div>
           </div>
