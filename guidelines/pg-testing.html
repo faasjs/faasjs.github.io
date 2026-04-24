@@ -73,7 +73,7 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, remember it skips <code>jsdom</code> and <code>happy-dom</code> projects unless you opt in with <code>environments</code> or <code>projects</code>.</li>
+<li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
 <li>Use <code>await getClient()</code> to seed data and run assertions so app code and tests share the same async bootstrap path.</li>
 <li>Add only the suite-specific setup or fixtures that the plugin does not already provide.</li>
 <li>Pair runtime assertions with <code>expectTypeOf(...)</code> when query inference, declaration merging, or shared wrappers affect types.</li>
@@ -84,7 +84,7 @@
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>({ <span class="hljs-attr">projects</span>: [<span class="hljs-string">&#x27;node&#x27;</span>] })],
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>()],
   <span class="hljs-attr">test</span>: {
     <span class="hljs-attr">projects</span>: [
       {
@@ -169,7 +169,6 @@
 <h3 id="5.-use-%40faasjs%2Fpg-dev-through-the-vitest-plugin" tabindex="-1">5. Use <code>@faasjs/pg-dev</code> through the Vitest plugin</h3>
 <ul>
 <li>Prefer <code>TypedPgVitestPlugin()</code> for workspace test runs.</li>
-<li>In mixed Vitest workspaces, pass <code>environments</code> or <code>projects</code> when <code>jsdom</code> or <code>happy-dom</code> suites should participate.</li>
 <li>PG-backed runtime tests are still Node runtime tests. Prefer the regular <code>node</code> project, but if only that subset needs project-level setup, use a node-scoped project name such as <code>node-pg</code> instead of a standalone runtime bucket like <code>pg</code>.</li>
 <li>In tests, let the plugin lazy-bootstrap the default client through <code>await getClient()</code>. If a suite also reads <code>process.env.DATABASE_URL</code> directly, trigger the bootstrap with <code>await getClient()</code> first.</li>
 <li>Reach for <code>createClient(process.env.DATABASE_URL, options)</code> only when a suite genuinely needs custom <code>postgres.js</code> options or an extra connection after the bootstrap URL exists.</li>
@@ -180,7 +179,7 @@
 <li>runtime behavior changes have test coverage</li>
 <li>type-sensitive changes have <code>expectTypeOf(...)</code> coverage</li>
 <li>tests live close to the feature area that changed</li>
-<li>mixed workspaces configure the plugin scope explicitly when browser-like projects need it</li>
+<li>mixed workspaces keep PG-backed tests in a Node project because browser-like projects are skipped</li>
 <li>pg-backed runtime tests stay in a node-scoped project (<code>node</code> or <code>node-pg</code>) in mixed workspaces</li>
 <li>suites either rely on the plugin reset or clean up their own extra setup</li>
 <li>validation commands match the change surface</li>

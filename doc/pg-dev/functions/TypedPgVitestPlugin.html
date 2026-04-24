@@ -65,18 +65,13 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg-dev/">Documents</a> / <a href="/doc/pg-dev/">@faasjs/pg-dev</a> / TypedPgVitestPlugin</p>
 <h1 id="function%3A-typedpgvitestplugin()" tabindex="-1">Function: TypedPgVitestPlugin()</h1>
 <blockquote>
-<p><strong>TypedPgVitestPlugin</strong>(<code>options?</code>): <code>Plugin</code></p>
+<p><strong>TypedPgVitestPlugin</strong>(): <code>Plugin</code></p>
 </blockquote>
 <p>Creates the Vitest plugin that wires <code>@faasjs/pg-dev</code> into the test runner.</p>
 <p>The plugin registers a lazy setup module for each enabled project. The first <code>await getClient()</code>
 in a test file starts PGlite, runs migrations from <code>./migrations</code>, backfills
 <code>process.env.DATABASE_URL</code>, and later <code>beforeEach</code> hooks clear table contents before each test.</p>
-<p>By default the plugin skips browser-like projects such as <code>jsdom</code> and <code>happy-dom</code>. Pass
-<code>environments</code> or <code>projects</code> to opt into a narrower set explicitly.</p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/pg-dev/interfaces/TypedPgVitestPluginOptions.html"><code>TypedPgVitestPluginOptions</code></a> = <code>{}</code></p>
-<p>Optional project filters.</p>
+<p>By default the plugin skips browser-like projects such as <code>jsdom</code> and <code>happy-dom</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Plugin</code></p>
 <p>Vitest/Vite plugin instance.</p>

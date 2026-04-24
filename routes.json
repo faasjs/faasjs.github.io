@@ -242,7 +242,6 @@
   "/doc/pg-dev/",
   "/doc/pg-dev/functions/setupTypedPgVitest.html",
   "/doc/pg-dev/functions/TypedPgVitestPlugin.html",
-  "/doc/pg-dev/interfaces/TypedPgVitestPluginOptions.html",
   "/doc/pg-dev/interfaces/TypedPgVitestSetupRuntime.html",
   "/doc/pg/",
   "/doc/pg/classes/Client.html",
