@@ -70,7 +70,7 @@
 <p>Request FaasJS data and keep request state in React state.</p>
 <p><code>useFaas</code> is the default hook for standard FaasJS request-response flows in React.
 It sends an initial request unless <code>skip</code> is enabled, and returns request state
-plus helpers for reloading, updating data, and handling errors.</p>
+plus helpers for reloading, background refreshing, updating data, and handling errors.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="pathordata" tabindex="-1">PathOrData</h3>
 <p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
@@ -84,8 +84,8 @@ plus helpers for reloading, updating data, and handling errors.</p>
 <p>Params used for the initial request and future reloads.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/useFaasOptions.html"><code>useFaasOptions</code></a>&lt;<code>PathOrData</code>&gt; = <code>{}</code></p>
-<p>Optional hook configuration such as controlled data, skip logic, debounce timing, and base URL overrides.
-See the <code>useFaasOptions</code> type for <code>params</code>, <code>data</code>, <code>setData</code>, <code>skip</code>, <code>debounce</code>, and <code>baseUrl</code>.</p>
+<p>Optional hook configuration such as controlled data, skip logic, debounce timing, polling, and base URL overrides.
+See the <code>useFaasOptions</code> type for <code>params</code>, <code>data</code>, <code>setData</code>, <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>baseUrl</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>PathOrData</code>&gt;</p>
 <p>Request state and helper methods described by <a href="/doc/react/type-aliases/FaasDataInjection.html">FaasDataInjection</a>.</p>

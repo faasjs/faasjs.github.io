@@ -63,38 +63,14 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="agent-guide" tabindex="-1">Agent Guide</h1>
-<p>This file routes agents to the right guide before making changes in this repo.</p>
-<h2 id="choose-your-path" tabindex="-1">Choose Your Path</h2>
+<p>Read the right guide before making changes:</p>
 <ul>
-<li>If you want to build an app with FaasJS, use FaasJS APIs, follow FaasJS app structure, or ask for FaasJS best practices, read <a href="/skills/faasjs-best-practices/SKILL.md"><code>skills/faasjs-best-practices/SKILL.md</code></a> first.</li>
-<li>If you want to develop or maintain FaasJS itself in this monorepo, read <a href="/CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a> first.</li>
-<li>If a framework change could affect product positioning, supported stacks, dependency policy, abstractions, or default workflows, also read <a href="/contributing/target-users.md"><code>contributing/target-users.md</code></a>.</li>
-<li>If a framework change may affect docs, generated docs, translations, navigation, or changelog entries, also read <a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a>.</li>
+<li>App-building or FaasJS API usage: <a href="/skills/faasjs-best-practices/SKILL.md"><code>skills/faasjs-best-practices/SKILL.md</code></a></li>
+<li>Framework/monorepo development: <a href="/CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a></li>
+<li>Positioning, supported stacks, dependencies, abstractions, or defaults: <a href="/contributing/target-users.md"><code>contributing/target-users.md</code></a></li>
+<li>Docs, generated docs, translations, navigation, or changelog: <a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a></li>
 </ul>
-<h2 id="guide-boundaries" tabindex="-1">Guide Boundaries</h2>
-<ul>
-<li><code>skills/**</code> is the source of truth for public guidance aimed at people building with FaasJS.</li>
-<li><code>contributing/**</code> is the source of truth for framework contribution workflows and maintainer-facing rules.</li>
-<li>Public framework specifications live under <code>skills/*/references/specs/**</code>.</li>
-</ul>
-<h2 id="repo-snapshot" tabindex="-1">Repo Snapshot</h2>
-<p>FaasJS is a TypeScript monorepo built with npm workspaces and <a href="https://viteplus.dev/" target="_blank" rel="noopener noreferrer" class="external-link">vite plus</a>.</p>
-<ul>
-<li><code>packages/core</code>: core runtime, server utilities, HTTP helpers</li>
-<li><code>packages/dev</code>: dev tooling, CLI helpers, test support</li>
-<li><code>packages/node-utils</code>: Node-specific utilities and hooks</li>
-<li><code>packages/react</code>: React bindings</li>
-<li><code>packages/ant-design</code>: Ant Design integration</li>
-<li><code>packages/types</code>: shared types and base TS config</li>
-<li><code>packages/create-faas-app</code>: project scaffolding CLI</li>
-<li><code>docs</code>: documentation site</li>
-<li><code>skills</code>: user-facing agent skills, workflow guides, best-practices guides, and bundled framework specifications and references</li>
-<li><code>contributing</code>: framework contribution guides and maintainer-facing workflows</li>
-<li><code>images</code>: Docker image definitions and related assets and configs</li>
-<li><code>templates/*</code>: runnable templates and smoke-test references</li>
-<li><code>benchmarks</code>: benchmark suite</li>
-</ul>
-<p>Most package source code lives in <code>packages/*/src</code>, and package entrypoints are defined in each package's <code>package.json</code>.</p>
+<p>Boundaries: <code>skills/**</code> is public user guidance; <code>contributing/**</code> is maintainer guidance; specs live under <code>skills/*/references/specs/**</code>.</p>
 </div></div>
           </div>
           

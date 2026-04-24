@@ -121,6 +121,7 @@
 <ul>
 <li><code>up</code> and <code>down</code> should be direct, readable descriptions of the schema transition.</li>
 <li>Avoid time-sensitive or environment-sensitive SQL inside migrations unless it is explicitly required.</li>
+<li>Do not use defensive <code>IF EXISTS</code> or <code>IF NOT EXISTS</code> DDL clauses in migrations; let unexpected schema state fail immediately so drift is caught during migration.</li>
 <li>Prefer reversible changes when practical so <code>down()</code> can restore the previous state.</li>
 </ul>
 <h3 id="5.-keep-migration-history-semantics-stable" tabindex="-1">5. Keep migration history semantics stable</h3>
@@ -141,6 +142,7 @@
 <li><code>up</code> and <code>down</code> are both present when rollback is practical</li>
 <li>the <code>status</code>/<code>migrate</code>/<code>up</code>/<code>down</code> execution flow is obvious for the project</li>
 <li>builder helpers are used before raw DDL</li>
+<li>raw DDL does not hide drift with <code>IF EXISTS</code> or <code>IF NOT EXISTS</code></li>
 <li>schema changes expect <code>SchemaBuilder.run()</code> to be atomic</li>
 <li>risky schema changes are covered by focused migration or integration tests</li>
 </ul>

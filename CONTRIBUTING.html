@@ -70,14 +70,20 @@
 <li><a href="/contributing/target-users.md"><code>contributing/target-users.md</code></a> for product boundaries, target users, supported stacks, and core framework trade-offs</li>
 <li><a href="/contributing/source-of-truth.md"><code>contributing/source-of-truth.md</code></a> for edit locations, generated-file rules, and codebase conventions</li>
 <li><a href="/contributing/validation.md"><code>contributing/validation.md</code></a> for environment requirements and validation commands</li>
-<li><a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a> when changes may affect docs, generated docs, translations, navigation, or changelog entries</li>
+<li><a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a> when changes may affect docs, generated docs, translations, navigation, or changelog entries; it uses <code>@faasjs/docgen</code> via <code>vp run doc</code> as the docs update and sync tool</li>
 </ol>
 <h2 id="by-task" tabindex="-1">By Task</h2>
 <ul>
 <li>Product positioning, supported-stack, dependency-policy, or framework-abstraction changes: also follow <a href="/contributing/target-users.md"><code>contributing/target-users.md</code></a></li>
 <li>Framework code, templates, images, or contribution-guide changes: follow <a href="/contributing/source-of-truth.md"><code>contributing/source-of-truth.md</code></a> and <a href="/contributing/validation.md"><code>contributing/validation.md</code></a></li>
-<li>Public API, JSDoc, docs, docs navigation, generated docs, or user-facing workflow changes: also follow <a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a></li>
+<li>Public API, JSDoc, docs, docs navigation, generated docs, or user-facing workflow changes: also follow <a href="/contributing/documentation-sync.md"><code>contributing/documentation-sync.md</code></a> and regenerate derived docs with <code>vp run doc</code></li>
 <li>Security reports: follow <a href="/SECURITY.html"><code>SECURITY.md</code></a></li>
+</ul>
+<h2 id="documentation-flow" tabindex="-1">Documentation Flow</h2>
+<ul>
+<li>Edit source-of-truth content first: JSDoc in <code>packages/*/src</code>, English guides in <code>skills/faasjs-best-practices/guidelines/**</code>, specs in <code>skills/*/references/specs/**</code>, and Chinese translations in <code>skills/faasjs-best-practices/locales/zh/**</code>.</li>
+<li>Run <code>vp run doc</code> to invoke <code>@faasjs/docgen</code>, which refreshes API Markdown, skill references, generated published docs, and generated guide indexes.</li>
+<li>Do not hand-edit generated docs under <code>packages/*/{classes,functions,interfaces,type-aliases,variables}</code>, <code>docs/guidelines/**</code>, <code>docs/specs/**</code>, <code>docs/zh/guidelines/**</code>, <code>docs/zh/specs/**</code>, <code>docs/guide/README.md</code>, or <code>docs/zh/guide/README.md</code>.</li>
 </ul>
 <h2 id="standard-flow" tabindex="-1">Standard Flow</h2>
 <ol>

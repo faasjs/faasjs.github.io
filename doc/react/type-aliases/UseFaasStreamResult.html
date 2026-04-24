@@ -88,27 +88,35 @@
 <blockquote>
 <p><strong>loading</strong>: <code>boolean</code></p>
 </blockquote>
-<p>Whether the hook is currently waiting for stream data.</p>
+<p>Whether the hook is currently waiting for stream data and should block the main UI.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
 <p><strong>params</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
 </blockquote>
 <p>Params used for the most recent request attempt.</p>
+<h3 id="refreshing" tabindex="-1">refreshing</h3>
+<blockquote>
+<p><strong>refreshing</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Whether a background stream refresh is currently in flight.</p>
 <h3 id="reload" tabindex="-1">reload</h3>
 <blockquote>
-<p><strong>reload</strong>: (<code>params?</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt;</p>
+<p><strong>reload</strong>: (<code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt;</p>
 </blockquote>
 <p>Trigger a new streaming request with optional params.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="params%3F" tabindex="-1">params?</h5>
 <p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<h5 id="options%3F" tabindex="-1">options?</h5>
+<h6 id="silent%3F" tabindex="-1">silent?</h6>
+<p><code>boolean</code></p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>string</code>&gt;</p>
 <h3 id="reloadtimes" tabindex="-1">reloadTimes</h3>
 <blockquote>
 <p><strong>reloadTimes</strong>: <code>number</code></p>
 </blockquote>
-<p>Number of times <code>reload()</code> has triggered a new request.</p>
+<p>Number of times <code>reload()</code> or polling has triggered a new request.</p>
 <h3 id="setdata" tabindex="-1">setData</h3>
 <blockquote>
 <p><strong>setData</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;</p>

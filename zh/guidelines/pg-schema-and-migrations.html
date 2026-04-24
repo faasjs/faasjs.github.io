@@ -121,6 +121,7 @@
 <ul>
 <li><code>up</code> 和 <code>down</code> 应该直接、可读地描述 schema transition。</li>
 <li>除非确有必要，避免在 migration 里写依赖时间或环境的 SQL。</li>
+<li>不要在 migrations 中使用防御性的 <code>IF EXISTS</code> 或 <code>IF NOT EXISTS</code> DDL 语法；让非预期的 schema state 立即失败，以便在迁移时及时发现漂移。</li>
 <li>在可行时优先可逆变更，这样 <code>down()</code> 才能恢复旧状态。</li>
 </ul>
 <h3 id="5.-%E4%BF%9D%E6%8C%81-migration-history-%E8%AF%AD%E4%B9%89%E7%A8%B3%E5%AE%9A" tabindex="-1">5. 保持 migration history 语义稳定</h3>
@@ -141,6 +142,7 @@
 <li>在可回滚时，<code>up</code> 与 <code>down</code> 是否都已存在</li>
 <li>项目的 <code>status</code>/<code>migrate</code>/<code>up</code>/<code>down</code> 执行路径是否清晰可见</li>
 <li>是否先用了 builder helpers，再退回 raw DDL</li>
+<li>raw DDL 是否没有用 <code>IF EXISTS</code> 或 <code>IF NOT EXISTS</code> 隐藏 schema drift</li>
 <li>schema changes 是否依赖 <code>SchemaBuilder.run()</code> 的原子性</li>
 <li>高风险 schema changes 是否有聚焦的 migration 或 integration tests 覆盖</li>
 </ul>

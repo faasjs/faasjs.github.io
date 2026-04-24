@@ -71,14 +71,14 @@
 <li>choosing between <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code></li>
 <li>configuring <code>FaasReactClient</code></li>
 <li>handling request loading, error, and retry states</li>
-<li>deciding whether a request should use <code>skip</code>, <code>debounce</code>, or <code>reload(nextParams)</code></li>
+<li>deciding whether a request should use <code>skip</code>, <code>debounce</code>, <code>polling</code>, or <code>reload(nextParams)</code></li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Use <code>useFaas</code> for standard component-level requests.</li>
 <li>Use <code>useFaasStream</code> for streaming text or chunked output.</li>
 <li>Use <code>faas</code> for imperative requests inside event handlers.</li>
-<li>Use the built-in <code>skip</code>, <code>debounce</code>, and <code>reload(nextParams)</code> controls before adding custom request effects or timers.</li>
+<li>Use the built-in <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>reload(nextParams)</code> controls before adding custom request effects or timers.</li>
 <li>Reach for <code>FaasDataWrapper</code> or <code>withFaasData</code> only when composition benefits from them.</li>
 <li>Configure <code>FaasReactClient</code> once at app setup.</li>
 <li>Handle loading, error, and retry states explicitly.</li>
@@ -123,8 +123,9 @@
 <ul>
 <li>Prefer <code>skip</code> or <code>skip: (params) =&gt; ...</code> when a request should wait for required params or user intent.</li>
 <li>Prefer <code>debounce</code> for search boxes, filters, and other fast-changing inputs instead of hand-written <code>setTimeout</code> plus effect logic.</li>
-<li>Use <code>reload(nextParams)</code> when a user action needs an immediate refetch with new params.</li>
-<li>Let <code>useFaas</code> and <code>useFaasStream</code> own abort, retry, and reload state instead of rebuilding that lifecycle in each component.</li>
+<li>Use <code>polling</code> for background auto-refresh scenarios such as dashboards, queues, and tables that should stay current.</li>
+<li>Use <code>reload(nextParams)</code> when a user action needs an immediate refetch with new params. Use <code>reload(nextParams, { silent: true })</code> when that refetch should keep existing content visible.</li>
+<li>Let <code>useFaas</code> and <code>useFaasStream</code> own abort, retry, polling, and reload state instead of rebuilding that lifecycle in each component.</li>
 </ul>
 <p>Example:</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
@@ -149,7 +150,56 @@
   )
 }
 </code></pre>
-<h3 id="3.-use-usefaasstream-for-streaming-responses" tabindex="-1">3. Use <code>useFaasStream</code> for streaming responses</h3>
+<h3 id="3.-use-polling-for-non-blocking-background-refreshes" tabindex="-1">3. Use polling for non-blocking background refreshes</h3>
+<ul>
+<li>Prefer <code>polling</code> over hand-written <code>setInterval</code> or <code>useEffect</code> loops when data should refresh automatically.</li>
+<li>Treat <code>loading</code> as the first-load or blocking reload state; polling uses <code>refreshing</code> so table, chart, and list UIs can remain interactive while new data is fetched.</li>
+<li>Keep rendering old <code>data</code> during <code>refreshing</code>, then let <code>useFaas</code> update the UI after a successful response.</li>
+<li>Use <code>skip</code> or <code>polling: false</code> to stop polling when the data is complete, the user leaves the relevant mode, or required params are missing.</li>
+<li>Show <code>refreshing</code> only as a subtle status indicator when it helps users; do not wire it to blocking table or page spinners.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">PendingOrdersTable</span>(<span class="hljs-params">{ status }: { status: <span class="hljs-string">&#x27;pending&#x27;</span> | <span class="hljs-string">&#x27;done&#x27;</span> }</span>) {
+  <span class="hljs-keyword">const</span> { data, error, loading, refreshing, reload } = <span class="hljs-title function_">useFaas</span>(
+    <span class="hljs-string">&#x27;/pages/orders/list&#x27;</span>,
+    { status },
+    {
+      <span class="hljs-attr">polling</span>: status === <span class="hljs-string">&#x27;pending&#x27;</span> ? <span class="hljs-number">5000</span> : <span class="hljs-literal">false</span>,
+    },
+  )
+
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading orders...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+
+  <span class="hljs-keyword">if</span> (error &amp;&amp; !data) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      {refreshing ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Refreshing in background...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : null}
+      <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+          {(data?.items ?? []).map((order: { id: string; title: string }) =&gt; (
+            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{order.id}</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>{order.title}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+          ))}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="4.-use-usefaasstream-for-streaming-responses" tabindex="-1">4. Use <code>useFaasStream</code> for streaming responses</h3>
 <ul>
 <li>Use <code>useFaasStream</code> for chat, logs, incremental text output, or other streaming payloads.</li>
 <li>Surface loading and error states explicitly.</li>
@@ -177,7 +227,7 @@
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span></span>
 }
 </code></pre>
-<h3 id="4.-use-faas-for-imperative-requests" tabindex="-1">4. Use <code>faas</code> for imperative requests</h3>
+<h3 id="5.-use-faas-for-imperative-requests" tabindex="-1">5. Use <code>faas</code> for imperative requests</h3>
 <ul>
 <li>Use <code>faas</code> in event handlers, submit handlers, or other imperative flows.</li>
 <li>Manage pending and failure state in the local component.</li>
@@ -223,7 +273,7 @@
   )
 }
 </code></pre>
-<h3 id="5.-use-faasdatawrapper-only-when-wrapper-composition-helps" tabindex="-1">5. Use <code>FaasDataWrapper</code> only when wrapper composition helps</h3>
+<h3 id="6.-use-faasdatawrapper-only-when-wrapper-composition-helps" tabindex="-1">6. Use <code>FaasDataWrapper</code> only when wrapper composition helps</h3>
 <ul>
 <li>Use <code>FaasDataWrapper</code> when render-prop or wrapper composition fits the page structure better than calling <code>useFaas</code> directly.</li>
 <li>When using <code>children</code>, <code>FaasDataWrapper</code> clones the child element and injects request props such as <code>data</code>, <code>error</code>, and <code>reload</code>.</li>
@@ -284,7 +334,7 @@
   )
 }
 </code></pre>
-<h3 id="6.-use-withfaasdata-only-for-wrapper-style-exports-or-fixed-integration-boundaries" tabindex="-1">6. Use <code>withFaasData</code> only for wrapper-style exports or fixed integration boundaries</h3>
+<h3 id="7.-use-withfaasdata-only-for-wrapper-style-exports-or-fixed-integration-boundaries" tabindex="-1">7. Use <code>withFaasData</code> only for wrapper-style exports or fixed integration boundaries</h3>
 <ul>
 <li>Use <code>withFaasData</code> only when an HOC is the clearest integration point.</li>
 <li>Typical cases are wrapper-style exports or an existing component boundary that you cannot remove in the same change.</li>
@@ -308,7 +358,7 @@
   },
 )
 </code></pre>
-<h3 id="7.-keep-faasreactclient-setup-centralized" tabindex="-1">7. Keep <code>FaasReactClient</code> setup centralized</h3>
+<h3 id="8.-keep-faasreactclient-setup-centralized" tabindex="-1">8. Keep <code>FaasReactClient</code> setup centralized</h3>
 <ul>
 <li>Create and register the browser client configuration once at app setup.</li>
 <li>Use <code>onError</code> to collect or report request errors in one place.</li>
@@ -329,7 +379,7 @@
   },
 })
 </code></pre>
-<h3 id="8.-use-getclient-only-for-multiple-client-scenarios" tabindex="-1">8. Use <code>getClient</code> only for multiple-client scenarios</h3>
+<h3 id="9.-use-getclient-only-for-multiple-client-scenarios" tabindex="-1">9. Use <code>getClient</code> only for multiple-client scenarios</h3>
 <ul>
 <li><code>getClient</code> is for special cases such as multiple Faas clients with different base URLs.</li>
 <li>Do not reach for <code>getClient</code> in normal single-client app code.</li>
@@ -350,8 +400,8 @@
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>each request chooses the smallest fitting API: <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, or <code>withFaasData</code></li>
-<li>request timing and conditional fetching prefer built-in <code>skip</code>, <code>debounce</code>, and <code>reload(nextParams)</code> over custom effect orchestration</li>
-<li>loading, error, and retry states are handled explicitly</li>
+<li>request timing and conditional fetching prefer built-in <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>reload(nextParams)</code> over custom effect orchestration</li>
+<li>loading, refreshing, error, and retry states are handled explicitly</li>
 <li>action paths follow the file-conventions guide and use <code>/pages/...</code> mapping</li>
 <li>wrapper-based request composition is used only when it improves structure</li>
 <li><code>FaasReactClient</code> setup stays centralized</li>

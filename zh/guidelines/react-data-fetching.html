@@ -70,18 +70,18 @@
 <li>在 React 中请求 streaming 响应</li>
 <li>在 <code>useFaas</code>、<code>useFaasStream</code>、<code>faas</code>、<code>FaasDataWrapper</code> 和 <code>withFaasData</code> 之间做选择</li>
 <li>配置 <code>FaasReactClient</code></li>
-<li>处理请求的 loading、error 与 retry 状态</li>
-<li>判断请求是否应该使用 <code>skip</code>、<code>debounce</code> 或 <code>reload(nextParams)</code></li>
+<li>处理请求的 loading、refreshing、error 与 retry 状态</li>
+<li>判断请求是否应该使用 <code>skip</code>、<code>debounce</code>、<code>polling</code> 或 <code>reload(nextParams)</code></li>
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>标准组件级请求使用 <code>useFaas</code>。</li>
 <li>流式文本或 chunked 输出使用 <code>useFaasStream</code>。</li>
 <li>事件处理器中的命令式请求使用 <code>faas</code>。</li>
-<li>在自己写请求副作用或定时器之前，先使用内建的 <code>skip</code>、<code>debounce</code> 与 <code>reload(nextParams)</code> 控制。</li>
+<li>在自己写请求副作用或定时器之前，先使用内建的 <code>skip</code>、<code>debounce</code>、<code>polling</code> 与 <code>reload(nextParams)</code> 控制。</li>
 <li>只有在组合方式确实受益时，才使用 <code>FaasDataWrapper</code> 或 <code>withFaasData</code>。</li>
 <li>在应用初始化阶段统一配置一次 <code>FaasReactClient</code>。</li>
-<li>显式处理 loading、error 与 retry 状态。</li>
+<li>显式处理 loading、refreshing、error 与 retry 状态。</li>
 </ol>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
 <h3 id="1.-%E6%A0%87%E5%87%86%E8%AF%B7%E6%B1%82%E4%BD%BF%E7%94%A8-usefaas" tabindex="-1">1. 标准请求使用 <code>useFaas</code></h3>
@@ -123,8 +123,9 @@
 <ul>
 <li>当请求需要等待必要参数或用户动作时，优先使用 <code>skip</code> 或 <code>skip: (params) =&gt; ...</code>。</li>
 <li>对搜索框、过滤器和其他高频变化输入，优先使用 <code>debounce</code>，不要手写 <code>setTimeout</code> 加 effect。</li>
-<li>当用户操作需要立刻带新参数重刷请求时，使用 <code>reload(nextParams)</code>。</li>
-<li>让 <code>useFaas</code> 和 <code>useFaasStream</code> 自己管理 abort、retry 与 reload 状态，而不是每个组件都重造一套请求生命周期。</li>
+<li>当仪表盘、队列或表格需要自动保持最新时，使用 <code>polling</code> 做后台刷新。</li>
+<li>当用户操作需要立刻带新参数重刷请求时，使用 <code>reload(nextParams)</code>；当这次重新请求不应该遮挡现有内容时，使用 <code>reload(nextParams, { silent: true })</code>。</li>
+<li>让 <code>useFaas</code> 和 <code>useFaasStream</code> 自己管理 abort、retry、polling 与 reload 状态，而不是每个组件都重造一套请求生命周期。</li>
 </ul>
 <p>示例：</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
@@ -149,7 +150,56 @@
   )
 }
 </code></pre>
-<h3 id="3.-%E6%B5%81%E5%BC%8F%E5%93%8D%E5%BA%94%E4%BD%BF%E7%94%A8-usefaasstream" tabindex="-1">3. 流式响应使用 <code>useFaasStream</code></h3>
+<h3 id="3.-%E4%BD%BF%E7%94%A8-polling-%E5%81%9A%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8E%E5%8F%B0%E5%88%B7%E6%96%B0" tabindex="-1">3. 使用 polling 做非阻塞后台刷新</h3>
+<ul>
+<li>当数据需要自动刷新时，优先使用 <code>polling</code>，不要手写 <code>setInterval</code> 或 <code>useEffect</code> 循环。</li>
+<li>把 <code>loading</code> 当作首次加载或阻塞式 reload 状态；polling 会使用 <code>refreshing</code>，这样 table、chart 和 list 在后台请求时仍然可浏览和操作。</li>
+<li><code>refreshing</code> 期间继续展示旧的 <code>data</code>，成功返回后由 <code>useFaas</code> 更新界面。</li>
+<li>当数据已经完成、用户离开相关模式或必需参数缺失时，用 <code>skip</code> 或 <code>polling: false</code> 停止 polling。</li>
+<li>只有在能帮助用户理解状态时，才用 <code>refreshing</code> 展示轻量提示；不要把它绑定到阻塞式表格或页面 loading。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">PendingOrdersTable</span>(<span class="hljs-params">{ status }: { status: <span class="hljs-string">&#x27;pending&#x27;</span> | <span class="hljs-string">&#x27;done&#x27;</span> }</span>) {
+  <span class="hljs-keyword">const</span> { data, error, loading, refreshing, reload } = <span class="hljs-title function_">useFaas</span>(
+    <span class="hljs-string">&#x27;/pages/orders/list&#x27;</span>,
+    { status },
+    {
+      <span class="hljs-attr">polling</span>: status === <span class="hljs-string">&#x27;pending&#x27;</span> ? <span class="hljs-number">5000</span> : <span class="hljs-literal">false</span>,
+    },
+  )
+
+  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading orders...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+
+  <span class="hljs-keyword">if</span> (error &amp;&amp; !data) {
+    <span class="hljs-keyword">return</span> (
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Load failed: {error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;
+          Retry
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+    )
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+      {refreshing ? <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Refreshing in background...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span> : null}
+      <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+          {(data?.items ?? []).map((order: { id: string; title: string }) =&gt; (
+            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{order.id}</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>{order.title}<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+          ))}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<h3 id="4.-%E6%B5%81%E5%BC%8F%E5%93%8D%E5%BA%94%E4%BD%BF%E7%94%A8-usefaasstream" tabindex="-1">4. 流式响应使用 <code>useFaasStream</code></h3>
 <ul>
 <li>聊天、日志、增量文本输出或其他 streaming payload 场景使用 <code>useFaasStream</code>。</li>
 <li>要显式暴露 loading 与 error 状态。</li>
@@ -177,7 +227,7 @@
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span></span>
 }
 </code></pre>
-<h3 id="4.-%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%B7%E6%B1%82%E4%BD%BF%E7%94%A8-faas" tabindex="-1">4. 命令式请求使用 <code>faas</code></h3>
+<h3 id="5.-%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%B7%E6%B1%82%E4%BD%BF%E7%94%A8-faas" tabindex="-1">5. 命令式请求使用 <code>faas</code></h3>
 <ul>
 <li>在事件处理器、提交处理器或其他命令式流程中使用 <code>faas</code>。</li>
 <li>在本地组件中自行管理 pending 与 failure 状态。</li>
@@ -223,7 +273,7 @@
   )
 }
 </code></pre>
-<h3 id="5.-%E5%8F%AA%E6%9C%89-wrapper-%E7%BB%84%E5%90%88%E6%9B%B4%E5%90%88%E9%80%82%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-faasdatawrapper" tabindex="-1">5. 只有 wrapper 组合更合适时才使用 <code>FaasDataWrapper</code></h3>
+<h3 id="6.-%E5%8F%AA%E6%9C%89-wrapper-%E7%BB%84%E5%90%88%E6%9B%B4%E5%90%88%E9%80%82%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-faasdatawrapper" tabindex="-1">6. 只有 wrapper 组合更合适时才使用 <code>FaasDataWrapper</code></h3>
 <ul>
 <li>当 render-prop 或 wrapper 组合比直接调用 <code>useFaas</code> 更适合页面结构时，再使用 <code>FaasDataWrapper</code>。</li>
 <li>使用 <code>children</code> 时，<code>FaasDataWrapper</code> 会 clone 子元素，并注入 <code>data</code>、<code>error</code>、<code>reload</code> 等请求属性。</li>
@@ -284,7 +334,7 @@
   )
 }
 </code></pre>
-<h3 id="6.-%E5%8F%AA%E6%9C%89%E5%9C%A8-wrapper-style-export-%E6%88%96%E5%9B%BA%E5%AE%9A%E9%9B%86%E6%88%90%E8%BE%B9%E7%95%8C%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-withfaasdata" tabindex="-1">6. 只有在 wrapper-style export 或固定集成边界时才使用 <code>withFaasData</code></h3>
+<h3 id="7.-%E5%8F%AA%E6%9C%89%E5%9C%A8-wrapper-style-export-%E6%88%96%E5%9B%BA%E5%AE%9A%E9%9B%86%E6%88%90%E8%BE%B9%E7%95%8C%E6%97%B6%E6%89%8D%E4%BD%BF%E7%94%A8-withfaasdata" tabindex="-1">7. 只有在 wrapper-style export 或固定集成边界时才使用 <code>withFaasData</code></h3>
 <ul>
 <li>只有当 HOC 是最清晰的集成点时，才使用 <code>withFaasData</code>。</li>
 <li>典型场景是 wrapper-style export，或一个你在本次改动中无法移除的既有组件边界。</li>
@@ -308,7 +358,7 @@
   },
 )
 </code></pre>
-<h3 id="7.-%E8%AE%A9-faasreactclient-%E9%85%8D%E7%BD%AE%E9%9B%86%E4%B8%AD%E5%8C%96" tabindex="-1">7. 让 <code>FaasReactClient</code> 配置集中化</h3>
+<h3 id="8.-%E8%AE%A9-faasreactclient-%E9%85%8D%E7%BD%AE%E9%9B%86%E4%B8%AD%E5%8C%96" tabindex="-1">8. 让 <code>FaasReactClient</code> 配置集中化</h3>
 <ul>
 <li>在应用初始化阶段创建并注册一次浏览器 client 配置。</li>
 <li>使用 <code>onError</code> 在统一位置收集或上报请求错误。</li>
@@ -329,7 +379,7 @@
   },
 })
 </code></pre>
-<h3 id="8.-getclient-%E5%8F%AA%E7%94%A8%E4%BA%8E%E5%A4%9A-client-%E5%9C%BA%E6%99%AF" tabindex="-1">8. <code>getClient</code> 只用于多 client 场景</h3>
+<h3 id="9.-getclient-%E5%8F%AA%E7%94%A8%E4%BA%8E%E5%A4%9A-client-%E5%9C%BA%E6%99%AF" tabindex="-1">9. <code>getClient</code> 只用于多 client 场景</h3>
 <ul>
 <li><code>getClient</code> 只适用于多个 Faas client 拥有不同 base URL 的特殊场景。</li>
 <li>对普通的单 client 应用代码，不要动不动就使用 <code>getClient</code>。</li>
@@ -350,8 +400,8 @@
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li>每个请求都选择了最小且最合适的 API：<code>useFaas</code>、<code>useFaasStream</code>、<code>faas</code>、<code>FaasDataWrapper</code> 或 <code>withFaasData</code></li>
-<li>请求时机与条件控制优先使用内建的 <code>skip</code>、<code>debounce</code> 与 <code>reload(nextParams)</code>，而不是自写 effect 编排</li>
-<li>loading、error 与 retry 状态被显式处理</li>
+<li>请求时机与条件控制优先使用内建的 <code>skip</code>、<code>debounce</code>、<code>polling</code> 与 <code>reload(nextParams)</code>，而不是自写 effect 编排</li>
+<li>loading、refreshing、error 与 retry 状态被显式处理</li>
 <li>action 路径遵循 file-conventions 指南，并使用 <code>/pages/...</code> 映射</li>
 <li>wrapper 风格的请求组合只在确实能改善结构时使用</li>
 <li><code>FaasReactClient</code> 配置保持集中</li>
