@@ -66,7 +66,7 @@
 <h1 id="class%3A-server" tabindex="-1">Class: Server</h1>
 <p>HTTP server that loads and runs FaasJS API files from a project root.</p>
 <p>A Server resolves API route files on demand, caches loaded handlers, and
-can optionally mount cron jobs for the process lifecycle.</p>
+dispatches each request through the matching function lifecycle.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
@@ -101,7 +101,7 @@ server.<span class="hljs-title function_">listen</span>()
 <p>Close the server and wait for active requests to finish.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
-<p>Promise that resolves after sockets, cron jobs, and transports stop.</p>
+<p>Promise that resolves after sockets, requests, and transports stop.</p>
 <h3 id="handle()" tabindex="-1">handle()</h3>
 <blockquote>
 <p><strong>handle</strong>(<code>req</code>, <code>res</code>, <code>options?</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>

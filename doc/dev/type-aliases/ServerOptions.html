@@ -84,16 +84,6 @@
   },
 })
 </code></pre>
-<h3 id="cronjob%3F" tabindex="-1">cronJob?</h3>
-<blockquote>
-<p><code>optional</code> <strong>cronJob?</strong>: <code>boolean</code></p>
-</blockquote>
-<p>Whether to mount cron job lifecycle with this server instance.</p>
-<p>When enabled, <code>server.listen()</code> mounts registered cron jobs and
-<code>server.close()</code> unmounts them.</p>
-<h4 id="default" tabindex="-1">Default</h4>
-<pre><code class="hljs language-ts"><span class="hljs-literal">true</span>
-</code></pre>
 <h3 id="onclose%3F" tabindex="-1">onClose?</h3>
 <blockquote>
 <p><code>optional</code> <strong>onClose?</strong>: (<code>context</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -168,7 +158,7 @@
 <p><code>optional</code> <strong>port?</strong>: <code>number</code></p>
 </blockquote>
 <p>Port used by <a href="/doc/dev/classes/Server.html#listen">Server.listen</a>.</p>
-<h4 id="default-1" tabindex="-1">Default</h4>
+<h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts"><span class="hljs-number">3000</span>
 </code></pre>
 </div></div>

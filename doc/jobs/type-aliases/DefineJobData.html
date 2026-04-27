@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Type Alias: DefineJobData\&lt;TPayload, TContext, TResult\&gt; | FaasJS</title>
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon no-sidebar">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/jobs/type-aliases/DefineJobData.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/jobs/type-aliases/DefineJobData.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / DefineJobData</p>
+<h1 id="type-alias%3A-definejobdata%3Ctpayload%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineJobData&lt;TPayload, TContext, TResult&gt;</h1>
+<blockquote>
+<p><strong>DefineJobData</strong>&lt;<code>TPayload</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>InvokeData</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code> &amp; <a href="/doc/jobs/interfaces/DefineJobInject.html"><code>DefineJobInject</code></a></p>
+</blockquote>
+<h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
+<h3 id="attempt" tabindex="-1">attempt</h3>
+<blockquote>
+<p><strong>attempt</strong>: <code>number</code></p>
+</blockquote>
+<h3 id="client" tabindex="-1">client</h3>
+<blockquote>
+<p><strong>client</strong>: <code>Client</code></p>
+</blockquote>
+<h3 id="job" tabindex="-1">job</h3>
+<blockquote>
+<p><strong>job</strong>: <a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a></p>
+</blockquote>
+<h3 id="payload" tabindex="-1">payload</h3>
+<blockquote>
+<p><strong>payload</strong>: <code>TPayload</code></p>
+</blockquote>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tpayload" tabindex="-1">TPayload</h3>
+<p><code>TPayload</code> = <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<h3 id="tcontext" tabindex="-1">TContext</h3>
+<p><code>TContext</code> = <code>any</code></p>
+<h3 id="tresult" tabindex="-1">TResult</h3>
+<p><code>TResult</code> = <code>any</code></p>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

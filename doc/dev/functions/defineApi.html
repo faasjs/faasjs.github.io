@@ -93,7 +93,8 @@
 <h2 id="throws-1" tabindex="-1">Throws</h2>
 <p>When <code>event.params</code> fails schema validation.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
 
 <span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
   <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">min</span>(<span class="hljs-number">1</span>),

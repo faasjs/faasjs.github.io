@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Jobs 指南 | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/jobs.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/jobs.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/jobs.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/jobs.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选栈指南">精选栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建与原生 SQL 指南">PG 查询构建与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema 与迁移指南">PG Schema 与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="jobs-%E6%8C%87%E5%8D%97" tabindex="-1">Jobs 指南</h1>
+<p>当你定义 <code>.job.ts</code> 后台任务、投递异步工作，或启动 FaasJS worker 和 scheduler 时，请使用这份指南。</p>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>在 <code>src/jobs/</code> 下创建 <code>.job.ts</code> 文件。</li>
+<li>使用 default export <code>defineJob(...)</code>，当 payload 有结构时加上 schema。</li>
+<li>在 API、脚本或其他 job 中通过 <code>enqueueJob(jobPath, payload)</code> 投递工作。</li>
+<li>在 worker 进程中运行 <code>startJobWorker()</code> 执行业务逻辑。</li>
+<li>只有 <code>.job.ts</code> 包含 <code>cron</code> 规则时，才运行 <code>startJobScheduler()</code>。</li>
+<li>保持 handler 幂等；执行语义是 at-least-once。</li>
+</ol>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E8%AE%A9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E6%88%90%E4%B8%BA-job-%E5%90%8D%E7%A7%B0" tabindex="-1">1. 让文件路径成为 job 名称</h3>
+<p>Job path 由 worker root 下的 <code>.job.ts</code> 文件路径生成：</p>
+<pre><code class="hljs language-text">src/jobs/users/cleanup.job.ts -&gt; jobs/users/cleanup
+src/jobs/emails/send.job.ts   -&gt; jobs/emails/send
+src/jobs/reports/index.job.ts -&gt; jobs/reports
+</code></pre>
+<p>不要在文件里重复手写 job 名称。移动或重命名 job 文件会改变 <code>enqueueJob()</code> 使用的路径。</p>
+<h3 id="2.-%E5%9C%A8%E8%BE%B9%E7%95%8C%E5%A4%84%E5%AE%9A%E4%B9%89-payload-schema" tabindex="-1">2. 在边界处定义 payload schema</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload, client, logger, job }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;sync user %s via job %s&#x27;</span>, payload.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>)
+
+    <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span><span class="hljs-string">`SELECT 1`</span>
+  },
+})
+</code></pre>
+<p>使用由 <code>@faasjs/pg</code> 注入的 <code>client</code>。除非这个 job 明确要访问另一个数据库，否则不要创建或传入第二个数据库 client。</p>
+<h3 id="3.-%E6%98%BE%E5%BC%8F%E6%8A%95%E9%80%92%E5%BC%82%E6%AD%A5%E5%B7%A5%E4%BD%9C" tabindex="-1">3. 显式投递异步工作</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(
+  <span class="hljs-string">&#x27;jobs/emails/send&#x27;</span>,
+  {
+    <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span>,
+  },
+  {
+    <span class="hljs-attr">idempotencyKey</span>: <span class="hljs-string">&#x27;welcome-email:u_123&#x27;</span>,
+    <span class="hljs-attr">maxAttempts</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">priority</span>: <span class="hljs-number">10</span>,
+  },
+)
+</code></pre>
+<p>使用 <code>idempotencyKey</code> 做投递侧去重。它不代表 handler exactly-once，因此数据库写入和外部调用仍应能承受重试。</p>
+<h3 id="4.-%E5%8C%BA%E5%88%86-scheduler-%E4%B8%8E-worker" tabindex="-1">4. 区分 scheduler 与 worker</h3>
+<p>Cron 规则只负责投递 job：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">cron</span>: [
+    {
+      <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;0 3 * * *&#x27;</span>,
+      <span class="hljs-attr">timezone</span>: <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>,
+      <span class="hljs-attr">payload</span>: {
+        <span class="hljs-attr">source</span>: <span class="hljs-string">&#x27;cron&#x27;</span>,
+      },
+    },
+  ],
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload }</span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">cleanup</span>(payload.<span class="hljs-property">source</span>)
+  },
+})
+</code></pre>
+<p>Scheduler 进程负责创建 pending rows，worker 进程负责领取并执行 rows。一个进程可以同时启动两者，但 HTTP server 启动不应该拥有 job 执行生命周期。</p>
+<h3 id="5.-%E6%8C%89-at-least-once-%E8%AE%BE%E8%AE%A1%E6%89%A7%E8%A1%8C%E9%80%BB%E8%BE%91" tabindex="-1">5. 按 at-least-once 设计执行逻辑</h3>
+<ul>
+<li>崩溃、lease 过期、数据库中断或可重试失败后，handler 可能再次执行。</li>
+<li>优先使用幂等写入、唯一键和显式状态流转。</li>
+<li>使用 <code>maxAttempts</code> 和 <code>retry</code> 让失败行为可见，而不是无限循环。</li>
+<li>找不到 job 文件时，框架会把错误记录到 job row，并按该 row 的尝试策略重试。</li>
+</ul>
+<h3 id="6.-%E7%94%A8%E7%9C%9F%E5%AE%9E-postgresql-%E8%A1%8C%E4%B8%BA%E6%B5%8B%E8%AF%95" tabindex="-1">6. 用真实 PostgreSQL 行为测试</h3>
+<ul>
+<li>使用 <code>@faasjs/pg-dev</code> / PGlite 测试 enqueue、worker、retry 和 scheduler 行为。</li>
+<li>Job 测试中保留 FaasJS loader、schema 校验和数据库写入的真实行为。</li>
+<li>只 mock 邮件服务、存储 API 或第三方 webhook 这类外部系统。</li>
+</ul>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li>job 文件以 <code>.job.ts</code> 结尾，并 default-export <code>defineJob(...)</code></li>
+<li>enqueue path 与文件生成的 job path 对齐</li>
+<li>结构化 payload 使用 schema 校验</li>
+<li>handler 使用注入的 <code>client</code> 和 <code>logger</code></li>
+<li>idempotency 与 retry 行为明确</li>
+<li>cron 规则只投递 job，不直接执行业务逻辑</li>
+<li>worker 和 scheduler 启动与 HTTP server 生命周期分离</li>
+<li>相关测试覆盖 enqueue、成功执行、重试/失败和 cron 去重</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
