@@ -72,6 +72,7 @@
 <li><code>@faasjs/ant-design</code> 和 Ant Design 用于业务 UI</li>
 <li>PostgreSQL 用于关系型数据</li>
 <li><code>@faasjs/pg</code> 用于类型化数据库查询、迁移和表类型推导</li>
+<li><code>@faasjs/jobs</code> 用于基于 PostgreSQL 的后台任务和定时投递工作流</li>
 <li><code>defineApi</code> 用于类型化后端接口</li>
 <li>在用户输入和外部请求等系统边界使用 schema validation</li>
 <li>基于 Vitest 的测试，包括用 <code>@faasjs/pg-dev</code> 测试 PostgreSQL 工作流</li>
@@ -89,11 +90,14 @@
 <h2 id="postgresql-%E6%98%AF%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E8%B7%AF%E5%BE%84" tabindex="-1">PostgreSQL 是关系数据路径</h2>
 <p>数据库驱动的应用工作应通过 <code>@faasjs/pg</code> 使用 PostgreSQL。</p>
 <p>优先使用类型化 query builder、显式 returning columns、具体表声明、时间戳 migrations 和 <code>@faasjs/pg-dev</code> 测试。不要为了数据库中立抽象重塑 core 设计，除非该变化也能改善 PostgreSQL 主路径。</p>
+<h2 id="jobs-%E6%98%AF%E5%90%8E%E5%8F%B0%E5%B7%A5%E4%BD%9C%E8%B7%AF%E5%BE%84" tabindex="-1">Jobs 是后台工作路径</h2>
+<p>异步后台任务和定时投递工作流应使用 <code>@faasjs/jobs</code>。</p>
+<p>优先使用 <code>.job.ts</code> 文件、<code>defineJob</code>、<code>enqueueJob</code>、独立 worker 进程，以及用于 cron 规则的 scheduler 进程。不要把后台执行放进 HTTP server 启动流程或 plugin 生命周期里，除非 plugin 只是注入 job 需要使用的项目上下文。</p>
 <h2 id="%E7%B1%BB%E5%9E%8B%E5%8C%96-api-%E4%B8%8E%E6%A0%A1%E9%AA%8C" tabindex="-1">类型化 API 与校验</h2>
 <p>后端接口应使用 <code>defineApi</code>，并在系统边界进行请求校验。</p>
 <p>优先把 schema 放在 API handler 附近，保持明确的 params 和 response 结构，并用测试覆盖运行时行为和重要类型预期。不要用隐式行为或宽泛的无类型 helper 隐藏 API 契约。</p>
 <h2 id="plugin-%E6%98%AF%E4%B8%9A%E5%8A%A1%E6%89%A9%E5%B1%95%E7%82%B9" tabindex="-1">Plugin 是业务扩展点</h2>
-<p>项目特定的横切关注点应使用 plugin，例如 auth context、权限、租户上下文、请求元信息、服务客户端或定时任务。</p>
+<p>项目特定的横切关注点应使用 plugin，例如 auth context、权限、租户上下文、请求元信息或服务客户端。</p>
 <p>Plugin 应让扩展点保持显式，但不要把 FaasJS 变成配置繁重的框架。业务规则应保留在应用代码或 plugin 中，而不是推入 core packages。</p>
 <h2 id="auth-%E4%B8%8E%E6%9D%83%E9%99%90" tabindex="-1">Auth 与权限</h2>
 <p>不要把 auth 或权限视为 FaasJS core 内置功能。</p>

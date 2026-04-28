@@ -73,7 +73,7 @@
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>导出 <code>export default defineApi(...)</code>。</li>
-<li>除非 schema 会复用，否则把 <code>schema</code> 直接写在 <code>defineApi</code> 内。</li>
+<li>当 endpoint 接收业务入参时，除非 schema 会复用，否则把 <code>schema</code> 直接写在 <code>defineApi</code> 内。</li>
 <li>除非已存在可复用边界，否则让业务逻辑直接写在 <code>handler({ params })</code> 中。</li>
 <li>除非确实需要协议层控制，否则直接返回业务数据。</li>
 <li>创建、重命名或移动 API 文件后，运行 <code>faas types</code> 更新 <code>src/.faasjs/types.d.ts</code>。</li>
@@ -100,6 +100,7 @@
 <li>优先直接在 <code>defineApi</code> 内定义 <code>schema</code>。</li>
 <li>只有在 schema 会复用、跨文件共享，或明显提升可读性时，才抽成单独常量。</li>
 <li>把 <code>schema</code> 视为外部输入的单一事实来源。</li>
+<li>如果 endpoint 没有业务入参，省略 <code>schema</code>，不要为了空对象写 <code>z.object({})</code>；此时 <code>params</code> 类型为 <code>Record&lt;string, never&gt;</code>。</li>
 </ul>
 <p>优先这样写：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({

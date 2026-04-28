@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: JobCron\&lt;TPayload\&gt; | FaasJS</title>
+    <title>Type Alias: JobCron\&lt;TParams\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,13 +63,14 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / JobCron</p>
-<h1 id="type-alias%3A-jobcron%3Ctpayload%3E" tabindex="-1">Type Alias: JobCron&lt;TPayload&gt;</h1>
+<h1 id="type-alias%3A-jobcron%3Ctparams%3E" tabindex="-1">Type Alias: JobCron&lt;TParams&gt;</h1>
 <blockquote>
-<p><strong>JobCron</strong>&lt;<code>TPayload</code>&gt; = <code>object</code></p>
+<p><strong>JobCron</strong>&lt;<code>TParams</code>&gt; = <code>object</code></p>
 </blockquote>
+<p>Cron rule that enqueues a job with optional schema-typed params.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tpayload" tabindex="-1">TPayload</h3>
-<p><code>TPayload</code> = <code>unknown</code></p>
+<h3 id="tparams" tabindex="-1">TParams</h3>
+<p><code>TParams</code> = <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="expression" tabindex="-1">expression</h3>
 <blockquote>
@@ -79,10 +80,11 @@
 <blockquote>
 <p><code>optional</code> <strong>maxAttempts?</strong>: <code>number</code></p>
 </blockquote>
-<h3 id="payload%3F" tabindex="-1">payload?</h3>
+<h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
-<p><code>optional</code> <strong>payload?</strong>: <code>TPayload</code></p>
+<p><code>optional</code> <strong>params?</strong>: <code>TParams</code></p>
 </blockquote>
+<p>Params passed to the job when this cron rule enqueues it.</p>
 <h3 id="priority%3F" tabindex="-1">priority?</h3>
 <blockquote>
 <p><code>optional</code> <strong>priority?</strong>: <code>number</code></p>

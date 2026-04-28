@@ -67,6 +67,12 @@
 <h2 id="unreleased" tabindex="-1">Unreleased</h2>
 <ul>
 <li>
+<p><code>faasjs</code></p>
+<ul>
+<li>[Feature] Document colocated test layout as the recommended convention and keep scaffolded tests next to the code or slice they cover instead of under catch-all <code>__tests__</code> folders.</li>
+</ul>
+</li>
+<li>
 <p><code>@faasjs/core</code></p>
 <ul>
 <li>[Break] Remove the in-process <code>CronJob</code> APIs and stop mounting background work from <code>Server.listen()</code> / <code>Server.close()</code>.</li>
@@ -76,7 +82,15 @@
 <li>
 <p><code>@faasjs/jobs</code></p>
 <ul>
-<li>[Feature] Add PostgreSQL-backed <code>.job.ts</code> background jobs with <code>defineJob</code>, <code>enqueueJob</code>, <code>startJobWorker</code>, <code>startJobScheduler</code>, retries, leases, idempotency keys, and cron enqueue dedupe.</li>
+<li>[Break] Remove the <code>autoStart</code> option from job worker and scheduler startup helpers; use <code>JobWorker</code> or <code>JobScheduler</code> directly for manual polling/ticking.</li>
+<li>[Break] Remove the injected <code>client</code> from job events and handler data; call <code>getClient()</code> inside job handlers when database access is needed.</li>
+<li>[Feature] Add PostgreSQL-backed <code>.job.ts</code> background jobs with <code>defineJob</code>, <code>enqueueJob</code>, schema-inferred <code>params</code>, <code>startJobWorker</code>, <code>startJobScheduler</code>, retries, leases, idempotency keys, and cron enqueue dedupe.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Feature] Add reusable Zod schema parsing helpers for FaasJS boundary validation.</li>
 </ul>
 </li>
 </ul>

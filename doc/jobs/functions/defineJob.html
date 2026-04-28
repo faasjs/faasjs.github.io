@@ -69,7 +69,9 @@
 </blockquote>
 <p>Define a PostgreSQL-backed background job.</p>
 <p>The returned job can be loaded from a <code>.job.ts</code> file by <code>startJobWorker</code>
-and <code>startJobScheduler</code>.</p>
+and <code>startJobScheduler</code>. When <code>schema</code> is provided, handler <code>params</code> are
+inferred from the schema output type. Without <code>schema</code>, handler <code>params</code> are
+typed as <code>Record&lt;string, never&gt;</code>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>

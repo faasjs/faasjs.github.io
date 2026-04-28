@@ -67,8 +67,8 @@
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
 <li>在 <code>src/jobs/</code> 下创建 <code>.job.ts</code> 文件。</li>
-<li>使用 default export <code>defineJob(...)</code>，当 payload 有结构时加上 schema。</li>
-<li>在 API、脚本或其他 job 中通过 <code>enqueueJob(jobPath, payload)</code> 投递工作。</li>
+<li>使用 default export <code>defineJob(...)</code>，当 params 有结构时加上 schema。</li>
+<li>在 API、脚本或其他 job 中通过 <code>enqueueJob(jobPath, params)</code> 投递工作。</li>
 <li>在 worker 进程中运行 <code>startJobWorker()</code> 执行业务逻辑。</li>
 <li>只有 <code>.job.ts</code> 包含 <code>cron</code> 规则时，才运行 <code>startJobScheduler()</code>。</li>
 <li>保持 handler 幂等；执行语义是 at-least-once。</li>
@@ -81,22 +81,25 @@ src/jobs/emails/send.job.ts   -&gt; jobs/emails/send
 src/jobs/reports/index.job.ts -&gt; jobs/reports
 </code></pre>
 <p>不要在文件里重复手写 job 名称。移动或重命名 job 文件会改变 <code>enqueueJob()</code> 使用的路径。</p>
-<h3 id="2.-%E5%9C%A8%E8%BE%B9%E7%95%8C%E5%A4%84%E5%AE%9A%E4%B9%89-payload-schema" tabindex="-1">2. 在边界处定义 payload schema</h3>
+<h3 id="2.-%E5%9C%A8%E8%BE%B9%E7%95%8C%E5%A4%84%E5%AE%9A%E4%B9%89-params-schema" tabindex="-1">2. 在边界处定义 params schema</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">import</span> { sendWelcomeEmail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../emails/send-welcome-email&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
     <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
   }),
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload, client, logger, job }</span>) {
-    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;sync user %s via job %s&#x27;</span>, payload.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>)
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params, logger, job }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;send welcome email to user %s via job %s&#x27;</span>, params.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>)
 
-    <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span><span class="hljs-string">`SELECT 1`</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">sendWelcomeEmail</span>(params.<span class="hljs-property">userId</span>)
   },
 })
 </code></pre>
-<p>使用由 <code>@faasjs/pg</code> 注入的 <code>client</code>。除非这个 job 明确要访问另一个数据库，否则不要创建或传入第二个数据库 client。</p>
+<p>当 job 需要访问数据库时，在 handler 内部使用 <code>@faasjs/pg</code> 的 <code>getClient()</code>。Job handler 不接收外部传入的数据库 client，因此测试和调用方不能悄悄替换默认数据库路径。</p>
+<p>如果 job 没有业务入参，省略 <code>schema</code>；此时 <code>params</code> 类型为 <code>Record&lt;string, never&gt;</code>。</p>
 <h3 id="3.-%E6%98%BE%E5%BC%8F%E6%8A%95%E9%80%92%E5%BC%82%E6%AD%A5%E5%B7%A5%E4%BD%9C" tabindex="-1">3. 显式投递异步工作</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 
@@ -115,18 +118,24 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <p>使用 <code>idempotencyKey</code> 做投递侧去重。它不代表 handler exactly-once，因此数据库写入和外部调用仍应能承受重试。</p>
 <h3 id="4.-%E5%8C%BA%E5%88%86-scheduler-%E4%B8%8E-worker" tabindex="-1">4. 区分 scheduler 与 worker</h3>
 <p>Cron 规则只负责投递 job：</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">source</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
   <span class="hljs-attr">cron</span>: [
     {
       <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;0 3 * * *&#x27;</span>,
       <span class="hljs-attr">timezone</span>: <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>,
-      <span class="hljs-attr">payload</span>: {
+      <span class="hljs-attr">params</span>: {
         <span class="hljs-attr">source</span>: <span class="hljs-string">&#x27;cron&#x27;</span>,
       },
     },
   ],
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload }</span>) {
-    <span class="hljs-keyword">await</span> <span class="hljs-title function_">cleanup</span>(payload.<span class="hljs-property">source</span>)
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">cleanup</span>(params.<span class="hljs-property">source</span>)
   },
 })
 </code></pre>
@@ -141,19 +150,119 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <h3 id="6.-%E7%94%A8%E7%9C%9F%E5%AE%9E-postgresql-%E8%A1%8C%E4%B8%BA%E6%B5%8B%E8%AF%95" tabindex="-1">6. 用真实 PostgreSQL 行为测试</h3>
 <ul>
 <li>使用 <code>@faasjs/pg-dev</code> / PGlite 测试 enqueue、worker、retry 和 scheduler 行为。</li>
-<li>Job 测试中保留 FaasJS loader、schema 校验和数据库写入的真实行为。</li>
+<li>Job 测试中保留 <code>defineJob</code> 包装、schema 校验和数据库写入的真实行为。</li>
 <li>只 mock 邮件服务、存储 API 或第三方 webhook 这类外部系统。</li>
 </ul>
+<h3 id="7.-%E7%9B%B4%E6%8E%A5%E6%B5%8B%E8%AF%95%E5%8D%95%E4%B8%AA-job" tabindex="-1">7. 直接测试单个 job</h3>
+<p>将 job 测试放在 job 文件夹自己的 <code>__tests__</code> 下，例如用 <code>src/jobs/users/__tests__/cleanup.test.ts</code> 测试 <code>cleanup.job.ts</code>。</p>
+<p>对于单个 job 的业务行为，直接调用导出的 job handler。这样可以保留 <code>defineJob</code> 包装、schema 校验，以及 <code>job</code>、<code>attempt</code> 形状，同时不创建 queue row，也不启动 worker 循环。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> dailyReportJob <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../daily-report.job&#x27;</span>
+<span class="hljs-keyword">import</span> { sendDailyReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../send-daily-report&#x27;</span>
+
+vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;../send-daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> ({
+  <span class="hljs-attr">sendDailyReport</span>: vi.<span class="hljs-title function_">fn</span>(),
+}))
+
+<span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">expect</span>(
+      dailyReportJob.<span class="hljs-title function_">export</span>().<span class="hljs-title function_">handler</span>({
+        <span class="hljs-attr">params</span>: {
+          <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
+        },
+      }),
+    ).<span class="hljs-property">resolves</span>.<span class="hljs-title function_">toBeUndefined</span>()
+
+    <span class="hljs-title function_">expect</span>(mockedSendDailyReport).<span class="hljs-title function_">toHaveBeenCalledWith</span>(<span class="hljs-string">&#x27;r_123&#x27;</span>)
+  })
+})
+</code></pre>
+<p>这种直接风格适合测试 handler 成功路径、schema 校验，以及受控外部边界失败。它不测试 queue 生命周期行为，例如 row 创建、领取、完成、重试、idempotency 或 cron 去重。</p>
+<h3 id="8.-%E5%8F%AA%E5%9C%A8%E9%9C%80%E8%A6%81%E6%97%B6%E6%B5%8B%E8%AF%95-queue-%E8%A1%8C%E4%B8%BA" tabindex="-1">8. 只在需要时测试 queue 行为</h3>
+<p>把 queue 行为建模为 enqueue、worker 或 scheduler 场景：</p>
+<ul>
+<li>enqueue 用例：调用 <code>enqueueJob()</code>，断言 <code>faasjs_jobs</code> row 的形状、params、queue、priority、<code>max_attempts</code>、<code>run_at</code> 和 idempotency 行为</li>
+<li>worker 成功用例：先 enqueue 一条 row，再运行 <code>worker.poll()</code>，然后断言可见副作用和 completed job row</li>
+<li>校验用例：用 <code>maxAttempts: 1</code> enqueue 非法 params，运行 <code>worker.poll()</code>，并断言 row 因 <code>Invalid job params</code> 失败</li>
+<li>retry/failure 用例：通过受控外部边界让 handler 失败，然后断言 <code>attempts</code>、<code>status</code>、<code>last_error</code> 和下一次 <code>run_at</code></li>
+<li>cron 用例：调用一次或两次 <code>scheduler.tick(fixedDate)</code>，断言 pending rows、<code>cron_key</code>、<code>scheduled_at</code>，以及同一分钟内的去重</li>
+</ul>
+<p>对于聚焦的 queue 测试，优先使用公开的 <code>JobWorker</code> 和 <code>JobScheduler</code>，并传入小型内存 registry。直接调用 <code>poll()</code> 或 <code>tick(fixedDate)</code>，不要启动定时循环。只有当测试目标是文件发现或启动 wiring 时，才使用 <code>startJobWorker({ root })</code> 或 <code>startJobScheduler({ root })</code>，并在 <code>finally</code> 中停止它们。</p>
+<p>Queue 生命周期测试示例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob, <span class="hljs-title class_">JobScheduler</span>, <span class="hljs-title class_">JobWorker</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">JobRecord</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
+<span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> dailyReportJob <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../daily-report.job&#x27;</span>
+<span class="hljs-keyword">import</span> { sendDailyReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../send-daily-report&#x27;</span>
+
+vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;../send-daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> ({
+  <span class="hljs-attr">sendDailyReport</span>: vi.<span class="hljs-title function_">fn</span>(),
+}))
+
+<span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
+
+<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, dailyReportJob]])
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;runs queued work and sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
+    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, {
+      <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
+    })
+    <span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(jobs)
+
+    <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> worker.<span class="hljs-title function_">poll</span>()).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">const</span> [updated] = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
+      SELECT * FROM faasjs_jobs WHERE id = <span class="hljs-subst">${record.id}</span>
+    `</span>
+
+    <span class="hljs-title function_">expect</span>(updated.<span class="hljs-property">status</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;completed&#x27;</span>)
+    <span class="hljs-title function_">expect</span>(mockedSendDailyReport).<span class="hljs-title function_">toHaveBeenCalledWith</span>(<span class="hljs-string">&#x27;r_123&#x27;</span>)
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;deduplicates cron enqueue attempts for the same minute&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
+    <span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobScheduler</span>(jobs)
+    <span class="hljs-keyword">const</span> scheduledAt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">&#x27;2026-01-01T03:00:00.000Z&#x27;</span>)
+
+    <span class="hljs-keyword">await</span> scheduler.<span class="hljs-title function_">tick</span>(scheduledAt)
+    <span class="hljs-keyword">await</span> scheduler.<span class="hljs-title function_">tick</span>(scheduledAt)
+
+    <span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
+      SELECT * FROM faasjs_jobs
+      WHERE job_path = &#x27;jobs/reports/daily-report&#x27;
+    `</span>
+
+    <span class="hljs-title function_">expect</span>(rows).<span class="hljs-title function_">toHaveLength</span>(<span class="hljs-number">1</span>)
+    <span class="hljs-title function_">expect</span>(rows[<span class="hljs-number">0</span>].<span class="hljs-property">cron_key</span>).<span class="hljs-title function_">toBeTruthy</span>()
+    <span class="hljs-title function_">expect</span>(rows[<span class="hljs-number">0</span>].<span class="hljs-property">scheduled_at</span>).<span class="hljs-title function_">toBeTruthy</span>()
+  })
+})
+</code></pre>
 <h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
 <ul>
 <li>job 文件以 <code>.job.ts</code> 结尾，并 default-export <code>defineJob(...)</code></li>
 <li>enqueue path 与文件生成的 job path 对齐</li>
-<li>结构化 payload 使用 schema 校验</li>
-<li>handler 使用注入的 <code>client</code> 和 <code>logger</code></li>
+<li>结构化 params 使用 schema 校验</li>
+<li>handler 需要访问数据库时使用 <code>getClient()</code>，并使用注入的 <code>logger</code></li>
 <li>idempotency 与 retry 行为明确</li>
 <li>cron 规则只投递 job，不直接执行业务逻辑</li>
 <li>worker 和 scheduler 启动与 HTTP server 生命周期分离</li>
-<li>相关测试覆盖 enqueue、成功执行、重试/失败和 cron 去重</li>
+<li>相关测试覆盖 enqueue row 形状、成功执行、校验、重试/失败和 cron 去重</li>
 </ul>
 </div></div>
           </div>

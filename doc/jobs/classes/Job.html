@@ -67,7 +67,7 @@
 <p>Executable job definition returned by <a href="/doc/jobs/functions/defineJob.html">defineJob</a>.</p>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
-<li><code>Func</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt;</li>
+<li><code>Func</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</li>
 </ul>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
@@ -91,7 +91,7 @@
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Job</code>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 <h4 id="overrides" tabindex="-1">Overrides</h4>
-<p><code>Func&lt;JobEvent, TContext, TResult&gt;.constructor</code></p>
+<p><code>Func&lt;JobEvent&lt;TSchema&gt;, TContext, TResult&gt;.constructor</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="export()" tabindex="-1">export()</h3>
 <blockquote>
@@ -103,7 +103,7 @@
 <p>Object containing the exported handler.</p>
 <h5 id="handler" tabindex="-1">handler</h5>
 <blockquote>
-<p><strong>handler</strong>: <code>ExportedHandler</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><strong>handler</strong>: <code>ExportedHandler</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <h4 id="inherited-from" tabindex="-1">Inherited from</h4>
 <p><code>Func.export</code></p>
@@ -114,7 +114,7 @@
 <p>Invoke the function.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
-<p><code>InvokeData</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><code>InvokeData</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
 <p>Invocation state mutated by plugins and the final handler.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -160,7 +160,7 @@
 <p><code>Func.config</code></p>
 <h3 id="cron" tabindex="-1">cron</h3>
 <blockquote>
-<p><code>readonly</code> <strong>cron</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobPayload.html"><code>DefineJobPayload</code></a>&lt;<code>TSchema</code>&gt;&gt;[]</p>
+<p><code>readonly</code> <strong>cron</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<code>SchemaOutput</code>&lt;<code>TSchema</code>, <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;&gt;&gt;[]</p>
 </blockquote>
 <h3 id="filename%3F" tabindex="-1">filename?</h3>
 <blockquote>
@@ -171,7 +171,7 @@
 <p><code>Func.filename</code></p>
 <h3 id="handler%3F" tabindex="-1">handler?</h3>
 <blockquote>
-<p><code>optional</code> <strong>handler?</strong>: <code>Handler</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><code>optional</code> <strong>handler?</strong>: <code>Handler</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Final business handler invoked after plugins finish.</p>
 <h4 id="inherited-from-5" tabindex="-1">Inherited from</h4>

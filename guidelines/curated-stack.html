@@ -72,6 +72,7 @@
 <li><code>@faasjs/ant-design</code> and Ant Design for business UI</li>
 <li>PostgreSQL for relational data</li>
 <li><code>@faasjs/pg</code> for typed database queries, migrations, and table inference</li>
+<li><code>@faasjs/jobs</code> for PostgreSQL-backed background jobs and scheduled job enqueueing</li>
 <li><code>defineApi</code> for typed backend endpoints</li>
 <li>schema validation at system boundaries such as user input and external requests</li>
 <li>Vitest-based tests, including <code>@faasjs/pg-dev</code> for PostgreSQL workflows</li>
@@ -89,11 +90,14 @@
 <h2 id="postgresql-is-the-relational-data-path" tabindex="-1">PostgreSQL Is The Relational Data Path</h2>
 <p>Use PostgreSQL through <code>@faasjs/pg</code> for database-driven application work.</p>
 <p>Prefer typed query builder patterns, explicit returning columns, concrete table declarations, timestamped migrations, and <code>@faasjs/pg-dev</code> tests. Avoid reshaping core design around database-neutral abstractions unless the change also improves the PostgreSQL path.</p>
+<h2 id="jobs-are-the-background-work-path" tabindex="-1">Jobs Are The Background Work Path</h2>
+<p>Use <code>@faasjs/jobs</code> for asynchronous background work and scheduled enqueue workflows.</p>
+<p>Prefer <code>.job.ts</code> files, <code>defineJob</code>, <code>enqueueJob</code>, dedicated worker processes, and a scheduler process for cron rules. Do not put background execution under HTTP server startup or plugin lifecycle unless the plugin is only injecting project context used by jobs.</p>
 <h2 id="typed-apis-and-validation" tabindex="-1">Typed APIs And Validation</h2>
 <p>Use <code>defineApi</code> for backend endpoints and keep request validation at system boundaries.</p>
 <p>Prefer inline schemas close to the API handler, explicit params and response shapes, and tests that verify both runtime behavior and important type expectations. Do not hide API contracts behind implicit behavior or broad untyped helpers.</p>
 <h2 id="plugins-are-business-extension-points" tabindex="-1">Plugins Are Business Extension Points</h2>
-<p>Use plugins for project-specific cross-cutting concerns such as auth context, permissions, tenant context, request metadata, service clients, or scheduled tasks.</p>
+<p>Use plugins for project-specific cross-cutting concerns such as auth context, permissions, tenant context, request metadata, or service clients.</p>
 <p>Plugins should make extension points explicit without turning FaasJS into a configuration-heavy framework. Keep business rules in app code or plugins rather than pushing them into core packages.</p>
 <h2 id="auth-and-permissions" tabindex="-1">Auth And Permissions</h2>
 <p>Do not treat auth or permissions as built-in FaasJS core features.</p>

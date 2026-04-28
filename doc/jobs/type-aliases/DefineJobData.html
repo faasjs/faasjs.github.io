@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: DefineJobData\&lt;TPayload, TContext, TResult\&gt; | FaasJS</title>
+    <title>Type Alias: DefineJobData\&lt;TSchema, TContext, TResult\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,30 +63,28 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / DefineJobData</p>
-<h1 id="type-alias%3A-definejobdata%3Ctpayload%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineJobData&lt;TPayload, TContext, TResult&gt;</h1>
+<h1 id="type-alias%3A-definejobdata%3Ctschema%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineJobData&lt;TSchema, TContext, TResult&gt;</h1>
 <blockquote>
-<p><strong>DefineJobData</strong>&lt;<code>TPayload</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>InvokeData</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code> &amp; <a href="/doc/jobs/interfaces/DefineJobInject.html"><code>DefineJobInject</code></a></p>
+<p><strong>DefineJobData</strong>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>InvokeData</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code> &amp; <a href="/doc/jobs/interfaces/DefineJobInject.html"><code>DefineJobInject</code></a></p>
 </blockquote>
+<p>Handler data passed to <a href="/doc/jobs/functions/defineJob.html">defineJob</a>.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="attempt" tabindex="-1">attempt</h3>
 <blockquote>
 <p><strong>attempt</strong>: <code>number</code></p>
 </blockquote>
-<h3 id="client" tabindex="-1">client</h3>
-<blockquote>
-<p><strong>client</strong>: <code>Client</code></p>
-</blockquote>
 <h3 id="job" tabindex="-1">job</h3>
 <blockquote>
 <p><strong>job</strong>: <a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a></p>
 </blockquote>
-<h3 id="payload" tabindex="-1">payload</h3>
+<h3 id="params" tabindex="-1">params</h3>
 <blockquote>
-<p><strong>payload</strong>: <code>TPayload</code></p>
+<p><strong>params</strong>: <a href="/doc/jobs/type-aliases/DefineJobParams.html"><code>DefineJobParams</code></a>&lt;<code>TSchema</code>&gt;</p>
 </blockquote>
+<p>Params validated by the optional Zod schema.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tpayload" tabindex="-1">TPayload</h3>
-<p><code>TPayload</code> = <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<h3 id="tschema" tabindex="-1">TSchema</h3>
+<p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
 <p><code>TContext</code> = <code>any</code></p>
 <h3 id="tresult" tabindex="-1">TResult</h3>

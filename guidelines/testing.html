@@ -73,6 +73,7 @@
 <li>Keep mock setup explicit, local to the scenario, and smaller than the real behavior it replaces.</li>
 <li>Cover the success path plus the failure or state-transition paths callers actually rely on.</li>
 <li>Reset shared global state, timers, env, and mocks between cases.</li>
+<li>Place each test file near the feature, API, hook, component, helper, or job it protects.</li>
 <li>Before handoff, run <code>vp check</code> and <code>vp test</code> as acceptance gates; if either command cannot run in the current environment, record the blocker and the narrower validation that still ran.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
@@ -109,6 +110,13 @@
 <li>reload, retry, or state-transition behavior when the feature supports it</li>
 <li>cleanup or reset behavior when shared state is involved</li>
 </ul>
+<h3 id="6.-keep-tests-near-the-project-area-they-protect" tabindex="-1">6. Keep tests near the project area they protect</h3>
+<ul>
+<li>Do not collect all package tests in a catch-all <code>src/__tests__</code> directory, including feature-named subfolders inside that centralized directory.</li>
+<li>Split code and tests by project purpose, feature, or slice so API, UI, job, helper, and integration tests stay under the feature folder that owns the behavior.</li>
+<li>Put tests in the owning folder's <code>__tests__</code>, such as <code>src/pages/users/api/__tests__/list.test.ts</code> for <code>list.api.ts</code> or <code>src/jobs/users/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</li>
+<li>When the protected business code would otherwise be a single file, turn it into a folder with <code>index.ts</code> or <code>index.tsx</code> and keep the test under that folder's <code>__tests__</code>, for example <code>src/useBilling/index.ts</code> and <code>src/useBilling/__tests__/useBilling.test.ts</code>.</li>
+</ul>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>the test asserts public behavior</li>
@@ -118,6 +126,7 @@
 <li>the chosen test level matches the risk and avoids unnecessary internal mocking</li>
 <li>success and meaningful failure paths are covered</li>
 <li>shared state, timers, env, and globals are reset between cases</li>
+<li>test files live in the feature-local <code>__tests__</code> folder under the code or slice they protect instead of a centralized package-level <code>src/__tests__</code> tree</li>
 </ul>
 </div></div>
           </div>

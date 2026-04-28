@@ -77,7 +77,7 @@
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="cron%3F" tabindex="-1">cron?</h3>
 <blockquote>
-<p><code>optional</code> <strong>cron?</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobPayload.html"><code>DefineJobPayload</code></a>&lt;<code>TSchema</code>&gt;&gt;[]</p>
+<p><code>optional</code> <strong>cron?</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobParams.html"><code>DefineJobParams</code></a>&lt;<code>TSchema</code>&gt;&gt;[]</p>
 </blockquote>
 <h3 id="handler" tabindex="-1">handler</h3>
 <blockquote>
@@ -85,7 +85,7 @@
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
-<p><a href="/doc/jobs/type-aliases/DefineJobData.html"><code>DefineJobData</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobPayload.html"><code>DefineJobPayload</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
+<p><a href="/doc/jobs/type-aliases/DefineJobData.html"><code>DefineJobData</code></a>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>TResult</code> | <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 <h3 id="maxattempts%3F" tabindex="-1">maxAttempts?</h3>

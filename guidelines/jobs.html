@@ -67,8 +67,8 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Create a <code>.job.ts</code> file under <code>src/jobs/</code>.</li>
-<li>Default-export <code>defineJob(...)</code> with a schema when the payload has a shape.</li>
-<li>Enqueue work with <code>enqueueJob(jobPath, payload)</code> from APIs, scripts, or other jobs.</li>
+<li>Default-export <code>defineJob(...)</code> with a schema when the params have a shape.</li>
+<li>Enqueue work with <code>enqueueJob(jobPath, params)</code> from APIs, scripts, or other jobs.</li>
 <li>Run <code>startJobWorker()</code> in a worker process for execution.</li>
 <li>Run <code>startJobScheduler()</code> only when <code>.job.ts</code> files include <code>cron</code> rules.</li>
 <li>Keep handlers idempotent; delivery is at-least-once.</li>
@@ -81,22 +81,25 @@ src/jobs/emails/send.job.ts   -&gt; jobs/emails/send
 src/jobs/reports/index.job.ts -&gt; jobs/reports
 </code></pre>
 <p>Do not duplicate the job name inside the file. Moving or renaming a job file changes the path used by <code>enqueueJob()</code>.</p>
-<h3 id="2.-define-payload-schemas-at-the-boundary" tabindex="-1">2. Define payload schemas at the boundary</h3>
+<h3 id="2.-define-params-schemas-at-the-boundary" tabindex="-1">2. Define params schemas at the boundary</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">import</span> { sendWelcomeEmail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../emails/send-welcome-email&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
     <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
   }),
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload, client, logger, job }</span>) {
-    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;sync user %s via job %s&#x27;</span>, payload.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>)
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params, logger, job }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;send welcome email to user %s via job %s&#x27;</span>, params.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>)
 
-    <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span><span class="hljs-string">`SELECT 1`</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">sendWelcomeEmail</span>(params.<span class="hljs-property">userId</span>)
   },
 })
 </code></pre>
-<p>Use the injected <code>client</code> from <code>@faasjs/pg</code>. Do not create or pass a second database client unless the job is deliberately talking to another database.</p>
+<p>When a job needs database access, use <code>getClient()</code> from <code>@faasjs/pg</code> inside the handler. Job handlers do not receive an externally provided database client, so tests and callers cannot silently swap the default database path.</p>
+<p>If a job has no business input, omit <code>schema</code>; <code>params</code> will be typed as <code>Record&lt;string, never&gt;</code>.</p>
 <h3 id="3.-enqueue-asynchronous-work-explicitly" tabindex="-1">3. Enqueue asynchronous work explicitly</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 
@@ -115,18 +118,24 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <p>Use <code>idempotencyKey</code> for enqueue-side dedupe. It does not make the handler exactly-once, so database writes and external calls should still tolerate retries.</p>
 <h3 id="4.-separate-scheduler-from-worker-execution" tabindex="-1">4. Separate scheduler from worker execution</h3>
 <p>Cron rules only enqueue jobs:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">source</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
   <span class="hljs-attr">cron</span>: [
     {
       <span class="hljs-attr">expression</span>: <span class="hljs-string">&#x27;0 3 * * *&#x27;</span>,
       <span class="hljs-attr">timezone</span>: <span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>,
-      <span class="hljs-attr">payload</span>: {
+      <span class="hljs-attr">params</span>: {
         <span class="hljs-attr">source</span>: <span class="hljs-string">&#x27;cron&#x27;</span>,
       },
     },
   ],
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload }</span>) {
-    <span class="hljs-keyword">await</span> <span class="hljs-title function_">cleanup</span>(payload.<span class="hljs-property">source</span>)
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">cleanup</span>(params.<span class="hljs-property">source</span>)
   },
 })
 </code></pre>
@@ -141,19 +150,119 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <h3 id="6.-test-with-real-postgresql-behavior" tabindex="-1">6. Test with real PostgreSQL behavior</h3>
 <ul>
 <li>Use <code>@faasjs/pg-dev</code> / PGlite tests for enqueue, worker, retry, and scheduler behavior.</li>
-<li>Keep the FaasJS loader, schema validation, and database writes real in job tests.</li>
+<li>Keep the <code>defineJob</code> wrapper, schema validation, and database writes real in job tests.</li>
 <li>Mock only external services such as email providers, storage APIs, or third-party webhooks.</li>
 </ul>
+<h3 id="7.-test-a-single-job-directly" tabindex="-1">7. Test a single job directly</h3>
+<p>Put job tests under the job folder's <code>__tests__</code>, such as <code>src/jobs/users/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</p>
+<p>For a single job's business behavior, call the exported job handler directly. This keeps the <code>defineJob</code> wrapper, schema validation, <code>job</code>, and <code>attempt</code> shape real without creating queue rows or starting worker loops.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> dailyReportJob <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../daily-report.job&#x27;</span>
+<span class="hljs-keyword">import</span> { sendDailyReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../send-daily-report&#x27;</span>
+
+vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;../send-daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> ({
+  <span class="hljs-attr">sendDailyReport</span>: vi.<span class="hljs-title function_">fn</span>(),
+}))
+
+<span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">expect</span>(
+      dailyReportJob.<span class="hljs-title function_">export</span>().<span class="hljs-title function_">handler</span>({
+        <span class="hljs-attr">params</span>: {
+          <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
+        },
+      }),
+    ).<span class="hljs-property">resolves</span>.<span class="hljs-title function_">toBeUndefined</span>()
+
+    <span class="hljs-title function_">expect</span>(mockedSendDailyReport).<span class="hljs-title function_">toHaveBeenCalledWith</span>(<span class="hljs-string">&#x27;r_123&#x27;</span>)
+  })
+})
+</code></pre>
+<p>Use this direct style for handler success, schema validation, and controlled external-boundary failures. It does not test queue lifecycle behavior such as row creation, claiming, completion, retries, idempotency, or cron dedupe.</p>
+<h3 id="8.-test-queue-behavior-only-when-it-matters" tabindex="-1">8. Test queue behavior only when it matters</h3>
+<p>Model queue behavior as an enqueue, worker, or scheduler scenario:</p>
+<ul>
+<li>enqueue case: call <code>enqueueJob()</code> and assert the <code>faasjs_jobs</code> row shape, params, queue, priority, <code>max_attempts</code>, <code>run_at</code>, and idempotency behavior</li>
+<li>worker success case: enqueue a row, run <code>worker.poll()</code>, then assert the visible side effect and the completed job row</li>
+<li>validation case: enqueue invalid params with <code>maxAttempts: 1</code>, run <code>worker.poll()</code>, and assert the row failed with an <code>Invalid job params</code> error</li>
+<li>retry/failure case: make the handler fail through a controlled external boundary, then assert <code>attempts</code>, <code>status</code>, <code>last_error</code>, and next <code>run_at</code></li>
+<li>cron case: call <code>scheduler.tick(fixedDate)</code> once or twice and assert pending rows, <code>cron_key</code>, <code>scheduled_at</code>, and dedupe for the same minute</li>
+</ul>
+<p>For focused queue tests, prefer public <code>JobWorker</code> and <code>JobScheduler</code> with a small in-memory registry. Call <code>poll()</code> or <code>tick(fixedDate)</code> directly instead of starting timer loops. Use <code>startJobWorker({ root })</code> or <code>startJobScheduler({ root })</code> only when the behavior under test is file discovery or startup wiring, and stop them in <code>finally</code>.</p>
+<p>Example queue lifecycle tests:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob, <span class="hljs-title class_">JobScheduler</span>, <span class="hljs-title class_">JobWorker</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">JobRecord</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
+<span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> dailyReportJob <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../daily-report.job&#x27;</span>
+<span class="hljs-keyword">import</span> { sendDailyReport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../send-daily-report&#x27;</span>
+
+vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;../send-daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> ({
+  <span class="hljs-attr">sendDailyReport</span>: vi.<span class="hljs-title function_">fn</span>(),
+}))
+
+<span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
+
+<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, dailyReportJob]])
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+    mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;runs queued work and sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
+    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, {
+      <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
+    })
+    <span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(jobs)
+
+    <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> worker.<span class="hljs-title function_">poll</span>()).<span class="hljs-title function_">toEqual</span>(<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">const</span> [updated] = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
+      SELECT * FROM faasjs_jobs WHERE id = <span class="hljs-subst">${record.id}</span>
+    `</span>
+
+    <span class="hljs-title function_">expect</span>(updated.<span class="hljs-property">status</span>).<span class="hljs-title function_">toEqual</span>(<span class="hljs-string">&#x27;completed&#x27;</span>)
+    <span class="hljs-title function_">expect</span>(mockedSendDailyReport).<span class="hljs-title function_">toHaveBeenCalledWith</span>(<span class="hljs-string">&#x27;r_123&#x27;</span>)
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;deduplicates cron enqueue attempts for the same minute&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
+    <span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobScheduler</span>(jobs)
+    <span class="hljs-keyword">const</span> scheduledAt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">&#x27;2026-01-01T03:00:00.000Z&#x27;</span>)
+
+    <span class="hljs-keyword">await</span> scheduler.<span class="hljs-title function_">tick</span>(scheduledAt)
+    <span class="hljs-keyword">await</span> scheduler.<span class="hljs-title function_">tick</span>(scheduledAt)
+
+    <span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
+      SELECT * FROM faasjs_jobs
+      WHERE job_path = &#x27;jobs/reports/daily-report&#x27;
+    `</span>
+
+    <span class="hljs-title function_">expect</span>(rows).<span class="hljs-title function_">toHaveLength</span>(<span class="hljs-number">1</span>)
+    <span class="hljs-title function_">expect</span>(rows[<span class="hljs-number">0</span>].<span class="hljs-property">cron_key</span>).<span class="hljs-title function_">toBeTruthy</span>()
+    <span class="hljs-title function_">expect</span>(rows[<span class="hljs-number">0</span>].<span class="hljs-property">scheduled_at</span>).<span class="hljs-title function_">toBeTruthy</span>()
+  })
+})
+</code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>job files end with <code>.job.ts</code> and default-export <code>defineJob(...)</code></li>
 <li>enqueue paths match file-derived job paths</li>
-<li>payloads are validated with schemas when structured</li>
-<li>handlers use the injected <code>client</code> and <code>logger</code></li>
+<li>params are validated with schemas when structured</li>
+<li>handlers use <code>getClient()</code> when they need database access and use the injected <code>logger</code></li>
 <li>idempotency and retry behavior are explicit</li>
 <li>cron rules enqueue jobs instead of doing work directly</li>
 <li>worker and scheduler startup are separate from HTTP server lifecycle</li>
-<li>tests cover enqueue, success, retry/failure, and cron dedupe when relevant</li>
+<li>tests cover enqueue shape, success, validation, retry/failure, and cron dedupe when relevant</li>
 </ul>
 </div></div>
           </div>

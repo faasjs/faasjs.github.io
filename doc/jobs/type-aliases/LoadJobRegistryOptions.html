@@ -79,8 +79,8 @@
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
     <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
   }),
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ payload }</span>) {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(payload.<span class="hljs-property">userId</span>)
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(params.<span class="hljs-property">userId</span>)
   },
 })
 

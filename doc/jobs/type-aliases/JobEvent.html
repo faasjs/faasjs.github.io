@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: JobEvent | FaasJS</title>
+    <title>Type Alias: JobEvent\&lt;TSchema\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,26 +63,28 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / JobEvent</p>
-<h1 id="type-alias%3A-jobevent" tabindex="-1">Type Alias: JobEvent</h1>
+<h1 id="type-alias%3A-jobevent%3Ctschema%3E" tabindex="-1">Type Alias: JobEvent&lt;TSchema&gt;</h1>
 <blockquote>
-<p><strong>JobEvent</strong> = <code>object</code></p>
+<p><strong>JobEvent</strong>&lt;<code>TSchema</code>&gt; = <code>object</code></p>
 </blockquote>
+<p>Runtime event passed to the underlying job function.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tschema" tabindex="-1">TSchema</h3>
+<p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="attempt" tabindex="-1">attempt</h3>
+<h3 id="attempt%3F" tabindex="-1">attempt?</h3>
 <blockquote>
-<p><strong>attempt</strong>: <code>number</code></p>
+<p><code>optional</code> <strong>attempt?</strong>: <code>number</code></p>
 </blockquote>
-<h3 id="client" tabindex="-1">client</h3>
+<p>Current execution attempt. Defaults to <code>1</code> when omitted.</p>
+<h3 id="job%3F" tabindex="-1">job?</h3>
 <blockquote>
-<p><strong>client</strong>: <code>Client</code></p>
+<p><code>optional</code> <strong>job?</strong>: <code>Partial</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
 </blockquote>
-<h3 id="job" tabindex="-1">job</h3>
+<p>Job metadata. Defaults are filled when omitted, which keeps direct job tests small.</p>
+<h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
-<p><strong>job</strong>: <a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a></p>
-</blockquote>
-<h3 id="payload" tabindex="-1">payload</h3>
-<blockquote>
-<p><strong>payload</strong>: <code>unknown</code></p>
+<p><code>optional</code> <strong>params?</strong>: <code>TSchema</code> <em>extends</em> <code>ZodType</code> ? <code>input</code>&lt;<code>TSchema</code>&gt; : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
 </blockquote>
 </div></div>
           </div>

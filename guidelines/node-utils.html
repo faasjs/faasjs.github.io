@@ -70,6 +70,7 @@
 <li>API loading: <code>loadApiHandler</code>, <code>loadPlugins</code></li>
 <li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>detectNodeRuntime</code>, <code>resetRuntime</code></li>
 <li>filesystem containment checks: <code>isPathInsideRoot</code></li>
+<li>schema parsing: <code>parseSchemaValue</code>, <code>formatSchemaError</code>, <code>SchemaOutput</code></li>
 <li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorfy</code></li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
@@ -81,6 +82,7 @@
 <li>Use <code>loadApiHandler()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
 <li>Prefer the FaasJS TypeScript loader when direct Node execution must understand local TypeScript files or tsconfig aliases, and keep local imports extensionless without <code>.ts</code> or <code>.tsx</code> suffixes.</li>
 <li>Use <code>isPathInsideRoot()</code> before reading or loading root-scoped files from user-controlled or URL-derived paths.</li>
+<li>Use <code>parseSchemaValue()</code> for custom Node-side boundaries that need the same optional Zod schema parsing and error formatting as FaasJS APIs and jobs.</li>
 <li>Reuse <code>Logger</code> and the shared transport instead of building a custom logging wrapper.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
@@ -172,7 +174,25 @@
 <li>Use <code>getTransport()</code> only when logs must be buffered and forwarded to another sink.</li>
 <li><code>colorfy()</code> and <code>formatLogger()</code> are lower-level helpers; prefer the <code>Logger</code> class unless you are implementing logging infrastructure.</li>
 </ul>
-<h3 id="7.-validate-root-scoped-file-paths-with-ispathinsideroot()" tabindex="-1">7. Validate root-scoped file paths with <code>isPathInsideRoot()</code></h3>
+<h3 id="7.-use-schema-helpers-for-custom-node-boundaries" tabindex="-1">7. Use schema helpers for custom Node boundaries</h3>
+<ul>
+<li><code>defineApi</code> and <code>defineJob</code> already parse their own schemas, so application handlers should use their injected <code>params</code>.</li>
+<li>Use <code>parseSchemaValue()</code> when a CLI, worker adapter, loader, or other Node-only boundary needs the same optional-schema behavior; omitted schemas and nullish input default to <code>{}</code> unless you pass <code>defaultValue</code>.</li>
+<li>Use <code>SchemaOutput&lt;TSchema, TFallback&gt;</code> when a public helper type should follow a Zod schema output type and fall back when the schema is omitted.</li>
+<li>Use <code>formatSchemaError()</code> only when you need the formatted validation message without throwing.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseSchemaValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+
+<span class="hljs-keyword">const</span> params = <span class="hljs-keyword">await</span> <span class="hljs-title function_">parseSchemaValue</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">count</span>: z.<span class="hljs-property">coerce</span>.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">int</span>().<span class="hljs-title function_">positive</span>(),
+  }),
+  <span class="hljs-attr">value</span>: input,
+  <span class="hljs-attr">errorMessage</span>: <span class="hljs-string">&#x27;Invalid params&#x27;</span>,
+})
+</code></pre>
+<h3 id="8.-validate-root-scoped-file-paths-with-ispathinsideroot()" tabindex="-1">8. Validate root-scoped file paths with <code>isPathInsideRoot()</code></h3>
 <ul>
 <li>Use <code>isPathInsideRoot()</code> before opening files resolved from request URLs, CLI arguments, config values, or any other user-controlled fragments.</li>
 <li>It normalizes both paths, follows existing symlinks with <code>realpath</code>, and still handles missing target files by normalizing through the nearest existing parent directory.</li>
@@ -197,6 +217,7 @@
 <li>raw FaasJS YAML parsing uses <code>parseYaml()</code> instead of a different YAML parser</li>
 <li>loaders use <code>loadApiHandler()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>
 <li>module hooks are registered at process startup, not deep inside feature code</li>
+<li>custom Node-side boundary validation uses <code>parseSchemaValue()</code> instead of one-off Zod error formatting</li>
 <li>root-scoped file access validates resolved paths with <code>isPathInsideRoot()</code></li>
 <li>tests that depend on fresh loader state use <code>resetRuntime()</code></li>
 <li>logging uses <code>Logger</code> or the shared transport instead of raw <code>console</code> wrappers</li>

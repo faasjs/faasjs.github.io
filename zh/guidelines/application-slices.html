@@ -95,6 +95,17 @@ src/pages/settings/users/api/update-role.api.ts
 src/pages/settings/users/api/__tests__/update-role.test.ts
 </code></pre>
 <p>切片内部优先使用短相对导入，除非项目已经配置了对应 TypeScript alias。</p>
+<p>不要把测试集中放到 package 级别的 <code>src/__tests__</code> 兜底目录，也不要在这个集中目录下再按 feature 建子目录。应该让 feature 文件夹自己拥有 <code>__tests__</code>。每个 feature、slice、API 文件夹、job 文件夹、helper 文件夹或组件文件夹都应该拥有自己的 <code>__tests__</code>，让测试始终贴着它保护的行为。</p>
+<p>当一个业务单元原本只是单文件时，把这个文件改成目录模块，并把测试放进这个目录下的 <code>__tests__</code>：</p>
+<pre><code class="hljs language-text"># 避免
+src/useBilling.ts
+src/__tests__/useBilling.test.ts
+src/__tests__/useBilling/useBilling.test.ts
+
+# 推荐
+src/useBilling/index.ts
+src/useBilling/__tests__/useBilling.test.ts
+</code></pre>
 <h2 id="api-%E4%B8%8E%E6%A0%A1%E9%AA%8C" tabindex="-1">API 与校验</h2>
 <p>每个 API 入口都应使用 <code>defineApi</code>。</p>
 <p>除非 schema 被多个 API 复用或形成真实边界，否则将 schema 放在 handler 附近。优先使用明确 params、显式 returning columns 和收窄 response 结构，让 UI 代码和测试保持类型可感知。</p>
@@ -113,7 +124,8 @@ src/pages/settings/users/api/__tests__/update-role.test.ts
 <p>当场景适合时，优先使用 <code>@faasjs/ant-design</code> wrapper，例如 <code>Form</code>、<code>Table</code>、<code>Description</code>、<code>Title</code>、<code>Tabs</code>、<code>Loading</code> 和 <code>ErrorBoundary</code>。只有当 wrapper 不适合或自定义 UI 更清晰时，才降级到原始 Ant Design 组件。</p>
 <p>保持页面级状态和请求流可读。只有当组件、hook 或 helper 被复用、形成真实边界，或能简化大块代码时再抽取。</p>
 <h2 id="%E6%B5%8B%E8%AF%95" tabindex="-1">测试</h2>
-<p>API 测试应放在 API 文件附近的 <code>__tests__</code> 目录中。</p>
+<p>API 测试应放在对应 API 文件夹的 <code>__tests__</code> 下。</p>
+<p>非 API 测试也遵循同样的 feature-local 布局原则：React、job、helper 或集成测试应放在对应页面、job、工具或 slice 文件夹自己的 <code>__tests__</code> 下，而不是统一集中到脱离业务代码的 package 级测试目录。</p>
 <p>测试定义切片行为的内容：</p>
 <ul>
 <li>合法输入和期望输出</li>

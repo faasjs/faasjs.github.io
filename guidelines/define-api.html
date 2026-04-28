@@ -67,7 +67,7 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Export <code>default defineApi(...)</code>.</li>
-<li>Write the <code>schema</code> inline in <code>defineApi</code> unless it is reused elsewhere.</li>
+<li>When the endpoint accepts business input, write the <code>schema</code> inline in <code>defineApi</code> unless it is reused elsewhere.</li>
 <li>Keep business logic direct inside <code>handler({ params })</code> unless a shared boundary already exists.</li>
 <li>Return business data directly unless protocol-level response control is required.</li>
 <li>After creating, renaming, or moving an API file, run <code>faas types</code> to update <code>src/.faasjs/types.d.ts</code>.</li>
@@ -94,6 +94,7 @@
 <li>Prefer defining <code>schema</code> directly inside <code>defineApi</code>.</li>
 <li>Extract schema into a separate constant only when it is reused, shared across files, or meaningfully improves readability.</li>
 <li>Treat <code>schema</code> as the source of truth for external input.</li>
+<li>If an endpoint has no business input, omit <code>schema</code> instead of defining an empty <code>z.object({})</code>; <code>params</code> will be typed as <code>Record&lt;string, never&gt;</code>.</li>
 </ul>
 <p>Prefer this:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({

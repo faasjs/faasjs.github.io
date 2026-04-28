@@ -78,7 +78,7 @@ and any plugin-provided fields declared through <code>DefineApiInject</code>.</p
 <p>Cookie helper injected by the HTTP plugin.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
-<p><strong>params</strong>: <code>TSchema</code> <em>extends</em> <code>ZodType</code> ? <code>output</code>&lt;<code>NonNullable</code>&lt;<code>TSchema</code>&gt;&gt; : <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
+<p><strong>params</strong>: <code>SchemaOutput</code>&lt;<code>TSchema</code>, <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;&gt;</p>
 </blockquote>
 <p>Params validated by the optional Zod schema.</p>
 <h3 id="session" tabindex="-1">session</h3>
