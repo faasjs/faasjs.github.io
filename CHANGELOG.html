@@ -70,12 +70,14 @@
 <p><code>faasjs</code></p>
 <ul>
 <li>[Feature] Document colocated test layout as the recommended convention and keep scaffolded tests next to the code or slice they cover instead of under catch-all <code>__tests__</code> folders.</li>
+<li>[Break] Remove the stale Jobs design memo from published docs; use the Jobs guide as the supported source of truth.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/core</code></p>
 <ul>
 <li>[Break] Remove the in-process <code>CronJob</code> APIs and stop mounting background work from <code>Server.listen()</code> / <code>Server.close()</code>.</li>
+<li>[Break] Stop falling back to the original HTTP params object when <code>structuredClone()</code> fails.</li>
 <li>[Break] Stop re-exporting <code>z</code> from <code>@faasjs/core</code>; import Zod directly from <code>zod</code> in APIs and templates.</li>
 </ul>
 </li>
@@ -90,7 +92,24 @@
 <li>
 <p><code>@faasjs/node-utils</code></p>
 <ul>
+<li>[Break] Require config-driven plugins to export a matching named lifecycle class, and remove default-export plugin constructor fallback.</li>
 <li>[Feature] Add reusable Zod schema parsing helpers for FaasJS boundary validation.</li>
+<li>[Break] Make <code>loadPackage()</code> fail when requested exports are missing instead of falling back to the full module namespace.</li>
+<li>[Break] Stop resolving imports such as <code>./config.json</code> to shadow files such as <code>./config.json.ts</code>; use extensionless imports or the exact source filename.</li>
+<li>[Break] Stop resolving the removed <code>@faasjs/http</code> plugin package alias to <code>@faasjs/core</code>; use plugin type <code>http</code> instead.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/dev</code></p>
+<ul>
+<li>[Break] Remove the <code>faas run</code> cwd fallback for resolving <code>@faasjs/node-utils/register-hooks</code>; the command now requires the CLI package path to resolve cleanly.</li>
+<li>[Break] Require <code>ApiTester</code> and <code>testApi()</code> to receive a FaasJS API instance directly, and expose that wrapped instance as <code>api</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg-dev</code></p>
+<ul>
+<li>[Break] Stop reusing the first TypedPgVitest database URL when the current worker id is missing; missing worker mappings now fail explicitly.</li>
 </ul>
 </li>
 </ul>

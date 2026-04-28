@@ -70,8 +70,8 @@
 <p>Load staged <code>faas.yaml</code>, attach the merged config to a function, and
 instantiate any plugins declared in YAML that are not already injected in code.</p>
 <p>Only <code>http</code> is treated as a built-in plugin. Other config-driven plugins must
-declare an explicit module <code>type</code> whose default export is a lifecycle plugin
-constructor.</p>
+declare an explicit module <code>type</code> that exports a matching lifecycle plugin
+class name.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tfunc" tabindex="-1">TFunc</h3>
 <p><code>TFunc</code> <em>extends</em> <code>Func</code>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>

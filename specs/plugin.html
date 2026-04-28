@@ -134,19 +134,18 @@
 <li>The loader MUST inspect only own enumerable keys on <code>config.plugins</code>.</li>
 <li>Plugin config entries in <code>func.config.plugins</code> MUST be keyed by plugin id.</li>
 <li>For config-driven loading, resolved plugin <code>name</code> MUST default to the entry key and therefore represent the plugin id.</li>
-<li>For an object config entry, resolved plugin <code>type</code> MUST come from <code>type</code>, then fall back to the entry key only for built-in aliases explicitly supported by the runtime.</li>
+<li>For an object config entry, resolved plugin <code>type</code> MUST come from <code>type</code>, then fall back to the entry key only for built-in plugin ids explicitly supported by the runtime.</li>
 <li>The loader MUST instantiate plugins with the resolved config object plus resolved <code>name</code> and <code>type</code>.</li>
 <li>If a plugin with the same resolved <code>name</code> already exists on the function, config-driven loading MUST NOT create a duplicate runtime instance.</li>
 <li>When a plugin instance already exists in code and config exists for the same id, the resolved config MUST still be attached to <code>func.config.plugins[name]</code> with code values taking precedence.</li>
 </ol>
 <h3 id="6.-module-and-constructor-resolution" tabindex="-1">6. Module And Constructor Resolution</h3>
 <ol>
-<li>Plugin type <code>http</code> and alias <code>@faasjs/http</code> MUST resolve to module <code>@faasjs/core</code>.</li>
+<li>Plugin type <code>http</code> MUST resolve to module <code>@faasjs/core</code>.</li>
 <li>Unscoped bare plugin types such as <code>mysql</code> MUST resolve to <code>@faasjs/&lt;type&gt;</code>.</li>
 <li>Scoped package names, relative paths, absolute paths, and <code>file://</code> local file URLs MUST resolve as authored after stripping an optional <code>npm:</code> prefix.</li>
-<li>When resolving a class export from a module, the loader MUST first try normalized PascalCase class names derived from the plugin type or trailing path segments.</li>
-<li>If the named class export is not available, the loader MUST fall back to the module's default export.</li>
-<li>If neither export is a valid lifecycle plugin constructor, the loader MUST throw an error.</li>
+<li>When resolving a class export from a module, the loader MUST use normalized PascalCase class names derived from the plugin type or trailing path segments.</li>
+<li>If no matching named export is a valid lifecycle plugin constructor, the loader MUST throw an error.</li>
 <li>If constructor execution throws or returns a non-object plugin instance, the loader MUST throw an error.</li>
 </ol>
 <h3 id="7.-defineapi()-requirements" tabindex="-1">7. <code>defineApi()</code> Requirements</h3>

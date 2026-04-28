@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Class: ApiTester\&lt;TFunc\&gt; | FaasJS</title>
+    <title>Class: ApiTester\&lt;TApi\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,7 +63,7 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / ApiTester</p>
-<h1 id="class%3A-apitester%3Ctfunc%3E" tabindex="-1">Class: ApiTester&lt;TFunc&gt;</h1>
+<h1 id="class%3A-apitester%3Ctapi%3E" tabindex="-1">Class: ApiTester&lt;TApi&gt;</h1>
 <p>Wrap a FaasJS API with helpers for mounting and assertion-friendly invocations.</p>
 <p>The tester resolves config for the current <code>FaasEnv</code>, mounts lazily, and
 exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
@@ -78,23 +78,21 @@ exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
 <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> wrapped.<span class="hljs-title class_">JSON</span>handler({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
 </code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tfunc" tabindex="-1">TFunc</h3>
-<p><code>TFunc</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt; = <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
+<h3 id="tapi" tabindex="-1">TApi</h3>
+<p><code>TApi</code> <em>extends</em> <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt; = <a href="/doc/dev/classes/Func.html"><code>Func</code></a>&lt;<code>any</code>, <code>any</code>, <code>any</code>&gt;</p>
 <p>Wrapped FaasJS API type.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new ApiTester</strong>&lt;<code>TFunc</code>&gt;(<code>initBy</code>): <code>ApiTester</code>&lt;<code>TFunc</code>&gt;</p>
+<p><strong>new ApiTester</strong>&lt;<code>TApi</code>&gt;(<code>api</code>): <code>ApiTester</code>&lt;<code>TApi</code>&gt;</p>
 </blockquote>
 <p>Create a tester around a FaasJS API instance for repeated test calls.</p>
-<p>If a module object with a <code>default</code> export is passed at runtime, the
-default export is used.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
-<h5 id="initby" tabindex="-1">initBy</h5>
-<p><code>TestApiInput</code>&lt;<code>TFunc</code>&gt;</p>
-<p>API instance or module object to wrap.</p>
+<h5 id="api" tabindex="-1">api</h5>
+<p><code>TApi</code></p>
+<p>API instance to wrap.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
-<p><code>ApiTester</code>&lt;<code>TFunc</code>&gt;</p>
+<p><code>ApiTester</code>&lt;<code>TApi</code>&gt;</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApiTester</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 <span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
@@ -134,7 +132,7 @@ decoded into the returned <code>cookie</code> and <code>session</code> objects.<
 <p>Expected JSON <code>data</code> payload returned by the API.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="body%3F" tabindex="-1">body?</h5>
-<p><code>JsonHandlerBody</code>&lt;<code>TFunc</code>&gt;</p>
+<p><code>JsonHandlerBody</code>&lt;<code>TApi</code>&gt;</p>
 <p>Request body object or raw JSON string.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <p><code>JsonHandlerOptions</code> = <code>...</code></p>
@@ -166,6 +164,11 @@ decoded into the returned <code>cookie</code> and <code>session</code> objects.<
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Resolves after the API has been mounted and the callback has finished.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
+<h3 id="api-1" tabindex="-1">api</h3>
+<blockquote>
+<p><code>readonly</code> <strong>api</strong>: <code>TApi</code></p>
+</blockquote>
+<p>Wrapped API instance.</p>
 <h3 id="config" tabindex="-1">config</h3>
 <blockquote>
 <p><code>readonly</code> <strong>config</strong>: <a href="/doc/dev/type-aliases/Config.html"><code>Config</code></a></p>
@@ -176,11 +179,6 @@ decoded into the returned <code>cookie</code> and <code>session</code> objects.<
 <p><code>readonly</code> <strong>file</strong>: <code>string</code></p>
 </blockquote>
 <p>Source file path inferred from the wrapped API.</p>
-<h3 id="func" tabindex="-1">func</h3>
-<blockquote>
-<p><code>readonly</code> <strong>func</strong>: <code>TFunc</code></p>
-</blockquote>
-<p>Wrapped API instance.</p>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>
 <p><code>readonly</code> <strong>logger</strong>: <code>Logger</code></p>

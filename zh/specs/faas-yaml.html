@@ -124,7 +124,7 @@
 <li>同一个 staging 内的 plugin key 应保持稳定，因为 <code>loadConfig()</code> 会从该 key 推导运行时的 <code>name</code>。</li>
 <li><code>name</code> 是 loader 在运行时生成的字段，不应手写在 <code>faas.yaml</code> 中。</li>
 <li>一个 plugin config object 可以包含 <code>type</code>、<code>config</code> 以及其他 plugin 自定义字段。</li>
-<li>Plugin <code>type</code> 可以写成内建 alias、裸 package type、scoped package name、相对路径、绝对路径，或 <code>file://</code> 本地文件 URL。</li>
+<li>Plugin <code>type</code> 可以写成内建 plugin type、裸 package type、scoped package name、相对路径、绝对路径，或 <code>file://</code> 本地文件 URL。</li>
 <li>plugin 自身的内部字段不在本规范范围内，合并时应原样保留。</li>
 </ol>
 <h3 id="6.-%E6%94%AF%E6%8C%81%E7%9A%84-yaml-%E5%AD%90%E9%9B%86" tabindex="-1">6. 支持的 YAML 子集</h3>

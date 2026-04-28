@@ -134,19 +134,18 @@
 <li>Loader 只能检查 <code>config.plugins</code> 上自有且可枚举的 keys。</li>
 <li><code>func.config.plugins</code> 中的 plugin 配置条目必须以 plugin id 作为 key。</li>
 <li>对配置驱动加载来说，解析后的 plugin <code>name</code> 必须默认等于条目 key，因此它天然代表 plugin id。</li>
-<li>对对象形态的配置条目，解析后的 plugin <code>type</code> 必须优先来自 <code>type</code>；只有在运行时显式支持的内建 alias 场景下，才允许回退到条目 key。</li>
+<li>对对象形态的配置条目，解析后的 plugin <code>type</code> 必须优先来自 <code>type</code>；只有在运行时显式支持的内建 plugin id 场景下，才允许回退到条目 key。</li>
 <li>Loader 必须用“解析后的配置对象 + 解析后的 <code>name</code> 与 <code>type</code>”来实例化 plugin。</li>
 <li>如果函数上已经存在同名 <code>name</code> 的 plugin，配置驱动加载不得创建重复的运行时实例。</li>
 <li>当代码中已经存在 plugin 实例，且同一个 id 在配置中也存在时，最终解析后的配置仍必须挂到 <code>func.config.plugins[name]</code> 上，并以代码中的值优先。</li>
 </ol>
 <h3 id="6.-%E6%A8%A1%E5%9D%97%E4%B8%8E%E6%9E%84%E9%80%A0%E5%99%A8%E8%A7%A3%E6%9E%90" tabindex="-1">6. 模块与构造器解析</h3>
 <ol>
-<li>Plugin type <code>http</code> 与 alias <code>@faasjs/http</code> 必须解析到模块 <code>@faasjs/core</code>。</li>
+<li>Plugin type <code>http</code> 必须解析到模块 <code>@faasjs/core</code>。</li>
 <li>不带 scope 的裸 plugin types（如 <code>mysql</code>）必须解析到 <code>@faasjs/&lt;type&gt;</code>。</li>
 <li>Scoped package names、相对路径、绝对路径和 <code>file://</code> 本地文件 URL，在去掉可选的 <code>npm:</code> 前缀后，必须按原样解析。</li>
-<li>从模块中解析 class export 时，loader 必须优先尝试由 plugin type 或末尾路径片段规范化得到的 PascalCase 类名。</li>
-<li>如果找不到对应的具名 class export，loader 必须回退到模块默认导出。</li>
-<li>如果具名导出与默认导出都不是有效的生命周期 plugin constructor，loader 必须抛错。</li>
+<li>从模块中解析 class export 时，loader 必须使用由 plugin type 或末尾路径片段规范化得到的 PascalCase 类名。</li>
+<li>如果没有匹配的具名 export 是有效的生命周期 plugin constructor，loader 必须抛错。</li>
 <li>如果构造函数执行时报错，或返回的不是对象形态 plugin 实例，loader 必须抛错。</li>
 </ol>
 <h3 id="7.-defineapi()-%E8%A6%81%E6%B1%82" tabindex="-1">7. <code>defineApi()</code> 要求</h3>

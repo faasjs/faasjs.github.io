@@ -80,13 +80,13 @@ import cache for project-local files.</p>
 <p>Package name, file path, or module specifier to load.</p>
 <h3 id="defaultnames%3F" tabindex="-1">defaultNames?</h3>
 <p><code>string</code> | <code>string</code>[]</p>
-<p>Preferred export key or keys to resolve before falling back to the full module object.</p>
+<p>Export key or keys to resolve.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/node-utils/type-aliases/LoadPackageOptions.html"><code>LoadPackageOptions</code></a> = <code>{}</code></p>
 <p>Optional loader overrides such as project root, tsconfig path, or cache-busting version.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>T</code>&gt;</p>
-<p>Loaded export value or the full module namespace when no preferred key exists.</p>
+<p>Loaded export value.</p>
 <h2 id="default" tabindex="-1">Default</h2>
 <pre><code class="hljs language-ts"><span class="hljs-string">&#x27;default&#x27;</span>
 </code></pre>
@@ -95,7 +95,7 @@ import cache for project-local files.</p>
 }
 </code></pre>
 <h2 id="throws" tabindex="-1">Throws</h2>
-<p>If the runtime cannot be detected or the requested module fails to load.</p>
+<p>If the runtime cannot be detected, the requested module fails to load, or none of the requested exports exist.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadPackage } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
 

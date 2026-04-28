@@ -124,7 +124,7 @@
 <li>Plugin key SHOULD be stable within the same staging because <code>loadConfig()</code> derives runtime <code>name</code> from that key.</li>
 <li><code>name</code> is a loader-generated runtime field and SHOULD NOT be authored manually in <code>faas.yaml</code>.</li>
 <li>A plugin config object MAY contain <code>type</code>, <code>config</code>, and other plugin-specific fields.</li>
-<li>Plugin <code>type</code> MAY be authored as a built-in alias, bare package type, scoped package name, relative path, absolute path, or <code>file://</code> local file URL.</li>
+<li>Plugin <code>type</code> MAY be authored as a built-in plugin type, bare package type, scoped package name, relative path, absolute path, or <code>file://</code> local file URL.</li>
 <li>Plugin-specific inner fields are outside the scope of this spec and are preserved during merge.</li>
 </ol>
 <h3 id="6.-supported-yaml-subset" tabindex="-1">6. Supported YAML subset</h3>
