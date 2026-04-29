@@ -73,18 +73,18 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>优先使用 <code>TypedPgVitestPlugin()</code>，让 Vitest 注册一条懒加载的临时数据库 bootstrap：第一次 <code>await getClient()</code> 时启动 PGlite、运行 migrations、回填 <code>DATABASE_URL</code>，并在同一个测试文件后续的每个测试前清空表数据。混合工作区里要把 PG 相关测试放在 Node 项目中，因为插件会跳过 <code>jsdom</code> 和 <code>happy-dom</code> 项目。</li>
+<li>优先使用 <code>PgVitestPlugin()</code>，让 Vitest 注册一条懒加载的临时数据库 bootstrap：第一次 <code>await getClient()</code> 时启动 PGlite、运行 migrations、回填 <code>DATABASE_URL</code>，并在同一个测试文件后续的每个测试前清空表数据。混合工作区里要把 PG 相关测试放在 Node 项目中，因为插件会跳过 <code>jsdom</code> 和 <code>happy-dom</code> 项目。</li>
 <li>使用 <code>await getClient()</code> 做 seed 和断言，让应用代码与测试共享同一条异步 bootstrap 路径。</li>
 <li>只补充该 suite 真正额外需要的 setup 或 fixtures。</li>
 <li>当查询推导、declaration merging 或共享 wrappers 影响类型时，让 runtime assertions 和 <code>expectTypeOf(...)</code> 成对出现。</li>
 <li>运行与变更面最匹配的最小验证命令。</li>
 </ol>
 <p>混合工作区示例：</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TypedPgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>()],
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">PgVitestPlugin</span>()],
   <span class="hljs-attr">test</span>: {
     <span class="hljs-attr">projects</span>: [
       {
@@ -111,10 +111,10 @@
 <h2 id="%E6%9C%80%E5%B0%8F%E7%A4%BA%E4%BE%8B" tabindex="-1">最小示例</h2>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// vitest.config.ts</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest/config&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TypedPgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>()],
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">PgVitestPlugin</span>()],
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
@@ -162,13 +162,13 @@
 </ul>
 <h3 id="4.-%E5%8D%B3%E4%BD%BF%E6%8F%92%E4%BB%B6%E4%BC%9A%E9%87%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%B5%8B%E8%AF%95%E4%B9%9F%E8%A6%81%E4%BF%9D%E6%8C%81%E9%9A%94%E7%A6%BB" tabindex="-1">4. 即使插件会重置数据，测试也要保持隔离</h3>
 <ul>
-<li>优先依赖 <code>TypedPgVitestPlugin()</code> 在每个测试前自动重置表数据。</li>
+<li>优先依赖 <code>PgVitestPlugin()</code> 在每个测试前自动重置表数据。</li>
 <li>当某个 suite 超出默认 migrations 范围时，额外的 tables、seed data 或 temp folders 都要显式创建。</li>
 <li>不要依赖另一个测试文件或 case 留下的隐式状态。</li>
 </ul>
 <h3 id="5.-%E9%80%9A%E8%BF%87-vitest-plugin-%E4%BD%BF%E7%94%A8-%40faasjs%2Fpg-dev" tabindex="-1">5. 通过 Vitest plugin 使用 <code>@faasjs/pg-dev</code></h3>
 <ul>
-<li>工作区测试默认优先使用 <code>TypedPgVitestPlugin()</code>。</li>
+<li>工作区测试默认优先使用 <code>PgVitestPlugin()</code>。</li>
 <li>基于 PG 的 runtime tests 本质上仍然是 Node runtime tests。优先使用普通的 <code>node</code> project；但如果只有这部分测试需要 project-level setup，就使用 <code>node-pg</code> 这类 node-scoped project name，而不是单独拆成 <code>pg</code> 这种 runtime bucket。</li>
 <li>测试里让插件通过 <code>await getClient()</code> 懒加载默认 client。若某个 suite 还要直接读取 <code>process.env.DATABASE_URL</code>，先调用一次 <code>await getClient()</code> 再读。</li>
 <li>只有在某个 suite 真的需要自定义 <code>postgres.js</code> options 或额外连接，而且 bootstrap URL 已经存在时，才使用 <code>createClient(process.env.DATABASE_URL, options)</code>。</li>
@@ -189,8 +189,8 @@
 <li><a href="/zh/guidelines/pg-query-builder.html">PG 查询构建指南</a></li>
 <li><a href="/zh/guidelines/pg-schema-and-migrations.html">PG Schema 与迁移指南</a></li>
 <li><a href="/doc/pg-dev/">@faasjs/pg-dev package reference</a></li>
-<li><a href="/doc/pg-dev/functions/TypedPgVitestPlugin.html">TypedPgVitestPlugin</a></li>
-<li><a href="/doc/pg-dev/functions/setupTypedPgVitest.html">setupTypedPgVitest</a></li>
+<li><a href="/doc/pg-dev/functions/PgVitestPlugin.html">PgVitestPlugin</a></li>
+<li><a href="/doc/pg-dev/functions/setupPgVitest.html">setupPgVitest</a></li>
 <li><a href="/doc/pg/functions/getClient.html">getClient</a></li>
 </ul>
 </div></div>

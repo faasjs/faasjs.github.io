@@ -65,10 +65,10 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/node-utils/">Documents</a> / <a href="/doc/node-utils/">@faasjs/node-utils</a> / RegisterNodeModuleHooksOptions</p>
 <h1 id="type-alias%3A-registernodemodulehooksoptions" tabindex="-1">Type Alias: RegisterNodeModuleHooksOptions</h1>
 <blockquote>
-<p><strong>RegisterNodeModuleHooksOptions</strong> = <a href="/doc/node-utils/type-aliases/LoadPackageOptions.html"><code>LoadPackageOptions</code></a> &amp; <code>object</code></p>
+<p><strong>RegisterNodeModuleHooksOptions</strong> = <code>object</code></p>
 </blockquote>
 <p>Options for preloading Node module hooks that resolve tsconfig paths and local TypeScript files.</p>
-<h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
+<h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="entry%3F" tabindex="-1">entry?</h3>
 <blockquote>
 <p><code>optional</code> <strong>entry?</strong>: <code>string</code></p>
@@ -77,6 +77,24 @@
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts">process.<span class="hljs-property">argv</span>[<span class="hljs-number">1</span>]
 </code></pre>
+<h3 id="root%3F" tabindex="-1">root?</h3>
+<blockquote>
+<p><code>optional</code> <strong>root?</strong>: <code>string</code></p>
+</blockquote>
+<p>Project root used to scope tsconfig path alias resolution.</p>
+<h3 id="tsconfigpath%3F" tabindex="-1">tsconfigPath?</h3>
+<blockquote>
+<p><code>optional</code> <strong>tsconfigPath?</strong>: <code>string</code></p>
+</blockquote>
+<p>Explicit tsconfig file path used to load path alias rules.</p>
+<h4 id="default-1" tabindex="-1">Default</h4>
+<pre><code class="hljs language-ts"><span class="hljs-string">&#x27;&lt;root&gt;/tsconfig.json&#x27;</span>
+</code></pre>
+<h3 id="version%3F" tabindex="-1">version?</h3>
+<blockquote>
+<p><code>optional</code> <strong>version?</strong>: <code>string</code></p>
+</blockquote>
+<p>Version token appended to ESM file URLs to bypass Node's module cache.</p>
 </div></div>
           </div>
           

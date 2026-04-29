@@ -105,8 +105,8 @@ including HTTP status code, response headers, response body, and the original er
     <span class="hljs-keyword">if</span> (error.<span class="hljs-property">body</span>) {
       <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Error details:&#x27;</span>, error.<span class="hljs-property">body</span>)
     }
-    <span class="hljs-keyword">if</span> (error.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;X-Request-Id&#x27;</span>]) {
-      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Request ID:&#x27;</span>, error.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;X-Request-Id&#x27;</span>])
+    <span class="hljs-keyword">if</span> (error.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;x-faasjs-request-id&#x27;</span>]) {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Request ID:&#x27;</span>, error.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;x-faasjs-request-id&#x27;</span>])
     }
   }
 }

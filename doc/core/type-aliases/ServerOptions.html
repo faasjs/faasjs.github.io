@@ -76,7 +76,8 @@
 <p>Middleware invoked before each request is dispatched to a FaasJS function.</p>
 <p>Write to the response to short-circuit normal request handling.</p>
 <h4 id="example" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;src&#x27;</span>), {
   <span class="hljs-attr">beforeHandle</span>: <span class="hljs-title function_">async</span> (req, res) =&gt; {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Processing <span class="hljs-subst">${req.method}</span> request to <span class="hljs-subst">${req.url}</span>`</span>)
 
@@ -100,7 +101,8 @@
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Promise returned by the close hook.</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;src&#x27;</span>), {
   <span class="hljs-attr">onClose</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
     logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server closed&#x27;</span>)
   },
@@ -125,7 +127,8 @@
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Promise returned by the error hook.</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;src&#x27;</span>), {
   <span class="hljs-attr">onError</span>: <span class="hljs-title function_">async</span> (error, { logger }) =&gt; {
     logger.<span class="hljs-title function_">error</span>(error)
   },
@@ -147,7 +150,8 @@
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Promise returned by the start hook.</p>
 <h4 id="example-3" tabindex="-1">Example</h4>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>(), {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;src&#x27;</span>), {
   <span class="hljs-attr">onStart</span>: <span class="hljs-title function_">async</span> ({ logger }) =&gt; {
     logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Server started&#x27;</span>)
   },

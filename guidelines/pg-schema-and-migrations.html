@@ -70,7 +70,7 @@
 <li>Implement <code>up(builder)</code> with <code>SchemaBuilder</code> and <code>TableBuilder</code> helpers first.</li>
 <li>Implement <code>down(builder)</code> for rollback when practical.</li>
 <li>Run <code>faasjs-pg status</code> from the project root to inspect migration history, then use <code>faasjs-pg migrate</code>, <code>faasjs-pg up</code>, or <code>faasjs-pg down</code> for the execution path you need.</li>
-<li>Keep migration files in <code>./migrations</code> unless you intentionally reconfigure tooling, because both the CLI and <code>TypedPgVitestPlugin()</code> look there by default.</li>
+<li>Keep migration files in <code>./migrations</code> unless you intentionally reconfigure tooling, because both the CLI and <code>PgVitestPlugin()</code> look there by default.</li>
 <li>Keep related DDL in one builder run so it stays transactional.</li>
 <li>Fall back to <code>raw()</code> only for SQL the current helpers do not support.</li>
 </ol>
@@ -119,7 +119,7 @@
 </ul>
 <h3 id="5.-keep-migration-history-semantics-stable" tabindex="-1">5. Keep migration history semantics stable</h3>
 <ul>
-<li><code>typed_pg_migrations</code> is the source of migration history.</li>
+<li><code>faasjs_pg_migrations</code> is the source of migration history.</li>
 <li><code>migrate()</code> applies all pending files, <code>up()</code> applies the next pending file, and <code>down()</code> rolls back the latest recorded file.</li>
 <li>Treat those behaviors as the default mental model for app code, tooling, and troubleshooting.</li>
 </ul>

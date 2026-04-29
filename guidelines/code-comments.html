@@ -72,7 +72,7 @@
 <li>Add shared app JSDoc only when caller contract, side effects, or failure behavior is not obvious from names and types.</li>
 <li>Skip routine JSDoc for feature-local components, hooks, API default exports, and test helpers unless it prevents real ambiguity.</li>
 <li>Keep public JSDoc in one primary language per package; prefer English for published or cross-team packages.</li>
-<li>Add inline comments only for non-obvious private helpers, ordering constraints, workarounds, or performance-sensitive branches.</li>
+<li>Add inline comments only for non-obvious private helpers, ordering constraints, or performance-sensitive branches.</li>
 <li>Explain purpose, caller contract, or constraint; do not narrate syntax or line-by-line flow.</li>
 <li>Regenerate derived API docs from source JSDoc after public contract changes.</li>
 <li>Delete or rewrite stale comments in the same change that alters behavior.</li>
@@ -98,7 +98,7 @@
 <h3 id="style-and-tags" tabindex="-1">Style and tags</h3>
 <ul>
 <li>Prefer <code>@param {Type} name - description</code> style in TypeScript source.</li>
-<li>When multiple tags appear, prefer: <code>@template</code>, <code>@param</code>, <code>@returns</code>, <code>@throws</code>, <code>@default</code>, <code>@property</code>, <code>@see</code>, <code>@augments</code>, <code>@deprecated</code>, <code>@example</code>.</li>
+<li>When multiple tags appear, prefer: <code>@template</code>, <code>@param</code>, <code>@returns</code>, <code>@throws</code>, <code>@default</code>, <code>@property</code>, <code>@see</code>, <code>@augments</code>, <code>@example</code>.</li>
 <li>Use fenced examples with <code>ts</code>, <code>tsx</code>, <code>sh</code>, or <code>json</code>.</li>
 <li>Example imports SHOULD come from the package public entrypoint unless a deep import is intentionally public.</li>
 <li>Use <code>{@link Symbol}</code> for same-codebase public symbols and Markdown links for external docs.</li>
@@ -110,7 +110,6 @@
 <li>Explain why the code exists, what invariant it protects, or what platform/tooling limit it handles.</li>
 <li>For performance notes, name the trigger and cost being avoided.</li>
 <li>Avoid repeating types, variable names, obvious control flow, or TypeScript boilerplate.</li>
-<li>TODO/FIXME notes need a reason plus an exit condition or follow-up trigger.</li>
 </ul>
 <h2 id="examples" tabindex="-1">Examples</h2>
 <p>Runtime API JSDoc:</p>
@@ -130,10 +129,6 @@
 <p>Constraint comments:</p>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// Normalize ids once so repeated lookups do not allocate on every render.</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">buildIdIndex</span>(<span class="hljs-params"><span class="hljs-attr">records</span>: <span class="hljs-title class_">RecordItem</span>[]</span>) {}
-
-<span class="hljs-comment">// Keep this branch for Node 18 stream adapters because they can emit close</span>
-<span class="hljs-comment">// before the final buffered chunk is flushed.</span>
-<span class="hljs-keyword">await</span> <span class="hljs-title function_">drainBufferedStream</span>(stream)
 </code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>

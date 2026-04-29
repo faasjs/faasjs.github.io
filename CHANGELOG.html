@@ -71,6 +71,7 @@
 <ul>
 <li>[Feature] Document colocated test layout as the recommended convention and keep scaffolded tests next to the code or slice they cover instead of under catch-all <code>__tests__</code> folders.</li>
 <li>[Break] Remove the stale Jobs design memo from published docs; use the Jobs guide as the supported source of truth.</li>
+<li>[Fix] Remove stale code-comment guidance around workaround, TODO/FIXME, and deprecated annotations.</li>
 </ul>
 </li>
 <li>
@@ -78,7 +79,10 @@
 <ul>
 <li>[Break] Remove the in-process <code>CronJob</code> APIs and stop mounting background work from <code>Server.listen()</code> / <code>Server.close()</code>.</li>
 <li>[Break] Stop falling back to the original HTTP params object when <code>structuredClone()</code> fails.</li>
+<li>[Break] Stop reading the generic <code>x-request-id</code> request header; use <code>x-faasjs-request-id</code> for request id propagation.</li>
 <li>[Break] Stop re-exporting <code>z</code> from <code>@faasjs/core</code>; import Zod directly from <code>zod</code> in APIs and templates.</li>
+<li>[Break] Stop copying <code>NODE_ENV</code> into <code>FaasEnv</code> during <code>Server</code> construction; set <code>FaasEnv</code> explicitly when selecting a stage.</li>
+<li>[Break] Stop probing <code>src/tsconfig.json</code> next to the server root; keep runtime path aliases in the project <code>tsconfig.json</code>.</li>
 </ul>
 </li>
 <li>
@@ -86,6 +90,8 @@
 <ul>
 <li>[Break] Remove the <code>autoStart</code> option from job worker and scheduler startup helpers; use <code>JobWorker</code> or <code>JobScheduler</code> directly for manual polling/ticking.</li>
 <li>[Break] Remove the injected <code>client</code> from job events and handler data; call <code>getClient()</code> inside job handlers when database access is needed.</li>
+<li>[Break] Stop using <code>NODE_ENV</code> as the job registry staging fallback; pass <code>staging</code> or set <code>FaasEnv</code> explicitly.</li>
+<li>[Break] Stop probing <code>src/tsconfig.json</code> when loading job modules; keep runtime path aliases in the project <code>tsconfig.json</code>.</li>
 <li>[Feature] Add PostgreSQL-backed <code>.job.ts</code> background jobs with <code>defineJob</code>, <code>enqueueJob</code>, schema-inferred <code>params</code>, <code>startJobWorker</code>, <code>startJobScheduler</code>, retries, leases, idempotency keys, and cron enqueue dedupe.</li>
 </ul>
 </li>
@@ -93,10 +99,12 @@
 <p><code>@faasjs/node-utils</code></p>
 <ul>
 <li>[Break] Require config-driven plugins to export a matching named lifecycle class, and remove default-export plugin constructor fallback.</li>
+<li>[Break] Remove the obsolete <code>detectNodeRuntime()</code> helper and <code>NodeRuntime</code> type; Node utilities now assume the supported Node ESM runtime.</li>
 <li>[Feature] Add reusable Zod schema parsing helpers for FaasJS boundary validation.</li>
-<li>[Break] Make <code>loadPackage()</code> fail when requested exports are missing instead of falling back to the full module namespace.</li>
+<li>[Break] Make <code>loadPackage()</code> return only the default export and remove its <code>defaultName</code> and <code>options</code> parameters; use <code>registerNodeModuleHooks()</code> for explicit root, tsconfig, or version overrides.</li>
 <li>[Break] Stop resolving imports such as <code>./config.json</code> to shadow files such as <code>./config.json.ts</code>; use extensionless imports or the exact source filename.</li>
 <li>[Break] Stop resolving the removed <code>@faasjs/http</code> plugin package alias to <code>@faasjs/core</code>; use plugin type <code>http</code> instead.</li>
+<li>[Break] Stop inferring logger silence from <code>npm_config_argv --silent</code>; control logging explicitly with logger options and FaasJS log env vars.</li>
 </ul>
 </li>
 <li>
@@ -104,12 +112,29 @@
 <ul>
 <li>[Break] Remove the <code>faas run</code> cwd fallback for resolving <code>@faasjs/node-utils/register-hooks</code>; the command now requires the CLI package path to resolve cleanly.</li>
 <li>[Break] Require <code>ApiTester</code> and <code>testApi()</code> to receive a FaasJS API instance directly, and expose that wrapped instance as <code>api</code>.</li>
+<li>[Break] Make <code>ApiTester</code> use <code>development</code> as its default staging when <code>FaasEnv</code> is not set.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/pg-dev</code></p>
 <ul>
-<li>[Break] Stop reusing the first TypedPgVitest database URL when the current worker id is missing; missing worker mappings now fail explicitly.</li>
+<li>[Break] Require <code>VITEST_POOL_ID</code> for PgVitest worker database lookup and remove <code>VITEST_WORKER_ID</code> / worker <code>1</code> fallbacks.</li>
+<li>[Break] Drop old Node worker-count and package shim fallbacks from the Vitest plugin runtime.</li>
+<li>[Break] Remove the legacy <code>./typed-pg-vitest-setup</code> and <code>./typed-pg-vitest-global-setup</code> subpath exports; use <code>PgVitestPlugin()</code> instead.</li>
+<li>[Break] Stop reusing the first PgVitest database URL when the current worker id is missing; missing worker mappings now fail explicitly.</li>
+<li>[Break] Rename the Vitest integration from <code>TypedPgVitestPlugin()</code> / <code>setupTypedPgVitest()</code> / <code>TypedPgVitestSetupRuntime</code> to <code>PgVitestPlugin()</code> / <code>setupPgVitest()</code> / <code>PgVitestSetupRuntime</code>, and remove the old typed-pg virtual module and context names.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
+<ul>
+<li>[Break] Rename the migration history table from <code>typed_pg_migrations</code> to <code>faasjs_pg_migrations</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/types</code></p>
+<ul>
+<li>[Break] Remove the <code>faasjsActionsPlaceholder</code> member from <code>FaasActions</code>; route declarations now come only from module augmentation.</li>
 </ul>
 </li>
 </ul>

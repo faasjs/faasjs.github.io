@@ -101,7 +101,7 @@
 <li><a href="/zh/guidelines/pg-query-builder.html">PG 查询构建与原生 SQL 指南</a>: 如何优先使用 <code>QueryBuilder</code> clauses、谨慎选择 raw SQL 回退、保持 client 引导路径一致，并有意识地收窄结果结构。</li>
 <li><a href="/zh/guidelines/pg-table-types.html">PG 表类型指南</a>: 如何通过 <code>Tables</code> 声明合并维护具体行结构，并保持查询推导与表定义一致。</li>
 <li><a href="/zh/guidelines/pg-schema-and-migrations.html">PG Schema 与迁移指南</a>: 如何使用时间戳 migrations、<code>SchemaBuilder</code>、<code>TableBuilder</code> 与事务性 schema 变更。</li>
-<li><a href="/zh/guidelines/pg-testing.html">PG 测试指南</a>: 如何使用 <code>TypedPgVitestPlugin()</code>、共享 <code>DATABASE_URL</code> 引导路径，并让运行时断言与 <code>expectTypeOf(...)</code> 配套。</li>
+<li><a href="/zh/guidelines/pg-testing.html">PG 测试指南</a>: 如何使用 <code>PgVitestPlugin()</code>、共享 <code>DATABASE_URL</code> 引导路径，并让运行时断言与 <code>expectTypeOf(...)</code> 配套。</li>
 </ul>
 <h2 id="%E8%A7%84%E8%8C%83" tabindex="-1">规范</h2>
 <ul>

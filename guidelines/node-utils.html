@@ -68,7 +68,7 @@
 <ul>
 <li>config loading: <code>loadConfig</code>, <code>parseYaml</code></li>
 <li>API loading: <code>loadApiHandler</code>, <code>loadPlugins</code></li>
-<li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>detectNodeRuntime</code>, <code>resetRuntime</code></li>
+<li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>resetRuntime</code></li>
 <li>filesystem containment checks: <code>isPathInsideRoot</code></li>
 <li>schema parsing: <code>parseSchemaValue</code>, <code>formatSchemaError</code>, <code>SchemaOutput</code></li>
 <li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorfy</code></li>
@@ -126,7 +126,7 @@
 <li><code>parseYaml()</code> does not walk directories, apply staging fallbacks, or validate the <code>faas.yaml</code> schema, so validate the parsed shape yourself when you are not calling <code>loadConfig()</code>.</li>
 <li>Use <code>loadApiHandler()</code> when you need the final handler that a runtime or test will invoke.</li>
 <li>Use <code>loadPlugins()</code> when you already have a <code>Func</code> instance and want YAML-driven plugins and config attached before exporting or mounting it.</li>
-<li>Use <code>loadPackage()</code> for general dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
+<li>Use <code>loadPackage()</code> for default-export dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
 <li>Prefer these helpers over ad hoc <code>import()</code> wrappers so cache busting, tsconfig resolution, and plugin wiring stay consistent.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
@@ -147,7 +147,7 @@
 <span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadApiHandler</span>(
   process.<span class="hljs-title function_">cwd</span>(),
   <span class="hljs-string">&#x27;/project/src/orders/create.api.ts&#x27;</span>,
-  process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasEnv</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
 )
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(pluginDefaults)

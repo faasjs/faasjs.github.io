@@ -72,9 +72,10 @@
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Promise that resolves after all servers close.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span>, closeAll } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span>, closeAll } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
-<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(process.<span class="hljs-title function_">cwd</span>())
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Server</span>(<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;src&#x27;</span>))
 server.<span class="hljs-title function_">listen</span>()
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">closeAll</span>()

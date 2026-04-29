@@ -79,7 +79,7 @@
 <ul>
 <li>配置加载：<code>loadConfig</code>、<code>parseYaml</code></li>
 <li>API 加载：<code>loadApiHandler</code>、<code>loadPlugins</code></li>
-<li>Node 模块引导：<code>loadPackage</code>、<code>registerNodeModuleHooks</code>、<code>detectNodeRuntime</code>、<code>resetRuntime</code></li>
+<li>Node 模块引导：<code>loadPackage</code>、<code>registerNodeModuleHooks</code>、<code>resetRuntime</code></li>
 <li>文件系统边界校验：<code>isPathInsideRoot</code></li>
 <li>schema 解析：<code>parseSchemaValue</code>、<code>formatSchemaError</code>、<code>SchemaOutput</code></li>
 <li>日志与日志转运：<code>Logger</code>、<code>formatLogger</code>、<code>getTransport</code>、<code>Transport</code>、<code>colorfy</code></li>
@@ -137,7 +137,7 @@
 <li><code>parseYaml()</code> 不会遍历目录、应用 staging fallback，也不会校验 <code>faas.yaml</code> schema；当你没有走 <code>loadConfig()</code> 时，需要自行校验解析结果的结构。</li>
 <li>需要最终 handler 时，使用 <code>loadApiHandler()</code>。</li>
 <li>当你已经有 <code>Func</code> 实例，并希望在导出或挂载前附加 YAML 驱动的 plugins 与 config 时，使用 <code>loadPlugins()</code>。</li>
-<li>一般性的 Node 动态模块加载，尤其目标是本地 TypeScript 文件或支持 path alias 的模块时，使用 <code>loadPackage()</code>。</li>
+<li>加载默认导出的 Node 动态模块，尤其目标是本地 TypeScript 文件或支持 path alias 的模块时，使用 <code>loadPackage()</code>。</li>
 <li>优先使用这些 helpers，而不是临时写 <code>import()</code> 包装，这样 cache busting、tsconfig 解析和 plugin 装载行为才能保持一致。</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
@@ -158,7 +158,7 @@
 <span class="hljs-keyword">const</span> handler = <span class="hljs-keyword">await</span> <span class="hljs-title function_">loadApiHandler</span>(
   process.<span class="hljs-title function_">cwd</span>(),
   <span class="hljs-string">&#x27;/project/src/orders/create.api.ts&#x27;</span>,
-  process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
+  process.<span class="hljs-property">env</span>.<span class="hljs-property">FaasEnv</span> || <span class="hljs-string">&#x27;development&#x27;</span>,
 )
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(pluginDefaults)

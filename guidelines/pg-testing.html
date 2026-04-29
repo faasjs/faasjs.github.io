@@ -66,18 +66,18 @@
 <p>When changing <code>@faasjs/pg</code>-backed code, every behavior change should come with runtime tests, and type-sensitive surface changes should come with <code>expectTypeOf(...)</code> coverage.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Prefer <code>TypedPgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
+<li>Prefer <code>PgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
 <li>Use <code>await getClient()</code> to seed data and run assertions so app code and tests share the same async bootstrap path.</li>
 <li>Add only the suite-specific setup or fixtures that the plugin does not already provide.</li>
 <li>Pair runtime assertions with <code>expectTypeOf(...)</code> when query inference, declaration merging, or shared wrappers affect types.</li>
 <li>Run the smallest validation command that matches the change surface.</li>
 </ol>
 <p>Mixed-workspace example:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TypedPgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>()],
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">PgVitestPlugin</span>()],
   <span class="hljs-attr">test</span>: {
     <span class="hljs-attr">projects</span>: [
       {
@@ -104,10 +104,10 @@
 <h2 id="minimal-example" tabindex="-1">Minimal Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-comment">// vitest.config.ts</span>
 <span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest/config&#x27;</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TypedPgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PgVitestPlugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg-dev&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
-  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">TypedPgVitestPlugin</span>()],
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title class_">PgVitestPlugin</span>()],
 })
 </code></pre>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
@@ -155,13 +155,13 @@
 </ul>
 <h3 id="4.-keep-tests-isolated-even-when-the-plugin-resets-data" tabindex="-1">4. Keep tests isolated even when the plugin resets data</h3>
 <ul>
-<li>Prefer <code>TypedPgVitestPlugin()</code> to reset rows automatically before each test.</li>
+<li>Prefer <code>PgVitestPlugin()</code> to reset rows automatically before each test.</li>
 <li>Create extra tables, seed data, or temp folders explicitly when a suite goes beyond the default migrations.</li>
 <li>Do not rely on hidden state from another test file or case.</li>
 </ul>
 <h3 id="5.-use-%40faasjs%2Fpg-dev-through-the-vitest-plugin" tabindex="-1">5. Use <code>@faasjs/pg-dev</code> through the Vitest plugin</h3>
 <ul>
-<li>Prefer <code>TypedPgVitestPlugin()</code> for workspace test runs.</li>
+<li>Prefer <code>PgVitestPlugin()</code> for workspace test runs.</li>
 <li>PG-backed runtime tests are still Node runtime tests. Prefer the regular <code>node</code> project, but if only that subset needs project-level setup, use a node-scoped project name such as <code>node-pg</code> instead of a standalone runtime bucket like <code>pg</code>.</li>
 <li>In tests, let the plugin lazy-bootstrap the default client through <code>await getClient()</code>. If a suite also reads <code>process.env.DATABASE_URL</code> directly, trigger the bootstrap with <code>await getClient()</code> first.</li>
 <li>Reach for <code>createClient(process.env.DATABASE_URL, options)</code> only when a suite genuinely needs custom <code>postgres.js</code> options or an extra connection after the bootstrap URL exists.</li>
