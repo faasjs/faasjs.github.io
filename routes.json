@@ -357,10 +357,6 @@
   "/guidelines/testing.html",
   "/guidelines/utils.html",
   "/SECURITY.html",
-  "/specs/faas-yaml.html",
-  "/specs/http-protocol.html",
-  "/specs/plugin.html",
-  "/specs/routing-mapping.html",
   "/zh/",
   "/zh/guide/",
   "/zh/guidelines/ant-design.html",
@@ -381,9 +377,5 @@
   "/zh/guidelines/react-testing.html",
   "/zh/guidelines/react.html",
   "/zh/guidelines/testing.html",
-  "/zh/guidelines/utils.html",
-  "/zh/specs/faas-yaml.html",
-  "/zh/specs/http-protocol.html",
-  "/zh/specs/plugin.html",
-  "/zh/specs/routing-mapping.html"
+  "/zh/guidelines/utils.html"
 ]
