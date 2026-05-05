@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>CLI and Tooling 指南 | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/cli-and-tooling.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/cli-and-tooling.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guide/" aria-label="教程">教程</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/cli-and-tooling.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/cli-and-tooling.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guide/" aria-label="最佳实践">最佳实践</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选栈指南">精选栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建与原生 SQL 指南">PG 查询构建与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema 与迁移指南">PG Schema 与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/cli-and-tooling.html" aria-label="CLI and Tooling 指南">CLI and Tooling 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/crud-patterns.html" aria-label="CRUD Patterns 指南">CRUD Patterns 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/getting-started.html" aria-label="快速开始指南">快速开始指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="cli-and-tooling-%E6%8C%87%E5%8D%97" tabindex="-1">CLI and Tooling 指南</h1>
+<p>当你在运行 CLI 命令、排查命令错误或为任务选择合适的工具时，请使用这份指南。它是 FaasJS 工具链的快速参考，帮助减少命令执行错误。</p>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>在运行任何 FaasJS 命令之前，先执行 <code>npm install</code> 安装依赖。</li>
+<li>在创建、重命名或移动 <code>.api.ts</code> 文件后，运行 <code>faas types</code> 重新生成类型声明。</li>
+<li>在提交前使用 <code>vp check --fix</code> 进行代码格式化和 lint 检查。</li>
+<li>使用 <code>vp test</code> 作为默认测试运行器；可使用 <code>vp test &lt;pattern&gt;</code> 进行针对性运行。</li>
+<li>当有迁移待执行时，通过 <code>faasjs-pg migrate</code> 运行数据库迁移。</li>
+<li>当命令不可用时，回退到 <code>npx &lt;command&gt;</code>，并确认 <code>node_modules</code> 目录存在。</li>
+</ol>
+<h2 id="faas-cli" tabindex="-1">faas CLI</h2>
+<p>由 <code>@faasjs/dev</code> 提供 <code>faas</code> 二进制命令 (<code>faas.mjs</code>)。它有两个子命令：<code>run</code> 和 <code>types</code>。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faas run &lt;file&gt;</code></td>
+<td>使用预加载的 FaasJS Node 模块 hooks 运行 TypeScript 文件</td>
+</tr>
+<tr>
+<td><code>faas run &lt;file&gt; --root &lt;path&gt;</code></td>
+<td>指定项目根目录来解析 <code>&lt;file&gt;</code>（默认：<code>process.cwd()</code>）</td>
+</tr>
+<tr>
+<td><code>faas types</code></td>
+<td>生成 API 类型声明到 <code>src/.faasjs/types.d.ts</code></td>
+</tr>
+<tr>
+<td><code>faas types --root &lt;path&gt;</code></td>
+<td>指定类型生成的项目根目录</td>
+</tr>
+</tbody>
+</table>
+<p>全局选项：</p>
+<ul>
+<li><code>-h, --help</code> — 显示帮助文本。</li>
+<li><code>-v, --version</code> — 打印 <code>@faasjs/dev</code> 版本。</li>
+</ul>
+<blockquote>
+<p><strong>运行细节</strong>：<code>faas run</code> 解析 <code>@faasjs/node-utils/register-hooks</code> 并使用 <code>--import</code> 启动一个子 Node 进程，使目标脚本获得正常的 <code>process.argv</code>。</p>
+</blockquote>
+<blockquote>
+<p><strong>类型生成细节</strong>：<code>faas types</code> 扫描 <code>src/</code> 目录下的 <code>.api.ts</code> 文件，将文件名转换为路由，并写入 <code>src/.faasjs/types.d.ts</code>。它会跳过 <code>.faasjs</code> 和 <code>node_modules</code> 目录。只有 <code>.api.ts</code> 文件和 <code>faas.yaml</code> 的变化会触发类型重新生成（参见 <code>@faasjs/dev</code> 中的 <code>isTypegenInputFile</code>）。</p>
+</blockquote>
+<h2 id="vite-plus-%2F-vp" tabindex="-1">Vite Plus / vp</h2>
+<p>由 <code>vite-plus</code> 包提供。它是在 Vite 和 Vitest 之上构建的开发与构建工具层。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vp check --fix</code></td>
+<td>通过 oxlint 和 oxfmt 运行代码检查（lint）和格式化修复</td>
+</tr>
+<tr>
+<td><code>vp test</code></td>
+<td>使用 Vitest 运行所有测试</td>
+</tr>
+<tr>
+<td><code>vp test &lt;pattern&gt;</code></td>
+<td>运行匹配文件名模式的测试</td>
+</tr>
+<tr>
+<td><code>vp test --watch</code></td>
+<td>以 watch 模式运行测试</td>
+</tr>
+<tr>
+<td><code>vp dev</code></td>
+<td>启动开发服务器</td>
+</tr>
+</tbody>
+</table>
+<p>常用组合：</p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 在交付前运行检查和测试</span>
+vp check --fix &amp;&amp; vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># 运行特定的测试文件</span>
+vp <span class="hljs-built_in">test</span> src/pages/users/api/__tests__/list.test.ts
+
+<span class="hljs-comment"># 按模式匹配并 watch 运行测试</span>
+vp <span class="hljs-built_in">test</span> list --watch
+
+<span class="hljs-comment"># 指定日志级别运行测试</span>
+FaasLog=info vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># 在自定义端口启动开发服务器（在 vite.config.ts 中配置）</span>
+vp dev
+</code></pre>
+<h2 id="%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA" tabindex="-1">项目创建</h2>
+<p>使用 <code>create-faas-app</code> 来搭建新项目。</p>
+<pre><code class="hljs language-bash">npx create-faas-app --name &lt;project-name&gt;
+</code></pre>
+<p>选项：</p>
+<ul>
+<li><code>--name &lt;name&gt;</code> — 项目文件夹名称。</li>
+<li><code>--template &lt;template&gt;</code> — 模板名称（默认：<code>admin</code>）。</li>
+</ul>
+<p>可用模板：</p>
+<ul>
+<li><code>admin</code>（默认）— 推荐的 React + Ant Design + PostgreSQL 起步模板。</li>
+<li><code>minimal</code> — 更轻量的 React 起步模板。</li>
+</ul>
+<p>搭建完成后，脚本会自动执行：</p>
+<ol>
+<li><code>npm install</code> — 安装依赖。</li>
+<li><code>npm run test</code> — 运行初始测试套件以验证配置。</li>
+</ol>
+<p>创建后手动运行这些步骤：</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> &lt;project-name&gt;
+npm install
+npx faas types
+</code></pre>
+<h2 id="%E8%BF%81%E7%A7%BB%E5%91%BD%E4%BB%A4" tabindex="-1">迁移命令</h2>
+<p>由 <code>@faasjs/pg</code> 提供 <code>faasjs-pg</code> 二进制命令。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faasjs-pg new &lt;name&gt;</code></td>
+<td>在 <code>migrations/</code> 中创建新的带时间戳的迁移文件</td>
+</tr>
+<tr>
+<td><code>faasjs-pg status</code></td>
+<td>显示所有迁移的状态</td>
+</tr>
+<tr>
+<td><code>faasjs-pg migrate</code></td>
+<td>运行所有待执行的迁移</td>
+</tr>
+<tr>
+<td><code>faasjs-pg up</code></td>
+<td>运行下一个待执行的迁移</td>
+</tr>
+<tr>
+<td><code>faasjs-pg down</code></td>
+<td>回滚最近一次已应用的迁移</td>
+</tr>
+</tbody>
+</table>
+<p>要求：</p>
+<ul>
+<li><code>status</code>、<code>migrate</code>、<code>up</code> 和 <code>down</code> 命令需要设置 <code>DATABASE_URL</code> 环境变量。</li>
+<li>迁移文件默认存放在 <code>./migrations</code> 目录下。</li>
+<li>迁移文件命名规范：<code>&lt;timestamp&gt;-&lt;name&gt;.ts</code>（由 <code>faasjs-pg new</code> 自动生成）。</li>
+<li>迁移编写规则参见 <a href="/zh/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations 指南</a>。</li>
+</ul>
+<p>示例：</p>
+<pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg migrate
+DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_users_table
+</code></pre>
+<h2 id="%E7%B1%BB%E5%9E%8B%E7%94%9F%E6%88%90%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">类型生成工作流</h2>
+<p>保持类型声明与 API 路由同步：</p>
+<ol>
+<li>
+<p>在<strong>创建</strong>、<strong>重命名</strong>或<strong>移动</strong> <code>.api.ts</code> 文件后，运行：</p>
+<pre><code class="hljs language-bash">npx faas types
+</code></pre>
+</li>
+<li>
+<p>生成的文件写入到 <code>src/.faasjs/types.d.ts</code>。</p>
+</li>
+<li>
+<p>输出结果通过模块扩展（module augmentation）在 <code>@faasjs/types</code> 上声明 <code>FaasActions</code> 接口，为每个路由提供类型化的 <code>InferFaasAction</code> 和 <code>InferFaasApi</code>。</p>
+</li>
+<li>
+<p><code>faas types</code> 是幂等的：它会将生成的内容与现有文件进行比较，仅在内容有变化时才会写入。</p>
+</li>
+<li>
+<p>如需在代码中生成类型（例如在脚本中），可以从 <code>@faasjs/dev</code> 导入 <code>generateFaasTypes</code>：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { generateFaasTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">generateFaasTypes</span>({ <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>() })
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">output</span>, result.<span class="hljs-property">routeCount</span>)
+</code></pre>
+</li>
+</ol>
+<h2 id="%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4" tabindex="-1">测试命令</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vp test</code></td>
+<td>运行完整的测试套件</td>
+</tr>
+<tr>
+<td><code>vp test &lt;pattern&gt;</code></td>
+<td>运行匹配文件名模式的测试（例如 <code>vp test list</code> 会运行 <code>*list*</code>）</td>
+</tr>
+<tr>
+<td><code>vp test --watch</code></td>
+<td>文件变更时重新运行测试</td>
+</tr>
+<tr>
+<td><code>FaasLog=info vp test</code></td>
+<td>以指定的日志详细级别运行测试</td>
+</tr>
+</tbody>
+</table>
+<p>测试原则参见 <a href="/zh/guidelines/testing.html">测试指南</a>，Vitest 项目配置参见 <a href="/zh/guidelines/project-config.html">项目配置指南</a>。</p>
+<h2 id="%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E9%94%99%E8%AF%AF%E5%8F%8A%E6%81%A2%E5%A4%8D" tabindex="-1">常见命令错误及恢复</h2>
+<h3 id="faas%3A-command-not-found" tabindex="-1"><code>faas: command not found</code></h3>
+<ul>
+<li><strong>检查</strong>：<code>npx faas --version</code> 或 <code>npx @faasjs/dev --version</code></li>
+<li><strong>恢复</strong>：确保已安装 <code>@faasjs/dev</code>：<code>npm install @faasjs/dev</code></li>
+<li><strong>根本原因</strong>：<code>faas</code> 二进制命令定义在 <code>@faasjs/dev</code> 中，不是全局命令。</li>
+</ul>
+<h3 id="vp%3A-command-not-found" tabindex="-1"><code>vp: command not found</code></h3>
+<ul>
+<li><strong>检查</strong>：<code>npx vp --version</code></li>
+<li><strong>恢复</strong>：确保已安装 <code>vite-plus</code>：<code>npm install vite-plus</code></li>
+<li><strong>根本原因</strong>：<code>vp</code> 二进制命令由 <code>vite-plus</code> 提供。</li>
+</ul>
+<h3 id="faas-types-%E5%A4%B1%E8%B4%A5" tabindex="-1"><code>faas types</code> 失败</h3>
+<ul>
+<li><strong>检查</strong>：<code>src/faas.yaml</code> 是否存在？YAML 是否有效？</li>
+<li><strong>检查</strong>：<code>src/</code> 目录下是否至少有一个 <code>.api.ts</code> 文件？</li>
+<li><strong>恢复</strong>：如果在项目根目录之外，运行 <code>npx faas types --root .</code>。</li>
+<li><strong>参见</strong>：<a href="/zh/locales/en/specs/faas-yaml.md">faas.yaml 规范</a></li>
+</ul>
+<h3 id="faasjs-pg-%E5%91%BD%E4%BB%A4%E5%A4%B1%E8%B4%A5" tabindex="-1"><code>faasjs-pg</code> 命令失败</h3>
+<ul>
+<li><strong>检查</strong>：是否设置了 <code>DATABASE_URL</code>？<code>echo $DATABASE_URL</code></li>
+<li><strong>检查</strong>：数据库是否可达？<code>psql $DATABASE_URL -c 'SELECT 1'</code></li>
+<li><strong>恢复</strong>：在命令前添加 <code>DATABASE_URL=postgres://...</code> 或在 <code>.env</code> 中设置。</li>
+<li><strong>根本原因</strong>：除 <code>new</code> 之外的所有 <code>faasjs-pg</code> 命令都需要活动的数据库连接。</li>
+</ul>
+<h3 id="%E6%B5%8B%E8%AF%95%E5%A4%B1%E8%B4%A5" tabindex="-1">测试失败</h3>
+<ul>
+<li><strong>检查</strong>：依赖是否已安装？<code>npm ls @faasjs/dev vite-plus vitest</code></li>
+<li><strong>检查</strong>：项目是否有有效的 <code>vitest.config.ts</code> 或 <code>vite.config.ts</code>？</li>
+<li><strong>检查</strong>：集成测试所需的环境变量（例如 <code>DATABASE_URL</code>）是否可用？</li>
+<li><strong>恢复</strong>：先运行一个针对性测试：<code>vp test src/specific/test.ts</code></li>
+<li><strong>参见</strong>：Vite/Vitest 配置参见 <a href="/zh/guidelines/project-config.html">项目配置指南</a>。</li>
+</ul>
+<h2 id="%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8E%E9%85%8D%E7%BD%AE" tabindex="-1">环境变量与配置</h2>
+<h3 id="faasjs-%E8%BF%90%E8%A1%8C%E6%97%B6" tabindex="-1">FaasJS 运行时</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FaasEnv</code></td>
+<td><code>faas.yaml</code> 配置加载所使用的活动环境名称</td>
+<td><code>development</code></td>
+</tr>
+<tr>
+<td><code>FaasLog</code></td>
+<td>最低日志级别（<code>debug</code>、<code>info</code>、<code>warn</code>、<code>error</code>）</td>
+<td><code>info</code></td>
+</tr>
+<tr>
+<td><code>FaasLogMode</code></td>
+<td>日志输出格式（<code>plain</code>、<code>pretty</code>）</td>
+<td>自动检测</td>
+</tr>
+<tr>
+<td><code>FaasLogSize</code></td>
+<td>非错误长日志的截断阈值（字节）</td>
+<td>平台相关</td>
+</tr>
+<tr>
+<td><code>FaasLogTransport</code></td>
+<td>启用或禁用共享日志传输转发</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E6%95%B0%E6%8D%AE%E5%BA%93" tabindex="-1">数据库</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+<th>使用者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>PostgreSQL 连接字符串</td>
+<td><code>faasjs-pg</code> CLI、<code>@faasjs/pg</code> 客户端启动、<code>@faasjs/pg-dev</code> 测试插件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1">使用示例</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># 使用 debug 日志运行测试</span>
+FaasLog=debug vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># 针对特定数据库运行迁移</span>
+DATABASE_URL=postgres://user:pass@localhost:5432/myapp npx faasjs-pg migrate
+
+<span class="hljs-comment"># 为特定项目根目录运行类型生成</span>
+npx faas types --root /path/to/project
+</code></pre>
+<h2 id="%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" tabindex="-1">关键配置文件</h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faas.yaml</code></td>
+<td>运行时配置：server root、base path、环境覆盖、插件</td>
+</tr>
+<tr>
+<td><code>tsconfig.json</code></td>
+<td>TypeScript 配置，继承 <code>@faasjs/types/tsconfig/*</code> 预设</td>
+</tr>
+<tr>
+<td><code>vite.config.ts</code></td>
+<td>Vite/Vitest 配置，使用 <code>@faasjs/dev</code> 的 <code>viteConfig</code></td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>本地开发的环境变量覆盖</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<ol>
+<li><strong>每次修改 <code>.api.ts</code> 后运行 <code>faas types</code>。</strong> 创建、重命名或移动 API 文件后如果不重新生成类型，会导致调用方出现类型错误。</li>
+<li><strong>优先使用 <code>vp check --fix</code> 而非手动格式化。</strong> 它通过 vite-plus 共享配置使用 oxlint 和 oxfmt。</li>
+<li><strong>优先使用 <code>vp test</code> 而非直接调用 <code>vitest</code>。</strong> 它使用项目的 <code>vite.config.ts</code>，其中包含所有必要的插件和别名。</li>
+<li><strong>当二进制命令未全局安装时，使用 <code>npx</code>。</strong> <code>faas</code> 和 <code>vp</code> 都是项目 <code>node_modules</code> 的本地命令。</li>
+<li><strong>运行 <code>faasjs-pg</code> 命令前先设置 <code>DATABASE_URL</code>。</strong> 除 <code>new</code> 之外的所有操作都需要活动的数据库连接。</li>
+<li><strong>保持迁移时间戳唯一。</strong> <code>faasjs-pg new</code> 命令使用 ISO 时间戳；不要手动编辑文件名以避免顺序冲突。</li>
+<li><strong>不要手动编辑 <code>src/.faasjs/types.d.ts</code>。</strong> 它由 <code>faas types</code> 重新生成，任何手动修改都会被覆盖。</li>
+<li><strong>使用 <code>FaasLog</code> 详细级别进行调试，而不是修改日志调用点。</strong> 日志运行时会遵循 <code>FaasLog</code> 的设置。</li>
+</ol>
+<h2 id="%E8%AF%84%E5%AE%A1%E6%B8%85%E5%8D%95" tabindex="-1">评审清单</h2>
+<ul>
+<li><code>.api.ts</code> 变更后已运行 <code>faas types</code>（或有记录的原因说明）</li>
+<li><code>faas.yaml</code> 是有效的 YAML，并遵循 <a href="/zh/locales/en/specs/faas-yaml.md">faas.yaml 规范</a></li>
+<li>提交前 <code>vp check --fix</code> 通过</li>
+<li><code>vp test</code> 通过（或记录了阻塞原因 + 已运行的小范围验证）</li>
+<li>运行 <code>faasjs-pg</code> 迁移命令前已设置 <code>DATABASE_URL</code></li>
+<li>迁移文件在 <code>migrations/</code> 目录下，并遵循时间戳命名规范</li>
+<li><code>src/.faasjs/types.d.ts</code> 未经手动编辑</li>
+<li>当二进制命令未全局安装时，使用了 <code>npx</code> 前缀</li>
+<li>环境变量（<code>FaasEnv</code>、<code>FaasLog</code>、<code>DATABASE_URL</code>）按项目需要进行文档记录或已明确</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

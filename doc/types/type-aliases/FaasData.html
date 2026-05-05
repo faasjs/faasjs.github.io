@@ -65,13 +65,13 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / FaasData</p>
 <h1 id="type-alias%3A-faasdata%3Ct%3E" tabindex="-1">Type Alias: FaasData&lt;T&gt;</h1>
 <blockquote>
-<p><strong>FaasData</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>FaasActions</code>[<code>T</code>][<code>&quot;Data&quot;</code>] : <code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; ? <code>T</code> : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<p><strong>FaasData</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>FaasActions</code>[<code>T</code>][<code>&quot;Data&quot;</code>] : <code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; ? <code>T</code> : <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
 </blockquote>
 <p>Infer response data type by action path.</p>
 <p>If <code>T</code> is already a plain object type, it is returned directly.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
-<p><code>T</code> = <code>any</code></p>
+<p><code>T</code> = <code>unknown</code></p>
 <p>Candidate action path or response data type.</p>
 </div></div>
           </div>

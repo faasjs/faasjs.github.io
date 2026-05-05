@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>CLI and Tooling Guide | FaasJS</title>
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/cli-and-tooling.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/cli-and-tooling.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guide/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/cli-and-tooling.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/cli-and-tooling.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guide/" aria-label="Guide">Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/curated-stack.html" aria-label="Curated Stack Guide">Curated Stack Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/application-slices.html" aria-label="Application Slices Guide">Application Slices Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/code-comments.html" aria-label="Code Comments Guide">Code Comments Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/jobs.html" aria-label="Jobs Guide">Jobs Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/testing.html" aria-label="Testing Guide">Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-query-builder.html" aria-label="PG Query Builder and Raw SQL Guide">PG Query Builder and Raw SQL Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-table-types.html" aria-label="PG Table Types Guide">PG Table Types Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema and Migrations Guide">PG Schema and Migrations Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-testing.html" aria-label="PG Testing Guide">PG Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/cli-and-tooling.html" aria-label="CLI and Tooling Guide">CLI and Tooling Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/crud-patterns.html" aria-label="CRUD Patterns Guide">CRUD Patterns Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/getting-started.html" aria-label="Getting Started Guide">Getting Started Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="cli-and-tooling-guide" tabindex="-1">CLI and Tooling Guide</h1>
+<p>Use this guide when running CLI commands, troubleshooting command errors, or choosing the right tool for the task. It is a quick-reference for the FaasJS toolchain to reduce command-execution mistakes.</p>
+<h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
+<ol>
+<li>Install dependencies with <code>npm install</code> before running any FaasJS commands.</li>
+<li>After creating, renaming, or moving a <code>.api.ts</code> file, run <code>faas types</code> to regenerate type declarations.</li>
+<li>Use <code>vp check --fix</code> for code formatting and linting before committing.</li>
+<li>Use <code>vp test</code> as the default test runner; narrow to <code>vp test &lt;pattern&gt;</code> for focused runs.</li>
+<li>Run database migrations through <code>faasjs-pg migrate</code> when a migration is pending.</li>
+<li>When a command is unavailable, fall back to <code>npx &lt;command&gt;</code> and check that <code>node_modules</code> is present.</li>
+</ol>
+<h2 id="faas-cli" tabindex="-1">faas CLI</h2>
+<p>Provided by <code>@faasjs/dev</code> as the <code>faas</code> binary (<code>faas.mjs</code>). It has two subcommands: <code>run</code> and <code>types</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faas run &lt;file&gt;</code></td>
+<td>Run a TypeScript file with FaasJS Node module hooks preloaded</td>
+</tr>
+<tr>
+<td><code>faas run &lt;file&gt; --root &lt;path&gt;</code></td>
+<td>Specify project root to resolve <code>&lt;file&gt;</code> (default: <code>process.cwd()</code>)</td>
+</tr>
+<tr>
+<td><code>faas types</code></td>
+<td>Generate API type declarations to <code>src/.faasjs/types.d.ts</code></td>
+</tr>
+<tr>
+<td><code>faas types --root &lt;path&gt;</code></td>
+<td>Specify project root for type generation</td>
+</tr>
+</tbody>
+</table>
+<p>Global options:</p>
+<ul>
+<li><code>-h, --help</code> — Show help text.</li>
+<li><code>-v, --version</code> — Print the <code>@faasjs/dev</code> version.</li>
+</ul>
+<blockquote>
+<p><strong>Run details</strong>: <code>faas run</code> resolves <code>@faasjs/node-utils/register-hooks</code> and spawns a child Node process with <code>--import</code> so the target script gets a normal <code>process.argv</code>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Type generation details</strong>: <code>faas types</code> scans <code>src/</code> for <code>.api.ts</code> files, converts filenames into routes, and writes <code>src/.faasjs/types.d.ts</code>. It skips <code>.faasjs</code> and <code>node_modules</code> directories. Only <code>.api.ts</code> files and <code>faas.yaml</code> changes trigger type regeneration (see <code>isTypegenInputFile</code> in <code>@faasjs/dev</code>).</p>
+</blockquote>
+<h2 id="vite-plus-%2F-vp" tabindex="-1">Vite Plus / vp</h2>
+<p>Provided by the <code>vite-plus</code> package. It is the development and build tooling layer on top of Vite and Vitest.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vp check --fix</code></td>
+<td>Run code checking (linting) and formatting fixes via oxlint and oxfmt</td>
+</tr>
+<tr>
+<td><code>vp test</code></td>
+<td>Run all tests with Vitest</td>
+</tr>
+<tr>
+<td><code>vp test &lt;pattern&gt;</code></td>
+<td>Run tests matching a file-name pattern</td>
+</tr>
+<tr>
+<td><code>vp test --watch</code></td>
+<td>Run tests in watch mode</td>
+</tr>
+<tr>
+<td><code>vp dev</code></td>
+<td>Start the development server</td>
+</tr>
+</tbody>
+</table>
+<p>Common combinations:</p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Run checks and tests before handoff</span>
+vp check --fix &amp;&amp; vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Run a specific test file</span>
+vp <span class="hljs-built_in">test</span> src/pages/users/api/__tests__/list.test.ts
+
+<span class="hljs-comment"># Run tests matching a pattern with watch</span>
+vp <span class="hljs-built_in">test</span> list --watch
+
+<span class="hljs-comment"># Run tests with a specific log level</span>
+FaasLog=info vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Start dev server on a custom port (configured in vite.config.ts)</span>
+vp dev
+</code></pre>
+<h2 id="project-creation" tabindex="-1">Project Creation</h2>
+<p>Use <code>create-faas-app</code> to scaffold new projects.</p>
+<pre><code class="hljs language-bash">npx create-faas-app --name &lt;project-name&gt;
+</code></pre>
+<p>Options:</p>
+<ul>
+<li><code>--name &lt;name&gt;</code> — Project folder name.</li>
+<li><code>--template &lt;template&gt;</code> — Template name (default: <code>admin</code>).</li>
+</ul>
+<p>Available templates:</p>
+<ul>
+<li><code>admin</code> (default) — Recommended React + Ant Design + PostgreSQL starter.</li>
+<li><code>minimal</code> — Lighter React starter.</li>
+</ul>
+<p>After scaffolding, the script automatically runs:</p>
+<ol>
+<li><code>npm install</code> — Installs dependencies.</li>
+<li><code>npm run test</code> — Runs the initial test suite to verify the setup.</li>
+</ol>
+<p>To run these steps manually after creation:</p>
+<pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> &lt;project-name&gt;
+npm install
+npx faas types
+</code></pre>
+<h2 id="migration-commands" tabindex="-1">Migration Commands</h2>
+<p>Provided by <code>@faasjs/pg</code> as the <code>faasjs-pg</code> binary.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faasjs-pg new &lt;name&gt;</code></td>
+<td>Create a new timestamped migration file in <code>migrations/</code></td>
+</tr>
+<tr>
+<td><code>faasjs-pg status</code></td>
+<td>Show the status of all migrations</td>
+</tr>
+<tr>
+<td><code>faasjs-pg migrate</code></td>
+<td>Run all pending migrations</td>
+</tr>
+<tr>
+<td><code>faasjs-pg up</code></td>
+<td>Run the next pending migration</td>
+</tr>
+<tr>
+<td><code>faasjs-pg down</code></td>
+<td>Roll back the latest applied migration</td>
+</tr>
+</tbody>
+</table>
+<p>Requirements:</p>
+<ul>
+<li><code>DATABASE_URL</code> environment variable must be set for <code>status</code>, <code>migrate</code>, <code>up</code>, and <code>down</code>.</li>
+<li>Migration files live in <code>./migrations</code> by default.</li>
+<li>Migration file naming convention: <code>&lt;timestamp&gt;-&lt;name&gt;.ts</code> (generated automatically by <code>faasjs-pg new</code>).</li>
+<li>See <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a> for migration authoring rules.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg migrate
+DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_users_table
+</code></pre>
+<h2 id="type-generation-workflow" tabindex="-1">Type Generation Workflow</h2>
+<p>Keep type declarations in sync with your API routes:</p>
+<ol>
+<li>
+<p>After <strong>creating</strong>, <strong>renaming</strong>, or <strong>moving</strong> a <code>.api.ts</code> file, run:</p>
+<pre><code class="hljs language-bash">npx faas types
+</code></pre>
+</li>
+<li>
+<p>The generated file is written to <code>src/.faasjs/types.d.ts</code>.</p>
+</li>
+<li>
+<p>The output declares a <code>FaasActions</code> interface via module augmentation on <code>@faasjs/types</code>, providing typed <code>InferFaasAction</code> and <code>InferFaasApi</code> for every route.</p>
+</li>
+<li>
+<p><code>faas types</code> is idempotent: it compares the generated content against the existing file and only writes when something changed.</p>
+</li>
+<li>
+<p>For type generation from code (e.g., in a script), import <code>generateFaasTypes</code> from <code>@faasjs/dev</code>:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { generateFaasTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">generateFaasTypes</span>({ <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>() })
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">output</span>, result.<span class="hljs-property">routeCount</span>)
+</code></pre>
+</li>
+</ol>
+<h2 id="testing-commands" tabindex="-1">Testing Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vp test</code></td>
+<td>Run the full test suite</td>
+</tr>
+<tr>
+<td><code>vp test &lt;pattern&gt;</code></td>
+<td>Run tests matching a file-name pattern (e.g., <code>vp test list</code> runs <code>*list*</code>)</td>
+</tr>
+<tr>
+<td><code>vp test --watch</code></td>
+<td>Re-run tests on file changes</td>
+</tr>
+<tr>
+<td><code>FaasLog=info vp test</code></td>
+<td>Run tests with a specific log verbosity</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/guidelines/testing.html">Testing Guide</a> for testing principles and <a href="/guidelines/project-config.html">Project Config Guide</a> for Vitest project configuration.</p>
+<h2 id="common-command-errors-and-recovery" tabindex="-1">Common Command Errors and Recovery</h2>
+<h3 id="faas%3A-command-not-found" tabindex="-1"><code>faas: command not found</code></h3>
+<ul>
+<li><strong>Check</strong>: <code>npx faas --version</code> or <code>npx @faasjs/dev --version</code></li>
+<li><strong>Recovery</strong>: Ensure <code>@faasjs/dev</code> is installed: <code>npm install @faasjs/dev</code></li>
+<li><strong>Root cause</strong>: The <code>faas</code> binary is defined in <code>@faasjs/dev</code>, not as a global command.</li>
+</ul>
+<h3 id="vp%3A-command-not-found" tabindex="-1"><code>vp: command not found</code></h3>
+<ul>
+<li><strong>Check</strong>: <code>npx vp --version</code></li>
+<li><strong>Recovery</strong>: Ensure <code>vite-plus</code> is installed: <code>npm install vite-plus</code></li>
+<li><strong>Root cause</strong>: The <code>vp</code> binary is provided by <code>vite-plus</code>.</li>
+</ul>
+<h3 id="faas-types-fails" tabindex="-1"><code>faas types</code> fails</h3>
+<ul>
+<li><strong>Check</strong>: Does <code>src/faas.yaml</code> exist? Is the YAML valid?</li>
+<li><strong>Check</strong>: Does <code>src/</code> contain at least one <code>.api.ts</code> file?</li>
+<li><strong>Recovery</strong>: Run <code>npx faas types --root .</code> if outside the project root.</li>
+<li><strong>See</strong>: <a href="/locales/en/specs/faas-yaml.md">faas.yaml Specification</a></li>
+</ul>
+<h3 id="faasjs-pg-commands-fail" tabindex="-1"><code>faasjs-pg</code> commands fail</h3>
+<ul>
+<li><strong>Check</strong>: Is <code>DATABASE_URL</code> set? <code>echo $DATABASE_URL</code></li>
+<li><strong>Check</strong>: Is the database reachable? <code>psql $DATABASE_URL -c 'SELECT 1'</code></li>
+<li><strong>Recovery</strong>: Prepend <code>DATABASE_URL=postgres://...</code> or set it in <code>.env</code>.</li>
+<li><strong>Root cause</strong>: All <code>faasjs-pg</code> commands except <code>new</code> require a live database connection.</li>
+</ul>
+<h3 id="tests-fail" tabindex="-1">Tests fail</h3>
+<ul>
+<li><strong>Check</strong>: Are dependencies installed? <code>npm ls @faasjs/dev vite-plus vitest</code></li>
+<li><strong>Check</strong>: Does the project have a valid <code>vitest.config.ts</code> or <code>vite.config.ts</code>?</li>
+<li><strong>Check</strong>: Are environment variables (e.g., <code>DATABASE_URL</code>) available for integration tests?</li>
+<li><strong>Recovery</strong>: Run a focused test first: <code>vp test src/specific/test.ts</code></li>
+<li><strong>See</strong>: <a href="/guidelines/project-config.html">Project Config Guide</a> for Vite/Vitest configuration.</li>
+</ul>
+<h2 id="environment-variables-and-configuration" tabindex="-1">Environment Variables and Configuration</h2>
+<h3 id="faasjs-runtime" tabindex="-1">FaasJS runtime</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FaasEnv</code></td>
+<td>Active staging name used by <code>faas.yaml</code> config loading</td>
+<td><code>development</code></td>
+</tr>
+<tr>
+<td><code>FaasLog</code></td>
+<td>Minimum log level (<code>debug</code>, <code>info</code>, <code>warn</code>, <code>error</code>)</td>
+<td><code>info</code></td>
+</tr>
+<tr>
+<td><code>FaasLogMode</code></td>
+<td>Log output style (<code>plain</code>, <code>pretty</code>)</td>
+<td>auto-detected</td>
+</tr>
+<tr>
+<td><code>FaasLogSize</code></td>
+<td>Truncation threshold for long non-error logs (bytes)</td>
+<td>platform-dependent</td>
+</tr>
+<tr>
+<td><code>FaasLogTransport</code></td>
+<td>Enable or disable shared log transport forwarding</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="database" tabindex="-1">Database</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Required By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>PostgreSQL connection string</td>
+<td><code>faasjs-pg</code> CLI, <code>@faasjs/pg</code> client bootstrap, <code>@faasjs/pg-dev</code> test plugin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-usage" tabindex="-1">Example usage</h3>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># Run tests with debug logging</span>
+FaasLog=debug vp <span class="hljs-built_in">test</span>
+
+<span class="hljs-comment"># Run migrations against a specific database</span>
+DATABASE_URL=postgres://user:pass@localhost:5432/myapp npx faasjs-pg migrate
+
+<span class="hljs-comment"># Run type generation for a specific project root</span>
+npx faas types --root /path/to/project
+</code></pre>
+<h2 id="key-configuration-files" tabindex="-1">Key Configuration Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>faas.yaml</code></td>
+<td>Runtime configuration: server root, base path, staging overrides, plugins</td>
+</tr>
+<tr>
+<td><code>tsconfig.json</code></td>
+<td>TypeScript configuration, extends <code>@faasjs/types/tsconfig/*</code> presets</td>
+</tr>
+<tr>
+<td><code>vite.config.ts</code></td>
+<td>Vite/Vitest configuration, uses <code>viteConfig</code> from <code>@faasjs/dev</code></td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>Environment variable overrides for local development</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rules" tabindex="-1">Rules</h2>
+<ol>
+<li><strong>Run <code>faas types</code> after every <code>.api.ts</code> change.</strong> Creating, renaming, or moving API files without regenerating types will cause type errors in callers.</li>
+<li><strong>Prefer <code>vp check --fix</code> over manual formatting.</strong> It uses oxlint and oxfmt through vite-plus shared configs.</li>
+<li><strong>Prefer <code>vp test</code> over direct <code>vitest</code> calls.</strong> It uses the project's <code>vite.config.ts</code> which includes all necessary plugins and aliases.</li>
+<li><strong>Use <code>npx</code> when the binary is not globally installed.</strong> Both <code>faas</code> and <code>vp</code> are local to the project's <code>node_modules</code>.</li>
+<li><strong>Set <code>DATABASE_URL</code> before running <code>faasjs-pg</code> commands.</strong> All operations except <code>new</code> require a live connection.</li>
+<li><strong>Keep migration timestamps unique.</strong> The <code>faasjs-pg new</code> command uses ISO timestamps; do not hand-edit filenames to avoid ordering conflicts.</li>
+<li><strong>Do not edit <code>src/.faasjs/types.d.ts</code> manually.</strong> It is regenerated by <code>faas types</code> and any manual changes will be overwritten.</li>
+<li><strong>Use <code>FaasLog</code> verbosity for debugging instead of changing log call sites.</strong> The logger respects <code>FaasLog</code> at runtime.</li>
+</ol>
+<h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
+<ul>
+<li><code>.api.ts</code> changes are followed by <code>faas types</code> (or a recorded reason)</li>
+<li><code>faas.yaml</code> is valid YAML and follows the <a href="/locales/en/specs/faas-yaml.md">faas.yaml specification</a></li>
+<li><code>vp check --fix</code> passes before commit</li>
+<li><code>vp test</code> passes (or a recorded blocker + narrower validation that did run)</li>
+<li><code>DATABASE_URL</code> is set before running <code>faasjs-pg</code> migration commands</li>
+<li>migration files are in <code>migrations/</code> and follow timestamped naming</li>
+<li><code>src/.faasjs/types.d.ts</code> is not hand-edited</li>
+<li><code>npx</code> prefix is used when binaries are not globally installed</li>
+<li>environment variables (<code>FaasEnv</code>, <code>FaasLog</code>, <code>DATABASE_URL</code>) are documented or obvious per project</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

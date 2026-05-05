@@ -91,13 +91,13 @@ and any plugin-provided fields declared through <code>DefineApiInject</code>.</p
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
 <p>Zod schema used to validate <code>event.params</code>.</p>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
-<p><code>TEvent</code> = <code>any</code></p>
+<p><code>TEvent</code> = <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
 <p>Raw event type passed to the function.</p>
 <h3 id="tcontext" tabindex="-1">TContext</h3>
-<p><code>TContext</code> = <code>any</code></p>
+<p><code>TContext</code> = <code>unknown</code></p>
 <p>Runtime context type.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
-<p><code>TResult</code> = <code>any</code></p>
+<p><code>TResult</code> = <code>unknown</code></p>
 <p>Handler return type.</p>
 </div></div>
           </div>
