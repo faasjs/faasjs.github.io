@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / FaasParams</p>
 <h1 id="type-alias%3A-faasparams%3Ct%3E" tabindex="-1">Type Alias: FaasParams&lt;T&gt;</h1>
 <blockquote>
-<p><strong>FaasParams</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>FaasActions</code>[<code>T</code>][<code>&quot;Params&quot;</code>] : <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
+<p><strong>FaasParams</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>FaasActions</code>[<code>T</code>][<code>&quot;Params&quot;</code>] : <code>T</code> <em>extends</em> <code>string</code> ? <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; : <code>never</code></p>
 </blockquote>
 <p>Infer params type by action path.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>

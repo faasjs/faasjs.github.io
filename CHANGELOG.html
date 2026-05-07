@@ -64,6 +64,69 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.27...v8.0.0-beta.28" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.28 (2026-05-08)</code></a></p>
+<ul>
+<li>
+<p><code>faasjs</code></p>
+<ul>
+<li>[Feature] Add Getting Started, CRUD Patterns, and CLI and Tooling guides to faasjs-best-practices.</li>
+<li>[Feature] Add English specs for faas-yaml, http-protocol, plugin, and routing-mapping.</li>
+<li>[Fix] Improve guide documentation readability and consistency across multiple files.</li>
+<li>[Fix] Remove stale spec page references from docgen and clean up references directory.</li>
+<li>[Fix] Update Node.js minimum version requirement from &gt;=20.x to &gt;=24.x in getting-started guide.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/types</code></p>
+<ul>
+<li>[Break] <code>FaasParams&lt;T&gt;</code> and <code>FaasData&lt;T&gt;</code> now return <code>never</code> for object-type arguments, enforcing strict typing via <code>FaasActions</code>. String literals not registered in <code>FaasActions</code> fall back to <code>Record&lt;string, unknown&gt;</code>.</li>
+<li>[Feature] Replace <code>any</code> with <code>unknown</code> in <code>FaasAction</code>, <code>FaasActionUnionType</code>, <code>InferFaasAction</code>, <code>InferFaasApi</code>, and related type definitions for improved type safety.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Feature] Replace <code>any</code> with <code>unknown</code> in <code>DefineApiData</code> default type parameters (<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>) and related internals for improved type safety.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Feature] Change default Logger level from <code>debug</code> to <code>info</code>, reducing default log noise from plugin lifecycle, SQL timing, Cookie/Session logs.</li>
+<li>[Fix] Lower Transport lifecycle logs (<code>register</code>/<code>unregister</code>/<code>stopping</code>) from <code>info</code> to <code>debug</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/react</code></p>
+<ul>
+<li>[Fix] Remove unnecessary <code>console.debug</code> for mock requests. Add <code>[FaasJS]</code> prefix to <code>console.warn</code> messages.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/ant-design</code></p>
+<ul>
+<li>[Fix] Remove unnecessary <code>console.debug('location', location)</code> from App component.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
+<ul>
+<li>[Break] Remove <code>testing-support</code> module (<code>requireTestingDatabaseUrl</code>, <code>PG_VITEST_DATABASE_URL_ENV_NAME</code>, <code>global-setup.ts</code>, <code>setup.ts</code>). Testing setup utilities are now in <code>@faasjs/pg-dev</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg-dev</code></p>
+<ul>
+<li>[Feature] Move testing setup from <code>@faasjs/pg/testing-support</code> into <code>@faasjs/pg-dev</code>. Use <code>testing-setup.ts</code> directly instead of <code>global-setup.ts</code> + <code>setup.ts</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/create-faas-app</code></p>
+<ul>
+<li>[Fix] Add <code>declare module '@faasjs/types'</code> block to scaffolded admin template for strict <code>FaasActions</code> type compatibility.</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.26...v8.0.0-beta.27" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.27 (2026-04-24)</code></a></p>
 <ul>
 <li>
