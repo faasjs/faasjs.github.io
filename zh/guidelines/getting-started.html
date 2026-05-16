@@ -274,7 +274,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <p>在 <code>src/pages/todos/api/</code> 下创建五个 API 文件。它们遵循 <a href="/zh/guidelines/crud-patterns.html">CRUD Patterns 指南</a>。</p>
 <h4 id="src%2Fpages%2Ftodos%2Fapi%2Flist.api.ts" tabindex="-1"><code>src/pages/todos/api/list.api.ts</code></h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -302,7 +302,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <h4 id="src%2Fpages%2Ftodos%2Fapi%2Fcreate.api.ts" tabindex="-1"><code>src/pages/todos/api/create.api.ts</code></h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -324,7 +324,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <h4 id="src%2Fpages%2Ftodos%2Fapi%2Fdetail.api.ts" tabindex="-1"><code>src/pages/todos/api/detail.api.ts</code></h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -351,7 +351,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <h4 id="src%2Fpages%2Ftodos%2Fapi%2Fupdate.api.ts" tabindex="-1"><code>src/pages/todos/api/update.api.ts</code></h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -368,7 +368,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <h4 id="src%2Fpages%2Ftodos%2Fapi%2Fremove.api.ts" tabindex="-1"><code>src/pages/todos/api/remove.api.ts</code></h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -635,7 +635,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <h3 id="defineapi-%E4%B8%8E-endpoint-%E5%AE%9A%E4%B9%89" tabindex="-1"><code>defineApi</code> 与 endpoint 定义</h3>
 <p>每个 API endpoint 都是一个默认导出 <code>defineApi(...)</code> 的文件。<code>schema</code> 字段使用 Zod 进行输入校验，<code>handler</code> 接收类型化的 <code>params</code>。</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

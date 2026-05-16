@@ -74,7 +74,7 @@
 </code></pre>
 <h2 id="usage" tabindex="-1">Usage</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob, enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

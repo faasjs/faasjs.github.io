@@ -182,7 +182,7 @@
 <li>Use <code>formatSchemaError()</code> only when you need the formatted validation message without throwing.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseSchemaValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> params = <span class="hljs-keyword">await</span> <span class="hljs-title function_">parseSchemaValue</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

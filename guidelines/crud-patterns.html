@@ -282,7 +282,7 @@
 </span></code></pre>
 <h3 id="list-api" tabindex="-1">List API</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -335,7 +335,7 @@
 </code></pre>
 <h3 id="detail-api" tabindex="-1">Detail API</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -397,7 +397,7 @@
 </code></pre>
 <h3 id="create-api" tabindex="-1">Create API</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -467,7 +467,7 @@
 </code></pre>
 <h3 id="update-api" tabindex="-1">Update API</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -549,7 +549,7 @@
 </code></pre>
 <h3 id="remove-api" tabindex="-1">Remove API</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

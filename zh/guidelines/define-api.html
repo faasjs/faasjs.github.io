@@ -81,7 +81,7 @@
 </ol>
 <h2 id="%E6%9C%80%E5%B0%8F%E7%A4%BA%E4%BE%8B" tabindex="-1">最小示例</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
@@ -95,8 +95,10 @@
 })
 </code></pre>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
-<h3 id="1.-%E9%BB%98%E8%AE%A4%E5%86%85%E8%81%94%E5%AE%9A%E4%B9%89-schema" tabindex="-1">1. 默认内联定义 schema</h3>
+<h3 id="1.-%E4%BD%BF%E7%94%A8-zod-%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81" tabindex="-1">1. 使用 zod 进行数据验证</h3>
 <ul>
+<li>使用 zod 作为数据验证工具，避免手写验证函数。</li>
+<li>zod 提供类型安全的 schema，可以自动生成 TypeScript 类型，减少样板代码并确保验证逻辑与类型定义保持同步。</li>
 <li>优先直接在 <code>defineApi</code> 内定义 <code>schema</code>。</li>
 <li>只有在 schema 会复用、跨文件共享，或明显提升可读性时，才抽成单独常量。</li>
 <li>把 <code>schema</code> 视为外部输入的单一事实来源。</li>
@@ -137,7 +139,7 @@
 </ul>
 <p>示例：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineApi, <span class="hljs-title class_">HttpError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

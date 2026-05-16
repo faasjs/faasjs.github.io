@@ -83,7 +83,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <p>不要在文件里重复手写 job 名称。移动或重命名 job 文件会改变 <code>enqueueJob()</code> 使用的路径。</p>
 <h3 id="2.-%E5%9C%A8%E8%BE%B9%E7%95%8C%E5%A4%84%E5%AE%9A%E4%B9%89-params-schema" tabindex="-1">2. 在边界处定义 params schema</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">import</span> { sendWelcomeEmail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../emails/send-welcome-email&#x27;</span>
 
@@ -119,7 +119,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <h3 id="4.-%E5%8C%BA%E5%88%86-scheduler-%E4%B8%8E-worker" tabindex="-1">4. 区分 scheduler 与 worker</h3>
 <p>Cron 规则只负责投递 job：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({

@@ -83,7 +83,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <p>Do not duplicate the job name inside the file. Moving or renaming a job file changes the path used by <code>enqueueJob()</code>.</p>
 <h3 id="2.-define-params-schemas-at-the-boundary" tabindex="-1">2. Define params schemas at the boundary</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">import</span> { sendWelcomeEmail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../emails/send-welcome-email&#x27;</span>
 
@@ -119,7 +119,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <h3 id="4.-separate-scheduler-from-worker-execution" tabindex="-1">4. Separate scheduler from worker execution</h3>
 <p>Cron rules only enqueue jobs:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
   <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
