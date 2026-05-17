@@ -336,6 +336,8 @@
   "/doc/utils/functions/streamToObject.html",
   "/doc/utils/functions/streamToString.html",
   "/doc/utils/functions/stringToStream.html",
+  "/doc/utils/type-aliases/Z.html",
+  "/doc/utils/variables/z.html",
   "/guide/",
   "/guidelines/ant-design.html",
   "/guidelines/application-slices.html",

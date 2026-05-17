@@ -89,10 +89,11 @@
 })
 </code></pre>
 <h2 id="rules" tabindex="-1">Rules</h2>
-<h3 id="1.-use-zod-for-data-validation" tabindex="-1">1. Use zod for data validation</h3>
+<h3 id="1.-use-zod-for-input-validation%2C-not-for-internal-type-checks" tabindex="-1">1. Use zod for input validation, not for internal type checks</h3>
 <ul>
-<li>Use zod for data validation instead of handwritten validation functions.</li>
-<li>Zod provides type-safe schemas that generate TypeScript types automatically, reducing boilerplate and ensuring validation logic stays in sync with type definitions.</li>
+<li>Use zod for validating external input (user params, config files, API payloads) at system boundaries. This is what <code>defineApi</code>'s <code>schema</code> is for.</li>
+<li>Do not use zod to replace <code>typeof</code>/<code>instanceof</code>/<code>=== null</code> checks used for internal control flow. Those predicates are concise, zero-overhead, and semantically correct—zod would add code and cost with no benefit.</li>
+<li>Zod schemas generate TypeScript types automatically, reducing boilerplate and keeping validation logic in sync with type definitions.</li>
 <li>Prefer defining <code>schema</code> directly inside <code>defineApi</code>.</li>
 <li>Extract schema into a separate constant only when it is reused, shared across files, or meaningfully improves readability.</li>
 <li>Treat <code>schema</code> as the source of truth for external input.</li>

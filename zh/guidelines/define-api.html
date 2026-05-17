@@ -95,10 +95,11 @@
 })
 </code></pre>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
-<h3 id="1.-%E4%BD%BF%E7%94%A8-zod-%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81" tabindex="-1">1. 使用 zod 进行数据验证</h3>
+<h3 id="1.-zod-%E4%BB%85%E7%94%A8%E4%BA%8E%E8%BE%93%E5%85%A5%E9%AA%8C%E8%AF%81%EF%BC%8C%E4%B8%8D%E5%81%9A%E5%86%85%E9%83%A8%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5" tabindex="-1">1. zod 仅用于输入验证，不做内部类型检查</h3>
 <ul>
-<li>使用 zod 作为数据验证工具，避免手写验证函数。</li>
-<li>zod 提供类型安全的 schema，可以自动生成 TypeScript 类型，减少样板代码并确保验证逻辑与类型定义保持同步。</li>
+<li>使用 zod 验证系统边界上的外部输入（用户参数、配置文件、API 载荷），这是 <code>defineApi</code> 的 <code>schema</code> 的职责。</li>
+<li>不要在内部控制流中用 zod 替代 <code>typeof</code>/<code>instanceof</code>/<code>=== null</code> 检查。这些谓词简洁、零开销且语义正确——用 zod 只会增加代码量和开销。</li>
+<li>zod schema 可自动生成 TypeScript 类型，减少样板代码并确保验证逻辑与类型定义保持同步。</li>
 <li>优先直接在 <code>defineApi</code> 内定义 <code>schema</code>。</li>
 <li>只有在 schema 会复用、跨文件共享，或明显提升可读性时，才抽成单独常量。</li>
 <li>把 <code>schema</code> 视为外部输入的单一事实来源。</li>

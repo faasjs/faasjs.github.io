@@ -97,7 +97,7 @@
 <span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
-  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">nonemptystring</span>(),
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">min</span>(<span class="hljs-number">1</span>),
 })
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({

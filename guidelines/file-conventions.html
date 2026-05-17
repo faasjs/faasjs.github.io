@@ -198,6 +198,34 @@ src/jobs/reports/index.job.ts
 <li>Prefer short relative imports for nearby siblings such as <code>./UserCard</code> or <code>../hooks/useUser</code>.</li>
 <li>Do not introduce a new alias style unless the project already configures it, or you are updating project config in the same change.</li>
 </ul>
+<h3 id="7.-follow-naming-conventions-for-shared-code-directories" tabindex="-1">7. Follow naming conventions for shared code directories</h3>
+<ul>
+<li><strong><code>utils/</code></strong> for shared utility functions. Do not use <code>shared/</code>, <code>helpers/</code>, <code>common/</code>, or <code>lib/</code>. When <code>utils/</code> grows large, split by domain such as <code>utils/date/</code>, <code>utils/format/</code>.</li>
+<li><strong><code>constants/</code></strong> for constant definitions. Do not use the singular <code>constant/</code>.</li>
+</ul>
+<p>Prefer this:</p>
+<pre><code class="hljs language-text">src/utils/date.ts
+src/utils/format.ts
+src/constants/index.ts
+</code></pre>
+<h3 id="8.-keep-all-test-related-files-under-__tests__%2F" tabindex="-1">8. Keep all test-related files under <code>__tests__/</code></h3>
+<ul>
+<li>Test files, fixtures, mocks, stubs, and any other test support files MUST live inside <code>__tests__/</code>.</li>
+<li>Do not place <code>fixtures/</code>, <code>mocks/</code>, or other test support directories as siblings of <code>__tests__/</code>.</li>
+</ul>
+<p>Prefer this:</p>
+<pre><code class="hljs language-text">src/feature/__tests__/
+  feature.test.ts
+  fixtures/
+    data.ts
+</code></pre>
+<p>Avoid this:</p>
+<pre><code class="hljs language-text">src/feature/
+  __tests__/
+    feature.test.ts
+  fixtures/           # ← sibling of __tests__
+    data.ts
+</code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>one-off UI or state logic is not extracted without a readability or reuse reason</li>
@@ -216,6 +244,9 @@ src/jobs/reports/index.job.ts
 <li>backend <code>.api.ts</code> files follow routing-mapping</li>
 <li>imports follow aliases already defined in <code>tsconfig.json</code> when available</li>
 <li>nearby imports stay relative instead of forcing alias usage everywhere</li>
+<li>shared utility code uses <code>utils/</code> instead of <code>shared/</code>, <code>helpers/</code>, <code>common/</code>, or <code>lib/</code></li>
+<li>constant definitions use <code>constants/</code> instead of the singular <code>constant/</code></li>
+<li>all test-related files (fixtures, mocks, stubs) live inside <code>__tests__/</code> rather than as sibling directories</li>
 </ul>
 </div></div>
           </div>
