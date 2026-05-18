@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Naming Convention | FaasJS</title>
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/naming-convention.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/naming-convention.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="English"><span class="title">English</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="English"><span class="title">English</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/naming-convention.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/zh/guidelines/naming-convention.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/curated-stack.html" aria-label="Curated Stack Guide">Curated Stack Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/application-slices.html" aria-label="Application Slices Guide">Application Slices Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/code-comments.html" aria-label="Code Comments Guide">Code Comments Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/jobs.html" aria-label="Jobs Guide">Jobs Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/testing.html" aria-label="Testing Guide">Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-query-builder.html" aria-label="PG Query Builder and Raw SQL Guide">PG Query Builder and Raw SQL Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-table-types.html" aria-label="PG Table Types Guide">PG Table Types Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema and Migrations Guide">PG Schema and Migrations Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-testing.html" aria-label="PG Testing Guide">PG Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/cli-and-tooling.html" aria-label="CLI and Tooling Guide">CLI and Tooling Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/crud-patterns.html" aria-label="CRUD Patterns Guide">CRUD Patterns Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/getting-started.html" aria-label="Getting Started Guide">Getting Started Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/naming-convention.html" aria-label="Naming Convention">Naming Convention</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="naming-convention" tabindex="-1">Naming Convention</h1>
+<p>Use this guide when naming identifiers — functions, variables, types, files, and directories.</p>
+<p>See <a href="/guidelines/file-conventions.html">File Conventions</a> for file placement rules (where to put things). This guide covers what to name them.</p>
+<hr>
+<h2 id="1.-identifier-naming" tabindex="-1">1. Identifier Naming</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Convention</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Functions</td>
+<td><code>camelCase</code>, verb-first</td>
+<td><code>createClient</code>, <code>parseSchemaValue</code></td>
+</tr>
+<tr>
+<td>Classes</td>
+<td><code>PascalCase</code></td>
+<td><code>QueryBuilder</code>, <code>FaasBrowserClient</code></td>
+</tr>
+<tr>
+<td>Types / Interfaces</td>
+<td><code>PascalCase</code></td>
+<td><code>ServerOptions</code>, <code>DefineApiData</code></td>
+</tr>
+<tr>
+<td>Enums</td>
+<td><code>PascalCase</code> (name + members)</td>
+<td><code>JobStatus { Pending, Running }</code></td>
+</tr>
+<tr>
+<td>Constants</td>
+<td><code>PascalCase</code></td>
+<td><code>ViteConfig</code>, <code>DefaultTimeout</code></td>
+</tr>
+<tr>
+<td>React components</td>
+<td><code>PascalCase</code></td>
+<td><code>UserCard</code>, <code>ErrorBoundary</code></td>
+</tr>
+<tr>
+<td>React hooks</td>
+<td><code>camelCase</code>, <code>use</code> prefix</td>
+<td><code>useUser</code>, <code>useDebounce</code></td>
+</tr>
+<tr>
+<td>React component props</td>
+<td><code>PascalCase</code>, suffixed with <code>Props</code></td>
+<td><code>FaasDataWrapperProps</code></td>
+</tr>
+<tr>
+<td>Type guard functions</td>
+<td><code>camelCase</code>, <code>is</code> prefix</td>
+<td><code>isOperator</code>, <code>isTemplateStringsArray</code></td>
+</tr>
+<tr>
+<td>Generic type params</td>
+<td>Single uppercase or PascalCase</td>
+<td><code>T</code>, <code>TData</code>, <code>TResult</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1.1-abbreviation-rules" tabindex="-1">1.1 Abbreviation Rules</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Correct</th>
+<th>Incorrect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abbreviations at word boundaries</td>
+<td><code>parseApiFilenameFromStack</code></td>
+<td><code>parseAPIFilenameFromStack</code></td>
+</tr>
+<tr>
+<td>Common tech terms as words</td>
+<td><code>Http</code>, <code>Json</code>, <code>Url</code>, <code>Html</code>, <code>Id</code></td>
+<td><code>HTTP</code>, <code>JSON</code>, <code>URL</code>, <code>HTML</code>, <code>ID</code></td>
+</tr>
+<tr>
+<td><code>lifecycle</code> as one word</td>
+<td><code>lifecycleKey</code>, <code>LifecycleHook</code></td>
+<td><code>lifeCycleKey</code>, <code>LifeCycleHook</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1.2-common-verb-prefixes" tabindex="-1">1.2 Common Verb Prefixes</h3>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>define*</code></td>
+<td>Define API or Job: <code>defineApi</code>, <code>defineJob</code></td>
+</tr>
+<tr>
+<td><code>create*</code></td>
+<td>Factory: <code>createClient</code>, <code>createSplittingContext</code></td>
+</tr>
+<tr>
+<td><code>get*</code> / <code>set*</code></td>
+<td>Accessors: <code>getClient</code>, <code>setMock</code></td>
+</tr>
+<tr>
+<td><code>parse*</code> / <code>format*</code></td>
+<td>Parsing / formatting: <code>parseSchemaValue</code>, <code>formatSchemaError</code></td>
+</tr>
+<tr>
+<td><code>use*</code></td>
+<td>React hooks: <code>useFaas</code>, <code>useStateRef</code></td>
+</tr>
+<tr>
+<td><code>is*</code></td>
+<td>Type guards / predicates: <code>isOperator</code>, <code>isTypegenInputFile</code></td>
+</tr>
+<tr>
+<td><code>*Options</code></td>
+<td>Config types: <code>ServerOptions</code>, <code>EnqueueJobOptions</code></td>
+</tr>
+<tr>
+<td><code>*Props</code></td>
+<td>React prop types: <code>FaasDataWrapperProps</code></td>
+</tr>
+<tr>
+<td><code>*Data</code> / <code>*Inject</code></td>
+<td>defineApi data / injection types: <code>DefineApiData</code>, <code>DefineApiInject</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2.-file-and-directory-naming" tabindex="-1">2. File and Directory Naming</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Convention</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source directories</td>
+<td><code>camelCase</code></td>
+<td><code>loadPackage/</code>, <code>parseYaml/</code></td>
+</tr>
+<tr>
+<td>Source files</td>
+<td><code>kebab-case</code></td>
+<td><code>query-builder.ts</code>, <code>http-error.ts</code></td>
+</tr>
+<tr>
+<td>Test files</td>
+<td><code>kebab-case</code> + <code>.test.ts</code></td>
+<td><code>query-builder.test.ts</code></td>
+</tr>
+<tr>
+<td>Component files</td>
+<td>PascalCase, matches component name</td>
+<td><code>UserCard.tsx</code> → <code>export function UserCard()</code></td>
+</tr>
+<tr>
+<td>Hook files</td>
+<td>camelCase, matches hook name</td>
+<td><code>useUser.ts</code> → <code>export function useUser()</code></td>
+</tr>
+<tr>
+<td>Type definition files</td>
+<td><code>kebab-case</code></td>
+<td><code>types.ts</code>, <code>server-types.ts</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3.-review-checklist" tabindex="-1">3. Review Checklist</h2>
+<ul>
+<li>[ ] Functions start with a verb (camelCase)</li>
+<li>[ ] Types / interfaces / constants are PascalCase</li>
+<li>[ ] Directories use camelCase</li>
+<li>[ ] Files use kebab-case (component/hook files use their own name)</li>
+<li>[ ] Abbreviations follow the word rule: <code>Http</code>, <code>Json</code>, <code>Url</code>, <code>Id</code></li>
+<li>[ ] <code>lifecycle</code> is one word, all lowercase</li>
+</ul>
+<hr>
+<h2 id="further-reading" tabindex="-1">Further Reading</h2>
+<ul>
+<li><a href="/guidelines/file-conventions.html">File Conventions</a> — file placement rules</li>
+<li><a href="/guidelines/code-comments.html">Code Comments Guide</a> — when to rename vs comment</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

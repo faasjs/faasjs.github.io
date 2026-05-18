@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>命名规范 | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/naming-convention.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/naming-convention.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/naming-convention.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/naming-convention.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选技术栈指南">精选技术栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建器与原生 SQL 指南">PG 查询构建器与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG 模式与迁移指南">PG 模式与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/cli-and-tooling.html" aria-label="CLI 和工具指南">CLI 和工具指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/crud-patterns.html" aria-label="CRUD 模式指南">CRUD 模式指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/getting-started.html" aria-label="快速入门指南">快速入门指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/naming-convention.html" aria-label="命名规范">命名规范</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83" tabindex="-1">命名规范</h1>
+<p>在命名标识符——函数、变量、类型、文件和目录时，使用本指南。</p>
+<p>文件放置规则（放在哪里）请参见<a href="/zh/guidelines/file-conventions.html">文件约定</a>。本指南涵盖如何命名它们。</p>
+<hr>
+<h2 id="1.-%E6%A0%87%E8%AF%86%E7%AC%A6%E5%91%BD%E5%90%8D" tabindex="-1">1. 标识符命名</h2>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>规范</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>函数</td>
+<td><code>camelCase</code>，动词优先</td>
+<td><code>createClient</code>，<code>parseSchemaValue</code></td>
+</tr>
+<tr>
+<td>类</td>
+<td><code>PascalCase</code></td>
+<td><code>QueryBuilder</code>，<code>FaasBrowserClient</code></td>
+</tr>
+<tr>
+<td>类型 / 接口</td>
+<td><code>PascalCase</code></td>
+<td><code>ServerOptions</code>，<code>DefineApiData</code></td>
+</tr>
+<tr>
+<td>枚举</td>
+<td><code>PascalCase</code>（名称和成员）</td>
+<td><code>JobStatus { Pending, Running }</code></td>
+</tr>
+<tr>
+<td>常量</td>
+<td><code>PascalCase</code></td>
+<td><code>ViteConfig</code>，<code>DefaultTimeout</code></td>
+</tr>
+<tr>
+<td>React 组件</td>
+<td><code>PascalCase</code></td>
+<td><code>UserCard</code>，<code>ErrorBoundary</code></td>
+</tr>
+<tr>
+<td>React 钩子</td>
+<td><code>camelCase</code>，<code>use</code> 前缀</td>
+<td><code>useUser</code>，<code>useDebounce</code></td>
+</tr>
+<tr>
+<td>React 组件属性</td>
+<td><code>PascalCase</code>，以 <code>Props</code> 结尾</td>
+<td><code>FaasDataWrapperProps</code></td>
+</tr>
+<tr>
+<td>类型守卫函数</td>
+<td><code>camelCase</code>，<code>is</code> 前缀</td>
+<td><code>isOperator</code>，<code>isTemplateStringsArray</code></td>
+</tr>
+<tr>
+<td>泛型类型参数</td>
+<td>单个大写或 PascalCase</td>
+<td><code>T</code>，<code>TData</code>，<code>TResult</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1.1-%E7%BC%A9%E5%86%99%E8%A7%84%E5%88%99" tabindex="-1">1.1 缩写规则</h3>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>正确</th>
+<th>错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单词边界的缩写</td>
+<td><code>parseApiFilenameFromStack</code></td>
+<td><code>parseAPIFilenameFromStack</code></td>
+</tr>
+<tr>
+<td>常见技术术语作为单词</td>
+<td><code>Http</code>，<code>Json</code>，<code>Url</code>，<code>Html</code>，<code>Id</code></td>
+<td><code>HTTP</code>，<code>JSON</code>，<code>URL</code>，<code>HTML</code>，<code>ID</code></td>
+</tr>
+<tr>
+<td><code>lifecycle</code> 作为一个单词</td>
+<td><code>lifecycleKey</code>，<code>LifecycleHook</code></td>
+<td><code>lifeCycleKey</code>，<code>LifeCycleHook</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="1.2-%E5%B8%B8%E8%A7%81%E5%8A%A8%E8%AF%8D%E5%89%8D%E7%BC%80" tabindex="-1">1.2 常见动词前缀</h3>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>define*</code></td>
+<td>定义 API 或 Job：<code>defineApi</code>，<code>defineJob</code></td>
+</tr>
+<tr>
+<td><code>create*</code></td>
+<td>工厂方法：<code>createClient</code>，<code>createSplittingContext</code></td>
+</tr>
+<tr>
+<td><code>get*</code> / <code>set*</code></td>
+<td>访问器：<code>getClient</code>，<code>setMock</code></td>
+</tr>
+<tr>
+<td><code>parse*</code> / <code>format*</code></td>
+<td>解析 / 格式化：<code>parseSchemaValue</code>，<code>formatSchemaError</code></td>
+</tr>
+<tr>
+<td><code>use*</code></td>
+<td>React 钩子：<code>useFaas</code>，<code>useStateRef</code></td>
+</tr>
+<tr>
+<td><code>is*</code></td>
+<td>类型守卫 / 谓词：<code>isOperator</code>，<code>isTypegenInputFile</code></td>
+</tr>
+<tr>
+<td><code>*Options</code></td>
+<td>配置类型：<code>ServerOptions</code>，<code>EnqueueJobOptions</code></td>
+</tr>
+<tr>
+<td><code>*Props</code></td>
+<td>React 属性类型：<code>FaasDataWrapperProps</code></td>
+</tr>
+<tr>
+<td><code>*Data</code> / <code>*Inject</code></td>
+<td>defineApi 数据 / 注入类型：<code>DefineApiData</code>，<code>DefineApiInject</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2.-%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%91%BD%E5%90%8D" tabindex="-1">2. 文件和目录命名</h2>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>规范</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>源目录</td>
+<td><code>camelCase</code></td>
+<td><code>loadPackage/</code>，<code>parseYaml/</code></td>
+</tr>
+<tr>
+<td>源文件</td>
+<td><code>kebab-case</code></td>
+<td><code>query-builder.ts</code>，<code>http-error.ts</code></td>
+</tr>
+<tr>
+<td>测试文件</td>
+<td><code>kebab-case</code> + <code>.test.ts</code></td>
+<td><code>query-builder.test.ts</code></td>
+</tr>
+<tr>
+<td>组件文件</td>
+<td>PascalCase，与组件名称匹配</td>
+<td><code>UserCard.tsx</code> → <code>export function UserCard()</code></td>
+</tr>
+<tr>
+<td>钩子文件</td>
+<td>camelCase，与钩子名称匹配</td>
+<td><code>useUser.ts</code> → <code>export function useUser()</code></td>
+</tr>
+<tr>
+<td>类型定义文件</td>
+<td><code>kebab-case</code></td>
+<td><code>types.ts</code>，<code>server-types.ts</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3.-%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95" tabindex="-1">3. 审查清单</h2>
+<ul>
+<li>[ ] 函数以动词开头（camelCase）</li>
+<li>[ ] 类型 / 接口 / 常量为 PascalCase</li>
+<li>[ ] 目录使用 camelCase</li>
+<li>[ ] 文件使用 kebab-case（组件/钩子文件使用自己的名称）</li>
+<li>[ ] 缩写遵循单词规则：<code>Http</code>、<code>Json</code>、<code>Url</code>、<code>Id</code></li>
+<li>[ ] <code>lifecycle</code> 是一个单词，全部小写</li>
+</ul>
+<hr>
+<h2 id="%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB" tabindex="-1">延伸阅读</h2>
+<ul>
+<li><a href="/zh/guidelines/file-conventions.html">文件约定</a> — 文件放置规则</li>
+<li><a href="/zh/guidelines/code-comments.html">代码注释指南</a> — 何时重命名 vs 添加注释</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
