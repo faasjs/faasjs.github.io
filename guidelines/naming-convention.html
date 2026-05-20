@@ -204,6 +204,29 @@
 </table>
 <hr>
 <h2 id="2.-file-and-directory-naming" tabindex="-1">2. File and Directory Naming</h2>
+<p>Both directories and files use <code>kebab-case</code> by default, with two exceptions:</p>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Convention</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>React component</td>
+<td>PascalCase, matches component name</td>
+<td><code>UserCard.tsx</code> → <code>export function UserCard()</code></td>
+</tr>
+<tr>
+<td>React hook</td>
+<td>camelCase, matches hook name</td>
+<td><code>useUser.ts</code> → <code>export function useUser()</code></td>
+</tr>
+</tbody>
+</table>
+<p>All other directories and files use <code>kebab-case</code>:</p>
 <table>
 <thead>
 <tr>
@@ -214,9 +237,9 @@
 </thead>
 <tbody>
 <tr>
-<td>Source directories</td>
-<td><code>camelCase</code></td>
-<td><code>loadPackage/</code>, <code>parseYaml/</code></td>
+<td>Directories</td>
+<td><code>kebab-case</code></td>
+<td><code>load-package/</code>, <code>parse-yaml/</code></td>
 </tr>
 <tr>
 <td>Source files</td>
@@ -229,29 +252,21 @@
 <td><code>query-builder.test.ts</code></td>
 </tr>
 <tr>
-<td>Component files</td>
-<td>PascalCase, matches component name</td>
-<td><code>UserCard.tsx</code> → <code>export function UserCard()</code></td>
-</tr>
-<tr>
-<td>Hook files</td>
-<td>camelCase, matches hook name</td>
-<td><code>useUser.ts</code> → <code>export function useUser()</code></td>
-</tr>
-<tr>
 <td>Type definition files</td>
 <td><code>kebab-case</code></td>
 <td><code>types.ts</code>, <code>server-types.ts</code></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>A directory containing a React component uses PascalCase (e.g. <code>ErrorBoundary/</code>), and a directory containing a React hook uses camelCase (e.g. <code>useFaas/</code>). Everything else — utilities, APIs, jobs, services — uses <code>kebab-case</code>.</p>
+</blockquote>
 <hr>
 <h2 id="3.-review-checklist" tabindex="-1">3. Review Checklist</h2>
 <ul>
 <li>[ ] Functions start with a verb (camelCase)</li>
 <li>[ ] Types / interfaces / constants are PascalCase</li>
-<li>[ ] Directories use camelCase</li>
-<li>[ ] Files use kebab-case (component/hook files use their own name)</li>
+<li>[ ] Directories and files use kebab-case (React components/hooks use their own convention)</li>
 <li>[ ] Abbreviations follow the word rule: <code>Http</code>, <code>Json</code>, <code>Url</code>, <code>Id</code></li>
 <li>[ ] <code>lifecycle</code> is one word, all lowercase</li>
 </ul>
