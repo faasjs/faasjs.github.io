@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Plugins 指南 | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/plugins.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/plugins.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/plugins.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/plugins.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选技术栈指南">精选技术栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建器与原生 SQL 指南">PG 查询构建器与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG 模式与迁移指南">PG 模式与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/cli-and-tooling.html" aria-label="CLI 和工具指南">CLI 和工具指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/crud-patterns.html" aria-label="CRUD 模式指南">CRUD 模式指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/getting-started.html" aria-label="快速入门指南">快速入门指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/naming-convention.html" aria-label="命名规范">命名规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/plugins.html" aria-label="Plugins 指南">Plugins 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="plugins-%E6%8C%87%E5%8D%97" tabindex="-1">Plugins 指南</h1>
+<p>当需要添加在每个请求之前或之后运行的横切关注点行为时——例如身份验证、租户解析、请求日志记录、速率限制或功能开关——请使用本指南。插件会挂载到 FaasJS 请求生命周期中，并可将类型化的字段注入到 <code>defineApi</code> 和 <code>defineJob</code> 处理函数中。</p>
+<h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
+<ul>
+<li>将 <code>current_user</code>、租户上下文或请求元数据注入到每个处理函数中</li>
+<li>添加请求级别的日志记录、追踪或计时</li>
+<li>在业务处理函数运行之前验证身份令牌、API 密钥或权限</li>
+<li>通过共享层控制响应形态（头信息、响应体、状态码）</li>
+<li>使用设置和清理逻辑包裹每个请求（例如开启事务、清除缓存）</li>
+</ul>
+<h2 id="%E6%8F%92%E4%BB%B6%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86" tabindex="-1">插件工作原理</h2>
+<p>FaasJS 插件遵循 Koa 风格的中间件模型。每个插件都有一个 <code>type</code>（来源标识）和一个 <code>name</code>（运行时实例 ID）。插件按注册顺序执行：</p>
+<ol>
+<li><code>onMount</code>：每个 <code>Func</code> 实例在首次请求之前运行一次。用于初始化连接、合并配置或验证前置条件。</li>
+<li><code>onInvoke</code>：在每个请求上运行。插件接收一个在整个链中共享的可变 <code>InvokeData</code> 对象。使用 <code>await next()</code> 继续执行下一个插件或业务处理函数。</li>
+</ol>
+<p>内置的 <code>RunHandler</code> 插件始终最后运行，并调用业务处理函数。用户插件始终在其之前执行。</p>
+<h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
+<ol>
+<li>确定插件是一次性的（内联在特定 API 中）还是可复用的（跨端点共享）。</li>
+<li>对于可复用插件，在项目中创建一个 <code>plugins/</code> 目录（例如 <code>src/plugins/auth.ts</code>）。</li>
+<li>实现 <code>Plugin</code> 接口，包含 <code>type</code>、<code>name</code> 和至少一个生命周期方法（<code>onMount</code> 或 <code>onInvoke</code>）。</li>
+<li>通过在调用 <code>await next()</code> 之前修改 <code>data</code> 来注入字段。</li>
+<li>为 <code>DefineApiInject</code> 添加 TypeScript 声明合并，使处理函数可以看到类型化的注入字段。</li>
+<li>通过 <code>faas.yaml</code>（配置驱动）或直接在代码中（在 <code>Func</code> 或 <code>defineApi</code> 上）注册插件。</li>
+</ol>
+<h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
+<h3 id="1.-%E6%AD%A3%E7%A1%AE%E5%AE%9E%E7%8E%B0-plugin-%E6%8E%A5%E5%8F%A3" tabindex="-1">1. 正确实现 Plugin 接口</h3>
+<p>每个插件必须将 <code>type</code> 和 <code>name</code> 暴露为只读字符串，并实现至少一个生命周期方法。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InvokeData</span>, <span class="hljs-title class_">MountData</span>, <span class="hljs-title class_">Next</span>, <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;auth&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;auth&#x27;</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onMount</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">MountData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    <span class="hljs-comment">// 运行一次：加载密钥，验证配置</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    <span class="hljs-comment">// 在每个请求上运行：解析当前用户</span>
+    data.<span class="hljs-property">current_user</span> = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> }
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  }
+}
+</code></pre>
+<ul>
+<li><code>type</code> 标识插件来源或模块，而非运行时实例。</li>
+<li><code>name</code> 是运行时身份标识，必须保持稳定——它用于排序、去重、配置查找和日志记录。</li>
+<li>当插件没有配置驱动的变体时，<code>name</code> 和 <code>type</code> 可以相同。</li>
+</ul>
+<h3 id="2.-%E9%80%9A%E8%BF%87%E4%BF%AE%E6%94%B9-invokedata-%E6%9D%A5%E6%B3%A8%E5%85%A5%E5%AD%97%E6%AE%B5" tabindex="-1">2. 通过修改 <code>InvokeData</code> 来注入字段</h3>
+<p>插件共享一个可变 <code>InvokeData</code> 对象。在调用 <code>next()</code> 之前向其中添加字段，以便下游插件和业务处理函数可以接收到它们。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+  data.<span class="hljs-property">current_user</span> = <span class="hljs-keyword">await</span> <span class="hljs-title function_">resolveUser</span>(data.<span class="hljs-property">event</span>.<span class="hljs-property">headers</span>?.<span class="hljs-property">authorization</span>)
+  data.<span class="hljs-property">requestId</span> = crypto.<span class="hljs-title function_">randomUUID</span>()
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+}
+</code></pre>
+<ul>
+<li>优先直接向 <code>data</code> 添加字段，而非使用 <code>context</code>——<code>context</code> 用于框架内部机制。</li>
+<li>不要将 <code>data</code> 包装在另一个对象中；在顶层添加字段，以便处理函数可以直接访问它们。</li>
+</ul>
+<h3 id="3.-%E9%80%9A%E8%BF%87-defineapiinject-%E6%A8%A1%E5%9D%97%E5%A2%9E%E5%BC%BA%E6%8F%90%E4%BE%9B%E7%B1%BB%E5%9E%8B" tabindex="-1">3. 通过 <code>DefineApiInject</code> 模块增强提供类型</h3>
+<p>当插件作者通过 TypeScript 模块增强声明注入字段时，处理函数会获得类型化的注入字段。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InvokeData</span>, <span class="hljs-title class_">Next</span>, <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">DefineApiInject</span> {
+    <span class="hljs-attr">current_user</span>?: {
+      <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>
+      <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+      <span class="hljs-attr">roles</span>: <span class="hljs-built_in">string</span>[]
+    } | <span class="hljs-literal">null</span>
+  }
+}
+</code></pre>
+<p>这使得 <code>defineApi</code> 处理函数可以引用 <code>current_user</code> 并拥有完整的类型安全：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineApi</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ current_user }</span>) {
+    <span class="hljs-comment">// current_user 类型为 { id: number; name: string; roles: string[] } | undefined | null</span>
+    <span class="hljs-keyword">if</span> (!current_user) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpError</span>({ <span class="hljs-attr">statusCode</span>: <span class="hljs-number">401</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;未认证&#x27;</span> })
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">user</span>: current_user }
+  },
+})
+</code></pre>
+<h3 id="4.-%E4%BD%BF%E7%94%A8-onmount-%E8%BF%9B%E8%A1%8C%E4%B8%80%E6%AC%A1%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96" tabindex="-1">4. 使用 <code>onMount</code> 进行一次性初始化</h3>
+<p><code>onMount</code> 在每个 <code>Func</code> 实例的首次 <code>onInvoke</code> 之前运行一次。用于：</p>
+<ul>
+<li>加载密钥、证书或远程配置</li>
+<li>验证插件的前置条件是否满足</li>
+<li>将 <code>faas.yaml</code> 配置合并到插件实例中</li>
+<li>打开持久连接</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DatabasePlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;db&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;db&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-attr">config</span>?: <span class="hljs-title class_">DbConfig</span>
+  <span class="hljs-keyword">private</span> <span class="hljs-attr">pool</span>?: <span class="hljs-title class_">Pool</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onMount</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">MountData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    <span class="hljs-comment">// 将 YAML 配置合并到 this.config 中</span>
+    <span class="hljs-keyword">if</span> (data.<span class="hljs-property">config</span>.<span class="hljs-property">plugins</span>?.[<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>]?.<span class="hljs-property">config</span>) {
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span> = { ...data.<span class="hljs-property">config</span>.<span class="hljs-property">plugins</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>].<span class="hljs-property">config</span> }
+    }
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">pool</span> = <span class="hljs-keyword">await</span> <span class="hljs-title function_">createPool</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>?.<span class="hljs-property">connectionString</span>)
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  }
+}
+</code></pre>
+<ul>
+<li><code>onMount</code> 按插件顺序运行且最多运行一次。</li>
+<li>来自 <code>faas.yaml</code> 的配置在 <code>onMount</code> 期间可通过 <code>data.config.plugins[name]</code> 获取。</li>
+</ul>
+<h3 id="5.-%E9%80%9A%E8%BF%87-faas.yaml-%E6%B3%A8%E5%86%8C%E6%8F%92%E4%BB%B6%E4%BB%A5%E5%AE%9E%E7%8E%B0%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8%E7%9A%84%E5%8A%A0%E8%BD%BD" tabindex="-1">5. 通过 <code>faas.yaml</code> 注册插件以实现配置驱动的加载</h3>
+<p>推荐通过 <code>faas.yaml</code> 配置可复用插件。这样可以保持插件配置的声明式风格，并支持目录级别的覆盖。</p>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># src/faas.yaml</span>
+<span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">http:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">http</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">cookie:</span>
+          <span class="hljs-attr">secure:</span> <span class="hljs-literal">false</span>
+    <span class="hljs-attr">auth:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">file://./plugins/auth.ts</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">provider:</span> <span class="hljs-string">jwt</span>
+        <span class="hljs-attr">secret:</span> <span class="hljs-string">${AUTH_SECRET}</span>
+</code></pre>
+<p><code>faas.yaml</code> 中的插件条目以插件 <code>name</code> 为键。每个条目需要：</p>
+<ul>
+<li><code>type</code>：解析插件模块。本地插件文件使用 <code>file://</code>，裸名称（例如 <code>auth</code>）用于 <code>@faasjs/&lt;type&gt;</code> 包，作用域名称用于 npm 包。</li>
+<li><code>config</code>：传递给插件实例的可选配置。</li>
+</ul>
+<p>对于内置插件，<code>type</code> 可以省略：</p>
+<ul>
+<li><code>http</code> 自动解析为 <code>@faasjs/core</code>。</li>
+</ul>
+<h3 id="6.-%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%B3%A8%E5%86%8C%E6%8F%92%E4%BB%B6%E7%94%A8%E4%BA%8E%E4%B8%80%E6%AC%A1%E6%80%A7%E6%88%96%E7%A8%8B%E5%BA%8F%E5%8C%96%E5%9C%BA%E6%99%AF" tabindex="-1">6. 在代码中注册插件用于一次性或程序化场景</h3>
+<p>对于特定于单个 API 或需要程序化构建的插件，可以直接传递给 <code>Func</code> 或 <code>defineApi</code>。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">InvokeData</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Next</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TracePlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;@/plugins/trace&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;trace&#x27;</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    <span class="hljs-keyword">const</span> start = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    data.<span class="hljs-property">logger</span>.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;请求耗时 %dms&#x27;</span>, <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() - start)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-keyword">new</span> <span class="hljs-title class_">TracePlugin</span>()],
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ context }</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">ok</span>: <span class="hljs-literal">true</span> }
+  },
+})
+</code></pre>
+<p>对于 <code>defineApi</code>，将插件添加到 <code>api.plugins</code> 中（在 <code>RunHandler</code> 之前）：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> api = <span class="hljs-title function_">defineApi</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ context }</span>) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">loaded</span>: context.<span class="hljs-property">sharedLoaded</span> }
+  },
+})
+
+api.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">unshift</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SharedPlugin</span>())
+</code></pre>
+<ul>
+<li>手动插件数组不执行隐式去重。</li>
+<li>当同一 <code>name</code> 的插件同时存在于代码中和 <code>faas.yaml</code> 配置中时，现有的代码实例被复用，并通过 <code>applyConfig</code> 或深度合并接收合并后的配置。</li>
+</ul>
+<h3 id="7.-%E7%90%86%E8%A7%A3%E9%85%8D%E7%BD%AE%E5%90%88%E5%B9%B6%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7" tabindex="-1">7. 理解配置合并与优先级</h3>
+<p>插件配置可以来自三个来源，按以下顺序合并：</p>
+<ol>
+<li><strong>项目根目录 <code>faas.yaml</code></strong>——基线配置</li>
+<li><strong>更深层目录的 <code>faas.yaml</code></strong>——作用域级别的覆盖（深度合并，更深层目录获胜）</li>
+<li><strong>代码编写的配置</strong>——<code>api.config.plugins[name]</code> 上的内联配置（最高优先级）</li>
+</ol>
+<pre><code class="hljs">faas.yaml 根目录  →  faas.yaml 更深层  →  代码配置（获胜）
+</code></pre>
+<p>真实场景示例：</p>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># src/faas.yaml</span>
+<span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">auth:</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">file://./plugins/auth.ts</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">provider:</span> <span class="hljs-string">jwt</span>
+        <span class="hljs-attr">secret:</span> <span class="hljs-string">base-secret</span>
+</code></pre>
+<pre><code class="hljs language-yaml"><span class="hljs-comment"># src/admin/faas.yaml</span>
+<span class="hljs-attr">defaults:</span>
+  <span class="hljs-attr">plugins:</span>
+    <span class="hljs-attr">auth:</span>
+      <span class="hljs-attr">config:</span>
+        <span class="hljs-attr">secret:</span> <span class="hljs-string">admin-secret</span>
+</code></pre>
+<pre><code class="hljs language-ts">api.<span class="hljs-property">config</span> = {
+  <span class="hljs-attr">plugins</span>: {
+    <span class="hljs-attr">auth</span>: { <span class="hljs-attr">config</span>: { <span class="hljs-attr">secret</span>: <span class="hljs-string">&#x27;code-secret&#x27;</span> } },
+  },
+}
+</code></pre>
+<p>解析后的配置：<code>provider</code> 保持为 <code>'jwt'</code>（来自根目录），<code>secret</code> 变为 <code>'code-secret'</code>（代码配置覆盖两个 YAML 层）。</p>
+<h3 id="8.-%E5%AE%9E%E7%8E%B0-applyconfig-%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E5%90%88%E5%B9%B6" tabindex="-1">8. 实现 <code>applyConfig</code> 以自定义配置合并</h3>
+<p>当插件需要超出深度合并的自定义合并逻辑时，实现 <code>applyConfig</code>。此方法在 YAML 分层之后、<code>onMount</code> 之前接收插件 <code>name</code> 的最终解析配置。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;auth&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;auth&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-attr">config</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; = {}
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">applyConfig</span>(<span class="hljs-params"><span class="hljs-attr">config</span>: { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>; name: <span class="hljs-built_in">string</span>; config?: Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }</span>) {
+    <span class="hljs-comment">// 自定义合并逻辑</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span> = {
+      <span class="hljs-attr">provider</span>: config.<span class="hljs-property">config</span>?.<span class="hljs-property">provider</span> || <span class="hljs-string">&#x27;jwt&#x27;</span>,
+      <span class="hljs-attr">secret</span>: config.<span class="hljs-property">config</span>?.<span class="hljs-property">secret</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">AUTH_SECRET</span>,
+    }
+  }
+}
+</code></pre>
+<ul>
+<li>仅当插件在代码中注册且在 <code>faas.yaml</code> 中存在其 <code>name</code> 的配置时，才会调用 <code>applyConfig</code>。</li>
+<li>如果你不实现 <code>applyConfig</code>，加载器会自动将 <code>config.config</code> 深度合并到 <code>plugin.config</code> 中。</li>
+</ul>
+<h3 id="9.-%E6%AF%8F%E4%B8%AA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%E4%BB%85%E8%B0%83%E7%94%A8-next()-%E4%B8%80%E6%AC%A1" tabindex="-1">9. 每个生命周期钩子仅调用 <code>next()</code> 一次</h3>
+<p>生命周期链依赖于 <code>await next()</code>。在同一个钩子中多次调用会导致 <code>next() called multiple times</code> 错误。</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// 正确：仅调用 next() 一次</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+  data.<span class="hljs-property">logger</span>.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;调用前&#x27;</span>)
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  data.<span class="hljs-property">logger</span>.<span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;调用后&#x27;</span>)
+}
+
+<span class="hljs-comment">// 错误：这将抛出异常</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>() <span class="hljs-comment">// 拒绝: &quot;next() called multiple times&quot;</span>
+}
+</code></pre>
+<ul>
+<li>用设置/清理逻辑包裹 <code>next()</code>——<code>next()</code> 之前的代码在请求进入时运行，<code>next()</code> 之后的代码在请求结束返回时运行。</li>
+<li>链中位于你插件之后的插件（包括业务处理函数）在你的 <code>next()</code> 调用期间执行。</li>
+</ul>
+<h3 id="10.-%E4%BD%BF%E7%94%A8%E7%9C%9F%E5%AE%9E%E7%9A%84-func-%E5%AE%9E%E4%BE%8B%E6%B5%8B%E8%AF%95%E6%8F%92%E4%BB%B6" tabindex="-1">10. 使用真实的 <code>Func</code> 实例测试插件</h3>
+<p>通过真实的 <code>Func</code> 或 <code>defineApi</code> 测试插件，以演练完整的生命周期。</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Func</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">InvokeData</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Next</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+<span class="hljs-keyword">import</span> { describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TestPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;test&#x27;</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;test&#x27;</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+    data.<span class="hljs-property">injected</span> = <span class="hljs-string">&#x27;value&#x27;</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+  }
+}
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;TestPlugin&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;将字段注入到处理函数数据中&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
+      <span class="hljs-attr">plugins</span>: [<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestPlugin</span>()],
+      <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">{ injected }</span>) =&gt;</span> ({ injected }),
+    })
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> func.<span class="hljs-title function_">invoke</span>({})
+    <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">injected</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;value&#x27;</span>)
+  })
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;包裹处理函数执行&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> <span class="hljs-attr">callOrder</span>: <span class="hljs-built_in">string</span>[] = []
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">WrapPlugin</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Plugin</span> {
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span> = <span class="hljs-string">&#x27;wrap&#x27;</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name = <span class="hljs-string">&#x27;wrap&#x27;</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">_data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+        callOrder.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;调用前&#x27;</span>)
+        <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+        callOrder.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;调用后&#x27;</span>)
+      }
+    }
+    <span class="hljs-keyword">const</span> func = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Func</span>({
+      <span class="hljs-attr">plugins</span>: [<span class="hljs-keyword">new</span> <span class="hljs-title class_">WrapPlugin</span>()],
+      <span class="hljs-attr">handler</span>: <span class="hljs-function">() =&gt;</span> {
+        callOrder.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;处理函数&#x27;</span>)
+        <span class="hljs-keyword">return</span> {}
+      },
+    })
+    <span class="hljs-keyword">await</span> func.<span class="hljs-title function_">invoke</span>({})
+    <span class="hljs-title function_">expect</span>(callOrder).<span class="hljs-title function_">toEqual</span>([<span class="hljs-string">&#x27;调用前&#x27;</span>, <span class="hljs-string">&#x27;处理函数&#x27;</span>, <span class="hljs-string">&#x27;调用后&#x27;</span>])
+  })
+})
+</code></pre>
+<p>对于 <code>defineApi</code> 插件，使用 <code>@faasjs/dev</code> 中的 <code>testApi</code>：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> { describe, expect, it } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
+
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../create.api&#x27;</span>
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;带 auth 插件的创建操作&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;无用户时返回 401&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({ <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;test&#x27;</span> })
+    <span class="hljs-title function_">expect</span>(response.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">401</span>)
+  })
+})
+</code></pre>
+<h2 id="%E6%8F%92%E4%BB%B6%E4%B8%8E%E5%85%B6%E4%BB%96%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AF%B9%E6%AF%94" tabindex="-1">插件与其他机制的对比</h2>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>使用方式</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证、租户、请求元数据、日志记录</td>
+<td>插件</td>
+<td>在每个请求上运行，状态注入到处理函数数据中</td>
+</tr>
+<tr>
+<td>输入验证</td>
+<td>API 中的 <code>schema</code></td>
+<td><code>defineApi</code> 中的 Zod schema 在边界处验证参数</td>
+</tr>
+<tr>
+<td>业务逻辑</td>
+<td>API 中的 <code>handler</code></td>
+<td>处理函数接收类型化的参数和注入字段</td>
+</tr>
+<tr>
+<td>处理函数内的数据库访问</td>
+<td><code>getClient()</code></td>
+<td>在处理函数内部，调用 <code>@faasjs/pg</code> 中的 <code>getClient()</code></td>
+</tr>
+<tr>
+<td>每个请求的一次性数据处理</td>
+<td>处理函数内联</td>
+<td>将一次性逻辑保留在处理函数中，除非影响多个端点</td>
+</tr>
+<tr>
+<td>后台工作</td>
+<td><code>defineJob</code></td>
+<td>使用 jobs 处理不应当阻塞请求的异步工作</td>
+</tr>
+<tr>
+<td>HTTP 级别行为</td>
+<td>内置 <code>http</code> 插件</td>
+<td>内置的 <code>http</code> 插件处理 cookie、session 和响应</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95" tabindex="-1">审查清单</h2>
+<ul>
+<li>插件将 <code>type</code> 和 <code>name</code> 实现为只读字符串</li>
+<li>插件实现了 <code>onMount</code>、<code>onInvoke</code> 或两者</li>
+<li>插件通过 <code>DefineApiInject</code> 增强为处理函数提供类型化的注入字段</li>
+<li>插件在 <code>faas.yaml</code> 中配置（可复用）或在代码中配置（一次性）</li>
+<li>插件在每个生命周期钩子中仅调用 <code>next()</code> 一次</li>
+<li>测试通过 <code>Func.invoke()</code> 或 <code>testApi()</code> 演练完整的生命周期</li>
+<li>配置合并顺序遵循 YAML 分层然后代码优先级的规则</li>
+<li>插件名称稳定且在同一个 <code>Func</code> 实例中不重复</li>
+</ul>
+<h2 id="%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB" tabindex="-1">进一步阅读</h2>
+<ul>
+<li><a href="/doc/specs/plugin.html">Plugin 规范</a> — 插件身份标识、生命周期、配置分层和加载的完整规范</li>
+<li><a href="/zh/guidelines/define-api.html">defineApi 指南</a> — 带 schema 验证的 API 端点定义</li>
+<li><a href="/zh/guidelines/testing.html">Testing 指南</a> — 测试原则和 <code>testApi</code> 使用</li>
+<li><a href="/zh/guidelines/jobs.html">Jobs 指南</a> — 后台任务和 <code>defineJob</code></li>
+<li><a href="/doc/specs/faas-yaml.html">faas.yaml 规范</a> — 完整的 YAML 配置参考</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
