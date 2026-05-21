@@ -70,12 +70,47 @@
 <p><code>faasjs</code></p>
 <ul>
 <li>[Break] Upgrade Node.js minimum version from 24.x to 26.x.</li>
+<li>[Feature] Add HTTP Plugin, Middleware, naming-convention, and plugins creation guides to faasjs-best-practices.</li>
+<li>[Feature] Add no-destructure-function-parameters and avoid-unnecessary-intermediate-variables rules to best-practices guidelines.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/utils</code></p>
 <ul>
 <li>[Feature] Add <code>z</code> export with Zod helper extensions for FaasJS boundary validation.</li>
+<li>[Feature] Add <code>parseJson</code>, <code>parseObjectFromJson</code>, <code>parseArrayFromJson</code>, and <code>isObjectRecord</code> for safe JSON parsing.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
+<ul>
+<li>[Feature] Add SQL query builder fluent CRUD API with <code>select</code>, <code>where</code>, <code>insert</code>, <code>update</code>, <code>delete</code>, <code>upsert</code>, <code>join</code>, <code>count</code>, <code>pluck</code>, <code>first</code>, <code>orderBy</code>, <code>limit</code>, and <code>offset</code> methods.</li>
+<li>[Feature] Add <code>updateJson()</code> for atomic JSONB column updates.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Break] Remove response compression from dev server; use a reverse proxy for compression in production.</li>
+<li>[Refactor] Consolidate server response writing into a unified <code>respond()</code> entry point.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/types</code></p>
+<ul>
+<li>[Feature] Add <code>TFunc</code> interface for plugin type annotations, breaking the circular dependency between <code>@faasjs/node-utils</code> and <code>@faasjs/core</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/ant-design</code></p>
+<ul>
+<li>[Feature] Export shared <code>renderDisplayValue</code> utility for custom Description and Table renderers.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/create-faas-app</code></p>
+<ul>
+<li>[Feature] Update scaffold templates to use <code>@faasjs/utils</code> zod exports and QueryBuilder CRUD API.</li>
 </ul>
 </li>
 </ul>

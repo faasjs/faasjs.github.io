@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Middleware Guide | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/middleware.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/middleware.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/middleware.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/middleware.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选技术栈指南">精选技术栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建器与原生 SQL 指南">PG 查询构建器与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG 模式与迁移指南">PG 模式与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/cli-and-tooling.html" aria-label="CLI 和工具指南">CLI 和工具指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/crud-patterns.html" aria-label="CRUD 模式指南">CRUD 模式指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/getting-started.html" aria-label="快速入门指南">快速入门指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/http-plugin.html" aria-label="HTTP Plugin Guide">HTTP Plugin Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/middleware.html" aria-label="Middleware Guide">Middleware Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/naming-convention.html" aria-label="命名规范">命名规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/plugins.html" aria-label="Plugins 指南">Plugins 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="middleware-guide" tabindex="-1">Middleware Guide</h1>
+<p>Use this guide when you need to serve static files in a FaasJS application.</p>
+<h2 id="statichandler" tabindex="-1">staticHandler</h2>
+<p><code>staticHandler</code> creates a middleware that serves files from a directory. It is used with <code>useMiddleware</code> to produce an exported handler.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { staticHandler, useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">useMiddleware</span>(
+  <span class="hljs-title function_">staticHandler</span>({
+    <span class="hljs-attr">root</span>: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/public`</span>,
+  }),
+)
+</code></pre>
+<h3 id="options" tabindex="-1">Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>root</code></td>
+<td><code>string</code></td>
+<td><em>(required)</em></td>
+<td>Directory root for resolving requested files</td>
+</tr>
+<tr>
+<td><code>notFound</code></td>
+<td><code>boolean | string | Middleware</code></td>
+<td><code>false</code></td>
+<td>Fallback when a file is missing</td>
+</tr>
+<tr>
+<td><code>cache</code></td>
+<td><code>boolean | string</code></td>
+<td><code>true</code></td>
+<td>Cache resolved file lookups by root directory</td>
+</tr>
+<tr>
+<td><code>stripPrefix</code></td>
+<td><code>string | RegExp</code></td>
+<td>—</td>
+<td>URL prefix to remove before resolving file path</td>
+</tr>
+</tbody>
+</table>
+<h4 id="notfound" tabindex="-1">notFound</h4>
+<ul>
+<li><code>false</code> (default) — leave the response untouched</li>
+<li><code>true</code> — send a plain <code>404 Not Found</code></li>
+<li>A string — serve a fallback file (e.g. <code>'index.html'</code> for SPA routing)</li>
+<li>A <code>Middleware</code> function — delegate the miss to custom logic</li>
+</ul>
+<h4 id="cache" tabindex="-1">cache</h4>
+<p>When enabled, resolved file paths and MIME types are cached by request URL so repeated lookups skip the filesystem.</p>
+<h3 id="path-traversal-protection" tabindex="-1">Path traversal protection</h3>
+<p><code>staticHandler</code> uses <code>isPathInsideRoot</code> to reject requests that escape the configured <code>root</code> directory. This prevents <code>../</code> traversal and symlink escape attacks.</p>
+<h3 id="example%3A-serve-a-public-directory-with-spa-fallback" tabindex="-1">Example: Serve a public directory with SPA fallback</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { staticHandler, useMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">useMiddleware</span>(
+  <span class="hljs-title function_">staticHandler</span>({
+    <span class="hljs-attr">root</span>: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/public`</span>,
+    <span class="hljs-attr">notFound</span>: <span class="hljs-string">&#x27;index.html&#x27;</span>,
+    <span class="hljs-attr">stripPrefix</span>: <span class="hljs-string">&#x27;/static&#x27;</span>,
+  }),
+)
+</code></pre>
+<p>Files in <code>public/</code> are served under the <code>/static</code> URL prefix. Requests for missing files receive <code>public/index.html</code>, making this pattern suitable for single-page application hosting.</p>
+<h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
+<ul>
+<li><code>staticHandler</code> is used with <code>useMiddleware</code>, not as a standalone export</li>
+<li><code>root</code> points to an absolute directory path</li>
+<li><code>notFound</code> is configured when the app needs SPA-style fallback routing</li>
+<li><code>stripPrefix</code> matches the URL prefix used in the frontend build</li>
+<li>Path traversal protection is active by default (no additional configuration needed)</li>
+</ul>
+<h2 id="further-reading" tabindex="-1">Further Reading</h2>
+<ul>
+<li><a href="/zh/guidelines/define-api.html">defineApi Guide</a></li>
+<li><a href="/zh/guidelines/project-config.html">Project Config Guide</a></li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
