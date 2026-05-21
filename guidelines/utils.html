@@ -68,6 +68,9 @@
 <ul>
 <li>Merging config objects recursively</li>
 <li>Converting text or JSON to and from streams</li>
+<li>Parsing JSON strings safely with type inference</li>
+<li>Normalizing unknown inputs into typed objects or arrays</li>
+<li>Validating data with Zod schemas</li>
 <li>Writing portable helper code that works across Node.js, browsers, and edge runtimes</li>
 </ul>
 <h2 id="what-%40faasjs%2Futils-gives-you" tabindex="-1">What <code>@faasjs/utils</code> Gives You</h2>
@@ -77,6 +80,11 @@
 <li><code>streamToString</code>: read a text stream back into a string</li>
 <li><code>objectToStream</code>: serialize JSON data into a stream</li>
 <li><code>streamToObject</code>: parse JSON data from a stream</li>
+<li><code>z</code>: extended Zod instance with convenience helpers (<code>positiveint</code>, <code>nonemptystring</code>)</li>
+<li><code>isObjectRecord</code>: type guard that checks if a value is a plain object</li>
+<li><code>parseJson</code>: safely parse a JSON string with type inference</li>
+<li><code>parseObjectFromJson</code>: normalize an existing object or JSON string into an object record</li>
+<li><code>parseArrayFromJson</code>: normalize an existing array or JSON string into an array</li>
 </ul>
 <h2 id="common-patterns" tabindex="-1">Common Patterns</h2>
 <h3 id="1.-merge-defaults-with-overrides" tabindex="-1">1. Merge defaults with overrides</h3>
@@ -147,11 +155,54 @@ config
 <li><code>objectToStream</code> goes with <code>streamToObject</code></li>
 <li>Prefer the JSON pair for structured data and the text pair for raw body content</li>
 </ul>
+<h3 id="5.-parse-json-safely" tabindex="-1">5. Parse JSON safely</h3>
+<ul>
+<li>Use <code>parseJson</code> when you have a JSON string and want a typed result.</li>
+<li>Use <code>parseObjectFromJson</code> when input could be an object or a JSON string — normalizes both into a typed record.</li>
+<li>Use <code>parseArrayFromJson</code> when input could be an array or a JSON string — normalizes both into a typed array.</li>
+<li>All three throw on invalid input, so wrap them in try/catch at trust boundaries.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseJson, parseObjectFromJson, parseArrayFromJson } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> data = parseJson&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;(<span class="hljs-string">&#x27;{&quot;id&quot;: 1}&#x27;</span>)
+<span class="hljs-comment">// data.id === 1</span>
+
+<span class="hljs-keyword">const</span> obj = parseObjectFromJson&lt;{ <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }&gt;(event.<span class="hljs-property">body</span>)
+<span class="hljs-comment">// Accepts both { name: &quot;alice&quot; } and &#x27;{&quot;name&quot;: &quot;alice&quot;}&#x27;</span>
+
+<span class="hljs-keyword">const</span> arr = parseArrayFromJson&lt;<span class="hljs-built_in">string</span>[]&gt;(rawItems)
+<span class="hljs-comment">// Accepts both [&quot;a&quot;, &quot;b&quot;] and &#x27;[&quot;a&quot;, &quot;b&quot;]&#x27;</span>
+</code></pre>
+<h3 id="6.-validate-data-with-zod-schemas" tabindex="-1">6. Validate data with Zod schemas</h3>
+<ul>
+<li>Use <code>z</code> (the extended Zod instance) instead of importing bare <code>zod</code> for FaasJS projects.</li>
+<li><code>z.positiveint()</code> returns a schema that only allows positive integers.</li>
+<li><code>z.nonemptystring()</code> returns a schema that only allows non-empty strings.</li>
+<li>Use <code>isObjectRecord</code> as a type guard in generic code to narrow <code>unknown</code> to <code>Record&lt;string, unknown&gt;</code>.</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { z, isObjectRecord } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> schema = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">nonemptystring</span>(),
+  <span class="hljs-attr">age</span>: z.<span class="hljs-title function_">positiveint</span>(),
+})
+
+<span class="hljs-comment">// Type guard for generic code</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">process</span>(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">unknown</span></span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isObjectRecord</span>(value)) {
+    <span class="hljs-comment">// value is narrowed to Record&lt;string, unknown&gt;</span>
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(value))
+  }
+}
+</code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li><code>deepMerge</code> is used only when recursive merging is actually needed</li>
 <li>text payloads use the text stream helpers</li>
 <li>JSON payloads use the object stream helpers</li>
+<li>JSON parsing uses <code>parseJson</code> / <code>parseObjectFromJson</code> / <code>parseArrayFromJson</code> instead of raw <code>JSON.parse</code></li>
+<li>input normalization prefers <code>parseObjectFromJson</code> or <code>parseArrayFromJson</code> over type assertions</li>
+<li>Zod schema validation uses <code>@faasjs/utils</code> <code>z</code> instead of bare <code>zod</code> for consistency</li>
 <li>examples and tests choose the smallest helper that keeps intent obvious</li>
 </ul>
 <h2 id="further-reading" tabindex="-1">Further Reading</h2>
@@ -162,6 +213,10 @@ config
 <li><a href="/doc/utils/functions/streamToObject.html">streamToObject</a></li>
 <li><a href="/doc/utils/functions/streamToString.html">streamToString</a></li>
 <li><a href="/doc/utils/functions/stringToStream.html">stringToStream</a></li>
+<li><a href="/doc/utils/functions/parseJson.html">parseJson</a></li>
+<li><a href="/doc/utils/functions/parseObjectFromJson.html">parseObjectFromJson</a></li>
+<li><a href="/doc/utils/functions/parseArrayFromJson.html">parseArrayFromJson</a></li>
+<li><a href="/doc/utils/functions/isObjectRecord.html">isObjectRecord</a></li>
 </ul>
 </div></div>
           </div>

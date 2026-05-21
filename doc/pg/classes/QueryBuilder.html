@@ -507,18 +507,40 @@
   .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>)
   .<span class="hljs-title function_">update</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }, { <span class="hljs-attr">returning</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; [{ name: &#x27;Alice&#x27; }]</span>
 </code></pre>
+<h3 id="updatejson()" tabindex="-1">updateJson()</h3>
+<blockquote>
+<p><strong>updateJson</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
+</blockquote>
+<p>Atomically updates a JSON/JSONB column using the <code>||</code> merge operator,
+avoiding read-modify-write race conditions.</p>
+<h4 id="type-parameters-13" tabindex="-1">Type Parameters</h4>
+<h5 id="c-8" tabindex="-1">C</h5>
+<p><code>C</code> <em>extends</em> <code>string</code></p>
+<h4 id="parameters-21" tabindex="-1">Parameters</h4>
+<h5 id="column-8" tabindex="-1">column</h5>
+<p><code>C</code></p>
+<p>The JSON/JSONB column to update.</p>
+<h5 id="value-6" tabindex="-1">value</h5>
+<p><code>Partial</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;</p>
+<p>The object to merge into the column.</p>
+<h4 id="returns-25" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
+<h4 id="example-15" tabindex="-1">Example</h4>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">updateJson</span>(<span class="hljs-string">&#x27;metadata&#x27;</span>, { <span class="hljs-attr">age</span>: <span class="hljs-number">30</span> })
+<span class="hljs-comment">// UPDATE &quot;users&quot; SET &quot;metadata&quot; = &quot;metadata&quot; || &#x27;{&quot;age&quot;:30}&#x27; WHERE &quot;id&quot; = 1</span>
+</code></pre>
 <h3 id="upsert()" tabindex="-1">upsert()</h3>
 <blockquote>
 <p><strong>upsert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
 </blockquote>
 <p>Inserts or updates records in the database table.</p>
-<h4 id="type-parameters-13" tabindex="-1">Type Parameters</h4>
+<h4 id="type-parameters-14" tabindex="-1">Type Parameters</h4>
 <h5 id="firstvalue-1" tabindex="-1">FirstValue</h5>
 <p><code>FirstValue</code> <em>extends</em> <code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
 <p>A partial type of the table's row type.</p>
 <h5 id="returning-2" tabindex="-1">Returning</h5>
 <p><code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] | keyof <code>FirstValue</code>[]</p>
-<h4 id="parameters-21" tabindex="-1">Parameters</h4>
+<h4 id="parameters-22" tabindex="-1">Parameters</h4>
 <h5 id="values-2" tabindex="-1">values</h5>
 <p><code>FirstValue</code> | [<code>FirstValue</code>, <code>...{ [K in string]: ColumnValue&lt;T, K&gt; }[]</code>]</p>
 <p>The values to insert or update. Can be a single object or an array of objects.</p>
@@ -533,12 +555,12 @@
 <h6 id="update%3F" tabindex="-1">update?</h6>
 <p>keyof <code>FirstValue</code>[]</p>
 <p>The columns to update if a conflict occurs.</p>
-<h4 id="returns-25" tabindex="-1">Returns</h4>
+<h4 id="returns-26" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
 <ul>
 <li>A promise that resolves to the result of the upsert operation.</li>
 </ul>
-<h4 id="example-15" tabindex="-1">Example</h4>
+<h4 id="example-16" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">upsert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }, { <span class="hljs-attr">conflict</span>: [<span class="hljs-string">&#x27;id&#x27;</span>], <span class="hljs-attr">update</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; []</span>
 </code></pre>
 <h3 id="where()" tabindex="-1">where()</h3>
@@ -547,11 +569,11 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-14" tabindex="-1">Type Parameters</h5>
-<h6 id="c-8" tabindex="-1">C</h6>
+<h5 id="type-parameters-15" tabindex="-1">Type Parameters</h5>
+<h6 id="c-9" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-22" tabindex="-1">Parameters</h5>
-<h6 id="column-8" tabindex="-1">column</h6>
+<h5 id="parameters-23" tabindex="-1">Parameters</h5>
+<h6 id="column-9" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
 <h6 id="operator-7" tabindex="-1">operator</h6>
@@ -560,9 +582,9 @@
 <h6 id="value%3F-1" tabindex="-1">value?</h6>
 <p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
 <p>The value to compare against.</p>
-<h5 id="returns-26" tabindex="-1">Returns</h5>
+<h5 id="returns-27" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-16" tabindex="-1">Example</h5>
+<h5 id="example-17" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -576,22 +598,22 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-15" tabindex="-1">Type Parameters</h5>
-<h6 id="c-9" tabindex="-1">C</h6>
+<h5 id="type-parameters-16" tabindex="-1">Type Parameters</h5>
+<h6 id="c-10" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-23" tabindex="-1">Parameters</h5>
-<h6 id="column-9" tabindex="-1">column</h6>
+<h5 id="parameters-24" tabindex="-1">Parameters</h5>
+<h6 id="column-10" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
 <h6 id="operator-8" tabindex="-1">operator</h6>
 <p><code>&quot;IN&quot;</code> | <code>&quot;NOT IN&quot;</code></p>
 <p>The operator to use for comparison.</p>
-<h6 id="value-6" tabindex="-1">value</h6>
+<h6 id="value-7" tabindex="-1">value</h6>
 <p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]</p>
 <p>The value to compare against.</p>
-<h5 id="returns-27" tabindex="-1">Returns</h5>
+<h5 id="returns-28" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-17" tabindex="-1">Example</h5>
+<h5 id="example-18" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -605,19 +627,19 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-16" tabindex="-1">Type Parameters</h5>
-<h6 id="c-10" tabindex="-1">C</h6>
+<h5 id="type-parameters-17" tabindex="-1">Type Parameters</h5>
+<h6 id="c-11" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-24" tabindex="-1">Parameters</h5>
-<h6 id="column-10" tabindex="-1">column</h6>
+<h5 id="parameters-25" tabindex="-1">Parameters</h5>
+<h6 id="column-11" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
 <h6 id="operator-9" tabindex="-1">operator</h6>
 <p><code>&quot;IS NULL&quot;</code> | <code>&quot;IS NOT NULL&quot;</code></p>
 <p>The operator to use for comparison.</p>
-<h5 id="returns-28" tabindex="-1">Returns</h5>
+<h5 id="returns-29" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-18" tabindex="-1">Example</h5>
+<h5 id="example-19" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -631,22 +653,22 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-17" tabindex="-1">Type Parameters</h5>
-<h6 id="c-11" tabindex="-1">C</h6>
+<h5 id="type-parameters-18" tabindex="-1">Type Parameters</h5>
+<h6 id="c-12" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-25" tabindex="-1">Parameters</h5>
-<h6 id="column-11" tabindex="-1">column</h6>
+<h5 id="parameters-26" tabindex="-1">Parameters</h5>
+<h6 id="column-12" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
 <h6 id="operator-10" tabindex="-1">operator</h6>
 <p><code>&quot;LIKE&quot;</code> | <code>&quot;ILIKE&quot;</code> | <code>&quot;NOT LIKE&quot;</code> | <code>&quot;NOT ILIKE&quot;</code></p>
 <p>The operator to use for comparison.</p>
-<h6 id="value-7" tabindex="-1">value</h6>
+<h6 id="value-8" tabindex="-1">value</h6>
 <p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
 <p>The value to compare against.</p>
-<h5 id="returns-29" tabindex="-1">Returns</h5>
+<h5 id="returns-30" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-19" tabindex="-1">Example</h5>
+<h5 id="example-20" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -660,22 +682,22 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-18" tabindex="-1">Type Parameters</h5>
-<h6 id="c-12" tabindex="-1">C</h6>
+<h5 id="type-parameters-19" tabindex="-1">Type Parameters</h5>
+<h6 id="c-13" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-26" tabindex="-1">Parameters</h5>
-<h6 id="column-12" tabindex="-1">column</h6>
+<h5 id="parameters-27" tabindex="-1">Parameters</h5>
+<h6 id="column-13" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
 <h6 id="operator-11" tabindex="-1">operator</h6>
 <p><code>&quot;@&gt;&quot;</code></p>
 <p>The operator to use for comparison.</p>
-<h6 id="value-8" tabindex="-1">value</h6>
+<h6 id="value-9" tabindex="-1">value</h6>
 <p><code>Partial</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;</p>
 <p>The value to compare against.</p>
-<h5 id="returns-30" tabindex="-1">Returns</h5>
+<h5 id="returns-31" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-20" tabindex="-1">Example</h5>
+<h5 id="example-21" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -689,19 +711,19 @@
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
-<h5 id="type-parameters-19" tabindex="-1">Type Parameters</h5>
-<h6 id="c-13" tabindex="-1">C</h6>
+<h5 id="type-parameters-20" tabindex="-1">Type Parameters</h5>
+<h6 id="c-14" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
-<h5 id="parameters-27" tabindex="-1">Parameters</h5>
-<h6 id="column-13" tabindex="-1">column</h6>
+<h5 id="parameters-28" tabindex="-1">Parameters</h5>
+<h6 id="column-14" tabindex="-1">column</h6>
 <p><code>C</code></p>
 <p>The column to filter on.</p>
-<h6 id="value-9" tabindex="-1">value</h6>
+<h6 id="value-10" tabindex="-1">value</h6>
 <p><a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;</p>
 <p>The value to compare against.</p>
-<h5 id="returns-31" tabindex="-1">Returns</h5>
+<h5 id="returns-32" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-21" tabindex="-1">Example</h5>
+<h5 id="example-22" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -715,12 +737,12 @@
 <p><strong>whereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to the WHERE clause with parameter bindings.</p>
-<h4 id="parameters-28" tabindex="-1">Parameters</h4>
+<h4 id="parameters-29" tabindex="-1">Parameters</h4>
 <h5 id="sql-3" tabindex="-1">sql</h5>
 <p><code>string</code></p>
 <h5 id="params-3" tabindex="-1">params</h5>
 <p>...<code>any</code>[]</p>
-<h4 id="returns-32" tabindex="-1">Returns</h4>
+<h4 id="returns-33" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </div></div>
           </div>
