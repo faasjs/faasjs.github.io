@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / defineApi</p>
 <h1 id="function%3A-defineapi()" tabindex="-1">Function: defineApi()</h1>
 <blockquote>
-<p><strong>defineApi</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>THandler</code>&gt;(<code>options</code>): <a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
+<p><strong>defineApi</strong>&lt;<code>TSchema</code>, <code>THandler</code>&gt;(<code>options</code>): <a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;, <code>unknown</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Create an HTTP API function with optional Zod validation.</p>
 <p>The <code>http</code> plugin must come from <code>faas.yaml</code> or explicit code injection.</p>
@@ -73,21 +73,15 @@
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
 <p>Zod schema used to validate <code>event.params</code>.</p>
-<h3 id="tevent" tabindex="-1">TEvent</h3>
-<p><code>TEvent</code> = <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
-<p>Raw event type passed to the function.</p>
-<h3 id="tcontext" tabindex="-1">TContext</h3>
-<p><code>TContext</code> = <code>unknown</code></p>
-<p>Runtime context type.</p>
 <h3 id="thandler" tabindex="-1">THandler</h3>
-<p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt; = (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p>Handler signature used to infer the response type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
-<p><code>Omit</code>&lt;<a href="/doc/core/type-aliases/DefineApiOptions.html"><code>DefineApiOptions</code></a>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;, <code>&quot;handler&quot;</code>&gt; &amp; <code>object</code></p>
+<p><code>object</code></p>
 <p>Schema and handler used to build the API function.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>DefineApiEvent</code>&lt;<code>TSchema</code>, <code>TEvent</code>&gt;, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
+<p><a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;, <code>unknown</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>When the required <code>http</code> plugin is missing from <code>faas.yaml</code> and no plugin was injected in code.</p>
 <h2 id="throws-1" tabindex="-1">Throws</h2>
