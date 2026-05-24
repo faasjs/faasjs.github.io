@@ -65,13 +65,14 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / InferFaasAction</p>
 <h1 id="type-alias%3A-inferfaasaction%3Ctapi%3E" tabindex="-1">Type Alias: InferFaasAction&lt;TApi&gt;</h1>
 <blockquote>
-<p><strong>InferFaasAction</strong>&lt;<code>TApi</code>&gt; = <code>TApi</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>never</code></p>
+<p><strong>InferFaasAction</strong>&lt;<code>TApi</code>&gt; = <code>TApi</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>TApi</code> <em>extends</em> <code>object</code> ? <code>TDefault</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>never</code> : <code>never</code></p>
 </blockquote>
-<p>Infer the FaasAction type from a Func.</p>
+<p>Infer <code>{ Params, Data }</code> from a Func, a Func-like object, or a
+module whose default export is a Func.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tapi" tabindex="-1">TApi</h3>
 <p><code>TApi</code></p>
-<p>API instance used to infer params and data.</p>
+<p>A Func, Func-like object, or module shape.</p>
 </div></div>
           </div>
           

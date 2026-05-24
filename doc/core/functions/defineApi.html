@@ -74,12 +74,17 @@
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
 <p>Zod schema used to validate <code>event.params</code>.</p>
 <h3 id="thandler" tabindex="-1">THandler</h3>
-<p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p><code>THandler</code> <em>extends</em> (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt; = (<code>data</code>) =&gt; <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p>Handler signature used to infer the response type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
-<p><code>object</code></p>
 <p>Schema and handler used to build the API function.</p>
+<h4 id="handler" tabindex="-1">handler</h4>
+<p><code>THandler</code></p>
+<p>Async business handler executed after plugins and validation are ready.</p>
+<h4 id="schema%3F" tabindex="-1">schema?</h4>
+<p><code>TSchema</code></p>
+<p>Optional Zod schema used to validate <code>event.params</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;, <code>unknown</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
 <h2 id="throws" tabindex="-1">Throws</h2>

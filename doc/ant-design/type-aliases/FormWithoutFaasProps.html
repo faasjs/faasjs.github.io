@@ -67,7 +67,6 @@
 <blockquote>
 <p><strong>FormWithoutFaasProps</strong>&lt;<code>Values</code>, <code>ExtendItemProps</code>&gt; = <code>FormCommonProps</code>&lt;<code>Values</code>, <code>ExtendItemProps</code>&gt; &amp; <code>object</code></p>
 </blockquote>
-<p>Props for <a href="/doc/ant-design/functions/Form.html">Form</a> when used without the built-in FaasJS submit handler.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="faas%3F" tabindex="-1">faas?</h3>
 <blockquote>
@@ -77,7 +76,6 @@
 <blockquote>
 <p><code>optional</code> <strong>onFinish?</strong>: (<code>values</code>) =&gt; <code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
-<p>Custom submit handler used instead of the built-in FaasJS submit flow.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="values" tabindex="-1">values</h5>
 <p><code>Values</code></p>
@@ -86,27 +84,8 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="values-1" tabindex="-1">Values</h3>
 <p><code>Values</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
-<p>Form values shape.</p>
 <h3 id="extenditemprops" tabindex="-1">ExtendItemProps</h3>
 <p><code>ExtendItemProps</code> <em>extends</em> <a href="/doc/ant-design/interfaces/ExtendFormItemProps.html"><code>ExtendFormItemProps</code></a> = <a href="/doc/ant-design/interfaces/ExtendFormItemProps.html"><code>ExtendFormItemProps</code></a></p>
-<p>Additional item prop shape accepted by <code>items</code>.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FormWithoutFaasProps</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">ProfileForm</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">name</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> },
-        { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">email</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> },
-      ]}
-      <span class="hljs-attr">onFinish</span>=<span class="hljs-string">{async</span> (<span class="hljs-attr">values</span>) =&gt;</span> {
-        console.log(values)
-      }}
-    /&gt;</span>
-  )
-}
-</code></pre>
 </div></div>
           </div>
           

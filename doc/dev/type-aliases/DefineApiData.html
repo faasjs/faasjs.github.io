@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: DefineApiData\&lt;TSchema, TEvent, TContext, TResult\&gt; | FaasJS</title>
+    <title>Type Alias: DefineApiData\&lt;TSchema\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,11 +63,11 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / DefineApiData</p>
-<h1 id="type-alias%3A-defineapidata%3Ctschema%2C-tevent%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineApiData&lt;TSchema, TEvent, TContext, TResult&gt;</h1>
+<h1 id="type-alias%3A-defineapidata%3Ctschema%3E" tabindex="-1">Type Alias: DefineApiData&lt;TSchema&gt;</h1>
 <blockquote>
-<p><strong>DefineApiData</strong>&lt;<code>TSchema</code>, <code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; = <a href="/doc/dev/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt; &amp; <code>object</code> &amp; <a href="/doc/dev/interfaces/DefineApiInject.html"><code>DefineApiInject</code></a></p>
+<p><strong>DefineApiData</strong>&lt;<code>TSchema</code>&gt; = <a href="/doc/dev/type-aliases/InvokeData.html"><code>InvokeData</code></a>&lt;<code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;, <code>unknown</code>, <code>unknown</code>&gt; &amp; <code>object</code> &amp; <a href="/doc/dev/interfaces/DefineApiInject.html"><code>DefineApiInject</code></a></p>
 </blockquote>
-<p>Handler data passed to <a href="/doc/dev/functions/defineApi.md">defineApi</a>.</p>
+<p>Handler data passed to <a href="/doc/dev/functions/defineApi.html">defineApi</a>.</p>
 <p>Extends the normal invoke data with validated <code>params</code>, <code>cookie</code>, <code>session</code>,
 and any plugin-provided fields declared through <code>DefineApiInject</code>.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
@@ -90,15 +90,6 @@ and any plugin-provided fields declared through <code>DefineApiInject</code>.</p
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
 <p>Zod schema used to validate <code>event.params</code>.</p>
-<h3 id="tevent" tabindex="-1">TEvent</h3>
-<p><code>TEvent</code> = <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
-<p>Raw event type passed to the function.</p>
-<h3 id="tcontext" tabindex="-1">TContext</h3>
-<p><code>TContext</code> = <code>unknown</code></p>
-<p>Runtime context type.</p>
-<h3 id="tresult" tabindex="-1">TResult</h3>
-<p><code>TResult</code> = <code>unknown</code></p>
-<p>Handler return type.</p>
 </div></div>
           </div>
           

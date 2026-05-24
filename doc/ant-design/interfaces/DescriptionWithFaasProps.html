@@ -64,43 +64,22 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / DescriptionWithFaasProps</p>
 <h1 id="interface%3A-descriptionwithfaasprops%3Cpath%2C-t%2C-extenditemprops%3E" tabindex="-1">Interface: DescriptionWithFaasProps&lt;Path, T, ExtendItemProps&gt;</h1>
-<p>Props for <a href="/doc/ant-design/functions/Description.html">Description</a> when used with a fetched <code>faasData</code>.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
-      <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Title&quot;</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;, <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27; }]}
-      <span class="hljs-attr">faasData</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">user</span>/<span class="hljs-attr">get</span>&#x27;,
-        <span class="hljs-attr">params:</span> { <span class="hljs-attr">id:</span> <span class="hljs-attr">1</span> },
-      }}
-    /&gt;</span></span>
-  )
-}
-</code></pre>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
-<li><code>DescriptionCommonProps</code>&lt;<code>T</code>, <code>ExtendItemProps</code>&gt;</li>
+<li><a href="/doc/ant-design/interfaces/DescriptionCommonProps.html"><code>DescriptionCommonProps</code></a>&lt;<code>T</code>, <code>ExtendItemProps</code>&gt;</li>
 </ul>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code> = <code>any</code></p>
-<p>Action path type for strong typing of <code>faasData.action</code> and <code>params</code>.</p>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
-<p>Data record shape rendered by the component.</p>
 <h3 id="extenditemprops" tabindex="-1">ExtendItemProps</h3>
 <p><code>ExtendItemProps</code> = <code>any</code></p>
-<p>Additional item prop shape accepted by <code>items</code>.</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="rendertitle()%3F" tabindex="-1">renderTitle()?</h3>
 <blockquote>
 <p><code>optional</code> <strong>renderTitle</strong>(<code>this</code>, <code>values</code>): <code>ReactNode</code></p>
 </blockquote>
-<p>Callback used to derive the rendered title from the current record.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="this" tabindex="-1">this</h5>
 <p><code>void</code></p>
@@ -109,7 +88,7 @@
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>ReactNode</code></p>
 <h4 id="inherited-from" tabindex="-1">Inherited from</h4>
-<p><code>DescriptionCommonProps.renderTitle</code></p>
+<p><a href="/doc/ant-design/interfaces/DescriptionCommonProps.html"><code>DescriptionCommonProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionCommonProps.html#rendertitle"><code>renderTitle</code></a></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="datasource%3F" tabindex="-1">dataSource?</h3>
 <blockquote>
@@ -119,23 +98,20 @@
 <blockquote>
 <p><code>optional</code> <strong>extendTypes?</strong>: <code>object</code></p>
 </blockquote>
-<p>Custom type renderers keyed by item type.</p>
 <h4 id="index-signature" tabindex="-1">Index Signature</h4>
-<p>[<code>key</code>: <code>string</code>]: <a href="/doc/ant-design/interfaces/ExtendDescriptionTypeProps.html"><code>ExtendDescriptionTypeProps</code></a>&lt;<code>any</code>&gt;</p>
+<p>[<code>key</code>: <code>string</code>]: <a href="/doc/ant-design/type-aliases/ExtendDescriptionTypeProps.html"><code>ExtendDescriptionTypeProps</code></a>&lt;<code>any</code>&gt;</p>
 <h4 id="inherited-from-1" tabindex="-1">Inherited from</h4>
-<p><code>DescriptionCommonProps.extendTypes</code></p>
+<p><a href="/doc/ant-design/interfaces/DescriptionCommonProps.html"><code>DescriptionCommonProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionCommonProps.html#extendtypes"><code>extendTypes</code></a></p>
 <h3 id="faasdata%3F" tabindex="-1">faasData?</h3>
 <blockquote>
 <p><code>optional</code> <strong>faasData?</strong>: <a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>Path</code>&gt;</p>
 </blockquote>
-<p>Request config used to fetch the record before rendering.</p>
 <h3 id="items" tabindex="-1">items</h3>
 <blockquote>
-<p><strong>items</strong>: (<code>ExtendItemProps</code> | <a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>&lt;<code>any</code>&gt;)[]</p>
+<p><strong>items</strong>: (<a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>&lt;<code>any</code>&gt; | <code>ExtendItemProps</code>)[]</p>
 </blockquote>
-<p>Description item definitions rendered by the component.</p>
 <h4 id="inherited-from-2" tabindex="-1">Inherited from</h4>
-<p><code>DescriptionCommonProps.items</code></p>
+<p><a href="/doc/ant-design/interfaces/DescriptionCommonProps.html"><code>DescriptionCommonProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionCommonProps.html#items"><code>items</code></a></p>
 </div></div>
           </div>
           
