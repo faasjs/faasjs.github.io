@@ -65,21 +65,21 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / faas</p>
 <h1 id="function%3A-faas()" tabindex="-1">Function: faas()</h1>
 <blockquote>
-<p><strong>faas</strong>&lt;<code>PathOrData</code>&gt;(<code>action</code>, <code>params</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><strong>faas</strong>&lt;<code>Path</code>&gt;(<code>action</code>, <code>params</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Call the currently configured FaasReactClient.</p>
 <p>This helper forwards the request to <code>getClient</code>. When the registered
 client defines <code>onError</code>, the hook is invoked before the promise rejects.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="pathordata" tabindex="-1">PathOrData</h3>
-<p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
+<h3 id="path" tabindex="-1">Path</h3>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
 <p>Action path or response data type used for inference.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
-<p><a href="/doc/react/type-aliases/FaasAction.html"><code>FaasAction</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>Path</code></p>
 <p>Action path to invoke.</p>
 <h3 id="params" tabindex="-1">params</h3>
-<p><a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
 <p>Parameters sent to the action.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
@@ -87,7 +87,7 @@ client defines <code>onError</code>, the hook is invoked before the promise reje
 See the browser-client <code>Options</code> type for supported fields such as <code>headers</code>, <code>beforeRequest</code>,
 <code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 <p>Response returned by the active browser client.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>When the request fails and the active client does not recover inside <code>onError</code>.</p>

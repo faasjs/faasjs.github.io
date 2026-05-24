@@ -65,21 +65,21 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / FaasBrowserClientAction</p>
 <h1 id="type-alias%3A-faasbrowserclientaction" tabindex="-1">Type Alias: FaasBrowserClientAction</h1>
 <blockquote>
-<p><strong>FaasBrowserClientAction</strong> = &lt;<code>PathOrData</code>&gt;(<code>action</code>, <code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
+<p><strong>FaasBrowserClientAction</strong> = &lt;<code>Path</code>&gt;(<code>action</code>, <code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
 </blockquote>
 <p>Type definition for the FaasBrowserClient.action method.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="pathordata" tabindex="-1">PathOrData</h3>
-<p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
+<h3 id="path" tabindex="-1">Path</h3>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
-<p><a href="/doc/react/type-aliases/FaasAction.html"><code>FaasAction</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>Path</code></p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
-<p><a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<a href="/doc/react/type-aliases/FaasData.html"><code>FaasData</code></a>&lt;<code>PathOrData</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
+<p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
 </div></div>
           </div>
           

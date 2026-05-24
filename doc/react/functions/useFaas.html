@@ -65,29 +65,29 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useFaas</p>
 <h1 id="function%3A-usefaas()" tabindex="-1">Function: useFaas()</h1>
 <blockquote>
-<p><strong>useFaas</strong>&lt;<code>PathOrData</code>&gt;(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><strong>useFaas</strong>&lt;<code>Path</code>&gt;(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;</p>
 </blockquote>
 <p>Request FaasJS data and keep request state in React state.</p>
 <p><code>useFaas</code> is the default hook for standard FaasJS request-response flows in React.
 It sends an initial request unless <code>skip</code> is enabled, and returns request state
 plus helpers for reloading, background refreshing, updating data, and handling errors.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="pathordata" tabindex="-1">PathOrData</h3>
-<p><code>PathOrData</code> <em>extends</em> <a href="/doc/react/type-aliases/FaasActionUnionType.html"><code>FaasActionUnionType</code></a></p>
+<h3 id="path" tabindex="-1">Path</h3>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
 <p>Action path or response data type used for inference.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
-<p><a href="/doc/react/type-aliases/FaasAction.html"><code>FaasAction</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>Path</code></p>
 <p>Action path to invoke.</p>
 <h3 id="defaultparams" tabindex="-1">defaultParams</h3>
-<p><a href="/doc/react/type-aliases/FaasParams.html"><code>FaasParams</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
 <p>Params used for the initial request and future reloads.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/react/type-aliases/UseFaasOptions.md"><code>UseFaasOptions</code></a>&lt;<code>PathOrData</code>&gt; = <code>{}</code></p>
+<p><a href="/doc/react/type-aliases/UseFaasOptions.md"><code>UseFaasOptions</code></a>&lt;<code>Path</code>&gt; = <code>{}</code></p>
 <p>Optional hook configuration such as controlled data, skip logic, debounce timing, polling, and base URL overrides.
 See the <code>UseFaasOptions</code> type for <code>params</code>, <code>data</code>, <code>setData</code>, <code>skip</code>, <code>debounce</code>, <code>polling</code>, and <code>baseUrl</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><a href="/doc/react/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;</p>
 <p>Request state and helper methods described by <a href="/doc/react/type-aliases/FaasDataInjection.html">FaasDataInjection</a>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>

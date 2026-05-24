@@ -65,25 +65,25 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / withFaasData</p>
 <h1 id="function%3A-withfaasdata()" tabindex="-1">Function: withFaasData()</h1>
 <blockquote>
-<p><strong>withFaasData</strong>&lt;<code>PathOrData</code>, <code>TComponentProps</code>&gt;(<code>Component</code>, <code>faasProps</code>): <code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <code>FaasDataInjection</code>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><strong>withFaasData</strong>&lt;<code>Path</code>, <code>TComponentProps</code>&gt;(<code>Component</code>, <code>faasProps</code>): <code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <code>FaasDataInjection</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Wrap a component with <a href="/doc/ant-design/functions/FaasDataWrapper.html">FaasDataWrapper</a> and its Ant Design loading fallback.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="pathordata" tabindex="-1">PathOrData</h3>
-<p><code>PathOrData</code> <em>extends</em> <code>FaasActionUnionType</code></p>
+<h3 id="path" tabindex="-1">Path</h3>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
 <p>Action path or response data type used for inference.</p>
 <h3 id="tcomponentprops" tabindex="-1">TComponentProps</h3>
-<p><code>TComponentProps</code> <em>extends</em> <code>Required</code>&lt;<code>Partial</code>&lt;<code>FaasDataInjection</code>&lt;<code>PathOrData</code>&gt;&gt;&gt; = <code>Required</code>&lt;<code>Partial</code>&lt;<code>FaasDataInjection</code>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>TComponentProps</code> <em>extends</em> <code>Required</code>&lt;<code>Partial</code>&lt;<code>FaasDataInjection</code>&lt;<code>Path</code>&gt;&gt;&gt; = <code>Required</code>&lt;<code>Partial</code>&lt;<code>FaasDataInjection</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 <p>Component props including injected Faas data fields.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="component" tabindex="-1">Component</h3>
 <p><code>FC</code>&lt;<code>TComponentProps</code> &amp; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;</p>
 <p>Component that consumes injected Faas data props.</p>
 <h3 id="faasprops" tabindex="-1">faasProps</h3>
-<p><a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>PathOrData</code>&gt;</p>
+<p><a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>Path</code>&gt;</p>
 <p>Request configuration forwarded to <a href="/doc/ant-design/functions/FaasDataWrapper.html">FaasDataWrapper</a>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <code>FaasDataInjection</code>&lt;<code>PathOrData</code>&gt;&gt;&gt;</p>
+<p><code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <code>FaasDataInjection</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 <p>Higher-order component that injects Faas data props.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>

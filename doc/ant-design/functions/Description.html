@@ -64,43 +64,87 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / Description</p>
 <h1 id="function%3A-description()" tabindex="-1">Function: Description()</h1>
+<h2 id="call-signature" tabindex="-1">Call Signature</h2>
 <blockquote>
 <p><strong>Description</strong>&lt;<code>T</code>&gt;(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>Render an Ant Design description list from FaasJS item metadata.</p>
-<p>The component can render a local <code>dataSource</code> directly or resolve one through <code>faasData</code>, and
-it applies the same item type normalization helpers used by the form and table components.</p>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="t" tabindex="-1">T</h3>
+<p>Render an Ant Design description list from a local data source.</p>
+<p>The component applies FaasJS item type normalization helpers to render item metadata with
+appropriate display formatting.</p>
+<h3 id="type-parameters" tabindex="-1">Type Parameters</h3>
+<h4 id="t" tabindex="-1">T</h4>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
 <p>Data record shape rendered by the component.</p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="props" tabindex="-1">props</h3>
-<p><a href="/doc/ant-design/interfaces/DescriptionProps.html"><code>DescriptionProps</code></a>&lt;<code>T</code>&gt;</p>
-<p>Description props including items, data source, and optional Faas data config.</p>
-<h2 id="returns" tabindex="-1">Returns</h2>
+<h3 id="parameters" tabindex="-1">Parameters</h3>
+<h4 id="props" tabindex="-1">props</h4>
+<p><a href="/doc/ant-design/interfaces/DescriptionWithoutFaasProps.html"><code>DescriptionWithoutFaasProps</code></a>&lt;<code>T</code>&gt;</p>
+<p>Description props including items and a local data source.</p>
+<h3 id="returns" tabindex="-1">Returns</h3>
 <p><code>Element</code></p>
-<h2 id="throws" tabindex="-1">Throws</h2>
-<p>When an entry in <code>extendTypes</code> omits both <code>children</code> and <code>render</code>.</p>
-<h2 id="example" tabindex="-1">Example</h2>
+<h3 id="example" tabindex="-1">Example</h3>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
       <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Title&quot;</span>
-      <span class="hljs-attr">items</span>=<span class="hljs-string">{[</span>
-        {
-          <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;,
-          <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;,
-          <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27;,
-        },
-      ]}
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;, <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27; }]}
       <span class="hljs-attr">dataSource</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">value</span>&#x27; }}
     /&gt;</span></span>
   )
 }
 </code></pre>
+<h2 id="call-signature-1" tabindex="-1">Call Signature</h2>
+<blockquote>
+<p><strong>Description</strong>&lt;<code>Path</code>, <code>T</code>&gt;(<code>props</code>): <code>Element</code></p>
+</blockquote>
+<p>Render an Ant Design description list with fetched FaasJS data.</p>
+<p>The component fetches data via <code>faasData</code> and applies FaasJS item type normalization helpers
+to render item metadata with appropriate display formatting.</p>
+<p>When <code>Path</code> is provided, the <code>action</code> and <code>params</code> in <code>faasData</code> are strongly typed from the
+FaasActions type augmentation.</p>
+<h3 id="type-parameters-1" tabindex="-1">Type Parameters</h3>
+<h4 id="path" tabindex="-1">Path</h4>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
+<p>Action path type inferred from <code>faasData.action</code> for strong typing.</p>
+<h4 id="t-1" tabindex="-1">T</h4>
+<p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
+<p>Data record shape rendered by the component.</p>
+<h3 id="parameters-1" tabindex="-1">Parameters</h3>
+<h4 id="props-1" tabindex="-1">props</h4>
+<p><a href="/doc/ant-design/interfaces/DescriptionWithFaasProps.html"><code>DescriptionWithFaasProps</code></a>&lt;<code>Path</code>, <code>T</code>&gt;</p>
+<p>Description props including items and FaasJS data config.</p>
+<h3 id="returns-1" tabindex="-1">Returns</h3>
+<p><code>Element</code></p>
+<h3 id="example-1" tabindex="-1">Example</h3>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Description</span>
+      <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Title&quot;</span>
+      <span class="hljs-attr">items</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">id</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Title</span>&#x27;, <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">string</span>&#x27; }]}
+      <span class="hljs-attr">faasData</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">user</span>/<span class="hljs-attr">get</span>&#x27;,
+        <span class="hljs-attr">params:</span> { <span class="hljs-attr">id:</span> <span class="hljs-attr">1</span> },
+      }}
+    /&gt;</span></span>
+  )
+}
+</code></pre>
+<h2 id="call-signature-2" tabindex="-1">Call Signature</h2>
+<blockquote>
+<p><strong>Description</strong>&lt;<code>T</code>&gt;(<code>props</code>): <code>Element</code></p>
+</blockquote>
+<p>Render an Ant Design description list (catch-all overload for backward compatibility).</p>
+<h3 id="type-parameters-2" tabindex="-1">Type Parameters</h3>
+<h4 id="t-2" tabindex="-1">T</h4>
+<p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
+<h3 id="parameters-2" tabindex="-1">Parameters</h3>
+<h4 id="props-2" tabindex="-1">props</h4>
+<p><a href="/doc/ant-design/type-aliases/DescriptionProps.html"><code>DescriptionProps</code></a>&lt;<code>T</code>&gt;</p>
+<h3 id="returns-2" tabindex="-1">Returns</h3>
+<p><code>Element</code></p>
 </div></div>
           </div>
           

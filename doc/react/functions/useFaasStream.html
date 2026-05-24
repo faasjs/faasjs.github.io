@@ -65,18 +65,21 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useFaasStream</p>
 <h1 id="function%3A-usefaasstream()" tabindex="-1">Function: useFaasStream()</h1>
 <blockquote>
-<p><strong>useFaasStream</strong>(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/react/type-aliases/UseFaasStreamResult.html"><code>UseFaasStreamResult</code></a></p>
+<p><strong>useFaasStream</strong>&lt;<code>Path</code>&gt;(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/react/type-aliases/UseFaasStreamResult.html"><code>UseFaasStreamResult</code></a></p>
 </blockquote>
 <p>Stream a FaasJS response into React state.</p>
 <p><code>useFaasStream</code> is the default hook for streaming FaasJS responses in React.
 It sends a streaming request, appends decoded text chunks to <code>data</code>, and
 exposes reload helpers for retrying the same action.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="path" tabindex="-1">Path</h3>
+<p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
-<p><code>string</code></p>
+<p><code>Path</code></p>
 <p>Action path to invoke.</p>
 <h3 id="defaultparams" tabindex="-1">defaultParams</h3>
-<p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
 <p>Params used for the initial request and future reloads.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/UseFaasStreamOptions.html"><code>UseFaasStreamOptions</code></a> = <code>{}</code></p>
