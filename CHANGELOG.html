@@ -64,11 +64,27 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.31...v8.0.0-beta.32" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.32 (2026-05-24)</code></a></p>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.33...v8.0.0-beta.34" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.34 (2026-05-26)</code></a></p>
 <ul>
-<li><code>@faasjs/react</code>
+<li><code>@faasjs/utils</code>
+<ul>
+<li>[Feature] <code>Zod</code> as zod type namespaced export for boundary validation schemas.</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.32...v8.0.0-beta.33" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.33 (2026-05-24)</code></a></p>
+<ul>
+<li>
+<p><code>@faasjs/react</code></p>
 <ul>
 <li>[Fix] Fix <code>useStateRef</code> type to allow non-nullable state values and remove unnecessary nullability in the implementation.</li>
+<li>[Fix] Remove <code>toLowerCase()</code> on action path in <code>buildActionUrl</code>, preserving original casing for HTTP requests.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Fix] Block requests targeting <code>__tests__</code> directories at the server routing level to prevent exposing test files.</li>
 </ul>
 </li>
 </ul>
