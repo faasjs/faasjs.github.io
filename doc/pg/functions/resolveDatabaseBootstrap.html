@@ -67,8 +67,12 @@
 <blockquote>
 <p><strong>resolveDatabaseBootstrap</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Resolves the registered async database bootstrap.</p>
+<p>Ensures the bootstrap only runs once concurrently — if it is already running
+the pending promise is returned instead of starting a second invocation.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p>A promise that resolves when the bootstrap has completed.</p>
 </div></div>
           </div>
           

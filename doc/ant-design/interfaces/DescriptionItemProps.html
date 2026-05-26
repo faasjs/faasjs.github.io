@@ -64,6 +64,7 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / DescriptionItemProps</p>
 <h1 id="interface%3A-descriptionitemprops%3Ct%3E" tabindex="-1">Interface: DescriptionItemProps&lt;T&gt;</h1>
+<p>Description item meta-object consumed by the <a href="/doc/ant-design/functions/Description.html">Description</a> component.</p>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
 <li><a href="/doc/ant-design/interfaces/FaasItemProps.html"><code>FaasItemProps</code></a></li>
@@ -75,19 +76,23 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
+<p>Data record shape rendered by the description list.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="children%3F" tabindex="-1">children?</h3>
 <blockquote>
 <p><code>optional</code> <strong>children?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Generic custom element rendered when no description-specific child overrides it.</p>
 <h3 id="descriptionchildren%3F" tabindex="-1">descriptionChildren?</h3>
 <blockquote>
 <p><code>optional</code> <strong>descriptionChildren?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Description-specific custom element.</p>
 <h3 id="descriptionrender%3F" tabindex="-1">descriptionRender?</h3>
 <blockquote>
 <p><code>optional</code> <strong>descriptionRender?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Description-specific custom render callback.</p>
 <h3 id="id" tabindex="-1">id</h3>
 <blockquote>
 <p><strong>id</strong>: <code>string</code> | <code>number</code></p>
@@ -98,6 +103,7 @@
 <blockquote>
 <p><code>optional</code> <strong>if?</strong>: (<code>values</code>) =&gt; <code>boolean</code></p>
 </blockquote>
+<p>Conditional visibility predicate. When <code>false</code>, the item is hidden from the description list.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="values" tabindex="-1">values</h5>
 <p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
@@ -107,6 +113,7 @@
 <blockquote>
 <p><code>optional</code> <strong>object?</strong>: <code>DescriptionItemProps</code>&lt;<code>T</code>&gt;[]</p>
 </blockquote>
+<p>Nested item definitions used by <code>object</code> and <code>object[]</code> item types.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <blockquote>
 <p><code>optional</code> <strong>options?</strong>: <a href="/doc/ant-design/type-aliases/BaseOption.html"><code>BaseOption</code></a>[]</p>
@@ -117,6 +124,7 @@
 <blockquote>
 <p><code>optional</code> <strong>render?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>T</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Generic custom render callback.</p>
 <h3 id="title%3F" tabindex="-1">title?</h3>
 <blockquote>
 <p><code>optional</code> <strong>title?</strong>: <code>string</code></p>

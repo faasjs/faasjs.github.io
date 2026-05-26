@@ -67,19 +67,23 @@
 <blockquote>
 <p><strong>JobRetryContext</strong> = <code>object</code></p>
 </blockquote>
+<p>Context passed to a retry function after a job failure.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="attempt" tabindex="-1">attempt</h3>
 <blockquote>
 <p><strong>attempt</strong>: <code>number</code></p>
 </blockquote>
+<p>The current attempt number (1-indexed).</p>
 <h3 id="error" tabindex="-1">error</h3>
 <blockquote>
 <p><strong>error</strong>: <code>Error</code></p>
 </blockquote>
+<p>The error that caused the failure.</p>
 <h3 id="job" tabindex="-1">job</h3>
 <blockquote>
 <p><strong>job</strong>: <a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a></p>
 </blockquote>
+<p>The job record at the time of failure.</p>
 </div></div>
           </div>
           

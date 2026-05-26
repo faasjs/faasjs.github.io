@@ -64,6 +64,9 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / TableBuilder</p>
 <h1 id="class%3A-tablebuilder" tabindex="-1">Class: TableBuilder</h1>
+<p>Builder for table schema definitions, supporting both CREATE and ALTER TABLE modes.</p>
+<p>Column definitions and alterations are accumulated and then serialized to SQL
+via <a href="#tosql">toSQL</a>.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -72,8 +75,10 @@
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="tablename" tabindex="-1">tableName</h5>
 <p><code>string</code></p>
+<p>The name of the table.</p>
 <h5 id="mode" tabindex="-1">mode</h5>
 <p><code>TableBuilderMode</code></p>
+<p>Whether to produce CREATE TABLE or ALTER TABLE statements.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -81,163 +86,208 @@
 <blockquote>
 <p><strong>alterColumn</strong>(<code>name</code>, <code>changes</code>): <code>TableBuilder</code></p>
 </blockquote>
+<p>Alters an existing column. In <code>create</code> mode this mutates the pending definition.
+In <code>alter</code> mode this stages ALTER COLUMN operations.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="name" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name to alter.</p>
 <h5 id="changes" tabindex="-1">changes</h5>
 <p><code>Partial</code>&lt;<code>ColumnDefinition</code>&gt;</p>
+<p>The partial column definition with changes to apply.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="boolean()" tabindex="-1">boolean()</h3>
 <blockquote>
 <p><strong>boolean</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>boolean</code> column.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="name-1" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="date()" tabindex="-1">date()</h3>
 <blockquote>
 <p><strong>date</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>date</code> column.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="name-2" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="dropcolumn()" tabindex="-1">dropColumn()</h3>
 <blockquote>
 <p><strong>dropColumn</strong>(<code>name</code>): <code>TableBuilder</code></p>
 </blockquote>
+<p>Drops a column. In <code>create</code> mode this removes it from the pending definition.
+In <code>alter</code> mode this stages a DROP COLUMN operation.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="name-3" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name to drop.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="dropindex()" tabindex="-1">dropIndex()</h3>
 <blockquote>
 <p><strong>dropIndex</strong>(<code>columns</code>): <code>TableBuilder</code> | <code>undefined</code></p>
 </blockquote>
+<p>Drops an index previously defined by <a href="#index">index</a>. The index name must match
+the auto-generated naming convention <code>idx_{tableName}_{columns}</code>.</p>
 <h4 id="parameters-5" tabindex="-1">Parameters</h4>
 <h5 id="columns" tabindex="-1">columns</h5>
 <p><code>string</code> | <code>string</code>[]</p>
+<p>The same column(s) originally passed to <a href="#index">index</a>.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code> | <code>undefined</code></p>
 <h3 id="index()" tabindex="-1">index()</h3>
 <blockquote>
 <p><strong>index</strong>(<code>columns</code>, <code>options?</code>): <code>TableBuilder</code></p>
 </blockquote>
+<p>Creates an index on one or more columns. The index name is auto-generated as
+<code>idx_{tableName}_{columns}</code>.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="columns-1" tabindex="-1">columns</h5>
 <p><code>string</code> | <code>string</code>[]</p>
+<p>Single column name or array of column names.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <p><code>Omit</code>&lt;<code>IndexDefs</code>, <code>&quot;columns&quot;</code>&gt; = <code>{}</code></p>
+<p>Index options such as <code>unique</code> and <code>indexType</code>.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="json()" tabindex="-1">json()</h3>
 <blockquote>
 <p><strong>json</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>json</code> column.</p>
 <h4 id="parameters-7" tabindex="-1">Parameters</h4>
 <h5 id="name-4" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="jsonb()" tabindex="-1">jsonb()</h3>
 <blockquote>
 <p><strong>jsonb</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>jsonb</code> column.</p>
 <h4 id="parameters-8" tabindex="-1">Parameters</h4>
 <h5 id="name-5" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-8" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="number()" tabindex="-1">number()</h3>
 <blockquote>
 <p><strong>number</strong>(<code>name</code>, <code>precision?</code>, <code>scale?</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines an <code>integer</code> column, or <code>decimal(precision, scale)</code> if precision is provided.</p>
 <h4 id="parameters-9" tabindex="-1">Parameters</h4>
 <h5 id="name-6" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h5 id="precision%3F" tabindex="-1">precision?</h5>
 <p><code>number</code></p>
+<p>Optional decimal precision.</p>
 <h5 id="scale%3F" tabindex="-1">scale?</h5>
 <p><code>number</code></p>
+<p>Optional decimal scale.</p>
 <h4 id="returns-9" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="raw()" tabindex="-1">raw()</h3>
 <blockquote>
 <p><strong>raw</strong>(<code>sql</code>): <code>TableBuilder</code></p>
 </blockquote>
+<p>Appends a raw SQL fragment to the generated output.</p>
 <h4 id="parameters-10" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
+<p>The raw SQL to include.</p>
 <h4 id="returns-10" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="renamecolumn()" tabindex="-1">renameColumn()</h3>
 <blockquote>
 <p><strong>renameColumn</strong>(<code>from</code>, <code>to</code>): <code>TableBuilder</code></p>
 </blockquote>
+<p>Renames a column. In <code>create</code> mode this renames it in the pending definition.
+In <code>alter</code> mode this stages a RENAME COLUMN operation.</p>
 <h4 id="parameters-11" tabindex="-1">Parameters</h4>
 <h5 id="from" tabindex="-1">from</h5>
 <p><code>string</code></p>
+<p>The current column name.</p>
 <h5 id="to" tabindex="-1">to</h5>
 <p><code>string</code></p>
+<p>The new column name.</p>
 <h4 id="returns-11" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="specifictype()" tabindex="-1">specificType()</h3>
 <blockquote>
 <p><strong>specificType</strong>(<code>name</code>, <code>type</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a column with an explicit PostgreSQL type.</p>
 <h4 id="parameters-12" tabindex="-1">Parameters</h4>
 <h5 id="name-7" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h5 id="type" tabindex="-1">type</h5>
 <p><code>string</code></p>
+<p>The PostgreSQL type string (e.g. <code>'integer'</code>, <code>'varchar(255)'</code>).</p>
 <h4 id="returns-12" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="string()" tabindex="-1">string()</h3>
 <blockquote>
 <p><strong>string</strong>(<code>name</code>, <code>length?</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>varchar</code> column, optionally with a maximum length.</p>
 <h4 id="parameters-13" tabindex="-1">Parameters</h4>
 <h5 id="name-8" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h5 id="length%3F" tabindex="-1">length?</h5>
 <p><code>number</code></p>
+<p>Optional maximum length.</p>
 <h4 id="returns-13" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="timestamp()" tabindex="-1">timestamp()</h3>
 <blockquote>
 <p><strong>timestamp</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>timestamp</code> column (without timezone).</p>
 <h4 id="parameters-14" tabindex="-1">Parameters</h4>
 <h5 id="name-9" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-14" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="timestamps()" tabindex="-1">timestamps()</h3>
 <blockquote>
 <p><strong>timestamps</strong>(): <code>TableBuilder</code></p>
 </blockquote>
+<p>Adds <code>created_at</code> and <code>updated_at</code> <code>timestamptz</code> columns with a default of <code>now()</code>.</p>
 <h4 id="returns-15" tabindex="-1">Returns</h4>
 <p><code>TableBuilder</code></p>
 <h3 id="timestamptz()" tabindex="-1">timestamptz()</h3>
 <blockquote>
 <p><strong>timestamptz</strong>(<code>name</code>): <code>ColumnBuilder</code></p>
 </blockquote>
+<p>Defines a <code>timestamptz</code> column (with timezone).</p>
 <h4 id="parameters-15" tabindex="-1">Parameters</h4>
 <h5 id="name-10" tabindex="-1">name</h5>
 <p><code>string</code></p>
+<p>The column name.</p>
 <h4 id="returns-16" tabindex="-1">Returns</h4>
 <p><code>ColumnBuilder</code></p>
 <h3 id="tosql()" tabindex="-1">toSQL()</h3>
 <blockquote>
 <p><strong>toSQL</strong>(): <code>string</code>[]</p>
 </blockquote>
+<p>Serializes the table builder state into an array of SQL statement strings.</p>
 <h4 id="returns-17" tabindex="-1">Returns</h4>
 <p><code>string</code>[]</p>
+<p>The generated SQL statements.</p>
 </div></div>
           </div>
           

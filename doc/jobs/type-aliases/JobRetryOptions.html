@@ -67,19 +67,23 @@
 <blockquote>
 <p><strong>JobRetryOptions</strong> = <code>object</code></p>
 </blockquote>
+<p>Configuration for exponential backoff retry delays.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="delay%3F" tabindex="-1">delay?</h3>
 <blockquote>
 <p><code>optional</code> <strong>delay?</strong>: <code>number</code></p>
 </blockquote>
+<p>Initial delay in milliseconds before the first retry. Defaults to <code>30000</code> (30s).</p>
 <h3 id="maxdelay%3F" tabindex="-1">maxDelay?</h3>
 <blockquote>
 <p><code>optional</code> <strong>maxDelay?</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum delay cap in milliseconds. Defaults to <code>300000</code> (5 min).</p>
 <h3 id="multiplier%3F" tabindex="-1">multiplier?</h3>
 <blockquote>
 <p><code>optional</code> <strong>multiplier?</strong>: <code>number</code></p>
 </blockquote>
+<p>Multiplier applied to the delay on each subsequent retry. Defaults to <code>2</code>.</p>
 </div></div>
           </div>
           

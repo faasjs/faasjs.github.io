@@ -67,18 +67,25 @@
 <blockquote>
 <p><strong>toErrorMessage</strong>(<code>error</code>, <code>fallback?</code>): <code>string</code></p>
 </blockquote>
-<p>Convert a value to error message.</p>
+<p>Convert a value to an error message string.</p>
+<p>Extracts a message from <code>Error</code> instances and error-like objects, or
+returns the <code>fallback</code> when the value cannot be coerced to a useful message.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="error" tabindex="-1">error</h3>
 <p><code>unknown</code></p>
+<p>Value to convert (Error, string, or object with <code>message</code>).</p>
 <h3 id="fallback%3F" tabindex="-1">fallback?</h3>
 <p><code>string</code> = <code>'Unknown error'</code></p>
+<p>Text returned when no message can be extracted.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code></p>
+<p>Extracted or fallback error message.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { toErrorMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
-<span class="hljs-title function_">toErrorMessage</span>(<span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;message&#x27;</span>)) <span class="hljs-comment">//=&gt; &#x27;message&#x27;</span>
+<span class="hljs-title function_">toErrorMessage</span>(<span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;something wrong&#x27;</span>)) <span class="hljs-comment">// &#x27;something wrong&#x27;</span>
+<span class="hljs-title function_">toErrorMessage</span>(<span class="hljs-string">&#x27;  &#x27;</span>) <span class="hljs-comment">// &#x27;Unknown error&#x27;</span>
+<span class="hljs-title function_">toErrorMessage</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// &#x27;Unknown error&#x27;</span>
 </code></pre>
 </div></div>
           </div>

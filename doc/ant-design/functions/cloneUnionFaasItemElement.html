@@ -67,13 +67,19 @@
 <blockquote>
 <p><strong>cloneUnionFaasItemElement</strong>(<code>element</code>, <code>props</code>): <code>ReactElement</code>&lt;<a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html"><code>UnionFaasItemInjection</code></a>&lt;<code>any</code>, <code>any</code>&gt;, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
 </blockquote>
+<p>Clone a <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html">UnionFaasItemElement</a> while injecting additional React props.</p>
+<p>If the element is a React element it is cloned in-place; if it is a function component
+it is instantiated via <code>createElement</code> with the given props.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="element" tabindex="-1">element</h3>
 <p><a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a></p>
+<p>React element or function component to clone.</p>
 <h3 id="props" tabindex="-1">props</h3>
 <p><code>any</code></p>
+<p>Props injected into the cloned element.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>ReactElement</code>&lt;<a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html"><code>UnionFaasItemInjection</code></a>&lt;<code>any</code>, <code>any</code>&gt;, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
+<p>Cloned React element with the injected props.</p>
 </div></div>
           </div>
           

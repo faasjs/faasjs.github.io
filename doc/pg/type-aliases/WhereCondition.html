@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>WhereCondition</strong>&lt;<code>T</code>&gt; = { <code>column</code>: <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>T</code>&gt; | <code>string</code>; <code>kind</code>: <code>&quot;column&quot;</code>; <code>operator</code>: <a href="/doc/pg/type-aliases/Operator.html"><code>Operator</code></a>; <code>type</code>: <code>&quot;AND&quot;</code> | <code>&quot;OR&quot;</code>; <code>value</code>: <code>any</code>; } | { <code>kind</code>: <code>&quot;raw&quot;</code>; <code>params</code>: <code>any</code>[]; <code>sql</code>: <code>string</code>; <code>type</code>: <code>&quot;AND&quot;</code> | <code>&quot;OR&quot;</code>; }</p>
 </blockquote>
+<p>Describes a single WHERE clause condition, either a column-based comparison or a raw SQL fragment.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>string</code></p>

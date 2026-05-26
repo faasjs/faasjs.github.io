@@ -64,6 +64,16 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / JobScheduler</p>
 <h1 id="class%3A-jobscheduler" tabindex="-1">Class: JobScheduler</h1>
+<p>Periodic scheduler that iterates over registered job definitions,
+evaluates their cron rules, and enqueues matching jobs at the top
+of each minute.</p>
+<p>Deduplicates cron enqueues by computing a hash of the rule configuration
+(job path, expression, timezone, queue, params) and using it as a
+conflict key in the database.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobScheduler</span>(registry, { <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">60_000</span> })
+scheduler.<span class="hljs-title function_">start</span>()
+</code></pre>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -81,23 +91,32 @@
 <blockquote>
 <p><strong>start</strong>(): <code>this</code></p>
 </blockquote>
+<p>Start the scheduler's cron loop. No-op if already active.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>this</code></p>
+<p>The scheduler instance (for chaining).</p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
 <p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Stop the scheduler loop. Waits for the current tick to complete
+before resolving.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="tick()" tabindex="-1">tick()</h3>
 <blockquote>
 <p><strong>tick</strong>(<code>now?</code>): <code>Promise</code>&lt;<code>number</code>&gt;</p>
 </blockquote>
+<p>Execute one scheduling tick: evaluate all cron rules against the
+current minute and enqueue matching jobs. No-op if a tick is
+already in progress.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="now%3F" tabindex="-1">now?</h5>
 <p><code>Date</code> = <code>...</code></p>
+<p>The reference time (defaults to the current instant).</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>number</code>&gt;</p>
+<p>The number of jobs enqueued in this tick.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="jobs-1" tabindex="-1">jobs</h3>
 <blockquote>

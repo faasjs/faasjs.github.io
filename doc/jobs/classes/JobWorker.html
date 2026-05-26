@@ -64,6 +64,18 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / JobWorker</p>
 <h1 id="class%3A-jobworker" tabindex="-1">Class: JobWorker</h1>
+<p>Long-running background worker that polls the database for pending jobs,
+claims them, executes their handlers, and updates their status.</p>
+<p>Supports configurable concurrency, polling interval, and lease duration.
+Failed jobs are retried according to their retry strategy until
+max attempts are reached.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(registry, {
+  <span class="hljs-attr">concurrency</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-attr">pollInterval</span>: <span class="hljs-number">2000</span>,
+})
+worker.<span class="hljs-title function_">start</span>()
+</code></pre>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -81,18 +93,25 @@
 <blockquote>
 <p><strong>poll</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;</p>
 </blockquote>
+<p>Execute one polling cycle: claim up to <code>concurrency</code> pending jobs
+and run their handlers. No-op if a poll is already in progress.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>number</code>&gt;</p>
+<p>The number of jobs processed in this cycle.</p>
 <h3 id="start()" tabindex="-1">start()</h3>
 <blockquote>
 <p><strong>start</strong>(): <code>this</code></p>
 </blockquote>
+<p>Start the worker's polling loop. No-op if already active.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>this</code></p>
+<p>The worker instance (for chaining).</p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
 <p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Stop the polling loop. Waits for the current poll to complete
+before resolving.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h2 id="properties" tabindex="-1">Properties</h2>

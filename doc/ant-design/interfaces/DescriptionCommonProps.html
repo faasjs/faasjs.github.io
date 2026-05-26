@@ -64,6 +64,7 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / DescriptionCommonProps</p>
 <h1 id="interface%3A-descriptioncommonprops%3Ct%2C-extenditemprops%3E" tabindex="-1">Interface: DescriptionCommonProps&lt;T, ExtendItemProps&gt;</h1>
+<p>Shared props used by both local-data and Faas-data description lists.</p>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
 <li><code>Omit</code>&lt;<code>DescriptionsProps</code>, <code>&quot;items&quot;</code>&gt;</li>
@@ -76,13 +77,16 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>any</code></p>
+<p>Data record shape rendered by the description list.</p>
 <h3 id="extenditemprops" tabindex="-1">ExtendItemProps</h3>
 <p><code>ExtendItemProps</code> = <code>any</code></p>
+<p>Additional item prop shape accepted by <code>items</code>.</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="rendertitle()%3F" tabindex="-1">renderTitle()?</h3>
 <blockquote>
 <p><code>optional</code> <strong>renderTitle</strong>(<code>this</code>, <code>values</code>): <code>ReactNode</code></p>
 </blockquote>
+<p>Callback that returns a custom React node for the title.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="this" tabindex="-1">this</h5>
 <p><code>void</code></p>
@@ -95,12 +99,14 @@
 <blockquote>
 <p><code>optional</code> <strong>extendTypes?</strong>: <code>object</code></p>
 </blockquote>
+<p>Custom type renderers keyed by item type.</p>
 <h4 id="index-signature" tabindex="-1">Index Signature</h4>
 <p>[<code>key</code>: <code>string</code>]: <a href="/doc/ant-design/type-aliases/ExtendDescriptionTypeProps.html"><code>ExtendDescriptionTypeProps</code></a>&lt;<code>any</code>&gt;</p>
 <h3 id="items" tabindex="-1">items</h3>
 <blockquote>
 <p><strong>items</strong>: (<code>ExtendItemProps</code> | <a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>&lt;<code>any</code>&gt;)[]</p>
 </blockquote>
+<p>Item metadata definitions rendered as description entries.</p>
 </div></div>
           </div>
           

@@ -74,13 +74,19 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
+<p>Zod schema type used for parsing.</p>
 <h3 id="tfallback" tabindex="-1">TFallback</h3>
 <p><code>TFallback</code> = <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
+<p>Fallback type used when no schema is provided.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><a href="/doc/node-utils/type-aliases/ParseSchemaValueOptions.html"><code>ParseSchemaValueOptions</code></a>&lt;<code>TSchema</code>, <code>TFallback</code>&gt;</p>
+<p>Parsing options including the optional schema, raw value, and error formatting.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/SchemaOutput.html"><code>SchemaOutput</code></a>&lt;<code>TSchema</code>, <code>TFallback</code>&gt;&gt;</p>
+<p>Parsed (and validated) value matching the schema or fallback type.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>If the schema validation fails, using the provided <code>createError</code> factory or a plain <code>Error</code>.</p>
 </div></div>
           </div>
           

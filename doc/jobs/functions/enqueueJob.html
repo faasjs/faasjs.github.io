@@ -71,12 +71,29 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="jobpath" tabindex="-1">jobPath</h3>
 <p><code>string</code></p>
+<p>The job path identifier derived from the <code>.job.ts</code> file location.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <p><code>unknown</code> = <code>{}</code></p>
+<p>The parameters to pass to the job handler.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/jobs/type-aliases/EnqueueJobOptions.html"><code>EnqueueJobOptions</code></a> = <code>{}</code></p>
+<p>Enqueue options including queue, priority, run time, and idempotency.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
+<p>The persisted job record.</p>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;jobs/users/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> })
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(
+  <span class="hljs-string">&#x27;jobs/reports/daily&#x27;</span>,
+  {},
+  {
+    <span class="hljs-attr">queue</span>: <span class="hljs-string">&#x27;reports&#x27;</span>,
+    <span class="hljs-attr">priority</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">idempotencyKey</span>: <span class="hljs-string">&#x27;report-2025-01-01&#x27;</span>,
+  },
+)
+</code></pre>
 </div></div>
           </div>
           

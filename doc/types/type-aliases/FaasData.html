@@ -67,12 +67,38 @@
 <blockquote>
 <p><strong>FaasData</strong>&lt;<code>T</code>&gt; = <code>T</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasActionPaths.html"><code>FaasActionPaths</code></a> ? <code>FaasActions</code>[<code>T</code>][<code>&quot;Data&quot;</code>] : <code>T</code> <em>extends</em> <code>string</code> ? <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; : <code>never</code></p>
 </blockquote>
-<p>Infer response data type by action path.</p>
-<p>If <code>T</code> is already a plain object type, it is returned directly.</p>
+<p>Infer the response data type for a given action path.</p>
+<p>When <code>T</code> matches a declared <a href="/doc/types/type-aliases/FaasActionPaths.html">action path</a>,
+resolves to <code>FaasActions[T]['Data']</code>. Falls back to
+<code>Record&lt;string, unknown&gt;</code> for unrecognized string paths.
+Returns <code>never</code> when <code>T</code> is not a string.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>unknown</code></p>
 <p>Candidate action path or response data type.</p>
+<h2 id="returns" tabindex="-1">Returns</h2>
+<p><code>FaasActions[T]['Data']</code> when <code>T</code> is a registered action
+path, <code>Record&lt;string, unknown&gt;</code> for any unregistered string,
+or <code>never</code> when <code>T</code> is not a string.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// Registered action — resolves to the declared Data type</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">LoginData</span> = <span class="hljs-title class_">FaasData</span>&lt;<span class="hljs-string">&#x27;user/login&#x27;</span>&gt;
+<span class="hljs-comment">// → { token: string }</span>
+
+<span class="hljs-comment">// Unregistered string — falls back to a generic record</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UnknownData</span> = <span class="hljs-title class_">FaasData</span>&lt;<span class="hljs-string">&#x27;some/action&#x27;</span>&gt;
+<span class="hljs-comment">// → Record&lt;string, unknown&gt;</span>
+
+<span class="hljs-comment">// Non-string — resolves to never</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Invalid</span> = <span class="hljs-title class_">FaasData</span>&lt;<span class="hljs-number">42</span>&gt;
+<span class="hljs-comment">// → never</span>
+</code></pre>
+<h2 id="see" tabindex="-1">See</h2>
+<ul>
+<li>FaasActions</li>
+<li><a href="/doc/types/type-aliases/FaasActionPaths.html">FaasActionPaths</a></li>
+<li><a href="/doc/types/type-aliases/FaasParams.html">FaasParams</a></li>
+</ul>
 </div></div>
           </div>
           

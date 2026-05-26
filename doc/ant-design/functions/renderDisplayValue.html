@@ -67,15 +67,23 @@
 <blockquote>
 <p><strong>renderDisplayValue</strong>(<code>type</code>, <code>value</code>, <code>options?</code>): <code>string</code> | <code>number</code> | <code>boolean</code> | <code>Element</code> | <code>null</code></p>
 </blockquote>
+<p>Render a display value using FaasJS item-type-aware formatting.</p>
+<p>Arrays are joined by comma, booleans render as icons, date/time values are formatted,
+and option-backed values resolve the corresponding label before rendering. Empty values
+produce a <a href="/doc/ant-design/functions/Blank.html">Blank</a> placeholder.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="type" tabindex="-1">type</h3>
 <p><a href="/doc/ant-design/type-aliases/FaasItemType.html"><code>FaasItemType</code></a></p>
+<p>Item type that controls the formatting logic.</p>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>any</code></p>
+<p>Raw value to display.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><code>object</code>[]</p>
+<p>Optional list of options used for label resolution.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>string</code> | <code>number</code> | <code>boolean</code> | <code>Element</code> | <code>null</code></p>
+<p>React node representing the formatted display value.</p>
 </div></div>
           </div>
           

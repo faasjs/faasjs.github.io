@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>OrderByCondition</strong>&lt;<code>T</code>&gt; = { <code>column</code>: <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>T</code>&gt; | <code>string</code>; <code>direction</code>: <a href="/doc/pg/type-aliases/QueryOrderDirection.html"><code>QueryOrderDirection</code></a>; <code>type</code>: <code>&quot;column&quot;</code>; } | { <code>params</code>: <code>any</code>[]; <code>sql</code>: <code>string</code>; <code>type</code>: <code>&quot;raw&quot;</code>; }</p>
 </blockquote>
+<p>Describes a single ORDER BY condition, either a column reference or a raw SQL fragment.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>string</code></p>

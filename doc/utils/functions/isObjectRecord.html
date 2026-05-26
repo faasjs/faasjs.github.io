@@ -67,11 +67,25 @@
 <blockquote>
 <p><strong>isObjectRecord</strong>(<code>value</code>): <code>value is Record&lt;string, unknown&gt;</code></p>
 </blockquote>
+<p>Type guard that checks whether a value is a plain object record.</p>
+<p>Uses Zod's <code>safeParse</code> to validate that the value is an object with
+string keys and unknown values. Returns <code>false</code> for arrays, null,
+primitives, and other non-plain-object values.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>unknown</code></p>
+<p>Value to check.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>value is Record&lt;string, unknown&gt;</code></p>
+<p><code>true</code> if the value is a plain object record.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isObjectRecord } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-title function_">isObjectRecord</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }) <span class="hljs-comment">// true</span>
+<span class="hljs-title function_">isObjectRecord</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]) <span class="hljs-comment">// false</span>
+<span class="hljs-title function_">isObjectRecord</span>(<span class="hljs-string">&#x27;hello&#x27;</span>) <span class="hljs-comment">// false</span>
+<span class="hljs-title function_">isObjectRecord</span>(<span class="hljs-literal">null</span>) <span class="hljs-comment">// false</span>
+</code></pre>
 </div></div>
           </div>
           

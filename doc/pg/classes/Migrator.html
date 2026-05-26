@@ -79,10 +79,13 @@ It provides methods to check migration status, apply migrations, and roll back m
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="options" tabindex="-1">options</h5>
+<p>Migration configuration.</p>
 <h6 id="client" tabindex="-1">client</h6>
 <p><a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
+<p>The database client.</p>
 <h6 id="folder" tabindex="-1">folder</h6>
 <p><code>string</code></p>
+<p>The folder containing migration files.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Migrator</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -90,32 +93,41 @@ It provides methods to check migration status, apply migrations, and roll back m
 <blockquote>
 <p><strong>createMigrationTable</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
+<p>Creates the <code>faasjs_pg_migrations</code> tracking table if it does not exist.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="down()" tabindex="-1">down()</h3>
 <blockquote>
 <p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 </blockquote>
+<p>Rolls back the last applied migration by calling its <code>down</code> function.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
+<p>A rejected promise if the rollback fails.</p>
 <h3 id="migrate()" tabindex="-1">migrate()</h3>
 <blockquote>
 <p><strong>migrate</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 </blockquote>
+<p>Runs all pending migration files in lexical order.</p>
+<p>Each migration file is loaded dynamically and its <code>up</code> function is invoked
+with a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Changes are run in a transaction per migration.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 <h3 id="status()" tabindex="-1">status()</h3>
 <blockquote>
 <p><strong>status</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
+<p>Returns all applied migration records from the tracking table.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="up()" tabindex="-1">up()</h3>
 <blockquote>
 <p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 </blockquote>
+<p>Runs the next pending migration, if one exists.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
+<p>A rejected promise if the migration fails.</p>
 </div></div>
           </div>
           

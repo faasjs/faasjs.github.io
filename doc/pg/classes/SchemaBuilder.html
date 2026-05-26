@@ -74,6 +74,7 @@
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="client" tabindex="-1">client</h5>
 <p><a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
+<p>The database client used to execute schema changes.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -81,65 +82,85 @@
 <blockquote>
 <p><strong>alterTable</strong>(<code>tableName</code>, <code>callback</code>): <code>SchemaBuilder</code></p>
 </blockquote>
+<p>Registers one or more ALTER TABLE statements. The callback receives a <a href="/doc/pg/classes/TableBuilder.html">TableBuilder</a>
+scoped to the given table name in alter mode.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="tablename" tabindex="-1">tableName</h5>
 <p><code>string</code></p>
+<p>The name of the table to alter.</p>
 <h5 id="callback" tabindex="-1">callback</h5>
 <p>(<code>table</code>) =&gt; <code>void</code></p>
+<p>A function that defines the alterations.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h3 id="createtable()" tabindex="-1">createTable()</h3>
 <blockquote>
 <p><strong>createTable</strong>(<code>tableName</code>, <code>callback</code>): <code>SchemaBuilder</code></p>
 </blockquote>
+<p>Registers a CREATE TABLE statement. The callback receives a <a href="/doc/pg/classes/TableBuilder.html">TableBuilder</a>
+scoped to the given table name in create mode.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="tablename-1" tabindex="-1">tableName</h5>
 <p><code>string</code></p>
+<p>The name of the table to create.</p>
 <h5 id="callback-1" tabindex="-1">callback</h5>
 <p>(<code>table</code>) =&gt; <code>void</code></p>
+<p>A function that defines the table schema.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h3 id="droptable()" tabindex="-1">dropTable()</h3>
 <blockquote>
 <p><strong>dropTable</strong>(<code>tableName</code>): <code>SchemaBuilder</code></p>
 </blockquote>
+<p>Registers a DROP TABLE statement.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
 <h5 id="tablename-2" tabindex="-1">tableName</h5>
 <p><code>string</code></p>
+<p>The name of the table to drop.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h3 id="raw()" tabindex="-1">raw()</h3>
 <blockquote>
 <p><strong>raw</strong>(<code>sql</code>): <code>SchemaBuilder</code></p>
 </blockquote>
+<p>Appends a raw SQL statement to the change list.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
+<p>The raw SQL to execute.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h3 id="renametable()" tabindex="-1">renameTable()</h3>
 <blockquote>
 <p><strong>renameTable</strong>(<code>oldTableName</code>, <code>newTableName</code>): <code>SchemaBuilder</code></p>
 </blockquote>
+<p>Registers a table rename statement.</p>
 <h4 id="parameters-5" tabindex="-1">Parameters</h4>
 <h5 id="oldtablename" tabindex="-1">oldTableName</h5>
 <p><code>string</code></p>
+<p>The current table name.</p>
 <h5 id="newtablename" tabindex="-1">newTableName</h5>
 <p><code>string</code></p>
+<p>The new table name.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>SchemaBuilder</code></p>
 <h3 id="run()" tabindex="-1">run()</h3>
 <blockquote>
 <p><strong>run</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
+<p>Executes all registered schema changes in a single database transaction.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
+<h4 id="throws" tabindex="-1">Throws</h4>
+<p>Wrapped with the full SQL on failure.</p>
 <h3 id="tosql()" tabindex="-1">toSQL()</h3>
 <blockquote>
 <p><strong>toSQL</strong>(): <code>string</code>[]</p>
 </blockquote>
+<p>Serializes all registered schema changes into an array of SQL statement strings.</p>
 <h4 id="returns-7" tabindex="-1">Returns</h4>
 <p><code>string</code>[]</p>
+<p>The array of generated SQL statements.</p>
 </div></div>
           </div>
           

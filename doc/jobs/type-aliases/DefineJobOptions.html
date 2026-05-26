@@ -67,6 +67,7 @@
 <blockquote>
 <p><strong>DefineJobOptions</strong>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>object</code></p>
 </blockquote>
+<p>Options for <a href="/doc/jobs/functions/defineJob.html">defineJob</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
@@ -79,10 +80,12 @@
 <blockquote>
 <p><code>optional</code> <strong>cron?</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobParams.html"><code>DefineJobParams</code></a>&lt;<code>TSchema</code>&gt;&gt;[]</p>
 </blockquote>
+<p>Cron rules that trigger scheduled invocations of this job.</p>
 <h3 id="handler" tabindex="-1">handler</h3>
 <blockquote>
 <p><strong>handler</strong>: (<code>data</code>) =&gt; <code>TResult</code> | <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
 </blockquote>
+<p>The job handler function.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/jobs/type-aliases/DefineJobData.html"><code>DefineJobData</code></a>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt;</p>
@@ -92,18 +95,22 @@
 <blockquote>
 <p><code>optional</code> <strong>maxAttempts?</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum execution attempts. Defaults to <code>3</code>.</p>
 <h3 id="queue%3F" tabindex="-1">queue?</h3>
 <blockquote>
 <p><code>optional</code> <strong>queue?</strong>: <code>string</code></p>
 </blockquote>
+<p>Queue name. Defaults to <code>'default'</code>.</p>
 <h3 id="retry%3F" tabindex="-1">retry?</h3>
 <blockquote>
 <p><code>optional</code> <strong>retry?</strong>: <a href="/doc/jobs/type-aliases/JobRetry.html"><code>JobRetry</code></a></p>
 </blockquote>
+<p>Retry strategy for failed attempts.</p>
 <h3 id="schema%3F" tabindex="-1">schema?</h3>
 <blockquote>
 <p><code>optional</code> <strong>schema?</strong>: <code>TSchema</code></p>
 </blockquote>
+<p>Optional Zod schema used to validate and type handler params.</p>
 </div></div>
           </div>
           

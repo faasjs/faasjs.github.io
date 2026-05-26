@@ -64,7 +64,7 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / UnionFaasItemProps</p>
 <h1 id="interface%3A-unionfaasitemprops%3Cvalue%2C-values%3E" tabindex="-1">Interface: UnionFaasItemProps&lt;Value, Values&gt;</h1>
-<p>Column definition used by the FaasJS Ant Design <a href="/doc/ant-design/functions/Table.html">Table</a> component.</p>
+<p>Combined item props that spans form, description, and table definitions.</p>
 <h2 id="extends" tabindex="-1">Extends</h2>
 <ul>
 <li><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>.<a href="/doc/ant-design/interfaces/TableItemProps.html"><code>TableItemProps</code></a></li>
@@ -72,7 +72,6 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="value" tabindex="-1">Value</h3>
 <p><code>Value</code> = <code>any</code></p>
-<p>Row record type rendered by the table.</p>
 <h3 id="values" tabindex="-1">Values</h3>
 <p><code>Values</code> = <code>any</code></p>
 <h2 id="properties" tabindex="-1">Properties</h2>
@@ -80,49 +79,56 @@
 <blockquote>
 <p><code>optional</code> <strong>children?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>Value</code>, <code>Values</code>&gt; | <code>null</code></p>
 </blockquote>
-<p>Generic custom element rendered when no table-specific child overrides it.</p>
+<p>Generic custom element rendered when no form-specific child overrides it.</p>
 <h4 id="overrides" tabindex="-1">Overrides</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#children"><code>children</code></a></p>
 <h3 id="col%3F" tabindex="-1">col?</h3>
 <blockquote>
 <p><code>optional</code> <strong>col?</strong>: <code>number</code></p>
 </blockquote>
+<p>Number of columns taken by this field in the Ant Design grid.</p>
 <h4 id="inherited-from" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#col"><code>col</code></a></p>
 <h3 id="descriptionchildren%3F" tabindex="-1">descriptionChildren?</h3>
 <blockquote>
 <p><code>optional</code> <strong>descriptionChildren?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>any</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Description-specific custom element.</p>
 <h4 id="inherited-from-1" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionItemProps.html#descriptionchildren"><code>descriptionChildren</code></a></p>
 <h3 id="descriptionrender%3F" tabindex="-1">descriptionRender?</h3>
 <blockquote>
 <p><code>optional</code> <strong>descriptionRender?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>any</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Description-specific custom render callback.</p>
 <h4 id="inherited-from-2" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/DescriptionItemProps.html"><code>DescriptionItemProps</code></a>.<a href="/doc/ant-design/interfaces/DescriptionItemProps.html#descriptionrender"><code>descriptionRender</code></a></p>
 <h3 id="disabled%3F" tabindex="-1">disabled?</h3>
 <blockquote>
 <p><code>optional</code> <strong>disabled?</strong>: <code>boolean</code></p>
 </blockquote>
+<p>Whether the field is disabled.</p>
 <h4 id="inherited-from-3" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#disabled"><code>disabled</code></a></p>
 <h3 id="extendtypes%3F" tabindex="-1">extendTypes?</h3>
 <blockquote>
 <p><code>optional</code> <strong>extendTypes?</strong>: <a href="/doc/ant-design/type-aliases/ExtendTypes.html"><code>ExtendTypes</code></a></p>
 </blockquote>
+<p>Custom type renderers keyed by item type.</p>
 <h4 id="inherited-from-4" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#extendtypes"><code>extendTypes</code></a></p>
 <h3 id="formchildren%3F" tabindex="-1">formChildren?</h3>
 <blockquote>
 <p><code>optional</code> <strong>formChildren?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemElement.html"><code>UnionFaasItemElement</code></a>&lt;<code>any</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Form-specific custom element.</p>
 <h4 id="inherited-from-5" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#formchildren"><code>formChildren</code></a></p>
 <h3 id="formrender%3F" tabindex="-1">formRender?</h3>
 <blockquote>
 <p><code>optional</code> <strong>formRender?</strong>: <a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html"><code>UnionFaasItemRender</code></a>&lt;<code>any</code>&gt; | <code>null</code></p>
 </blockquote>
+<p>Form-specific custom render callback.</p>
 <h4 id="inherited-from-6" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#formrender"><code>formRender</code></a></p>
 <h3 id="id" tabindex="-1">id</h3>
@@ -135,6 +141,7 @@
 <blockquote>
 <p><code>optional</code> <strong>if?</strong>: (<code>values</code>) =&gt; <code>boolean</code></p>
 </blockquote>
+<p>Conditional visibility predicate. When <code>false</code>, the field is hidden and rendered as a hidden input.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="values-1" tabindex="-1">values</h5>
 <p><code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
@@ -146,18 +153,21 @@
 <blockquote>
 <p><code>optional</code> <strong>input?</strong>: <code>InputProps</code> | <code>RadioProps</code> | <code>InputNumberProps</code>&lt;<code>ValueType</code>&gt; | <code>SwitchProps</code> | <code>DatePickerProps</code> | <code>SelectProps</code>&lt;<code>any</code>, <code>DefaultOptionType</code>&gt;</p>
 </blockquote>
+<p>Props forwarded to the Ant Design input component used for this field.</p>
 <h4 id="inherited-from-9" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#input"><code>input</code></a></p>
 <h3 id="label%3F" tabindex="-1">label?</h3>
 <blockquote>
 <p><code>optional</code> <strong>label?</strong>: <code>string</code> | <code>false</code></p>
 </blockquote>
+<p>Field label text, or <code>false</code> to hide the label.</p>
 <h4 id="inherited-from-10" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#label"><code>label</code></a></p>
 <h3 id="maxcount%3F" tabindex="-1">maxCount?</h3>
 <blockquote>
 <p><code>optional</code> <strong>maxCount?</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum number of entries allowed in a list item.</p>
 <h4 id="inherited-from-11" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#maxcount"><code>maxCount</code></a></p>
 <h3 id="object%3F" tabindex="-1">object?</h3>
@@ -171,6 +181,7 @@
 <blockquote>
 <p><code>optional</code> <strong>onValueChange?</strong>: (<code>value</code>, <code>values</code>, <code>form</code>) =&gt; <code>void</code></p>
 </blockquote>
+<p>Called when the field value changes.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="value-1" tabindex="-1">value</h5>
 <p><code>any</code></p>
@@ -206,12 +217,14 @@
 <blockquote>
 <p><code>optional</code> <strong>required?</strong>: <code>boolean</code></p>
 </blockquote>
+<p>Whether the field is required. When <code>true</code>, a required validation rule is appended.</p>
 <h4 id="inherited-from-15" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#required"><code>required</code></a></p>
 <h3 id="rules%3F" tabindex="-1">rules?</h3>
 <blockquote>
 <p><code>optional</code> <strong>rules?</strong>: <code>RuleObject</code>[]</p>
 </blockquote>
+<p>Validation rules appended to the field.</p>
 <h4 id="inherited-from-16" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#rules"><code>rules</code></a></p>
 <h3 id="tablechildren%3F" tabindex="-1">tableChildren?</h3>
@@ -238,6 +251,7 @@
 <blockquote>
 <p><code>optional</code> <strong>type?</strong>: <a href="/doc/ant-design/type-aliases/FaasItemType.html"><code>FaasItemType</code></a></p>
 </blockquote>
+<p>Item type that determines which Ant Design control is rendered.</p>
 <h4 id="inherited-from-20" tabindex="-1">Inherited from</h4>
 <p><a href="/doc/ant-design/interfaces/FormItemProps.html"><code>FormItemProps</code></a>.<a href="/doc/ant-design/interfaces/FormItemProps.html#type"><code>type</code></a></p>
 </div></div>

@@ -67,19 +67,24 @@
 <blockquote>
 <p><strong>FaasBrowserClientAction</strong> = &lt;<code>Path</code>&gt;(<code>action</code>, <code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
 </blockquote>
-<p>Type definition for the FaasBrowserClient.action method.</p>
+<p>Type signature for the <a href="/doc/react/classes/FaasBrowserClient.html#action">FaasBrowserClient.action</a> method.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
+<p>Action path used to infer the request params and response data types.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
 <p><code>Path</code></p>
+<p>Action path to invoke.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
+<p>Params sent to the action.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>
+<p>Per-request overrides on top of client defaults.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt; | <a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;</p>
+<p>FaasJS response or native fetch response when streaming.</p>
 </div></div>
           </div>
           

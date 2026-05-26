@@ -67,27 +67,34 @@
 <blockquote>
 <p><strong>EnqueueJobOptions</strong> = <code>object</code></p>
 </blockquote>
+<p>Options for <a href="/doc/jobs/functions/enqueueJob.html">enqueueJob</a>.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="idempotencykey%3F" tabindex="-1">idempotencyKey?</h3>
 <blockquote>
 <p><code>optional</code> <strong>idempotencyKey?</strong>: <code>string</code></p>
 </blockquote>
+<p>Idempotency key. Jobs with the same key are only inserted once.
+Used to prevent duplicate enqueues for the same logical operation.</p>
 <h3 id="maxattempts%3F" tabindex="-1">maxAttempts?</h3>
 <blockquote>
 <p><code>optional</code> <strong>maxAttempts?</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum execution attempts. Defaults to <code>3</code>.</p>
 <h3 id="priority%3F" tabindex="-1">priority?</h3>
 <blockquote>
 <p><code>optional</code> <strong>priority?</strong>: <code>number</code></p>
 </blockquote>
+<p>Execution priority. Higher values run first. Defaults to <code>0</code>.</p>
 <h3 id="queue%3F" tabindex="-1">queue?</h3>
 <blockquote>
 <p><code>optional</code> <strong>queue?</strong>: <code>string</code></p>
 </blockquote>
+<p>Queue name. Defaults to <code>'default'</code>.</p>
 <h3 id="runat%3F" tabindex="-1">runAt?</h3>
 <blockquote>
 <p><code>optional</code> <strong>runAt?</strong>: <code>Date</code></p>
 </blockquote>
+<p>Earliest time the job should run. Defaults to now.</p>
 </div></div>
           </div>
           

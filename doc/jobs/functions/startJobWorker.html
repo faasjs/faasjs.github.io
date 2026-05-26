@@ -67,11 +67,19 @@
 <blockquote>
 <p><strong>startJobWorker</strong>(<code>options?</code>): <code>Promise</code>&lt;<a href="/doc/jobs/classes/JobWorker.html"><code>JobWorker</code></a>&gt;</p>
 </blockquote>
+<p>Discover job definitions and start a worker immediately.</p>
+<p>This is the recommended shorthand for initializing the schema,
+loading the job registry, and starting the polling loop in one call.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/jobs/type-aliases/JobWorkerOptions.html"><code>JobWorkerOptions</code></a> = <code>{}</code></p>
+<p>Worker options.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/jobs/classes/JobWorker.html"><code>JobWorker</code></a>&gt;</p>
+<p>A running <code>JobWorker</code> instance.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">await</span> <span class="hljs-title function_">startJobWorker</span>({ <span class="hljs-attr">concurrency</span>: <span class="hljs-number">5</span> })
+</code></pre>
 </div></div>
           </div>
           

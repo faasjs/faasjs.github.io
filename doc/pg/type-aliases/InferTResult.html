@@ -67,11 +67,14 @@
 <blockquote>
 <p><strong>InferTResult</strong>&lt;<code>TName</code>, <code>ColumnNames</code>&gt; = <code>ColumnNames</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>TName</code>&gt; : <code>MergeTypes</code>&lt;<code>{ [K in keyof ColumnNames]: InferColumnType&lt;TName, ColumnNames[K]&gt; }</code>&gt;</p>
 </blockquote>
+<p>Infers the result row type for a SELECT query based on the table name and selected columns.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tname" tabindex="-1">TName</h3>
 <p><code>TName</code> <em>extends</em> <code>string</code></p>
+<p>The table name.</p>
 <h3 id="columnnames" tabindex="-1">ColumnNames</h3>
 <p><code>ColumnNames</code> <em>extends</em> (<a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>TName</code>&gt; | <a href="/doc/pg/type-aliases/JsonSelectField.html"><code>JsonSelectField</code></a>&lt;<code>TName</code>&gt;)[] = <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>TName</code>&gt;[]</p>
+<p>The columns selected, or defaults to all columns.</p>
 </div></div>
           </div>
           

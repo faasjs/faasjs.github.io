@@ -67,13 +67,20 @@
 <blockquote>
 <p><strong>transferValue</strong>(<code>type</code>, <code>value</code>): <code>any</code></p>
 </blockquote>
+<p>Coerce a raw value into the expected JavaScript type for a given <a href="/doc/ant-design/type-aliases/FaasItemType.html">FaasItemType</a>.</p>
+<p>Falsy scalar values (including the strings <code>&quot;null&quot;</code> and <code>&quot;undefined&quot;</code>) are normalised to <code>null</code>.
+Array-typed values are coerced element-by-element. Date/time values are parsed into Dayjs objects
+and unix timestamps are auto-detected.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="type" tabindex="-1">type</h3>
 <p><a href="/doc/ant-design/type-aliases/FaasItemType.html"><code>FaasItemType</code></a> | <code>null</code> | <code>undefined</code></p>
+<p>Target item type (defaults to <code>&quot;string&quot;</code> when falsy).</p>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>any</code></p>
+<p>Raw value to normalise.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>any</code></p>
+<p>Normalised value matching the expected type.</p>
 </div></div>
           </div>
           

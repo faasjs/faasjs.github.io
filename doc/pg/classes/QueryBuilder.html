@@ -64,11 +64,21 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / QueryBuilder</p>
 <h1 id="class%3A-querybuilder%3Ct%2C-tresult%3E" tabindex="-1">Class: QueryBuilder&lt;T, TResult&gt;</h1>
+<p>Builds and executes parameterized PostgreSQL queries through a fluent, chainable API.</p>
+<p>Supports SELECT, INSERT, UPDATE, DELETE, and upsert operations with strongly-typed
+WHERE clauses, JOINs, ORDER BY, LIMIT/OFFSET, and result-type inference from the
+table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">5</span>).<span class="hljs-title function_">limit</span>(<span class="hljs-number">10</span>)
+<span class="hljs-comment">// SELECT &quot;id&quot;,&quot;name&quot; FROM &quot;users&quot; WHERE &quot;id&quot; &gt; ? LIMIT ?</span>
+</code></pre>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>string</code> = <code>string</code></p>
+<p>The table name.</p>
 <h3 id="tresult" tabindex="-1">TResult</h3>
 <p><code>TResult</code> = <a href="/doc/pg/type-aliases/InferTResult.html"><code>InferTResult</code></a>&lt;<code>T</code>&gt;[]</p>
+<p>The inferred result row type.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -77,8 +87,10 @@
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="client" tabindex="-1">client</h5>
 <p><a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
+<p>The database client to execute queries against.</p>
 <h5 id="table" tabindex="-1">table</h5>
 <p><code>T</code></p>
+<p>The table name to target.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
@@ -90,7 +102,7 @@
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>number</code>&gt;</p>
 <p>A promise that resolves to the count of rows in the table.</p>
-<h4 id="example" tabindex="-1">Example</h4>
+<h4 id="example-1" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">count</span>() <span class="hljs-comment">// =&gt; 2</span>
 </code></pre>
 <h3 id="delete()" tabindex="-1">delete()</h3>
@@ -103,15 +115,18 @@
 <p>The result of the raw SQL execution.</p>
 <h4 id="throws" tabindex="-1">Throws</h4>
 <p>If no where conditions are provided.</p>
-<h4 id="example-1" tabindex="-1">Example</h4>
+<h4 id="example-2" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">delete</span>() <span class="hljs-comment">// DELETE FROM users WHERE id = 1</span>
 </code></pre>
 <h3 id="first()" tabindex="-1">first()</h3>
 <blockquote>
 <p><strong>first</strong>(): <code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;</p>
 </blockquote>
+<p>Executes the query and returns the first matching row, or <code>null</code> if no rows match.</p>
+<p>Automatically applies <code>LIMIT 1</code> to the query.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;</p>
+<p>The first row of the result set, or <code>null</code>.</p>
 <h3 id="insert()" tabindex="-1">insert()</h3>
 <blockquote>
 <p><strong>insert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
@@ -135,7 +150,7 @@
 <p>An array of columns to return, or ['*'] to return all columns.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
-<h4 id="example-2" tabindex="-1">Example</h4>
+<h4 id="example-3" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Charlie&#x27;</span> }) <span class="hljs-comment">// =&gt; []</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Charlie&#x27;</span> }, { <span class="hljs-attr">returning</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; [{ name: &#x27;Charlie&#x27; }]</span>
@@ -154,10 +169,13 @@
 <h5 id="parameters-2" tabindex="-1">Parameters</h5>
 <h6 id="table-1" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The table to join.</p>
 <h6 id="left" tabindex="-1">left</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The left operand for the ON condition.</p>
 <h6 id="right" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The right operand when an explicit operator is provided.</p>
 <h5 id="returns-5" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-1" tabindex="-1">Call Signature</h4>
@@ -168,12 +186,15 @@
 <h5 id="parameters-3" tabindex="-1">Parameters</h5>
 <h6 id="table-2" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The table to join.</p>
 <h6 id="left-1" tabindex="-1">left</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The left operand for the ON condition.</p>
 <h6 id="operator" tabindex="-1">operator</h6>
 <p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
 <h6 id="right-1" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The right operand when an explicit operator is provided.</p>
 <h5 id="returns-6" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="leftjoin()" tabindex="-1">leftJoin()</h3>
@@ -185,10 +206,13 @@
 <h5 id="parameters-4" tabindex="-1">Parameters</h5>
 <h6 id="table-3" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The table to join.</p>
 <h6 id="left-2" tabindex="-1">left</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The left operand for the ON condition.</p>
 <h6 id="right-2" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The right operand when an explicit operator is provided.</p>
 <h5 id="returns-7" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-3" tabindex="-1">Call Signature</h4>
@@ -199,12 +223,15 @@
 <h5 id="parameters-5" tabindex="-1">Parameters</h5>
 <h6 id="table-4" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The table to join.</p>
 <h6 id="left-3" tabindex="-1">left</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The left operand for the ON condition.</p>
 <h6 id="operator-1" tabindex="-1">operator</h6>
 <p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
 <h6 id="right-3" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
+<p>The right operand when an explicit operator is provided.</p>
 <h5 id="returns-8" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="limit()" tabindex="-1">limit()</h3>
@@ -218,7 +245,7 @@
 <p>The maximum number of records to retrieve.</p>
 <h4 id="returns-9" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h4 id="example-3" tabindex="-1">Example</h4>
+<h4 id="example-4" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">limit</span>(<span class="hljs-number">10</span>) <span class="hljs-comment">// LIMIT 10</span>
 </code></pre>
 <h3 id="offset()" tabindex="-1">offset()</h3>
@@ -232,7 +259,7 @@
 <p>The number of records to skip.</p>
 <h4 id="returns-10" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h4 id="example-4" tabindex="-1">Example</h4>
+<h4 id="example-5" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">offset</span>(<span class="hljs-number">10</span>) <span class="hljs-comment">// OFFSET 10</span>
 </code></pre>
 <h3 id="orderby()" tabindex="-1">orderBy()</h3>
@@ -252,7 +279,7 @@
 <p>The direction to order by.</p>
 <h4 id="returns-11" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h4 id="example-5" tabindex="-1">Example</h4>
+<h4 id="example-6" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">orderBy</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;DESC&#x27;</span>) <span class="hljs-comment">// ORDER BY id DESC</span>
 </code></pre>
 <h3 id="orderbyraw()" tabindex="-1">orderByRaw()</h3>
@@ -263,8 +290,10 @@
 <h4 id="parameters-9" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
+<p>The raw SQL fragment.</p>
 <h5 id="params" tabindex="-1">params</h5>
 <p>...<code>any</code>[]</p>
+<p>Bound parameters for the SQL fragment.</p>
 <h4 id="returns-12" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="orwhere()" tabindex="-1">orWhere()</h3>
@@ -288,7 +317,7 @@
 <p>The value to compare against.</p>
 <h5 id="returns-13" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-6" tabindex="-1">Example</h5>
+<h5 id="example-7" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h4 id="call-signature-5" tabindex="-1">Call Signature</h4>
@@ -311,7 +340,7 @@
 <p>The value to compare against.</p>
 <h5 id="returns-14" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-7" tabindex="-1">Example</h5>
+<h5 id="example-8" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h4 id="call-signature-6" tabindex="-1">Call Signature</h4>
@@ -331,7 +360,7 @@
 <p>The operator to use for comparison.</p>
 <h5 id="returns-15" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-8" tabindex="-1">Example</h5>
+<h5 id="example-9" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h4 id="call-signature-7" tabindex="-1">Call Signature</h4>
@@ -354,7 +383,7 @@
 <p>The value to compare against.</p>
 <h5 id="returns-16" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-9" tabindex="-1">Example</h5>
+<h5 id="example-10" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h4 id="call-signature-8" tabindex="-1">Call Signature</h4>
@@ -377,7 +406,7 @@
 <p>The value to compare against.</p>
 <h5 id="returns-17" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-10" tabindex="-1">Example</h5>
+<h5 id="example-11" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h4 id="call-signature-9" tabindex="-1">Call Signature</h4>
@@ -397,7 +426,7 @@
 <p>The value to compare against.</p>
 <h5 id="returns-18" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-11" tabindex="-1">Example</h5>
+<h5 id="example-12" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">orWhere</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// WHERE id = 1 OR id = 2</span>
 </code></pre>
 <h3 id="orwhereraw()" tabindex="-1">orWhereRaw()</h3>
@@ -408,8 +437,10 @@
 <h4 id="parameters-16" tabindex="-1">Parameters</h4>
 <h5 id="sql-1" tabindex="-1">sql</h5>
 <p><code>string</code></p>
+<p>The raw SQL fragment.</p>
 <h5 id="params-1" tabindex="-1">params</h5>
 <p>...<code>any</code>[]</p>
+<p>Bound parameters for the SQL fragment.</p>
 <h4 id="returns-19" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="pluck()" tabindex="-1">pluck()</h3>
@@ -428,7 +459,7 @@
 <h4 id="returns-20" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;[]&gt;</p>
 <p>A promise that resolves to an array of values from the specified column.</p>
-<h4 id="example-12" tabindex="-1">Example</h4>
+<h4 id="example-13" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">pluck</span>(<span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// =&gt; [&#x27;Alice&#x27;, &#x27;Bob&#x27;]</span>
 </code></pre>
 <h3 id="select()" tabindex="-1">select()</h3>
@@ -445,7 +476,7 @@
 <p>The columns to select.</p>
 <h4 id="returns-21" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <a href="/doc/pg/type-aliases/InferTResult.html"><code>InferTResult</code></a>&lt;<code>T</code>, <code>ColumnNames</code>&gt;[]&gt;</p>
-<h4 id="example-13" tabindex="-1">Example</h4>
+<h4 id="example-14" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>) <span class="hljs-comment">// SELECT id, name FROM users</span>
 
 <span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, { <span class="hljs-attr">column</span>: <span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-attr">fields</span>: [<span class="hljs-string">&#x27;email&#x27;</span>] }) <span class="hljs-comment">// SELECT id, jsonb_build_object(&#x27;email&#x27;, data-&gt;&#x27;email&#x27;) AS data FROM users</span>
@@ -454,6 +485,7 @@
 <blockquote>
 <p><strong>then</strong>&lt;<code>TResult1</code>, <code>TResult2</code>&gt;(<code>onfulfilled?</code>, <code>onrejected?</code>): <code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;</p>
 </blockquote>
+<p>Makes the QueryBuilder thenable — calling <code>await builder</code> implicitly executes the query.</p>
 <h4 id="type-parameters-11" tabindex="-1">Type Parameters</h4>
 <h5 id="tresult1" tabindex="-1">TResult1</h5>
 <p><code>TResult1</code> = <code>TResult</code></p>
@@ -462,16 +494,21 @@
 <h4 id="parameters-19" tabindex="-1">Parameters</h4>
 <h5 id="onfulfilled%3F" tabindex="-1">onfulfilled?</h5>
 <p>((<code>value</code>) =&gt; <code>TResult1</code> | <code>PromiseLike</code>&lt;<code>TResult1</code>&gt;) | <code>null</code></p>
+<p>Callback invoked when the query result resolves successfully.</p>
 <h5 id="onrejected%3F" tabindex="-1">onrejected?</h5>
 <p>((<code>reason</code>) =&gt; <code>TResult2</code> | <code>PromiseLike</code>&lt;<code>TResult2</code>&gt;) | <code>null</code></p>
+<p>Callback invoked when the query rejects.</p>
 <h4 id="returns-22" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;</p>
+<p>A promise for the transformed result.</p>
 <h3 id="tosql()" tabindex="-1">toSql()</h3>
 <blockquote>
 <p><strong>toSql</strong>(): <code>object</code></p>
 </blockquote>
+<p>Serializes the query builder state into a parameterized SQL statement and bound parameters.</p>
 <h4 id="returns-23" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
+<p>An object containing the generated <code>sql</code> string and <code>params</code> array.</p>
 <h5 id="params-2" tabindex="-1">params</h5>
 <blockquote>
 <p><strong>params</strong>: <code>any</code>[]</p>
@@ -500,7 +537,7 @@
 <p>An array of columns to return after the update.</p>
 <h4 id="returns-24" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
-<h4 id="example-14" tabindex="-1">Example</h4>
+<h4 id="example-15" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">update</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }) <span class="hljs-comment">// =&gt; []</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
@@ -525,7 +562,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The object to merge into the column.</p>
 <h4 id="returns-25" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
-<h4 id="example-15" tabindex="-1">Example</h4>
+<h4 id="example-16" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>).<span class="hljs-title function_">updateJson</span>(<span class="hljs-string">&#x27;metadata&#x27;</span>, { <span class="hljs-attr">age</span>: <span class="hljs-number">30</span> })
 <span class="hljs-comment">// UPDATE &quot;users&quot; SET &quot;metadata&quot; = &quot;metadata&quot; || &#x27;{&quot;age&quot;:30}&#x27; WHERE &quot;id&quot; = 1</span>
 </code></pre>
@@ -560,7 +597,7 @@ avoiding read-modify-write race conditions.</p>
 <ul>
 <li>A promise that resolves to the result of the upsert operation.</li>
 </ul>
-<h4 id="example-16" tabindex="-1">Example</h4>
+<h4 id="example-17" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">upsert</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> }, { <span class="hljs-attr">conflict</span>: [<span class="hljs-string">&#x27;id&#x27;</span>], <span class="hljs-attr">update</span>: [<span class="hljs-string">&#x27;name&#x27;</span>] }) <span class="hljs-comment">// =&gt; []</span>
 </code></pre>
 <h3 id="where()" tabindex="-1">where()</h3>
@@ -584,7 +621,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The value to compare against.</p>
 <h5 id="returns-27" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-17" tabindex="-1">Example</h5>
+<h5 id="example-18" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -613,7 +650,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The value to compare against.</p>
 <h5 id="returns-28" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-18" tabindex="-1">Example</h5>
+<h5 id="example-19" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -639,7 +676,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The operator to use for comparison.</p>
 <h5 id="returns-29" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-19" tabindex="-1">Example</h5>
+<h5 id="example-20" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -668,7 +705,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The value to compare against.</p>
 <h5 id="returns-30" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-20" tabindex="-1">Example</h5>
+<h5 id="example-21" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -697,7 +734,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The value to compare against.</p>
 <h5 id="returns-31" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-21" tabindex="-1">Example</h5>
+<h5 id="example-22" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -723,7 +760,7 @@ avoiding read-modify-write race conditions.</p>
 <p>The value to compare against.</p>
 <h5 id="returns-32" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
-<h5 id="example-22" tabindex="-1">Example</h5>
+<h5 id="example-23" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id = 1</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// WHERE id &gt; 1</span>
@@ -740,8 +777,10 @@ avoiding read-modify-write race conditions.</p>
 <h4 id="parameters-29" tabindex="-1">Parameters</h4>
 <h5 id="sql-3" tabindex="-1">sql</h5>
 <p><code>string</code></p>
+<p>The raw SQL fragment.</p>
 <h5 id="params-3" tabindex="-1">params</h5>
 <p>...<code>any</code>[]</p>
+<p>Bound parameters for the SQL fragment.</p>
 <h4 id="returns-33" tabindex="-1">Returns</h4>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </div></div>
