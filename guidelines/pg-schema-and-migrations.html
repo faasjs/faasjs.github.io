@@ -77,7 +77,7 @@
 <li>Implement <code>up(builder)</code> with <code>SchemaBuilder</code> and <code>TableBuilder</code> helpers first.</li>
 <li>Implement <code>down(builder)</code> for rollback when practical.</li>
 <li>Run <code>faasjs-pg status</code> from the project root to inspect migration history, then use <code>faasjs-pg migrate</code>, <code>faasjs-pg up</code>, or <code>faasjs-pg down</code> for the execution path you need.</li>
-<li>Keep migration files in <code>./migrations</code> unless you intentionally reconfigure tooling, because both the CLI and <code>PgVitestPlugin()</code> look there by default.</li>
+<li>Keep migration files in <code>src/db/migrations</code> unless you intentionally reconfigure tooling, because both the CLI and <code>PgVitestPlugin()</code> look there by default.</li>
 <li>Keep related DDL in one builder run so it stays transactional.</li>
 <li>Fall back to <code>raw()</code> only for SQL the current helpers do not support.</li>
 </ol>
@@ -132,7 +132,7 @@
 </ul>
 <h3 id="6.-keep-the-execution-path-obvious" tabindex="-1">6. Keep the execution path obvious</h3>
 <ul>
-<li>Keep migrations in the project-root <code>./migrations</code> folder unless project tooling is configured otherwise.</li>
+<li>Keep migrations in the project-root <code>src/db/migrations</code> folder unless project tooling is configured otherwise.</li>
 <li>Use <code>faasjs-pg status</code> to inspect history, <code>faasjs-pg migrate</code> to apply all pending files, <code>faasjs-pg up</code> for the next file, and <code>faasjs-pg down</code> for the latest rollback.</li>
 <li>If a project customizes the folder or wrapper commands, document that override explicitly in the project README or contributor guide.</li>
 </ul>

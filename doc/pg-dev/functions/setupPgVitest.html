@@ -70,7 +70,7 @@
 <p>Wires <code>@faasjs/pg-dev</code> into a Vitest setup module without forcing consumers to import package
 setup files directly from <code>node_modules</code>.</p>
 <p>The helper registers a lazy async bootstrap for <code>await getClient()</code>. The first default-client
-lookup starts PGlite, runs <code>./migrations</code>, and backfills <code>process.env.DATABASE_URL</code>. Later tests
+lookup starts PGlite, runs <code>src/db/migrations</code>, and backfills <code>process.env.DATABASE_URL</code>. Later tests
 reuse that database within the current Vitest file while <code>beforeEach</code> resets table contents.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="runtime" tabindex="-1">runtime</h3>

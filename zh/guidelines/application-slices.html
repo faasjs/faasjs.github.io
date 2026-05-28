@@ -71,7 +71,7 @@
 <li><code>src/pages/**</code> 下的页面或功能本地组件</li>
 <li>靠近其支持的页面或功能的一个或多个 <code>.api.ts</code> 文件</li>
 <li>用于边界验证的内联 <code>defineApi</code> schema</li>
-<li>数据形状变更时在 <code>migrations/**</code> 下的 PostgreSQL 迁移</li>
+<li>数据形状变更时在 <code>src/db/migrations/**</code> 下的 PostgreSQL 迁移</li>
 <li><code>src/types/**</code> 下的 <code>@faasjs/pg</code> 表声明</li>
 <li>API 文件附近的 API 测试</li>
 <li>数据库行为重要时的 PG 断言</li>
@@ -80,7 +80,7 @@
 <p>保持切片足够小，以便审查者无需穿越不相关的框架层即可理解其行为。</p>
 <h2 id="%E6%8E%A8%E8%8D%90%E5%B8%83%E5%B1%80" tabindex="-1">推荐布局</h2>
 <p><code>create-faas-app</code> 生成的 <code>admin</code> 启动模板包含一个可复制的 users 切片。对于 users 切片，推荐如下布局：</p>
-<pre><code class="hljs language-text">migrations/20250101000000_create_users.ts
+<pre><code class="hljs language-text">src/db/migrations/20250101000000_create_users.ts
 src/types/faasjs-pg.d.ts
 src/pages/users/index.tsx
 src/pages/users/api/list.api.ts
@@ -115,7 +115,7 @@ src/useBilling/__tests__/useBilling.test.ts
 <h2 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%98%E6%9B%B4" tabindex="-1">数据库变更</h2>
 <p>当切片改变数据形状时：</p>
 <ul>
-<li>在 <code>migrations/**</code> 下添加带时间戳的迁移</li>
+<li>在 <code>src/db/migrations/**</code> 下添加带时间戳的迁移</li>
 <li>更新 <code>src/types/**</code> 下的 <code>@faasjs/pg</code> 表声明</li>
 <li>保持表行类型具体</li>
 <li>使用 <code>@faasjs/pg-dev</code> 测试重要的数据库行为</li>

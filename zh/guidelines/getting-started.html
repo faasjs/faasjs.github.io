@@ -142,7 +142,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
           __tests__/        # API 测试
     types/
       faasjs-pg.d.ts       # PostgreSQL 表类型声明（对 `Tables` 的声明合并）
-  migrations/              # 数据库迁移文件（带时间戳）
+  src/db/migrations/       # 数据库迁移文件（带时间戳）
     20250101000000_create_users.ts
   faas.yaml                #（可选）根级配置覆盖
   tsconfig.json            # TypeScript 配置
@@ -167,7 +167,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <td>类型声明文件，包括 <code>@faasjs/pg</code> 表类型增强。</td>
 </tr>
 <tr>
-<td><code>migrations/</code></td>
+<td><code>src/db/migrations/</code></td>
 <td>带时间戳的数据库迁移文件。通过 <code>faasjs-pg</code> CLI 创建和管理。</td>
 </tr>
 </tbody>
@@ -230,7 +230,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <p>为 <code>todos</code> 表创建一个新的迁移文件：</p>
 <pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new create_todos
 </code></pre>
-<p>这将创建一个类似 <code>migrations/20250101000001_create_todos.ts</code> 的文件。打开它并定义表：</p>
+<p>这将创建一个类似 <code>src/db/migrations/20250101000001_create_todos.ts</code> 的文件。打开它并定义表：</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">SchemaBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">up</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
