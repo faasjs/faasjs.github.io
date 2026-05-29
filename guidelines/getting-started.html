@@ -134,16 +134,17 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
       users/               # Example feature: users CRUD
         index.tsx          # Page entry
         api/
-          list.api.ts       # POST /pages/users/api/list
-          create.api.ts     # POST /pages/users/api/create
-          detail.api.ts     # POST /pages/users/api/detail
-          update.api.ts     # POST /pages/users/api/update
-          remove.api.ts     # POST /pages/users/api/remove
-          __tests__/        # API tests
-    types/
-      faasjs-pg.d.ts       # PostgreSQL table type declarations (declaration merging on `Tables`)
-  migrations/              # Database migration files (timestamped)
-    20250101000000_create_users.ts
+          list.api.ts      # POST /pages/users/api/list
+          create.api.ts    # POST /pages/users/api/create
+          detail.api.ts    # POST /pages/users/api/detail
+          update.api.ts    # POST /pages/users/api/update
+          remove.api.ts    # POST /pages/users/api/remove
+          __tests__/       # API tests
+    db/
+      tables/
+        &lt;table_name.ts&gt;  # PostgreSQL table type declarations (declaration merging on `Tables`)
+      migrations/          # Database migration files (timestamped)
+        20250101000000_create_users.ts
   faas.yaml                # (optional) Root-level config overrides
   tsconfig.json            # TypeScript configuration
   vite.config.ts           # Vite + Vitest configuration
@@ -167,7 +168,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <td>Type declaration files, including <code>@faasjs/pg</code> table type augmentations.</td>
 </tr>
 <tr>
-<td><code>migrations/</code></td>
+<td><code>src/db/migrations/</code></td>
 <td>Timestamped database migration files. Created and managed with the <code>faasjs-pg</code> CLI.</td>
 </tr>
 </tbody>
@@ -230,7 +231,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <p>Create a new migration file for the <code>todos</code> table:</p>
 <pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new create_todos
 </code></pre>
-<p>This creates a file like <code>migrations/20250101000001_create_todos.ts</code>. Open it and define the table:</p>
+<p>This creates a file like <code>src/db/migrations/20250101000001_create_todos.ts</code>. Open it and define the table:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">SchemaBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">up</span>(<span class="hljs-params"><span class="hljs-attr">builder</span>: <span class="hljs-title class_">SchemaBuilder</span></span>) {
@@ -253,10 +254,8 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <p>See the <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a> for migration authoring rules.</p>
 <h3 id="step-2%3A-update-table-type-declarations" tabindex="-1">Step 2: Update table type declarations</h3>
-<p>Add the <code>todos</code> table type in <code>src/types/faasjs-pg.d.ts</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
-
-<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
+<p>Add the <code>todos</code> table type in <code>src/db/tables/todos.ts</code>:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tables</span> {
     <span class="hljs-attr">todos</span>: {
       <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>

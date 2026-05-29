@@ -253,10 +253,8 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <p>参见 <a href="/zh/guidelines/pg-schema-and-migrations.html">PG Schema 和迁移指南</a>了解迁移编写规则。</p>
 <h3 id="%E7%AC%AC-2-%E6%AD%A5%EF%BC%9A%E6%9B%B4%E6%96%B0%E8%A1%A8%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E" tabindex="-1">第 2 步：更新表类型声明</h3>
-<p>在 <code>src/types/faasjs-pg.d.ts</code> 中添加 <code>todos</code> 表类型：</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
-
-<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
+<p>在 <code>src/db/tables/todos.ts</code> 中添加 <code>todos</code> 表类型：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tables</span> {
     <span class="hljs-attr">todos</span>: {
       <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>

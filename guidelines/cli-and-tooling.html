@@ -219,7 +219,7 @@ npx faas types
 <p>Requirements:</p>
 <ul>
 <li><code>DATABASE_URL</code> environment variable must be set for <code>status</code>, <code>migrate</code>, <code>up</code>, and <code>down</code>.</li>
-<li>Migration files live in <code>./migrations</code> by default.</li>
+<li>Migration files live in <code>./src/db/migrations</code> by default.</li>
 <li>Migration file naming convention: <code>&lt;timestamp&gt;-&lt;name&gt;.ts</code> (generated automatically by <code>faasjs-pg new</code>).</li>
 <li>See <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a> for migration authoring rules.</li>
 </ul>

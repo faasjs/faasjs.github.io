@@ -69,7 +69,7 @@
 </blockquote>
 <p>Creates the Vitest plugin that wires <code>@faasjs/pg-dev</code> into the test runner.</p>
 <p>The plugin registers a lazy setup module for each enabled project. The first <code>await getClient()</code>
-in a test file starts PGlite, runs migrations from <code>src/db/migrations</code>, backfills
+in a test file starts PGlite, runs migrations from <code>./src/db/migrations</code>, backfills
 <code>process.env.DATABASE_URL</code>, and later <code>beforeEach</code> hooks clear table contents before each test.</p>
 <p>By default the plugin skips browser-like projects such as <code>jsdom</code> and <code>happy-dom</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
