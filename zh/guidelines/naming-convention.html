@@ -224,6 +224,11 @@
 <td>camelCase，与钩子名称匹配</td>
 <td><code>useUser.ts</code> → <code>export function useUser()</code></td>
 </tr>
+<tr>
+<td>数据库表文件</td>
+<td>snake_case，直接照搬数据库表名</td>
+<td><code>user_roles.ts</code> → <code>user_roles</code> 表</td>
+</tr>
 </tbody>
 </table>
 <p>其他所有目录和文件均使用 <code>kebab-case</code>：</p>
@@ -266,7 +271,7 @@
 <ul>
 <li>[ ] 函数以动词开头（camelCase）</li>
 <li>[ ] 类型 / 接口 / 常量为 PascalCase</li>
-<li>[ ] 目录和文件使用 kebab-case（React 组件/钩子使用各自约定）</li>
+<li>[ ] 目录和文件使用 kebab-case（React 组件/钩子使用各自约定，数据库表文件使用 snake_case）</li>
 <li>[ ] 缩写遵循单词规则：<code>Http</code>、<code>Json</code>、<code>Url</code>、<code>Id</code></li>
 <li>[ ] <code>lifecycle</code> 是一个单词，全部小写</li>
 </ul>

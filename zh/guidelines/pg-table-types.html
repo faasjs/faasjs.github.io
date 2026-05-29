@@ -73,7 +73,7 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>将增强放在应用拥有的类型文件中，例如 <code>src/db/tables/&lt;table_name&gt;.ts</code>，并确保 <code>tsconfig.json</code> 包含该文件，然后在期望推断生效之前进行检查。</li>
+<li>将增强放在应用拥有的类型文件中，例如 <code>src/db/tables/&lt;table_name&gt;.ts</code>，其中 <code>&lt;table_name&gt;</code> 直接照搬数据库表名，使用 <code>snake_case</code> 格式（如 <code>user_roles</code> 表对应 <code>user_roles.ts</code>）。确保 <code>tsconfig.json</code> 包含该文件。</li>
 <li>在 <code>.d.ts</code> 文件中，首先导入 <code>@faasjs/pg</code>，然后使用 <code>declare module '@faasjs/pg'</code> 扩展 <code>Tables</code>。</li>
 <li>将每个表建模为其运行时行结构，并将 JSON 和 JSONB 对象形状保留在该合并接口中。</li>
 <li>让 <code>client.query</code>、<code>TableType</code>、<code>ColumnName</code> 和 <code>ColumnValue</code> 从该来源推断，而不是使用 <code>as</code> 强制指定结果类型。</li>
@@ -81,10 +81,10 @@
 <li>当共享辅助函数或包变更影响推断时，添加或更新 <code>expectTypeOf(...)</code> 覆盖。</li>
 </ol>
 <h2 id="%E6%9C%80%E5%B0%8F%E7%A4%BA%E4%BE%8B" tabindex="-1">最小示例</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// src/db/tables/users.ts</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// src/db/tables/user_roles.ts</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tables</span> {
-    <span class="hljs-attr">users</span>: {
+    <span class="hljs-attr">user_roles</span>: {
       <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>
       <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
       <span class="hljs-attr">metadata</span>: {

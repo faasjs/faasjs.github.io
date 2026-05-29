@@ -224,6 +224,11 @@
 <td>camelCase, matches hook name</td>
 <td><code>useUser.ts</code> → <code>export function useUser()</code></td>
 </tr>
+<tr>
+<td>DB table file</td>
+<td>snake_case, mirrors the DB table name</td>
+<td><code>user_roles.ts</code> → <code>user_roles</code> table</td>
+</tr>
 </tbody>
 </table>
 <p>All other directories and files use <code>kebab-case</code>:</p>
@@ -266,7 +271,7 @@
 <ul>
 <li>[ ] Functions start with a verb (camelCase)</li>
 <li>[ ] Types / interfaces / constants are PascalCase</li>
-<li>[ ] Directories and files use kebab-case (React components/hooks use their own convention)</li>
+<li>[ ] Directories and files use kebab-case (React components/hooks use their own convention, DB table files use snake_case)</li>
 <li>[ ] Abbreviations follow the word rule: <code>Http</code>, <code>Json</code>, <code>Url</code>, <code>Id</code></li>
 <li>[ ] <code>lifecycle</code> is one word, all lowercase</li>
 </ul>

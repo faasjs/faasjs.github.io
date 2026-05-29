@@ -73,7 +73,7 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Put the augmentation in an app-owned type file such as <code>src/db/tables/&lt;table_name&gt;.ts</code>, and make sure <code>tsconfig.json</code> includes that file before expecting inference to change.</li>
+<li>Put the augmentation in an app-owned type file such as <code>src/db/tables/&lt;table_name&gt;.ts</code>, where <code>&lt;table_name&gt;</code> mirrors the DB table name in <code>snake_case</code> (e.g. <code>user_roles.ts</code> for the <code>user_roles</code> table). Make sure <code>tsconfig.json</code> includes that file before expecting inference to change.</li>
 <li>In a <code>.d.ts</code> file, import <code>@faasjs/pg</code> first, then extend <code>Tables</code> with <code>declare module '@faasjs/pg'</code>.</li>
 <li>Model each table as its runtime row shape, and keep JSON and JSONB object shapes in that merged interface.</li>
 <li>Let <code>client.query</code>, <code>TableType</code>, <code>ColumnName</code>, and <code>ColumnValue</code> infer from that source instead of forcing result types with <code>as</code>.</li>
@@ -81,10 +81,10 @@
 <li>Add or update <code>expectTypeOf(...)</code> coverage when a shared helper or package change affects inference.</li>
 </ol>
 <h2 id="minimal-example" tabindex="-1">Minimal Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-comment">// src/db/tables/users.ts</span>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// src/db/tables/user_roles.ts</span>
 <span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span> {
   <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tables</span> {
-    <span class="hljs-attr">users</span>: {
+    <span class="hljs-attr">user_roles</span>: {
       <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>
       <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
       <span class="hljs-attr">metadata</span>: {
