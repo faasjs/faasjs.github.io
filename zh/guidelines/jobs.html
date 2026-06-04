@@ -66,7 +66,7 @@
 <p>在定义 <code>.job.ts</code> 后台任务、入队异步工作或运行 FaasJS 工作器和调度器时，使用本指南。</p>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>在 <code>src/jobs/</code> 下创建 <code>.job.ts</code> 文件。</li>
+<li>在 <code>src/features/&lt;feature&gt;/jobs/</code> 下创建功能本地 <code>.job.ts</code> 文件；跨功能或平台级任务可放在 <code>src/jobs/</code> 下。</li>
 <li>当参数有结构时，使用 schema 默认导出 <code>defineJob(...)</code>。</li>
 <li>在 API、脚本或其他任务中使用 <code>enqueueJob(jobPath, params)</code> 入队工作。</li>
 <li>在工作器进程中运行 <code>startJobWorker()</code> 来执行任务。</li>
@@ -76,9 +76,9 @@
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
 <h3 id="1.-%E7%94%A8%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E5%91%BD%E5%90%8D%E4%BB%BB%E5%8A%A1" tabindex="-1">1. 用文件路径命名任务</h3>
 <p>任务路径来自相对于工作器根目录的 <code>.job.ts</code> 文件：</p>
-<pre><code class="hljs language-text">src/jobs/users/cleanup.job.ts -&gt; jobs/users/cleanup
-src/jobs/emails/send.job.ts   -&gt; jobs/emails/send
-src/jobs/reports/index.job.ts -&gt; jobs/reports
+<pre><code class="hljs language-text">src/features/users/jobs/cleanup.job.ts -&gt; features/users/jobs/cleanup
+src/features/emails/jobs/send.job.ts   -&gt; features/emails/jobs/send
+src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
 </code></pre>
 <p>不要在文件内部重复任务名称。移动或重命名任务文件将更改 <code>enqueueJob()</code> 使用的路径。</p>
 <h3 id="2.-%E5%9C%A8%E8%BE%B9%E7%95%8C%E5%A4%84%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0-schema" tabindex="-1">2. 在边界处定义参数 schema</h3>
@@ -104,7 +104,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(
-  <span class="hljs-string">&#x27;jobs/emails/send&#x27;</span>,
+  <span class="hljs-string">&#x27;features/emails/jobs/send&#x27;</span>,
   {
     <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span>,
   },
@@ -154,7 +154,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <li>仅模拟外部服务，如邮件提供商、存储 API 或第三方 webhook。</li>
 </ul>
 <h3 id="7.-%E7%9B%B4%E6%8E%A5%E6%B5%8B%E8%AF%95%E5%8D%95%E4%B8%AA%E4%BB%BB%E5%8A%A1" tabindex="-1">7. 直接测试单个任务</h3>
-<p>将任务测试放在任务文件夹的 <code>__tests__</code> 下，例如 <code>cleanup.job.ts</code> 对应的 <code>src/jobs/users/__tests__/cleanup.test.ts</code>。</p>
+<p>将任务测试放在任务文件夹的 <code>__tests__</code> 下，例如 <code>cleanup.job.ts</code> 对应的 <code>src/features/users/jobs/__tests__/cleanup.test.ts</code>。</p>
 <p>对于单个任务的业务行为，直接调用导出的任务处理函数。这样可以保持 <code>defineJob</code> 包装器、schema 验证、<code>job</code> 和 <code>attempt</code> 结构的真实性，而无需创建队列行或启动工作器循环。</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
 
@@ -167,7 +167,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
 <span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
     mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
   })
@@ -210,16 +210,16 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
 <span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
 
-<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, dailyReportJob]])
+<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, dailyReportJob]])
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
     mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
   })
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;runs queued work and sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
     <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
-    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, {
+    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, {
       <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
     })
     <span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(jobs)
@@ -244,7 +244,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
     <span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
       SELECT * FROM faasjs_jobs
-      WHERE job_path = &#x27;jobs/reports/daily-report&#x27;
+      WHERE job_path = &#x27;features/reports/jobs/daily-report&#x27;
     `</span>
 
     <span class="hljs-title function_">expect</span>(rows).<span class="hljs-title function_">toHaveLength</span>(<span class="hljs-number">1</span>)

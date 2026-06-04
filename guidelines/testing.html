@@ -121,7 +121,7 @@
 <ul>
 <li>Do not collect all package tests in a catch-all <code>src/__tests__</code> directory, including feature-named subfolders inside that centralized directory.</li>
 <li>Split code and tests by project purpose, feature, or slice so API, UI, job, helper, and integration tests stay under the feature folder that owns the behavior.</li>
-<li>Put tests in the owning folder's <code>__tests__</code>, such as <code>src/pages/users/api/__tests__/list.test.ts</code> for <code>list.api.ts</code> or <code>src/jobs/users/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</li>
+<li>Put tests in the owning folder's <code>__tests__</code>, such as <code>src/features/users/api/__tests__/list.test.ts</code> for <code>list.api.ts</code> or <code>src/features/users/jobs/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</li>
 <li>When the protected business code would otherwise be a single file, turn it into a folder with <code>index.ts</code> or <code>index.tsx</code> and keep the test under that folder's <code>__tests__</code>, for example <code>src/useBilling/index.ts</code> and <code>src/useBilling/__tests__/useBilling.test.ts</code>.</li>
 </ul>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>

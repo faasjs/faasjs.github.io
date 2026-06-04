@@ -63,7 +63,7 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="crud-patterns-guide" tabindex="-1">CRUD Patterns Guide</h1>
-<p>Use this guide when implementing or reviewing a standard CRUD feature — list, detail, create, update, delete — in a FaasJS application. It covers the full vertical slice from API endpoints to React pages.</p>
+<p>Use this guide when implementing or reviewing a standard CRUD feature — list, detail, create, update, delete — in a FaasJS application. It covers the full vertical slice from API endpoints to feature UI.</p>
 <p>Apply the <a href="/guidelines/application-slices.html">Application Slices Guide</a>, <a href="/guidelines/ant-design.html">Ant Design Guide</a>, <a href="/guidelines/define-api.html">defineApi Guide</a>, and <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a> for deeper rules. This guide focuses on composing those patterns into a complete CRUD cycle.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
@@ -93,35 +93,35 @@
 <tr>
 <td>List</td>
 <td><code>api/list.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/list</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/list</code></td>
 <td>post</td>
 <td>Filters, pagination</td>
 </tr>
 <tr>
 <td>Detail</td>
 <td><code>api/detail.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/detail</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/detail</code></td>
 <td>post</td>
 <td><code>{ id }</code></td>
 </tr>
 <tr>
 <td>Create</td>
 <td><code>api/create.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/create</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/create</code></td>
 <td>post</td>
 <td>Business fields</td>
 </tr>
 <tr>
 <td>Update</td>
 <td><code>api/update.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/update</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/update</code></td>
 <td>post</td>
 <td><code>{ id, ...fields }</code></td>
 </tr>
 <tr>
 <td>Remove</td>
 <td><code>api/remove.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/remove</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/remove</code></td>
 <td>post</td>
 <td><code>{ id }</code></td>
 </tr>
@@ -138,29 +138,29 @@
 </thead>
 <tbody>
 <tr>
-<td>Page entry</td>
-<td><code>pages/&lt;feature&gt;/index.tsx</code></td>
-<td><code>pages/users/index.tsx</code></td>
+<td>Feature UI</td>
+<td><code>features/&lt;feature&gt;/index.tsx</code></td>
+<td><code>features/users/index.tsx</code></td>
 </tr>
 <tr>
 <td>Components</td>
-<td><code>pages/&lt;feature&gt;/components/*.tsx</code></td>
-<td><code>pages/users/components/UserTable.tsx</code></td>
+<td><code>features/&lt;feature&gt;/components/*.tsx</code></td>
+<td><code>features/users/components/UserTable.tsx</code></td>
 </tr>
 <tr>
 <td>Hooks</td>
-<td><code>pages/&lt;feature&gt;/hooks/*.ts</code></td>
-<td><code>pages/users/hooks/useUserItems.ts</code></td>
+<td><code>features/&lt;feature&gt;/hooks/*.ts</code></td>
+<td><code>features/users/hooks/useUserItems.ts</code></td>
 </tr>
 <tr>
 <td>APIs</td>
-<td><code>pages/&lt;feature&gt;/api/*.api.ts</code></td>
-<td><code>pages/users/api/list.api.ts</code></td>
+<td><code>features/&lt;feature&gt;/api/*.api.ts</code></td>
+<td><code>features/users/api/list.api.ts</code></td>
 </tr>
 <tr>
 <td>API tests</td>
-<td><code>pages/&lt;feature&gt;/api/__tests__/*.test.ts</code></td>
-<td><code>pages/users/api/__tests__/list.test.ts</code></td>
+<td><code>features/&lt;feature&gt;/api/__tests__/*.test.ts</code></td>
+<td><code>features/users/api/__tests__/list.test.ts</code></td>
 </tr>
 </tbody>
 </table>
@@ -272,7 +272,7 @@
           },
         ]}
         faasData={{
-          action: &#x27;/pages/users/api/list&#x27;,
+          action: &#x27;features/users/api/list&#x27;,
           params: searchParams,
         }}
       /&gt;
@@ -326,7 +326,7 @@
     &lt;<span class="hljs-title class_">Description</span>&lt;<span class="hljs-title class_">UserField</span>&gt;
       items={items}
       faasData={{
-        <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/api/detail&#x27;</span>,
+        <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>,
         <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> },
       }}
     /&gt;
@@ -379,7 +379,7 @@
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
         <span class="hljs-attr">onSuccess:</span> () =&gt;</span> {
           message.success(&#x27;User created&#x27;)
           setDrawerProps({ open: false })
@@ -448,7 +448,7 @@
       <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{props.initialValues}</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
         <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({ ...values, ...(props.id ? { id: props.id } : {}) }),
         onSuccess: () =&gt; {
           message.success(props.id ? &#x27;User updated&#x27; : &#x27;User created&#x27;)
@@ -510,7 +510,7 @@
       <span class="hljs-attr">children</span>: <span class="hljs-string">&#x27;Are you sure you want to delete this user? This action cannot be undone.&#x27;</span>,
       <span class="hljs-attr">onOk</span>: <span class="hljs-title function_">async</span> () =&gt; {
         <span class="hljs-keyword">try</span> {
-          <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/api/remove&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">row</span>.<span class="hljs-property">id</span> })
+          <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;features/users/api/remove&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">row</span>.<span class="hljs-property">id</span> })
           message.<span class="hljs-title function_">success</span>(<span class="hljs-string">&#x27;User deleted&#x27;</span>)
           <span class="hljs-title function_">setModalProps</span>({ <span class="hljs-attr">open</span>: <span class="hljs-literal">false</span> })
           props.<span class="hljs-property">onSuccess</span>?.()
@@ -576,8 +576,8 @@
 </ul>
 <h2 id="complete-crud-slice-layout-reference" tabindex="-1">Complete CRUD Slice Layout Reference</h2>
 <h3 id="directory-structure" tabindex="-1">Directory Structure</h3>
-<pre><code class="hljs">src/pages/users/
-  index.tsx                          # Page entry: composes UserTable, create button
+<pre><code class="hljs">src/features/users/
+  index.tsx                          # Feature UI entry: composes UserTable, create button
   components/
     UserTable.tsx                    # Table with faasData, search, action column
     UserForm.tsx                     # Form for create/update (id prop switches mode)
@@ -586,11 +586,11 @@
   hooks/
     useUserItems.ts                  # Shared items metadata
   api/
-    list.api.ts                      # POST /pages/users/api/list
-    detail.api.ts                    # POST /pages/users/api/detail
-    create.api.ts                    # POST /pages/users/api/create
-    update.api.ts                    # POST /pages/users/api/update
-    remove.api.ts                    # POST /pages/users/api/remove
+    list.api.ts                      # POST /features/users/api/list
+    detail.api.ts                    # POST /features/users/api/detail
+    create.api.ts                    # POST /features/users/api/create
+    update.api.ts                    # POST /features/users/api/update
+    remove.api.ts                    # POST /features/users/api/remove
     __tests__/
       list.test.ts                   # testApi for list
       detail.test.ts                 # testApi for detail
@@ -611,7 +611,7 @@
 <tr>
 <td><code>index.tsx</code></td>
 <td>30-60</td>
-<td>Page entry, layout, compose components</td>
+<td>Feature UI entry, layout, compose components</td>
 </tr>
 <tr>
 <td><code>UserTable.tsx</code></td>
@@ -780,26 +780,26 @@
 <h2 id="agent-efficiency-tips" tabindex="-1">Agent Efficiency Tips</h2>
 <p>The following patterns help AI coding agents generate complete CRUD features 2-3x faster.</p>
 <h3 id="1.-start-with-items" tabindex="-1">1. Start with items</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create a `useProductItems` hook with fields: name (required), price (required, positive number), category (select with 3 options), description (textarea), status (select). Store in pages/products/hooks/useProductItems.ts&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create a `useProductItems` hook with fields: name (required), price (required, positive number), category (select with 3 options), description (textarea), status (select). Store in features/products/hooks/useProductItems.ts&quot;
 </code></pre>
 <p>Items are the foundation. Once items exist, the agent can derive <code>Table</code>, <code>Form</code>, and <code>Description</code> consistently.</p>
 <h3 id="2.-generate-five-apis-in-one-pass" tabindex="-1">2. Generate five APIs in one pass</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create 5 API files for products CRUD under pages/products/api/: list, detail, create, update, remove. Follow the defineApi guide. Each should have a Zod schema and handler.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create 5 API files for products CRUD under features/products/api/: list, detail, create, update, remove. Follow the defineApi guide. Each should have a Zod schema and handler.&quot;
 </code></pre>
 <p>Five small <code>.api.ts</code> files are faster to generate together than one at a time, and the agent can keep schemas consistent.</p>
 <h3 id="3.-copy-paste-the-combined-form" tabindex="-1">3. Copy-paste the combined form</h3>
 <p>The <code>UserForm</code> pattern with <code>id</code>-based mode switching (create vs update) is reusable. Generate one combined form instead of separate create/update components.</p>
 <h3 id="4.-generate-list-%2B-drawer-wiring-in-one-go" tabindex="-1">4. Generate list + drawer wiring in one go</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create pages/products/index.tsx with a Table.faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create features/products/index.tsx with a Table.faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
 </code></pre>
-<p>One prompt covers the page entry, table, drawer wiring, and action column.</p>
+<p>One prompt covers the feature entry, table, drawer wiring, and action column.</p>
 <h3 id="5.-batch-api-tests" tabindex="-1">5. Batch API tests</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create test files for all 5 product APIs under pages/products/api/__tests__/. Each test should cover success and 400/404/409 paths where applicable.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create test files for all 5 product APIs under features/products/api/__tests__/. Each test should cover success and 400/404/409 paths where applicable.&quot;
 </code></pre>
 <p>One prompt generates all tests with a consistent pattern.</p>
 <h3 id="6.-use-the-slice-template-for-new-features" tabindex="-1">6. Use the slice template for new features</h3>
 <p>When starting a new CRUD feature, create the full directory structure first:</p>
-<pre><code class="hljs language-text">Prompt: &quot;Create a full CRUD slice for orders under pages/orders/. Include: index.tsx, components/ (OrderTable, OrderForm, OrderDetail, OrderActions), hooks/useOrderItems, api/ (list, detail, create, update, remove), and api/__tests__/ for all 5 endpoints.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create a full CRUD slice for orders under features/orders/. Include: index.tsx, components/ (OrderTable, OrderForm, OrderDetail, OrderActions), hooks/useOrderItems, api/ (list, detail, create, update, remove), and api/__tests__/ for all 5 endpoints.&quot;
 </code></pre>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <ol>
@@ -839,7 +839,7 @@
 <li>[ ] Items are wrapped in <code>useConstant</code></li>
 <li>[ ] Action columns are added inline on the <code>Table</code> rather than in shared items</li>
 <li>[ ] Drawers are used for create/edit/detail; modals for delete confirmation</li>
-<li>[ ] File structure follows <code>pages/&lt;feature&gt;/{components/,hooks/,api/}</code> conventions</li>
+<li>[ ] File structure follows <code>features/&lt;feature&gt;/{components/,hooks/,api/}</code> conventions</li>
 </ul>
 </div></div>
           </div>

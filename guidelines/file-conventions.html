@@ -63,27 +63,28 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="file-conventions" tabindex="-1">File Conventions</h1>
-<p>Use this guide when creating or reviewing frontend pages, React components, hooks, FaasJS backend route files, or background job files.</p>
+<p>Use this guide when creating or reviewing feature folders, React components, hooks, FaasJS backend route files, background job files, or feature-owned CLI tools.</p>
 <blockquote>
 <p><strong>See also</strong>: <a href="/guidelines/naming-convention.html">Naming Convention Guide</a> for identifier and file naming rules (camelCase, PascalCase, kebab-case, abbreviations, etc.). This guide covers <em>where</em> files go; naming covers <em>what</em> they are called.</p>
 </blockquote>
 <h2 id="applicable-scenarios" tabindex="-1">Applicable Scenarios</h2>
 <ul>
-<li>Creating new pages, components, or hooks</li>
-<li>Refactoring frontend directory structure</li>
-<li>Adding a new page or feature directory under <code>pages/</code></li>
+<li>Creating new features, feature UI, components, or hooks</li>
+<li>Refactoring application directory structure</li>
+<li>Adding a new feature directory under <code>features/</code></li>
 <li>Creating or moving <code>.api.ts</code> backend files</li>
 <li>Creating or moving <code>.job.ts</code> background job files</li>
+<li>Creating or moving feature-owned CLI or tooling files</li>
 <li>Reviewing naming and placement decisions (see also <a href="/guidelines/naming-convention.html">Naming Convention Guide</a>)</li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Put frontend pages under <code>pages/</code>.</li>
-<li>Use <code>index.tsx</code> for the main page entry when it keeps the folder easy to scan.</li>
-<li>Keep one-off page-local logic inline until extraction is justified.</li>
+<li>Put business feature code under <code>src/features/&lt;feature&gt;/</code>.</li>
+<li>Use <code>index.tsx</code> for a feature's main React entry when the feature exposes UI.</li>
+<li>Keep one-off feature-local logic inline until extraction is justified.</li>
 <li>When a component or hook earns its own abstraction, give it its own file.</li>
-<li>Group frontend code by page or feature.</li>
-<li>Place components in <code>components/</code>, hooks in <code>hooks/</code>, backend route handlers in <code>api/</code>, and background jobs in <code>jobs/</code>.</li>
+<li>Group UI, APIs, jobs, CLI tools, schemas, and tests by feature.</li>
+<li>Place components in <code>components/</code>, hooks in <code>hooks/</code>, backend route handlers in <code>api/</code>, background jobs in <code>jobs/</code>, and CLI tools in <code>cli/</code> inside the owning feature.</li>
 <li>Place backend route files according to the routing-mapping specification and job files according to the jobs guide.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
@@ -94,7 +95,7 @@
 <li>When a React component is extracted, it SHOULD live in its own file.</li>
 <li>The file name SHOULD exactly match the component name.</li>
 <li>Preserve the component's case in the file name.</li>
-<li>Page files are the exception: page entry files SHOULD use <code>index.tsx</code> or <code>default.tsx</code>.</li>
+<li>Feature UI entry files are the exception: use <code>index.tsx</code> or <code>default.tsx</code> when the file represents the feature entry.</li>
 </ul>
 <p>Examples:</p>
 <ul>
@@ -114,26 +115,25 @@
 <li><code>useUser.ts</code> -&gt; <code>export function useUser() {}</code></li>
 <li><code>useOrderFilters.ts</code> -&gt; <code>export function useOrderFilters() {}</code></li>
 </ul>
-<h3 id="3.-organize-frontend-files-by-page-or-feature" tabindex="-1">3. Organize frontend files by page or feature</h3>
+<h3 id="3.-organize-files-by-feature" tabindex="-1">3. Organize files by feature</h3>
 <ul>
-<li>Frontend pages SHOULD be placed under <code>pages/</code>.</li>
-<li>Each page or feature SHOULD use its own directory under <code>pages/</code>.</li>
-<li>Main page entry files SHOULD use <code>index.tsx</code> when the folder maps cleanly to one feature page.</li>
-<li>Page entry files SHOULD <code>export default</code> the page component.</li>
+<li>Business features SHOULD be placed under <code>src/features/&lt;feature&gt;/</code>.</li>
+<li>Each feature SHOULD own its local UI, APIs, hooks, jobs, CLI tools, schemas, and tests.</li>
+<li>Feature UI entry files SHOULD use <code>index.tsx</code> when the folder maps cleanly to one feature surface.</li>
+<li>Feature UI entry files SHOULD <code>export default</code> the entry component.</li>
 <li>Frontend routing SHOULD be defined explicitly in app code or the chosen UI framework.</li>
 <li>A directory named <code>api/</code> is reserved for backend handlers.</li>
 <li>Components MUST be placed under <code>components/</code>.</li>
 <li>Hooks MUST be placed under <code>hooks/</code>.</li>
-<li>Backend handlers for that page or feature SHOULD be placed under <code>api/</code> when they are feature-local.</li>
-<li>Only page entry files MAY be placed directly in the outer page or feature directory.</li>
-<li>Shared code that belongs to the same page or feature SHOULD stay inside that page or feature scope instead of being flattened at the root.</li>
-<li>If a page or feature file grows too large to scan comfortably, split it at a real component, hook, or API boundary instead of creating placeholder helper files.</li>
+<li>Backend handlers for that feature SHOULD be placed under the feature's <code>api/</code> directory.</li>
+<li>Feature-owned background jobs SHOULD be placed under the feature's <code>jobs/</code> directory.</li>
+<li>Feature-owned CLI tools SHOULD be placed under the feature's <code>cli/</code> directory.</li>
+<li>Only feature entry files MAY be placed directly in the outer feature directory.</li>
+<li>Shared code that belongs to the same feature SHOULD stay inside that feature scope instead of being flattened at the root.</li>
+<li>If a feature file grows too large to scan comfortably, split it at a real component, hook, API, job, CLI, or service boundary instead of creating placeholder helper files.</li>
 </ul>
 <p>Prefer this:</p>
-<pre><code class="hljs language-text">src/pages/
-  index.tsx
-  docs/
-    index.tsx
+<pre><code class="hljs language-text">src/features/
   feature-name/
     index.tsx
     components/
@@ -144,9 +144,13 @@
       useFeatureNameFilters.ts
     api/
       list.api.ts
+    jobs/
+      sync.job.ts
+    cli/
+      import.ts
 </code></pre>
 <p>Avoid this:</p>
-<pre><code class="hljs language-text">src/pages/
+<pre><code class="hljs language-text">src/features/
   feature-name/
     FeatureNamePage.tsx
     FeatureNameHeader.tsx
@@ -154,53 +158,54 @@
     useFeatureNameData.ts
     useFeatureNameFilters.ts
 </code></pre>
-<p>Page entry example:</p>
+<p>Feature UI entry example:</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">FeatureNamePage</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Feature Name<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
 }
 </code></pre>
-<p>Page layout example:</p>
-<pre><code class="hljs language-text">src/pages/index.tsx
-src/pages/feature-name/index.tsx
-src/pages/docs/index.tsx
+<p>Feature layout example:</p>
+<pre><code class="hljs language-text">src/features/feature-name/index.tsx
+src/features/feature-name/components/FeatureNameTable.tsx
+src/features/feature-name/api/list.api.ts
 </code></pre>
-<p>Frontend page organization under <code>src/pages</code> is a project convention, not an implicit FaasJS router. Define browser routes explicitly in your app or UI framework. Backend API routing is separate and still follows Zero-Mapping from the full path under <code>src/</code>.</p>
+<p>Feature organization under <code>src/features</code> is a project convention, not an implicit browser router. Define browser routes explicitly in your app or UI framework. Backend API routing is separate and still follows Zero-Mapping from the full path under <code>src/</code>.</p>
 <h3 id="4.-follow-routing-mapping-for-backend-files" tabindex="-1">4. Follow routing-mapping for backend files</h3>
 <ul>
 <li>Backend route files MUST follow the <a href="/guidelines/routing-mapping.html">routing-mapping specification</a>.</li>
 <li>API entry files MUST end with <code>.api.ts</code>.</li>
-<li>API files SHOULD be placed under the page or feature's <code>api/</code> directory.</li>
+<li>API files SHOULD be placed under the owning feature's <code>api/</code> directory.</li>
 <li>Route paths and file paths MUST keep direct Zero-Mapping alignment.</li>
 <li>Use <code>index.api.ts</code> and <code>default.api.ts</code> only for the meanings defined by the spec.</li>
 </ul>
 <p>Prefer this:</p>
-<pre><code class="hljs language-text">src/pages/feature-name/api/list.api.ts
-src/pages/feature-name/api/index.api.ts
-src/pages/feature-name/api/default.api.ts
+<pre><code class="hljs language-text">src/features/feature-name/api/list.api.ts
+src/features/feature-name/api/index.api.ts
+src/features/feature-name/api/default.api.ts
 </code></pre>
 <p>This maps directly to:</p>
 <ul>
-<li><code>/pages/feature-name/api/list</code></li>
-<li><code>/pages/feature-name/api</code></li>
-<li><code>/pages/feature-name/api/*</code> fallback</li>
+<li><code>/features/feature-name/api/list</code></li>
+<li><code>/features/feature-name/api</code></li>
+<li><code>/features/feature-name/api/*</code> fallback</li>
 </ul>
-<h3 id="5.-place-background-jobs-under-jobs%2F" tabindex="-1">5. Place background jobs under <code>jobs/</code></h3>
+<h3 id="5.-place-background-jobs-under-feature-jobs%2F" tabindex="-1">5. Place background jobs under feature <code>jobs/</code></h3>
 <ul>
 <li>Job entry files MUST end with <code>.job.ts</code>.</li>
-<li>Job files SHOULD live under <code>src/jobs/</code> unless a project has an explicit worker root.</li>
+<li>Feature-owned job files SHOULD live under <code>src/features/&lt;feature&gt;/jobs/</code>.</li>
+<li>Cross-cutting or platform jobs MAY live under <code>src/jobs/</code>.</li>
 <li>Job files MUST default-export <code>defineJob(...)</code>.</li>
 <li><code>index.job.ts</code> acts as the directory entry for a job path.</li>
 <li>Moving or renaming a <code>.job.ts</code> file changes the <code>enqueueJob()</code> path, just like moving a <code>.api.ts</code> file changes its route.</li>
 </ul>
 <p>Prefer this:</p>
-<pre><code class="hljs language-text">src/jobs/users/cleanup.job.ts
-src/jobs/emails/send.job.ts
+<pre><code class="hljs language-text">src/features/users/jobs/cleanup.job.ts
+src/features/emails/jobs/send.job.ts
 src/jobs/reports/index.job.ts
 </code></pre>
 <p>This maps directly to:</p>
 <ul>
-<li><code>jobs/users/cleanup</code></li>
-<li><code>jobs/emails/send</code></li>
+<li><code>features/users/jobs/cleanup</code></li>
+<li><code>features/emails/jobs/send</code></li>
 <li><code>jobs/reports</code></li>
 </ul>
 <h3 id="6.-keep-imports-readable" tabindex="-1">6. Keep imports readable</h3>
@@ -245,14 +250,15 @@ src/constants/index.ts
 <li>extracted hooks have their own file</li>
 <li>component file names match component names</li>
 <li>hook file names match hook names</li>
-<li>main page entry files use <code>index.tsx</code> when that keeps the folder easy to scan</li>
-<li>page entry files default-export the page component</li>
-<li>frontend pages live under <code>pages/</code></li>
+<li>main feature UI entry files use <code>index.tsx</code> when that keeps the folder easy to scan</li>
+<li>feature UI entry files default-export the entry component</li>
+<li>business feature code lives under <code>src/features/&lt;feature&gt;/</code></li>
 <li>frontend components live in <code>components/</code></li>
 <li>frontend hooks live in <code>hooks/</code></li>
 <li>frontend backend handlers live in <code>api/</code></li>
-<li>background job files live in <code>jobs/</code> and end with <code>.job.ts</code></li>
-<li>only page entry files stay at the outer page or feature level</li>
+<li>feature-owned background job files live in <code>jobs/</code> and end with <code>.job.ts</code></li>
+<li>feature-owned CLI tools live in <code>cli/</code></li>
+<li>only feature entry files stay at the outer feature level</li>
 <li>backend <code>.api.ts</code> files follow routing-mapping</li>
 <li>imports follow aliases already defined in <code>tsconfig.json</code> when available</li>
 <li>nearby imports stay relative instead of forcing alias usage everywhere</li>

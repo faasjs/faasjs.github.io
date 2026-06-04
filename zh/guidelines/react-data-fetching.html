@@ -88,7 +88,7 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;/pages/users/detail&#x27;</span>, { id })
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>, { id })
 
   <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
   <span class="hljs-keyword">if</span> (error)
@@ -114,7 +114,7 @@
   <span class="hljs-keyword">const</span> [keyword, setKeyword] = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)
 
   <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(
-    <span class="hljs-string">&#x27;/pages/users/search&#x27;</span>,
+    <span class="hljs-string">&#x27;features/users/api/search&#x27;</span>,
     { keyword },
     {
       <span class="hljs-attr">skip</span>: <span class="hljs-function">(<span class="hljs-params">params</span>) =&gt;</span> !params.<span class="hljs-property">keyword</span>.<span class="hljs-title function_">trim</span>(),
@@ -153,7 +153,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">PendingOrdersTable</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { data, error, loading, refreshing } = <span class="hljs-title function_">useFaas</span>(
-    <span class="hljs-string">&#x27;/pages/orders/list&#x27;</span>,
+    <span class="hljs-string">&#x27;features/orders/api/list&#x27;</span>,
     { <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;pending&#x27;</span> },
     {
       <span class="hljs-attr">polling</span>: <span class="hljs-number">5000</span>,
@@ -188,7 +188,9 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaasStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Chat</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;/pages/chat/stream&#x27;</span>, { <span class="hljs-attr">prompt</span>: <span class="hljs-string">&#x27;hello&#x27;</span> })
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaasStream</span>(<span class="hljs-string">&#x27;features/chat/api/stream&#x27;</span>, {
+    <span class="hljs-attr">prompt</span>: <span class="hljs-string">&#x27;hello&#x27;</span>,
+  })
 
   <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Connecting...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
   <span class="hljs-keyword">if</span> (error) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{reload}</span>&gt;</span>Retry<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
@@ -213,7 +215,7 @@
     <span class="hljs-title function_">setSaving</span>(<span class="hljs-literal">true</span>)
     <span class="hljs-title function_">setSubmitError</span>(<span class="hljs-literal">null</span>)
     <span class="hljs-keyword">try</span> {
-      <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/create&#x27;</span>, values)
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;features/users/api/create&#x27;</span>, values)
       <span class="hljs-comment">// 关闭浮层、刷新列表、显示成功信息</span>
     } <span class="hljs-keyword">catch</span> (<span class="hljs-attr">error</span>: <span class="hljs-built_in">any</span>) {
       <span class="hljs-title function_">setSubmitError</span>(error.<span class="hljs-property">message</span>)
@@ -249,7 +251,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSummary</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span>
-      <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/detail&quot;</span>
+      <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;features/users/api/detail&quot;</span>
       <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}
       <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
       render={(data) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
@@ -266,7 +268,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserDetail</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;features/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">UserContent</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
   )
@@ -276,7 +278,7 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">UserDetail</span> = <span class="hljs-title function_">withFaasData</span>({
-  <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/detail&#x27;</span>,
+  <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>,
 })(<span class="hljs-function">(<span class="hljs-params">{ data }</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)
 </code></pre>
 <ul>
@@ -316,7 +318,7 @@
 <h2 id="%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95" tabindex="-1">审查清单</h2>
 <ul>
 <li>每个请求选择最匹配的 API：<code>useFaas</code>、<code>useFaasStream</code>、<code>faas</code>、包装器或 HOC</li>
-<li>操作路径遵循文件约定并使用 <code>/pages/...</code> 映射</li>
+<li>操作路径遵循文件约定并使用 <code>/features/...</code> 映射</li>
 <li>显式处理加载、错误、重试和非阻塞刷新状态</li>
 <li>内置生命周期选项替代自定义副作用、定时器和临时的防抖逻辑</li>
 <li>仅当结构上有益时才使用包装器风格组合</li>

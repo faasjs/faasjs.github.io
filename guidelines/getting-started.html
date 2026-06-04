@@ -102,7 +102,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <tbody>
 <tr>
 <td><code>admin</code> (default)</td>
-<td>Full admin panel starter with React, Ant Design pages, PostgreSQL integration, and a ready-to-copy users CRUD slice</td>
+<td>Full admin panel starter with React, Ant Design UI, PostgreSQL integration, and a ready-to-copy users CRUD slice</td>
 <td>Back-office systems, internal tools, SaaS dashboards, admin panels</td>
 </tr>
 <tr>
@@ -129,16 +129,15 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
     faas.yaml              # Runtime configuration (server root, plugins, staging overrides)
     .faasjs/
       types.d.ts           # Auto-generated API type declarations
-    pages/                 # Frontend pages and backend API routes
-      index.tsx            # App entry page
+    features/              # Feature-owned UI, APIs, hooks, and tests
       users/               # Example feature: users CRUD
-        index.tsx          # Page entry
+        index.tsx          # Feature UI entry
         api/
-          list.api.ts      # POST /pages/users/api/list
-          create.api.ts    # POST /pages/users/api/create
-          detail.api.ts    # POST /pages/users/api/detail
-          update.api.ts    # POST /pages/users/api/update
-          remove.api.ts    # POST /pages/users/api/remove
+          list.api.ts      # POST /features/users/api/list
+          create.api.ts    # POST /features/users/api/create
+          detail.api.ts    # POST /features/users/api/detail
+          update.api.ts    # POST /features/users/api/update
+          remove.api.ts    # POST /features/users/api/remove
           __tests__/       # API tests
     db/
       tables/
@@ -160,8 +159,8 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </thead>
 <tbody>
 <tr>
-<td><code>src/pages/</code></td>
-<td>Frontend pages as React components and backend API routes as <code>.api.ts</code> files. Each feature gets its own subdirectory with <code>components/</code>, <code>hooks/</code>, and <code>api/</code> sub-folders.</td>
+<td><code>src/features/</code></td>
+<td>Feature-owned UI, APIs, hooks, components, jobs, CLI tools, and tests. Each feature gets its own subdirectory with folders such as <code>components/</code>, <code>hooks/</code>, and <code>api/</code>.</td>
 </tr>
 <tr>
 <td><code>src/types/</code></td>
@@ -211,26 +210,26 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </thead>
 <tbody>
 <tr>
-<td><code>src/pages/todo/api/list.api.ts</code></td>
-<td><code>POST /pages/todo/api/list</code></td>
+<td><code>src/features/todo/api/list.api.ts</code></td>
+<td><code>POST /features/todo/api/list</code></td>
 </tr>
 <tr>
-<td><code>src/pages/todo/api/index.api.ts</code></td>
-<td><code>POST /pages/todo/api</code></td>
+<td><code>src/features/todo/api/index.api.ts</code></td>
+<td><code>POST /features/todo/api</code></td>
 </tr>
 <tr>
-<td><code>src/pages/todo/api/default.api.ts</code></td>
-<td>Fallback for <code>/pages/todo/*</code></td>
+<td><code>src/features/todo/api/default.api.ts</code></td>
+<td>Fallback for <code>/features/todo/api/*</code></td>
 </tr>
 </tbody>
 </table>
 <p>See the <a href="/guidelines/routing-mapping.html">Routing Mapping Specification</a> for the full route resolution order.</p>
 <h2 id="your-first-feature" tabindex="-1">Your First Feature</h2>
-<p>FaasJS features follow a complete vertical slice pattern: database migration → table types → API endpoints → React page → tests. Below is a quick overview; for full code examples and patterns, read the <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
+<p>FaasJS features follow a complete vertical slice pattern: database migration → table types → API endpoints → feature UI → tests. Below is a quick overview; for full code examples and patterns, read the <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
 <h3 id="quick-walkthrough" tabindex="-1">Quick Walkthrough</h3>
 <p><strong>Step 1: Database migration</strong> — Create a timestamped migration with <code>npx faasjs-pg new &lt;name&gt;</code>, define the table with <code>SchemaBuilder</code>/<code>TableBuilder</code>, run with <code>npx faasjs-pg migrate</code>. See <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a>.</p>
 <p><strong>Step 2: Table types</strong> — Add declaration merging on <code>Tables</code> in <code>src/db/tables/&lt;table_name&gt;.ts</code>. See <a href="/guidelines/pg-table-types.html">PG Table Types Guide</a>.</p>
-<p><strong>Step 3: API endpoints</strong> — Create five <code>.api.ts</code> files (<code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>) under <code>src/pages/&lt;feature&gt;/api/</code>, each with inline Zod schema + handler. See <a href="/guidelines/define-api.html">defineApi Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
+<p><strong>Step 3: API endpoints</strong> — Create five <code>.api.ts</code> files (<code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>) under <code>src/features/&lt;feature&gt;/api/</code>, each with inline Zod schema + handler. See <a href="/guidelines/define-api.html">defineApi Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
 <p><strong>Step 4: Frontend page</strong> — Create shared <code>use&lt;Feature&gt;Items</code> hook, then compose <code>Table.faasData</code> (list), <code>Description.faasData</code> (detail), <code>Form.faas</code> (create/edit), and <code>faas</code> + modal (delete). See <a href="/guidelines/ant-design.html">Ant Design Guide</a>, <a href="/guidelines/react.html">React Guide</a>, and <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>.</p>
 <p><strong>Step 5: Tests</strong> — Place API tests under <code>api/__tests__/</code> using <code>testApi</code> from <code>@faasjs/dev</code>. See <a href="/guidelines/testing.html">Testing Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
 <p><strong>Step 6: Type generation</strong> — After creating/modifying <code>.api.ts</code> files, run <code>npx faas types</code> to update <code>src/.faasjs/types.d.ts</code>. Then run <code>vp test</code> to verify.</p>
@@ -253,7 +252,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <p>See the <a href="/guidelines/define-api.html">defineApi Guide</a> for detailed rules.</p>
 <h3 id="zero-mapping-routing-1" tabindex="-1">Zero-Mapping routing</h3>
-<p>API file paths map directly to request paths — no routing configuration needed. A file at <code>src/pages/todos/api/list.api.ts</code> responds to <code>POST /pages/todos/api/list</code>. See the <a href="/guidelines/routing-mapping.html">Routing Mapping Specification</a> for the full resolution order.</p>
+<p>API file paths map directly to request paths — no routing configuration needed. A file at <code>src/features/todos/api/list.api.ts</code> responds to <code>POST /features/todos/api/list</code>. See the <a href="/guidelines/routing-mapping.html">Routing Mapping Specification</a> for the full resolution order.</p>
 <h3 id="faas.yaml-configuration-hierarchy" tabindex="-1"><code>faas.yaml</code> configuration hierarchy</h3>
 <p>Configuration is layered by file location and staging. A <code>src/faas.yaml</code> file sets the baseline, and deeper <code>faas.yaml</code> files can override settings for specific path scopes. Staging keys (<code>development</code>, <code>production</code>, etc.) allow environment-specific overrides.</p>
 <pre><code class="hljs language-yaml"><span class="hljs-attr">defaults:</span>
@@ -367,9 +366,9 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <h3 id="daily-iteration-loop" tabindex="-1">Daily iteration loop</h3>
 <ol>
 <li>Start the dev server: <code>vp dev</code></li>
-<li>Edit API files (<code>*.api.ts</code>) and frontend pages (<code>*.tsx</code>)</li>
+<li>Edit API files (<code>*.api.ts</code>) and feature UI (<code>*.tsx</code>)</li>
 <li>After creating, renaming, or moving <code>.api.ts</code> files, regenerate types: <code>npx faas types</code></li>
-<li>Run focused tests: <code>vp test src/pages/todos/api/__tests__/list.test.ts</code></li>
+<li>Run focused tests: <code>vp test src/features/todos/api/__tests__/list.test.ts</code></li>
 <li>Before committing: <code>vp check --fix &amp;&amp; vp test</code></li>
 </ol>
 <h3 id="database-migrations" tabindex="-1">Database migrations</h3>
@@ -399,7 +398,7 @@ DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg migrate
 </tr>
 <tr>
 <td><a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a></td>
-<td>Complete CRUD implementation from API to React page</td>
+<td>Complete CRUD implementation from API to feature UI</td>
 </tr>
 <tr>
 <td><a href="/guidelines/define-api.html">defineApi Guide</a></td>

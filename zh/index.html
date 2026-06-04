@@ -71,11 +71,11 @@
 <p>在 FaasJS 中，一个功能通常应该作为完整应用切片落地：</p>
 <pre><code class="hljs language-text">src/db/migrations/20250101000000_create_users.ts
 src/db/tables/users.ts
-src/pages/users/index.tsx
-src/pages/users/api/list.api.ts
-src/pages/users/api/create.api.ts
-src/pages/users/api/__tests__/list.test.ts
-src/pages/users/api/__tests__/create.test.ts
+src/features/users/index.tsx
+src/features/users/api/list.api.ts
+src/features/users/api/create.api.ts
+src/features/users/api/__tests__/list.test.ts
+src/features/users/api/__tests__/create.test.ts
 </code></pre>
 <p>这种结构让人类维护者和 AI 编码代理都更容易一起查找、评审和修改业务行为。</p>
 <h2 id="%E7%89%B9%E6%80%A7" tabindex="-1">特性</h2>

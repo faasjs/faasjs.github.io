@@ -66,7 +66,7 @@
 <p>在构建或审查 <code>@faasjs/ant-design</code> 页面、CRUD 界面、路由、应用反馈、模态框和抽屉时使用。</p>
 <h2 id="%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">适用场景</h2>
 <ul>
-<li>在 <code>pages/</code> 下创建新页面或新功能</li>
+<li>在 <code>features/</code> 下创建功能 UI</li>
 <li>使用 <code>Routes</code> 和 <code>lazy</code> 配置路由</li>
 <li>构建列表、详情、创建、更新或删除流程</li>
 <li>决定如何拆分功能前端文件</li>
@@ -75,15 +75,15 @@
 </ul>
 <h2 id="%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">默认工作流</h2>
 <ol>
-<li>遵循<a href="/zh/guidelines/file-conventions.html">文件约定</a>，将功能放在 <code>pages/&lt;功能名称&gt;/</code> 下。</li>
-<li>在前端根目录附近使用一次 <code>App</code>，然后在功能页面中使用 <code>Routes</code> 配合 <code>lazy</code>。</li>
-<li>保持页面入口以组合为主；只有在真正需要边界时才将具体 UI 移到 <code>components/</code>。</li>
+<li>遵循<a href="/zh/guidelines/file-conventions.html">文件约定</a>，将功能放在 <code>features/&lt;功能名称&gt;/</code> 下。</li>
+<li>在前端根目录附近使用一次 <code>App</code>，然后用 <code>Routes</code> 配合 <code>lazy</code> 加载功能 UI 入口。</li>
+<li>保持功能入口以组合为主；只有在真正需要边界时才将具体 UI 移到 <code>components/</code>。</li>
 <li>将功能相关的请求文件放在 <code>api/</code> 下，保持 action 路径与文件路径一致。</li>
 <li>将业务字段建模为共享的 <code>items</code> 元数据，供 <code>Form</code>、<code>Description</code> 和 <code>Table</code> 复用。</li>
 <li>CRUD 从 <code>Table</code>、<code>Description</code> 和 <code>Form</code> 开始；使用 <code>useApp()</code> 获取 <code>message</code>、<code>notification</code>、<code>setModalProps</code> 和 <code>setDrawerProps</code>。</li>
 </ol>
 <h2 id="%E6%8E%A8%E8%8D%90%E5%B8%83%E5%B1%80" tabindex="-1">推荐布局</h2>
-<pre><code class="hljs language-text">src/pages/users/
+<pre><code class="hljs language-text">src/features/users/
   index.tsx
   components/
     UserDescription.tsx
@@ -100,21 +100,21 @@
 </code></pre>
 <p>这样保持：</p>
 <ul>
-<li>路由在 <code>pages/</code> 中</li>
+<li>功能入口 UI 在 <code>index.tsx</code> 中</li>
 <li>功能 UI 在 <code>components/</code> 中</li>
 <li>功能特定的可复用逻辑在 <code>hooks/</code> 中</li>
 <li>后端处理程序在 <code>api/</code> 中</li>
 </ul>
 <p>Action 直接映射到：</p>
 <ul>
-<li><code>/pages/users/api/list</code></li>
-<li><code>/pages/users/api/detail</code></li>
-<li><code>/pages/users/api/create</code></li>
-<li><code>/pages/users/api/update</code></li>
-<li><code>/pages/users/api/remove</code></li>
+<li><code>/features/users/api/list</code></li>
+<li><code>/features/users/api/detail</code></li>
+<li><code>/features/users/api/create</code></li>
+<li><code>/features/users/api/update</code></li>
+<li><code>/features/users/api/remove</code></li>
 </ul>
 <h2 id="%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%BC%8F" tabindex="-1">核心模式</h2>
-<h3 id="%E8%B7%AF%E7%94%B1%E5%92%8C%E9%A1%B5%E9%9D%A2%E5%85%A5%E5%8F%A3" tabindex="-1">路由和页面入口</h3>
+<h3 id="%E8%B7%AF%E7%94%B1%E5%92%8C%E5%8A%9F%E8%83%BD%E5%85%A5%E5%8F%A3" tabindex="-1">路由和功能入口</h3>
 <p>根路由应保持最小化，让每个功能懒加载自己的入口：</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
@@ -226,7 +226,7 @@
                     title: &#x27;Delete User&#x27;,
                     children: &#x27;This action cannot be undone.&#x27;,
                     onOk: async () =&gt; {
-                      await faas(&#x27;/pages/users/api/remove&#x27;, { id: row.id })
+                      await faas(&#x27;features/users/api/remove&#x27;, { id: row.id })
                       message.success(&#x27;User deleted&#x27;)
                       setModalProps({ open: false })
                     },
@@ -240,7 +240,7 @@
         },
       ]}
       faasData={{
-        action: &#x27;/pages/users/api/list&#x27;,
+        action: &#x27;features/users/api/list&#x27;,
       }}
       pagination={{
         pageSize: 20,
@@ -271,7 +271,7 @@
       <span class="hljs-attr">column</span>=<span class="hljs-string">{1}</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faasData</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">detail</span>&#x27;,
+        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">detail</span>&#x27;,
         <span class="hljs-attr">params:</span> {
           <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span>,
         },
@@ -299,7 +299,7 @@
       <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{props.initialValues}</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
         <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({
           ...values,
           ...(props.id ? { id: props.id } : {}),
@@ -340,7 +340,7 @@
           children: &#x27;Please confirm the deletion.&#x27;,
           onOk: async () =&gt; {
             try {
-              await faas(&#x27;/pages/users/api/remove&#x27;, { id: props.id })
+              await faas(&#x27;features/users/api/remove&#x27;, { id: props.id })
               message.success(&#x27;User deleted&#x27;)
               setModalProps({ open: false })
             } catch (error: any) {
@@ -444,7 +444,7 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSummary</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/pages/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;features/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
       {({ data }) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
     <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
   )
@@ -461,7 +461,7 @@
 }
 </code></pre>
 <h3 id="usemodal-%2F-usedrawer" tabindex="-1"><code>useModal</code> / <code>useDrawer</code></h3>
-<p>仅在有意隔离的本地实例需要位于共享 <code>App</code> 外壳之外时使用。在常规功能页面中，优先使用 <code>useApp().setModalProps(...)</code> 和 <code>useApp().setDrawerProps(...)</code>。</p>
+<p>仅在有意隔离的本地实例需要位于共享 <code>App</code> 外壳之外时使用。在常规功能 UI 中，优先使用 <code>useApp().setModalProps(...)</code> 和 <code>useApp().setDrawerProps(...)</code>。</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 <span class="hljs-keyword">import</span> { useDrawer } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
@@ -483,7 +483,7 @@
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
 <ol>
 <li>
-<p>遵循 <code>pages/</code>、<code>components/</code>、<code>hooks/</code>、<code>api/</code> 结构和功能本地 API 的路由映射。功能页面位于 <code>pages/</code> 下，入口文件使用 <code>index.tsx</code>，组件放在 <code>components/</code> 中，hooks 放在 <code>hooks/</code> 中，请求处理程序放在 <code>api/</code> 中。</p>
+<p>遵循 <code>features/</code>、<code>components/</code>、<code>hooks/</code>、<code>api/</code> 结构和功能本地 API 的路由映射。功能 UI 位于 <code>features/&lt;feature&gt;/</code> 下，入口文件使用 <code>index.tsx</code>，组件放在 <code>components/</code> 中，hooks 放在 <code>hooks/</code> 中，请求处理程序放在 <code>api/</code> 中。</p>
 </li>
 <li>
 <p>使用 <code>App</code> 一次作为应用程序外壳；不要将独立的应用程序外壳分散到各功能中。<code>App</code> 拥有共享的 <code>message</code>、<code>notification</code>、<code>modal</code> 和 <code>drawer</code> 行为。仅在有意缩小边界时才降级使用 <code>ConfigProvider</code>。</p>
@@ -554,10 +554,10 @@
 </ol>
 <h2 id="%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95" tabindex="-1">审查清单</h2>
 <ul>
-<li>[ ] 功能布局和 action 路径遵循 <code>pages/</code>、<code>components/</code>、<code>hooks/</code>、<code>api/</code> 结构</li>
+<li>[ ] 功能布局和 action 路径遵循 <code>features/</code>、<code>components/</code>、<code>hooks/</code>、<code>api/</code> 结构</li>
 <li>[ ] 路由使用 <code>Routes</code> 和 <code>lazy</code></li>
 <li>[ ] API 文件符合路由映射约定</li>
-<li>[ ] 页面入口组合功能组件而非内联包含所有逻辑</li>
+<li>[ ] 功能入口组合功能组件而非内联包含所有逻辑</li>
 <li>[ ] 共享的 <code>items</code> 元数据驱动 <code>Form</code>、<code>Description</code> 和 <code>Table</code></li>
 <li>[ ] 包装器和 <code>faas</code>/<code>faasData</code> 覆盖直接的请求流程</li>
 <li>[ ] CRUD 页面主要使用 <code>Table</code>、<code>Description</code> 和 <code>Form</code></li>

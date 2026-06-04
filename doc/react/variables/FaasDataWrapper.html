@@ -105,7 +105,7 @@ completes, then keeps passing the latest request state to the rendered output.</
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
     &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
-      action=<span class="hljs-string">&quot;/pages/users/get&quot;</span>
+      action=<span class="hljs-string">&quot;features/users/api/get&quot;</span>
       params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
       fallback={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}
       render={<span class="hljs-function">(<span class="hljs-params">{ data, error, reload }</span>) =&gt;</span> {
@@ -130,7 +130,7 @@ completes, then keeps passing the latest request state to the rendered output.</
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfileWithChildren</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
     &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
-      action=<span class="hljs-string">&quot;/pages/users/get&quot;</span>
+      action=<span class="hljs-string">&quot;features/users/api/get&quot;</span>
       params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
       fallback={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}
     &gt;

@@ -136,7 +136,7 @@
 }))
 
 <span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (path) =&gt; {
-  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span>) {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;features/users/api/get&#x27;</span>) {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
@@ -145,7 +145,7 @@
     }
   }
 
-  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/posts/get&#x27;</span>) {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;features/posts/api/get&#x27;</span>) {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
@@ -163,7 +163,7 @@
 })
 
 <span class="hljs-title function_">setMock</span>(<span class="hljs-title function_">async</span> (path, params) =&gt; {
-  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">1</span>) {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;features/users/api/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">1</span>) {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
@@ -172,7 +172,7 @@
     }
   }
 
-  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;/pages/users/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">2</span>) {
+  <span class="hljs-keyword">if</span> (path === <span class="hljs-string">&#x27;features/users/api/get&#x27;</span> &amp;&amp; params.<span class="hljs-property">id</span> === <span class="hljs-number">2</span>) {
     <span class="hljs-keyword">return</span> {
       <span class="hljs-attr">data</span>: {
         <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
@@ -217,7 +217,7 @@
 <span class="hljs-keyword">import</span> { setMock, useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserName</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { data } = useFaas&lt;{ <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, {})
+  <span class="hljs-keyword">const</span> { data } = useFaas&lt;{ <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">&#x27;features/users/api/get&#x27;</span>, {})
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
@@ -258,7 +258,9 @@
   })
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;supports reload with next params&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
-    <span class="hljs-keyword">const</span> { result } = <span class="hljs-title function_">renderHook</span>(<span class="hljs-function">() =&gt;</span> useFaas&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;(<span class="hljs-string">&#x27;/pages/users/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }))
+    <span class="hljs-keyword">const</span> { result } = <span class="hljs-title function_">renderHook</span>(<span class="hljs-function">() =&gt;</span>
+      useFaas&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;(<span class="hljs-string">&#x27;features/users/api/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }),
+    )
 
     <span class="hljs-keyword">await</span> <span class="hljs-title function_">waitFor</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">current</span>.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> }))
 

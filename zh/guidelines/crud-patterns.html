@@ -93,35 +93,35 @@
 <tr>
 <td>列表</td>
 <td><code>api/list.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/list</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/list</code></td>
 <td>post</td>
 <td>筛选、分页</td>
 </tr>
 <tr>
 <td>详情</td>
 <td><code>api/detail.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/detail</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/detail</code></td>
 <td>post</td>
 <td><code>{ id }</code></td>
 </tr>
 <tr>
 <td>创建</td>
 <td><code>api/create.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/create</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/create</code></td>
 <td>post</td>
 <td>业务字段</td>
 </tr>
 <tr>
 <td>更新</td>
 <td><code>api/update.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/update</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/update</code></td>
 <td>post</td>
 <td><code>{ id, ...fields }</code></td>
 </tr>
 <tr>
 <td>删除</td>
 <td><code>api/remove.api.ts</code></td>
-<td><code>POST /pages/&lt;feature&gt;/api/remove</code></td>
+<td><code>POST /features/&lt;feature&gt;/api/remove</code></td>
 <td>post</td>
 <td><code>{ id }</code></td>
 </tr>
@@ -138,29 +138,29 @@
 </thead>
 <tbody>
 <tr>
-<td>页面入口</td>
-<td><code>pages/&lt;feature&gt;/index.tsx</code></td>
-<td><code>pages/users/index.tsx</code></td>
+<td>功能 UI</td>
+<td><code>features/&lt;feature&gt;/index.tsx</code></td>
+<td><code>features/users/index.tsx</code></td>
 </tr>
 <tr>
 <td>组件</td>
-<td><code>pages/&lt;feature&gt;/components/*.tsx</code></td>
-<td><code>pages/users/components/UserTable.tsx</code></td>
+<td><code>features/&lt;feature&gt;/components/*.tsx</code></td>
+<td><code>features/users/components/UserTable.tsx</code></td>
 </tr>
 <tr>
 <td>Hooks</td>
-<td><code>pages/&lt;feature&gt;/hooks/*.ts</code></td>
-<td><code>pages/users/hooks/useUserItems.ts</code></td>
+<td><code>features/&lt;feature&gt;/hooks/*.ts</code></td>
+<td><code>features/users/hooks/useUserItems.ts</code></td>
 </tr>
 <tr>
 <td>API</td>
-<td><code>pages/&lt;feature&gt;/api/*.api.ts</code></td>
-<td><code>pages/users/api/list.api.ts</code></td>
+<td><code>features/&lt;feature&gt;/api/*.api.ts</code></td>
+<td><code>features/users/api/list.api.ts</code></td>
 </tr>
 <tr>
 <td>API 测试</td>
-<td><code>pages/&lt;feature&gt;/api/__tests__/*.test.ts</code></td>
-<td><code>pages/users/api/__tests__/list.test.ts</code></td>
+<td><code>features/&lt;feature&gt;/api/__tests__/*.test.ts</code></td>
+<td><code>features/users/api/__tests__/list.test.ts</code></td>
 </tr>
 </tbody>
 </table>
@@ -272,7 +272,7 @@
           },
         ]}
         faasData={{
-          action: &#x27;/pages/users/api/list&#x27;,
+          action: &#x27;features/users/api/list&#x27;,
           params: searchParams,
         }}
       /&gt;
@@ -326,7 +326,7 @@
     &lt;<span class="hljs-title class_">Description</span>&lt;<span class="hljs-title class_">UserField</span>&gt;
       items={items}
       faasData={{
-        <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;/pages/users/api/detail&#x27;</span>,
+        <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>,
         <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> },
       }}
     /&gt;
@@ -379,7 +379,7 @@
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Form</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">action:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
         <span class="hljs-attr">onSuccess:</span> () =&gt;</span> {
           message.success(&#x27;User created&#x27;)
           setDrawerProps({ open: false })
@@ -448,7 +448,7 @@
       <span class="hljs-attr">initialValues</span>=<span class="hljs-string">{props.initialValues}</span>
       <span class="hljs-attr">items</span>=<span class="hljs-string">{items}</span>
       <span class="hljs-attr">faas</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;/<span class="hljs-attr">pages</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
+        <span class="hljs-attr">action:</span> <span class="hljs-attr">props.id</span> ? &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">update</span>&#x27; <span class="hljs-attr">:</span> &#x27;<span class="hljs-attr">features</span>/<span class="hljs-attr">users</span>/<span class="hljs-attr">api</span>/<span class="hljs-attr">create</span>&#x27;,
         <span class="hljs-attr">params:</span> (<span class="hljs-attr">values</span>) =&gt;</span> ({ ...values, ...(props.id ? { id: props.id } : {}) }),
         onSuccess: () =&gt; {
           message.success(props.id ? &#x27;User updated&#x27; : &#x27;User created&#x27;)
@@ -510,7 +510,7 @@
       <span class="hljs-attr">children</span>: <span class="hljs-string">&#x27;Are you sure you want to delete this user? This action cannot be undone.&#x27;</span>,
       <span class="hljs-attr">onOk</span>: <span class="hljs-title function_">async</span> () =&gt; {
         <span class="hljs-keyword">try</span> {
-          <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;/pages/users/api/remove&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">row</span>.<span class="hljs-property">id</span> })
+          <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;features/users/api/remove&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">row</span>.<span class="hljs-property">id</span> })
           message.<span class="hljs-title function_">success</span>(<span class="hljs-string">&#x27;User deleted&#x27;</span>)
           <span class="hljs-title function_">setModalProps</span>({ <span class="hljs-attr">open</span>: <span class="hljs-literal">false</span> })
           props.<span class="hljs-property">onSuccess</span>?.()
@@ -576,8 +576,8 @@
 </ul>
 <h2 id="%E5%AE%8C%E6%95%B4-crud-%E5%88%87%E7%89%87%E5%B8%83%E5%B1%80%E5%8F%82%E8%80%83" tabindex="-1">完整 CRUD 切片布局参考</h2>
 <h3 id="%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84" tabindex="-1">目录结构</h3>
-<pre><code class="hljs">src/pages/users/
-  index.tsx                          # 页面入口：组合 UserTable、创建按钮
+<pre><code class="hljs">src/features/users/
+  index.tsx                          # 功能 UI 入口：组合 UserTable、创建按钮
   components/
     UserTable.tsx                    # 带有 faasData、搜索、操作列的表格
     UserForm.tsx                     # 用于创建/更新的表单（id 属性切换模式）
@@ -586,11 +586,11 @@
   hooks/
     useUserItems.ts                  # 共享的 items 元数据
   api/
-    list.api.ts                      # POST /pages/users/api/list
-    detail.api.ts                    # POST /pages/users/api/detail
-    create.api.ts                    # POST /pages/users/api/create
-    update.api.ts                    # POST /pages/users/api/update
-    remove.api.ts                    # POST /pages/users/api/remove
+    list.api.ts                      # POST /features/users/api/list
+    detail.api.ts                    # POST /features/users/api/detail
+    create.api.ts                    # POST /features/users/api/create
+    update.api.ts                    # POST /features/users/api/update
+    remove.api.ts                    # POST /features/users/api/remove
     __tests__/
       list.test.ts                   # list 的 testApi
       detail.test.ts                 # detail 的 testApi
@@ -611,7 +611,7 @@
 <tr>
 <td><code>index.tsx</code></td>
 <td>30-60</td>
-<td>页面入口、布局、组合组件</td>
+<td>功能 UI 入口、布局、组合组件</td>
 </tr>
 <tr>
 <td><code>UserTable.tsx</code></td>
@@ -780,26 +780,26 @@
 <h2 id="%E4%BB%A3%E7%90%86%E6%95%88%E7%8E%87%E6%8F%90%E7%A4%BA" tabindex="-1">代理效率提示</h2>
 <p>以下模式可帮助 AI 编码代理 2-3 倍更快地生成完整的 CRUD 功能。</p>
 <h3 id="1.-%E4%BB%8E-items-%E5%BC%80%E5%A7%8B" tabindex="-1">1. 从 items 开始</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create a `useProductItems` hook with fields: name (required), price (required, positive number), category (select with 3 options), description (textarea), status (select). Store in pages/products/hooks/useProductItems.ts&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create a `useProductItems` hook with fields: name (required), price (required, positive number), category (select with 3 options), description (textarea), status (select). Store in features/products/hooks/useProductItems.ts&quot;
 </code></pre>
 <p>Items 是基础。一旦 items 存在，代理可以一致地推导出 <code>Table</code>、<code>Form</code> 和 <code>Description</code>。</p>
 <h3 id="2.-%E4%B8%80%E6%AC%A1%E7%94%9F%E6%88%90%E4%BA%94%E4%B8%AA-api" tabindex="-1">2. 一次生成五个 API</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create 5 API files for products CRUD under pages/products/api/: list, detail, create, update, remove. Follow the defineApi guide. Each should have a Zod schema and handler.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create 5 API files for products CRUD under features/products/api/: list, detail, create, update, remove. Follow the defineApi guide. Each should have a Zod schema and handler.&quot;
 </code></pre>
 <p>五个小型的 <code>.api.ts</code> 文件一起生成比逐个生成更快，而且代理可以保持 schema 一致。</p>
 <h3 id="3.-%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E7%BB%84%E5%90%88%E8%A1%A8%E5%8D%95" tabindex="-1">3. 复制粘贴组合表单</h3>
 <p>带有基于 <code>id</code> 的模式切换（创建与更新）的 <code>UserForm</code> 模式是可复用的。生成一个组合表单，而不是分开的创建/更新组件。</p>
 <h3 id="4.-%E4%B8%80%E6%AC%A1%E7%94%9F%E6%88%90%E5%88%97%E8%A1%A8-%2B-%E6%8A%BD%E5%B1%89%E8%BF%9E%E6%8E%A5" tabindex="-1">4. 一次生成列表 + 抽屉连接</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create pages/products/index.tsx with a Table.faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create features/products/index.tsx with a Table.faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
 </code></pre>
-<p>一个提示涵盖页面入口、表格、抽屉连接和操作列。</p>
+<p>一个提示涵盖功能入口、表格、抽屉连接和操作列。</p>
 <h3 id="5.-%E6%89%B9%E9%87%8F-api-%E6%B5%8B%E8%AF%95" tabindex="-1">5. 批量 API 测试</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create test files for all 5 product APIs under pages/products/api/__tests__/. Each test should cover success and 400/404/409 paths where applicable.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create test files for all 5 product APIs under features/products/api/__tests__/. Each test should cover success and 400/404/409 paths where applicable.&quot;
 </code></pre>
 <p>一个提示以一致的模式生成所有测试。</p>
 <h3 id="6.-%E4%B8%BA%E6%96%B0%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8%E5%88%87%E7%89%87%E6%A8%A1%E6%9D%BF" tabindex="-1">6. 为新功能使用切片模板</h3>
 <p>开始新的 CRUD 功能时，先创建完整的目录结构：</p>
-<pre><code class="hljs language-text">Prompt: &quot;Create a full CRUD slice for orders under pages/orders/. Include: index.tsx, components/ (OrderTable, OrderForm, OrderDetail, OrderActions), hooks/useOrderItems, api/ (list, detail, create, update, remove), and api/__tests__/ for all 5 endpoints.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create a full CRUD slice for orders under features/orders/. Include: index.tsx, components/ (OrderTable, OrderForm, OrderDetail, OrderActions), hooks/useOrderItems, api/ (list, detail, create, update, remove), and api/__tests__/ for all 5 endpoints.&quot;
 </code></pre>
 <h2 id="%E8%A7%84%E5%88%99" tabindex="-1">规则</h2>
 <ol>
@@ -839,7 +839,7 @@
 <li>[ ] Items 用 <code>useConstant</code> 包装</li>
 <li>[ ] 操作列在 <code>Table</code> 上内联添加，而非在共享 items 中</li>
 <li>[ ] 创建/编辑/详情使用抽屉；删除确认使用模态框</li>
-<li>[ ] 文件结构遵循 <code>pages/&lt;feature&gt;/{components/,hooks/,api/}</code> 约定</li>
+<li>[ ] 文件结构遵循 <code>features/&lt;feature&gt;/{components/,hooks/,api/}</code> 约定</li>
 </ul>
 </div></div>
           </div>

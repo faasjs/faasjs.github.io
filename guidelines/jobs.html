@@ -66,7 +66,7 @@
 <p>Use this guide when defining <code>.job.ts</code> background jobs, enqueueing asynchronous work, or running FaasJS workers and schedulers.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Create a <code>.job.ts</code> file under <code>src/jobs/</code>.</li>
+<li>Create feature-owned <code>.job.ts</code> files under <code>src/features/&lt;feature&gt;/jobs/</code>; use <code>src/jobs/</code> for cross-cutting or platform jobs.</li>
 <li>Default-export <code>defineJob(...)</code> with a schema when the params have a shape.</li>
 <li>Enqueue work with <code>enqueueJob(jobPath, params)</code> from APIs, scripts, or other jobs.</li>
 <li>Run <code>startJobWorker()</code> in a worker process for execution.</li>
@@ -76,9 +76,9 @@
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-let-file-paths-name-jobs" tabindex="-1">1. Let file paths name jobs</h3>
 <p>Job paths come from <code>.job.ts</code> files relative to the worker root:</p>
-<pre><code class="hljs language-text">src/jobs/users/cleanup.job.ts -&gt; jobs/users/cleanup
-src/jobs/emails/send.job.ts   -&gt; jobs/emails/send
-src/jobs/reports/index.job.ts -&gt; jobs/reports
+<pre><code class="hljs language-text">src/features/users/jobs/cleanup.job.ts -&gt; features/users/jobs/cleanup
+src/features/emails/jobs/send.job.ts   -&gt; features/emails/jobs/send
+src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
 </code></pre>
 <p>Do not duplicate the job name inside the file. Moving or renaming a job file changes the path used by <code>enqueueJob()</code>.</p>
 <h3 id="2.-define-params-schemas-at-the-boundary" tabindex="-1">2. Define params schemas at the boundary</h3>
@@ -104,7 +104,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
 
 <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(
-  <span class="hljs-string">&#x27;jobs/emails/send&#x27;</span>,
+  <span class="hljs-string">&#x27;features/emails/jobs/send&#x27;</span>,
   {
     <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span>,
   },
@@ -154,7 +154,7 @@ src/jobs/reports/index.job.ts -&gt; jobs/reports
 <li>Mock only external services such as email providers, storage APIs, or third-party webhooks.</li>
 </ul>
 <h3 id="7.-test-a-single-job-directly" tabindex="-1">7. Test a single job directly</h3>
-<p>Put job tests under the job folder's <code>__tests__</code>, such as <code>src/jobs/users/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</p>
+<p>Put job tests under the job folder's <code>__tests__</code>, such as <code>src/features/users/jobs/__tests__/cleanup.test.ts</code> for <code>cleanup.job.ts</code>.</p>
 <p>For a single job's business behavior, call the exported job handler directly. This keeps the <code>defineJob</code> wrapper, schema validation, <code>job</code>, and <code>attempt</code> shape real without creating queue rows or starting worker loops.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { beforeEach, describe, expect, it, vi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vitest&#x27;</span>
 
@@ -167,7 +167,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
 <span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
     mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
   })
@@ -210,16 +210,16 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
 <span class="hljs-keyword">const</span> mockedSendDailyReport = vi.<span class="hljs-title function_">mocked</span>(sendDailyReport)
 
-<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, dailyReportJob]])
+<span class="hljs-keyword">const</span> jobs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>([[<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, dailyReportJob]])
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
     mockedSendDailyReport.<span class="hljs-title function_">mockReset</span>()
   })
 
   <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;runs queued work and sends the report&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
     <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
-    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;jobs/reports/daily-report&#x27;</span>, {
+    <span class="hljs-keyword">const</span> record = <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily-report&#x27;</span>, {
       <span class="hljs-attr">reportId</span>: <span class="hljs-string">&#x27;r_123&#x27;</span>,
     })
     <span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(jobs)
@@ -244,7 +244,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 
     <span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">JobRecord</span>&gt;<span class="hljs-string">`
       SELECT * FROM faasjs_jobs
-      WHERE job_path = &#x27;jobs/reports/daily-report&#x27;
+      WHERE job_path = &#x27;features/reports/jobs/daily-report&#x27;
     `</span>
 
     <span class="hljs-title function_">expect</span>(rows).<span class="hljs-title function_">toHaveLength</span>(<span class="hljs-number">1</span>)

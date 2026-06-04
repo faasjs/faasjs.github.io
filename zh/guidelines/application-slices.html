@@ -64,12 +64,14 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="%E5%BA%94%E7%94%A8%E5%88%87%E7%89%87%E6%8C%87%E5%8D%97" tabindex="-1">应用切片指南</h1>
 <p>在向 FaasJS 应用添加业务功能或要求 AI 编码代理构建功能时使用本指南。</p>
-<p>FaasJS 应用切片是一个小型、完整的垂直功能，它将 UI、API、验证、数据库变更、类型和测试集中在一起，使其易于查找和审查。切片通过为人类和代理提供可直接遵循的稳定约定，取代了以生成器为中心的工作流。</p>
+<p>FaasJS 应用切片是一个小型、完整的垂直功能，它将 UI、API、验证、数据库变更、CLI 工具、任务、类型和测试集中在一起，使其易于查找和审查。切片通过为人类和代理提供可直接遵循的稳定约定，取代了以生成器为中心的工作流。</p>
 <h2 id="%E5%88%87%E7%89%87%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9" tabindex="-1">切片包含的内容</h2>
-<p>一个数据库驱动的 React 业务切片通常包括：</p>
+<p>一个数据库驱动的业务切片通常包括：</p>
 <ul>
-<li><code>src/pages/**</code> 下的页面或功能本地组件</li>
-<li>靠近其支持的页面或功能的一个或多个 <code>.api.ts</code> 文件</li>
+<li><code>src/features/&lt;feature&gt;/</code> 下的功能文件夹</li>
+<li>可选的 React 入口，如 <code>src/features/&lt;feature&gt;/index.tsx</code></li>
+<li>归属于该功能的组件、hooks、服务、schema、CLI 工具或任务</li>
+<li>当功能暴露后端 action 时，放在该功能 <code>api/</code> 目录下的一个或多个 <code>.api.ts</code> 文件</li>
 <li>用于边界验证的内联 <code>defineApi</code> schema</li>
 <li>数据形状变更时在 <code>src/db/migrations/**</code> 下的 PostgreSQL 迁移</li>
 <li><code>src/types/**</code> 下的 <code>@faasjs/pg</code> 表声明</li>
@@ -79,22 +81,24 @@
 </ul>
 <p>保持切片足够小，以便审查者无需穿越不相关的框架层即可理解其行为。</p>
 <h2 id="%E6%8E%A8%E8%8D%90%E5%B8%83%E5%B1%80" tabindex="-1">推荐布局</h2>
-<p><code>create-faas-app</code> 生成的 <code>admin</code> 启动模板包含一个可复制的 users 切片。对于 users 切片，推荐如下布局：</p>
+<p><code>create-faas-app</code> 生成的 <code>admin</code> 启动模板包含一个可复制的 users 切片。对于 users 切片，推荐使用 feature based 布局：</p>
 <pre><code class="hljs language-text">src/db/migrations/20250101000000_create_users.ts
 src/db/tables/users.ts
-src/pages/users/index.tsx
-src/pages/users/api/list.api.ts
-src/pages/users/api/create.api.ts
-src/pages/users/api/__tests__/list.test.ts
-src/pages/users/api/__tests__/create.test.ts
+src/features/users/index.tsx
+src/features/users/components/UserTable.tsx
+src/features/users/hooks/useUserItems.ts
+src/features/users/api/list.api.ts
+src/features/users/api/create.api.ts
+src/features/users/api/__tests__/list.test.ts
+src/features/users/api/__tests__/create.test.ts
 </code></pre>
-<p>对于嵌套的或功能本地的 API，将 API 路径保持在拥有它的页面附近：</p>
-<pre><code class="hljs language-text">src/pages/settings/users/index.tsx
-src/pages/settings/users/api/list.api.ts
-src/pages/settings/users/api/update-role.api.ts
-src/pages/settings/users/api/__tests__/update-role.test.ts
+<p>对于嵌套能力，将它们保留在拥有它们的功能下，而不是移动到脱离业务语义的路由、API 或工具树中：</p>
+<pre><code class="hljs language-text">src/features/settings/users/index.tsx
+src/features/settings/users/api/list.api.ts
+src/features/settings/users/api/update-role.api.ts
+src/features/settings/users/api/__tests__/update-role.test.ts
 </code></pre>
-<p>在切片内使用短相对导入，除非已配置现有的 TypeScript 别名。</p>
+<p>在切片内使用短相对导入，除非已配置现有的 TypeScript 别名。注意 <code>.api.ts</code> 和 <code>.job.ts</code> 的路径具有外部语义：<code>src/features/users/api/list.api.ts</code> 映射到 <code>/features/users/api/list</code>，<code>src/features/users/jobs/sync.job.ts</code> 映射到 <code>features/users/jobs/sync</code>。</p>
 <p>不要将测试集中到包级别的 <code>src/__tests__</code> 文件夹中。这也包括 <code>src/__tests__/&lt;feature&gt;</code> 子文件夹：功能文件夹本身应拥有 <code>__tests__</code>。每个功能、切片、API 文件夹、任务文件夹、辅助文件夹或组件文件夹应拥有自己的 <code>__tests__</code> 文件夹，以便测试与它们所保护的行为保持关联。</p>
 <p>当切片本来只是单个业务文件时，将该文件转换为文件夹模块，并将其测试放在该文件夹的 <code>__tests__</code> 下：</p>
 <pre><code class="hljs language-text"># 避免
@@ -103,8 +107,8 @@ src/__tests__/useBilling.test.ts
 src/__tests__/useBilling/useBilling.test.ts
 
 # 推荐
-src/useBilling/index.ts
-src/useBilling/__tests__/useBilling.test.ts
+src/features/billing/index.ts
+src/features/billing/__tests__/billing.test.ts
 </code></pre>
 <h2 id="api%E3%80%81%E9%AA%8C%E8%AF%81%E5%92%8C%E5%AE%89%E5%85%A8" tabindex="-1">API、验证和安全</h2>
 <p>为每个 API 入口点使用 <code>defineApi</code>。</p>
@@ -124,10 +128,10 @@ src/useBilling/__tests__/useBilling.test.ts
 <h2 id="ui-%E5%8F%98%E6%9B%B4" tabindex="-1">UI 变更</h2>
 <p>对业务 UI 使用 React 和 FaasJS Ant Design 路径。</p>
 <p>当 <code>@faasjs/ant-design</code> 包装器（如 <code>Form</code>、<code>Table</code>、<code>Description</code>、<code>Title</code>、<code>Tabs</code>、<code>Loading</code> 和 <code>ErrorBoundary</code>）能覆盖场景时优先使用它们。仅在包装器不合适或自定义 UI 更清晰时才降级到原始 Ant Design 组件。</p>
-<p>保持页面级状态和请求流可读。在创建、更新或删除流程之后，有意刷新、关闭或失效受影响的界面并显示用户反馈。仅在组件被复用、创建了真正的边界或简化了大块代码时，才提取组件、hooks 或辅助函数。</p>
+<p>保持功能 UI 的状态和请求流可读。在创建、更新或删除流程之后，有意刷新、关闭或失效受影响的界面并显示用户反馈。仅在组件被复用、创建了真正的边界或简化了大块代码时，才提取组件、hooks 或辅助函数。</p>
 <h2 id="%E6%B5%8B%E8%AF%95" tabindex="-1">测试</h2>
 <p>将 API 测试放在 API 文件夹的 <code>__tests__</code> 下。</p>
-<p>对于非 API 测试，使用相同的功能本地布局原则：将 React、任务、辅助或集成测试放在它们所覆盖的页面、任务、工具或切片文件夹内的 <code>__tests__</code> 文件夹中，而不是集中到独立的包级测试树中。</p>
+<p>对于非 API 测试，使用相同的功能本地布局原则：将 React、任务、CLI、辅助或集成测试放在它们所覆盖的功能、任务、工具或切片文件夹内的 <code>__tests__</code> 文件夹中，而不是集中到独立的包级测试树中。</p>
 <p>测试定义切片的行为：</p>
 <ul>
 <li>有效输入和预期输出</li>
@@ -140,7 +144,7 @@ src/useBilling/__tests__/useBilling.test.ts
 <h2 id="%E4%BB%A3%E7%90%86%E5%B7%A5%E4%BD%9C%E6%B5%81" tabindex="-1">代理工作流</h2>
 <p>当要求 AI 编码代理添加或更改功能时，描述切片而不是要求执行生成器命令。</p>
 <p>好的提示模板：</p>
-<pre><code class="hljs language-text">Add a users slice with a list page, create API, PostgreSQL migration, table types, and API tests. Follow the FaasJS curated stack and keep files near src/pages/users.
+<pre><code class="hljs language-text">Add a users feature with a list UI, create API, PostgreSQL migration, table types, and API tests. Follow the FaasJS curated stack and keep files under src/features/users.
 </code></pre>
 <p>代理应该：</p>
 <ul>

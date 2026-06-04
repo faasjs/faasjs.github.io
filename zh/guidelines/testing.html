@@ -121,7 +121,7 @@
 <ul>
 <li>不要将所有包测试集中到 <code>src/__tests__</code> 目录中，包括该集中目录下以功能命名的子文件夹。</li>
 <li>按项目用途、功能或切片拆分代码和测试，使 API、UI、任务、辅助函数和集成测试归属于拥有该行为的 feature 文件夹。</li>
-<li>将测试放在所属文件夹的 <code>__tests__</code> 中，例如 <code>list.api.ts</code> 的测试放在 <code>src/pages/users/api/__tests__/list.test.ts</code>，或 <code>cleanup.job.ts</code> 的测试放在 <code>src/jobs/users/__tests__/cleanup.test.ts</code>。</li>
+<li>将测试放在所属文件夹的 <code>__tests__</code> 中，例如 <code>list.api.ts</code> 的测试放在 <code>src/features/users/api/__tests__/list.test.ts</code>，或 <code>cleanup.job.ts</code> 的测试放在 <code>src/features/users/jobs/__tests__/cleanup.test.ts</code>。</li>
 <li>当被保护的业务代码本身是单个文件时，将其转换为包含 <code>index.ts</code> 或 <code>index.tsx</code> 的文件夹，并将测试放在该文件夹的 <code>__tests__</code> 下，例如 <code>src/useBilling/index.ts</code> 和 <code>src/useBilling/__tests__/useBilling.test.ts</code>。</li>
 </ul>
 <h2 id="%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95" tabindex="-1">审查清单</h2>
