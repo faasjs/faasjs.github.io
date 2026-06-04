@@ -64,6 +64,22 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
+<p>Unreleased</p>
+<ul>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Feature] Add <code>context.runtime</code> for plugin lifecycle code and default it to <code>api</code> for <code>defineApi()</code>.</li>
+<li>[Fix] Skip the built-in HTTP plugin lifecycle outside the API runtime so inherited HTTP config does not rewrite non-HTTP params.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/jobs</code></p>
+<ul>
+<li>[Fix] Set <code>context.runtime</code> to <code>job</code> for <code>defineJob()</code> and job worker invocations.</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.34...v8.0.0-beta.35" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.35 (2026-05-29)</code></a></p>
 <ul>
 <li>

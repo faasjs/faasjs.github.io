@@ -66,6 +66,7 @@
 <p>Use this guide when working with cookies, sessions, response helpers, or HTTP plugin configuration in FaasJS APIs.</p>
 <h2 id="overview" tabindex="-1">Overview</h2>
 <p>The HTTP plugin is built into <code>@faasjs/core</code> and <strong>activated automatically</strong> for every <code>defineApi</code> endpoint. You do not need to declare it in <code>faas.yaml</code>.</p>
+<p>It only processes invocations when <code>data.context.runtime</code> is missing or set to <code>api</code>. When the same plugin is inherited by a background job, <code>context.runtime === 'job'</code> makes the HTTP plugin call <code>await next()</code> without parsing HTTP params, injecting HTTP helpers, or rewriting job params.</p>
 <p>It injects the following fields into every <code>defineApi</code> handler:</p>
 <ul>
 <li><code>cookie</code> — read and write cookies</li>

@@ -79,6 +79,7 @@
 <li><code>onInvoke</code> runs on every request. Plugins receive a mutable <code>InvokeData</code> object shared across the chain. Use <code>await next()</code> to continue to the next plugin or the business handler.</li>
 </ol>
 <p>The built-in <code>RunHandler</code> plugin always runs last and calls the business handler. User plugins always execute before it.</p>
+<p>FaasJS also writes the current runtime to <code>data.context.runtime</code>. The supported values are <code>api</code> and <code>job</code>: <code>defineApi()</code> uses <code>api</code>; <code>defineJob()</code> and job workers use <code>job</code>. Plugins that only apply to one runtime should inspect this field and call <code>await next()</code> when they skip their own behavior.</p>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Decide whether the plugin is one-off (inline in a specific API) or reusable (shared across endpoints).</li>
@@ -124,8 +125,20 @@
 </code></pre>
 <ul>
 <li>Prefer adding fields directly to <code>data</code> over using <code>context</code> — <code>context</code> is for internal framework wiring.</li>
+<li><code>data.context.runtime</code> is a framework-managed field; read it when a plugin needs to distinguish APIs from jobs, but do not overwrite it.</li>
 <li>Do not wrap <code>data</code> in another object; add fields at the top level so handlers see them directly.</li>
 </ul>
+<p>Runtime-specific plugins should skip cleanly:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">onInvoke</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-title class_">InvokeData</span>, <span class="hljs-attr">next</span>: <span class="hljs-title class_">Next</span></span>) {
+  <span class="hljs-keyword">if</span> (data.<span class="hljs-property">context</span>.<span class="hljs-property">runtime</span> &amp;&amp; data.<span class="hljs-property">context</span>.<span class="hljs-property">runtime</span> !== <span class="hljs-string">&#x27;api&#x27;</span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    <span class="hljs-keyword">return</span>
+  }
+
+  data.<span class="hljs-property">current_user</span> = <span class="hljs-keyword">await</span> <span class="hljs-title function_">resolveUser</span>(data.<span class="hljs-property">event</span>.<span class="hljs-property">headers</span>?.<span class="hljs-property">authorization</span>)
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+}
+</code></pre>
 <h3 id="3.-provide-types-via-defineapiinject-module-augmentation" tabindex="-1">3. Provide types via <code>DefineApiInject</code> module augmentation</h3>
 <p>Handlers receive typed injected fields when the plugin author declares them via TypeScript module augmentation.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InvokeData</span>, <span class="hljs-title class_">Next</span>, <span class="hljs-title class_">Plugin</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>

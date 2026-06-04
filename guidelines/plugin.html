@@ -111,6 +111,9 @@
 <li>Calling <code>next()</code> multiple times from the same lifecycle hook MUST reject with <code>next() called multiple times</code>.</li>
 <li>Plugins MAY mutate mount or invoke data to inject fields, prepare context, or control the final response.</li>
 <li>Errors thrown by a plugin or downstream handler MUST stop the current chain and propagate to the caller.</li>
+<li>Runtime adapters SHOULD set <code>data.context.runtime</code> to <code>api</code> or <code>job</code>; <code>defineApi()</code> uses <code>api</code>, and <code>defineJob()</code>/job workers use <code>job</code>.</li>
+<li>Plugins MAY inspect <code>data.context.runtime</code> to decide whether their behavior applies to the current runtime.</li>
+<li>A plugin that skips work because of <code>data.context.runtime</code> MUST still call <code>await next()</code> unless it intentionally stops the lifecycle chain.</li>
 </ol>
 <h3 id="3.-configuration-layering-and-precedence" tabindex="-1">3. Configuration Layering And Precedence</h3>
 <ol>
@@ -152,6 +155,7 @@
 <ol>
 <li>A <code>defineApi()</code> function MUST have an <code>http</code> plugin available after plugin resolution.</li>
 <li>If the <code>http</code> plugin is missing, invocation MUST fail with an error that indicates the required <code>http</code> plugin is missing.</li>
+<li>A <code>defineApi()</code> function MUST set <code>data.context.runtime</code> to <code>api</code> when the caller did not provide a runtime.</li>
 <li>Additional plugins MAY inject fields into the handler data by mutating invoke data before the business handler runs.</li>
 <li>Plugin packages that inject extra handler fields SHOULD provide TypeScript module augmentation for <code>DefineApiInject</code>.</li>
 </ol>

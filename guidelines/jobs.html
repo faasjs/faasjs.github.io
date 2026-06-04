@@ -259,6 +259,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 <li>enqueue paths match file-derived job paths</li>
 <li>params are validated with schemas when structured</li>
 <li>handlers use <code>getClient()</code> when they need database access and use the injected <code>logger</code></li>
+<li>plugins that are API-only check <code>data.context.runtime !== 'api'</code> and call <code>await next()</code> so inherited HTTP concerns do not rewrite job params</li>
 <li>idempotency and retry behavior are explicit</li>
 <li>cron rules enqueue jobs instead of doing work directly</li>
 <li>worker and scheduler startup are separate from HTTP server lifecycle</li>
