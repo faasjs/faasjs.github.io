@@ -67,16 +67,54 @@
 <p>Unreleased</p>
 <ul>
 <li>
+<p><code>faasjs</code></p>
+<ul>
+<li>[Feature] Reframe docs and <code>faasjs-best-practices</code> around feature-based application slices, dedicated guide pages, and local spec references for agents.</li>
+</ul>
+</li>
+<li>
 <p><code>@faasjs/core</code></p>
 <ul>
 <li>[Feature] Add <code>context.runtime</code> for plugin lifecycle code and default it to <code>api</code> for <code>defineApi()</code>.</li>
 <li>[Fix] Skip the built-in HTTP plugin lifecycle outside the API runtime so inherited HTTP config does not rewrite non-HTTP params.</li>
+<li>[Fix] Preserve falsy HTTP handler and <code>setBody()</code> response values (<code>0</code>, <code>false</code>, <code>''</code>, <code>null</code>) as <code>200</code> JSON data responses.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/dev</code></p>
+<ul>
+<li>[Fix] Resolve <code>faas run</code> register hooks from the invoked CLI binary path when running through custom argv entrypoints.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/react</code></p>
+<ul>
+<li>[Break] Remove the <code>generateId</code> export; import it from <code>@faasjs/utils</code> instead.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/jobs</code></p>
 <ul>
 <li>[Fix] Set <code>context.runtime</code> to <code>job</code> for <code>defineJob()</code> and job worker invocations.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
+<ul>
+<li>[Fix] Generate correct update-mode SQL for <code>NOT IN</code> where clauses in <code>update()</code> and <code>updateJson()</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/utils</code></p>
+<ul>
+<li>[Feature] Add <code>generateId</code> for cross-runtime random identifier generation.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/create-faas-app</code></p>
+<ul>
+<li>[Feature] Switch <code>admin</code> and <code>minimal</code> templates to <code>src/features/**</code> application slices and update generated action paths.</li>
+<li>[Feature] Run <code>npm run types</code> during scaffolding so new projects start with generated <code>src/.faasjs/types.d.ts</code> declarations.</li>
 </ul>
 </li>
 </ul>
