@@ -66,6 +66,7 @@
 <h1 id="create-faas-app" tabindex="-1">create-faas-app</h1>
 <p>Create a new FaasJS app from a curated starter template.</p>
 <p>FaasJS is optimized for database-driven React business applications. <code>create-faas-app</code> gives new projects a working starting point for the official path instead of asking every team to assemble React, API, database, testing, and UI conventions from scratch.</p>
+<p>This is the key difference from a generic React starter: the default template is shaped around complete business features. A feature is expected to connect UI pages, typed APIs, validation, PostgreSQL migrations, table types, and tests in one reviewable application slice.</p>
 <h2 id="quick-start" tabindex="-1">Quick Start</h2>
 <pre><code class="hljs language-bash">npx create-faas-app --name my-faas-app
 <span class="hljs-built_in">cd</span> my-faas-app
@@ -104,6 +105,7 @@ npm run dev
 <li>tests cover the API and database behavior</li>
 </ul>
 <p>FaasJS allows teams to replace parts of the stack, but the templates, docs, and examples optimize this curated path first.</p>
+<p>Use <code>minimal</code> only when you intentionally want to step away from that path, such as for an API-only service, a BFF that will be paired with a separate frontend, or an app that needs a custom UI/database stack from day one.</p>
 <h2 id="auth-and-permissions" tabindex="-1">Auth And Permissions</h2>
 <p>Authentication and permissions are intentionally not built into FaasJS core because production auth requirements vary by product.</p>
 <p>The admin starter includes a small auth plugin demo. Treat it as a plugin pattern that shows how to inject current-user context, protect APIs, and model project-specific permissions. It is not a mandatory framework auth system.</p>

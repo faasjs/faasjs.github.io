@@ -80,6 +80,19 @@
 </div>
 <p style="max-width:760px;margin:0 auto 1em;text-align:center;line-height:1.8;color:#5c7080">FaasJS provides a chef-selected default path across React, Ant Design, typed APIs, PostgreSQL, validation, testing, plugins, and project conventions so teams can build predictable products without repeatedly assembling their own framework.</p>
 <p style="max-width:760px;margin:0 auto 2em;text-align:center;line-height:1.8;color:#5c7080">The official frontend path is React. The curated business-app stack uses <code>@faasjs/ant-design</code> for UI, <code>@faasjs/pg</code> for PostgreSQL workflows, and agent-readable conventions for complete UI &rarr; API &rarr; DB &rarr; test slices.</p>
+<h2 id="why-faasjs%3F" tabindex="-1">Why FaasJS?</h2>
+<p>FaasJS is for teams who build business software more often than marketing sites: admin panels, back-office systems, internal tools, SaaS dashboards, BFF/API layers, and workflow products.</p>
+<p>It is not a general replacement for Next.js or TanStack Start. Those frameworks are excellent choices when the main decision is rendering, routing, caching, server functions, or deployment. FaasJS is narrower on purpose: it gives database-driven React business applications one official path across UI, API, validation, PostgreSQL, background jobs, tests, and conventions.</p>
+<p>That means a feature is expected to land as a complete application slice:</p>
+<pre><code class="hljs language-text">src/db/migrations/20250101000000_create_users.ts
+src/db/tables/users.ts
+src/pages/users/index.tsx
+src/pages/users/api/list.api.ts
+src/pages/users/api/create.api.ts
+src/pages/users/api/__tests__/list.test.ts
+src/pages/users/api/__tests__/create.test.ts
+</code></pre>
+<p>This shape keeps product behavior easy for humans and AI coding agents to find, review, and change together.</p>
 <h2 id="features" tabindex="-1">Features</h2>
 <h3 id="curated-default-stack" tabindex="-1">Curated default stack</h3>
 <p>✅ React, Ant Design, PostgreSQL, Vitest, and Vite Plus working together.</p>
@@ -93,6 +106,15 @@
 <p>✅ Stable file conventions and routing rules.</p>
 <p>✅ Complete application slices that are easy for humans and AI coding agents to inspect, review, and refactor.</p>
 <p>✅ Plugin patterns for business-specific concerns such as auth context and permissions.</p>
+<h2 id="best-fit" tabindex="-1">Best fit</h2>
+<ul>
+<li>Admin panels and back-office systems</li>
+<li>Internal tools and business workflow apps</li>
+<li>SaaS dashboards and authenticated product consoles</li>
+<li>PostgreSQL-backed BFF/API layers</li>
+<li>AI product surfaces that need dashboards, jobs, APIs, or operational workflows</li>
+</ul>
+<p>For content-heavy websites, highly bespoke consumer frontends, or apps where React Server Components and deployment-specific rendering are the primary concern, FaasJS can still be used, but it is not the center of the framework's design.</p>
 <h2 id="quick-start" tabindex="-1">Quick start</h2>
 <h3 id="start-with-codespaces-and-templates" tabindex="-1">Start with Codespaces and Templates</h3>
 <p><a href="https://github.com/faasjs/faasjs/tree/main/templates" target="_blank" rel="noopener noreferrer" class="external-link">🧪 FaasJS Templates</a></p>

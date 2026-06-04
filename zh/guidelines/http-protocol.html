@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>HTTP Protocol Specification | FaasJS</title>
+    <meta name="description" content="一个受 Rails 启发的精选式全栈 TypeScript 框架，面向数据库驱动的 React 业务应用" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/zh/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/http-protocol.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/http-protocol.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link route-link-active" href="/zh/" aria-label="首页">首页</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="学习"><span class="title">学习</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="学习"><span class="title">学习</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/" aria-label="最佳实践">最佳实践</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="文档">文档</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="更新日志">更新日志</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="生态"><span class="title">生态</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="生态"><span class="title">生态</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Docker 镜像</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/nginx" aria-label="faasjs/nginx" rel="noopener noreferrer" target="_blank">faasjs/nginx</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/node" aria-label="faasjs/node" rel="noopener noreferrer" target="_blank">faasjs/node</a></li><li class="vp-navbar-dropdown-subitem"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/images/vscode" aria-label="faasjs/vscode" rel="noopener noreferrer" target="_blank">faasjs/vscode</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="社区"><span class="title">社区</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="社区"><span class="title">社区</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="支持 FaasJS">支持 FaasJS</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="赞助 FaasJS" rel="noopener noreferrer" target="_blank">赞助 FaasJS</a></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="简体中文"><span class="title">简体中文</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/http-protocol.html" aria-label="English">English</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/zh/guidelines/http-protocol.html" aria-label="简体中文">简体中文</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/curated-stack.html" aria-label="精选技术栈指南">精选技术栈指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/application-slices.html" aria-label="应用切片指南">应用切片指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/project-config.html" aria-label="项目配置指南">项目配置指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/file-conventions.html" aria-label="文件约定">文件约定</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/code-comments.html" aria-label="代码注释指南">代码注释指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/define-api.html" aria-label="defineApi 指南">defineApi 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/jobs.html" aria-label="Jobs 指南">Jobs 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/testing.html" aria-label="测试指南">测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react.html" aria-label="React 指南">React 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-data-fetching.html" aria-label="React 数据请求指南">React 数据请求指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/react-testing.html" aria-label="React 测试指南">React 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/ant-design.html" aria-label="Ant Design 指南">Ant Design 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/node-utils.html" aria-label="Node Utils 指南">Node Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/logger.html" aria-label="Logger 指南">Logger 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/utils.html" aria-label="Utils 指南">Utils 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-query-builder.html" aria-label="PG 查询构建器与原生 SQL 指南">PG 查询构建器与原生 SQL 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-table-types.html" aria-label="PG 表类型指南">PG 表类型指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-schema-and-migrations.html" aria-label="PG 模式与迁移指南">PG 模式与迁移指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/pg-testing.html" aria-label="PG 测试指南">PG 测试指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/cli-and-tooling.html" aria-label="CLI 和工具指南">CLI 和工具指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/crud-patterns.html" aria-label="CRUD 模式指南">CRUD 模式指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/faas-yaml.html" aria-label="faas.yaml Configuration Specification">faas.yaml Configuration Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/getting-started.html" aria-label="快速入门指南">快速入门指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/http-plugin.html" aria-label="HTTP Plugin Guide">HTTP Plugin Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/zh/guidelines/http-protocol.html" aria-label="HTTP Protocol Specification">HTTP Protocol Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/json.html" aria-label="JSON 指南">JSON 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/middleware.html" aria-label="Middleware Guide">Middleware Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/naming-convention.html" aria-label="命名规范">命名规范</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/plugin.html" aria-label="Plugin Specification">Plugin Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/plugins.html" aria-label="Plugins 指南">Plugins 指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/routing-mapping.html" aria-label="Routing Mapping Specification">Routing Mapping Specification</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/valid.html" aria-label="校验指南">校验指南</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/zh/guidelines/yaml.html" aria-label="YAML 指南">YAML 指南</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="http-protocol-specification" tabindex="-1">HTTP Protocol Specification</h1>
+<h2 id="background" tabindex="-1">Background</h2>
+<p>FaasJS request/response guidance is spread across multiple locations. This spec defines a single internal baseline for transport behavior.</p>
+<h2 id="goals" tabindex="-1">Goals</h2>
+<ul>
+<li>Keep client/server interaction predictable across projects.</li>
+<li>Keep transport-level behavior aligned with current implementation, including low-level error fallback.</li>
+<li>Keep failure semantics simple in V1.</li>
+</ul>
+<h2 id="non-goals" tabindex="-1">Non-goals</h2>
+<ul>
+<li>Defining REST resource modeling patterns.</li>
+<li>Defining GraphQL contracts.</li>
+<li>Standardizing file upload and stream protocol details.</li>
+</ul>
+<h2 id="normative-rules" tabindex="-1">Normative Rules</h2>
+<h3 id="1.-request" tabindex="-1">1. Request</h3>
+<ol>
+<li>API requests MUST use <code>POST</code> as the default method.</li>
+<li>Request body MUST be encoded as JSON text (<code>application/json; charset=UTF-8</code>) and SHOULD be a JSON object.</li>
+<li>Query parameters SHOULD be avoided for business input; clients SHOULD send input in JSON body.</li>
+<li>Request path MUST follow <a href="/zh/guidelines/routing-mapping.html">routing-mapping.md</a>.</li>
+<li>Clients SHOULD include <code>X-FaasJS-Request-Id</code> for traceability when possible.</li>
+</ol>
+<h3 id="2.-response-(transport-layer)" tabindex="-1">2. Response (transport layer)</h3>
+<ol>
+<li>The V1 status code baseline is <code>200</code>, <code>204</code>, and <code>500</code>.</li>
+<li><code>200</code> means request completed with a response body, and payload MUST use top-level <code>data</code>.</li>
+<li><code>204</code> means request completed with no content.</li>
+<li>Business failures MUST return <code>500</code> in the V1 baseline.</li>
+<li>For JSON error responses, payload MUST use top-level <code>error</code> with <code>error.message</code>.</li>
+<li>For low-level server failures, <code>500</code> MAY return plain text <code>Internal Server Error</code> with <code>Content-Type: text/plain; charset=utf-8</code>.</li>
+<li>JSON responses SHOULD use <code>Content-Type: application/json; charset=utf-8</code>.</li>
+<li>This specification is HTTP-version agnostic and does not require a specific HTTP protocol version.</li>
+</ol>
+<h2 id="examples" tabindex="-1">Examples</h2>
+<h3 id="request" tabindex="-1">Request</h3>
+<pre><code class="hljs language-http">POST /todo/api/create
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json; charset=UTF-8
+
+{&quot;title&quot;:&quot;Buy milk&quot;}
+</code></pre>
+<h3 id="response%3A-200-success" tabindex="-1">Response: 200 success</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Buy milk&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="response%3A-500-business%2Fruntime-error-(json)" tabindex="-1">Response: 500 business/runtime error (JSON)</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;error&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;business-500&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="response%3A-500-low-level-server-error-(plain-text)" tabindex="-1">Response: 500 low-level server error (plain text)</h3>
+<pre><code class="hljs language-text">500 Internal Server Error
+Content-Type: text/plain; charset=utf-8
+
+Internal Server Error
+</code></pre>
+<h3 id="response%3A-500-transport%2Fruntime-error-(json)" tabindex="-1">Response: 500 transport/runtime error (JSON)</h3>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;error&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Internal Server Error&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="current-behavior-notes" tabindex="-1">Current Behavior Notes</h2>
+<ul>
+<li>Current runtime behavior is consistent with top-level <code>data</code>/<code>error</code> wrapping in <code>@faasjs/core</code>.</li>
+<li>Current server fallback behavior can return plain-text <code>500 Internal Server Error</code> in low-level failures.</li>
+<li>Existing projects may return additional status codes in custom logic. Those are outside this V1 baseline.</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
