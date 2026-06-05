@@ -216,15 +216,15 @@
 <li>Do not replace normal <code>useState</code> with <code>useStateRef</code> unless the live ref is needed.</li>
 </ul>
 <h3 id="5.-split-multi-field-shared-state-deliberately" tabindex="-1">5. Split multi-field shared state deliberately</h3>
-<p>Use <code>createSplittingContext</code> when one context object has fields that change independently. Use <code>useSplittingState</code> to build a small object state container with matching setters. Prefer this over putting a large mutable object into one normal context.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { createSplittingContext, useSplittingState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<p>Use <code>createSplittingContext</code> when one context object has fields that change independently. Use <code>useStates</code> to build a small object state container with matching setters. Use <code>useStatesRef</code> when the same state fields also need latest-value refs. Prefer this over putting a large mutable object into one normal context.</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { createSplittingContext, useStates } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">CounterContext</span> = createSplittingContext&lt;{
   <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span>
   <span class="hljs-attr">setCount</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>
   <span class="hljs-attr">keyword</span>: <span class="hljs-built_in">string</span>
   <span class="hljs-attr">setKeyword</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>
-}&gt;()
+}&gt;([<span class="hljs-string">&#x27;count&#x27;</span>, <span class="hljs-string">&#x27;setCount&#x27;</span>, <span class="hljs-string">&#x27;keyword&#x27;</span>, <span class="hljs-string">&#x27;setKeyword&#x27;</span>])
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">Filters</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">const</span> { keyword, setKeyword } = <span class="hljs-title class_">CounterContext</span>.<span class="hljs-title function_">use</span>()
@@ -244,10 +244,10 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { value, <span class="hljs-title class_">Provider</span> } = <span class="hljs-title function_">useSplittingState</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">keyword</span>: <span class="hljs-string">&#x27;&#x27;</span> })
+  <span class="hljs-keyword">const</span> states = <span class="hljs-title function_">useStates</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">keyword</span>: <span class="hljs-string">&#x27;&#x27;</span> })
 
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CounterContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{value}</span>&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CounterContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{states}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Filters</span> /&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Count</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">CounterContext.Provider</span>&gt;</span></span>

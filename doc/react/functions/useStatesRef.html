@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: useSplittingState() | FaasJS</title>
+    <title>Function: useStatesRef() | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,12 +62,12 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useSplittingState</p>
-<h1 id="function%3A-usesplittingstate()" tabindex="-1">Function: useSplittingState()</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / useStatesRef</p>
+<h1 id="function%3A-usestatesref()" tabindex="-1">Function: useStatesRef()</h1>
 <blockquote>
-<p><strong>useSplittingState</strong>&lt;<code>T</code>&gt;(<code>initialStates</code>): <a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
+<p><strong>useStatesRef</strong>&lt;<code>T</code>&gt;(<code>initialStates</code>): <a href="/doc/react/type-aliases/StatesWithSettersAndRefs.html"><code>StatesWithSettersAndRefs</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Create local state entries and matching setters for each key in an object.</p>
+<p>Create local state entries, matching setters, and refs for each key in an object.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
@@ -75,19 +75,15 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="initialstates" tabindex="-1">initialStates</h3>
 <p><code>T</code></p>
-<p>Object whose keys become state values and <code>setXxx</code> setters.</p>
+<p>Object whose keys become state values, <code>setXxx</code> setters, and <code>xxxRef</code> refs.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/react/type-aliases/StatesWithSetters.html"><code>StatesWithSetters</code></a>&lt;<code>T</code>&gt;</p>
-<p>Object containing the original keys plus generated setter functions.</p>
+<p><a href="/doc/react/type-aliases/StatesWithSettersAndRefs.html"><code>StatesWithSettersAndRefs</code></a>&lt;<code>T</code>&gt;</p>
+<p>Object containing the original keys plus generated setter functions and refs.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> { count, setCount, name, setName } = <span class="hljs-title function_">useSplittingState</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span> })
+  <span class="hljs-keyword">const</span> { count, setCount, countRef } = <span class="hljs-title function_">useStatesRef</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> })
 
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
-      {name}: {count}
-    <span class="hljs-tag">&lt;/&gt;</span></span>
-  )
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setCount(countRef.current + 1)}&gt;{count}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
 }
 </code></pre>
 </div></div>

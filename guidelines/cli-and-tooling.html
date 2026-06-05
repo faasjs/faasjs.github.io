@@ -196,7 +196,7 @@ npx faas types
 <tbody>
 <tr>
 <td><code>faasjs-pg new &lt;name&gt;</code></td>
-<td>Create a new timestamped migration file in <code>migrations/</code></td>
+<td>Create a new timestamped migration file in <code>src/db/migrations</code></td>
 </tr>
 <tr>
 <td><code>faasjs-pg status</code></td>
@@ -214,17 +214,23 @@ npx faas types
 <td><code>faasjs-pg down</code></td>
 <td>Roll back the latest applied migration</td>
 </tr>
+<tr>
+<td><code>faasjs-pg sql &lt;sql&gt;</code></td>
+<td>Execute SQL from an argument or stdin and print JSON output</td>
+</tr>
 </tbody>
 </table>
 <p>Requirements:</p>
 <ul>
-<li><code>DATABASE_URL</code> environment variable must be set for <code>status</code>, <code>migrate</code>, <code>up</code>, and <code>down</code>.</li>
+<li><code>DATABASE_URL</code> environment variable must be set for <code>status</code>, <code>migrate</code>, <code>up</code>, <code>down</code>, and <code>sql</code>.</li>
 <li>Migration files live in <code>./src/db/migrations</code> by default.</li>
 <li>Migration file naming convention: <code>&lt;timestamp&gt;-&lt;name&gt;.ts</code> (generated automatically by <code>faasjs-pg new</code>).</li>
+<li>SQL can be passed as an argument (<code>faasjs-pg sql &quot;SELECT 1&quot;</code>) or through stdin (<code>cat query.sql | faasjs-pg sql</code>).</li>
 <li>See <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a> for migration authoring rules.</li>
 </ul>
 <p>Example:</p>
 <pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg migrate
+DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg sql <span class="hljs-string">&quot;SELECT 1&quot;</span>
 DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_users_table
 </code></pre>
 <h2 id="type-generation-workflow" tabindex="-1">Type Generation Workflow</h2>
@@ -425,8 +431,8 @@ npx faas types --root /path/to/project
 <li><code>faas.yaml</code> is valid YAML and follows the <a href="/guidelines/faas-yaml.html">faas.yaml specification</a></li>
 <li><code>vp check --fix</code> passes before commit</li>
 <li><code>vp test</code> passes (or a recorded blocker + narrower validation that did run)</li>
-<li><code>DATABASE_URL</code> is set before running <code>faasjs-pg</code> migration commands</li>
-<li>migration files are in <code>migrations/</code> and follow timestamped naming</li>
+<li><code>DATABASE_URL</code> is set before running <code>faasjs-pg</code> database commands</li>
+<li>migration files are in <code>src/db/migrations/</code> and follow timestamped naming</li>
 <li><code>src/.faasjs/types.d.ts</code> is not hand-edited</li>
 <li><code>npx</code> prefix is used when binaries are not globally installed</li>
 <li>environment variables (<code>FaasEnv</code>, <code>FaasLog</code>, <code>DATABASE_URL</code>) are documented or obvious per project</li>
