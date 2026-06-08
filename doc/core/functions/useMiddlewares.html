@@ -71,7 +71,8 @@
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handlers" tabindex="-1">handlers</h3>
 <p><a href="/doc/core/type-aliases/Middleware.html"><code>Middleware</code></a>[]</p>
-<p>Middleware functions to run in order.</p>
+<p>Middleware functions to run in order.
+Middleware errors are logged and converted into an HTTP error response when possible.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/core/classes/Func.html"><code>Func</code></a>&lt;<a href="/doc/core/type-aliases/MiddlewareEvent.html"><code>MiddlewareEvent</code></a>, <code>Pick</code>&lt;<a href="/doc/core/type-aliases/MiddlewareContext.html"><code>MiddlewareContext</code></a>, <code>&quot;root&quot;</code>&gt;, <code>any</code>&gt;&gt;</p>
 <p>Promise that resolves to a function wrapper.</p>

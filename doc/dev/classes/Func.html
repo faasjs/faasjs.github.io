@@ -111,6 +111,8 @@ and invokes.</p>
 <p><strong>export</strong>(): <code>object</code></p>
 </blockquote>
 <p>Build the exported handler wrapper for the function.</p>
+<p>The wrapper initializes request id/runtime context fields, invokes mount hooks on
+first use, and throws any <code>Error</code> object stored in <code>data.response</code>.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
 <p>Object containing the exported handler.</p>

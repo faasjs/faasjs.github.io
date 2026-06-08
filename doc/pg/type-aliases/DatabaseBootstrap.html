@@ -70,7 +70,9 @@
 <p>Async bootstrap used by <a href="/doc/pg/functions/getClient.html">getClient</a> when no default client has been cached yet.</p>
 <p>The bootstrap is responsible for initializing and caching the default client.
 The built-in bootstrap creates that client from <code>process.env.DATABASE_URL</code>, while
-tools such as <code>@faasjs/pg-dev</code> can register a lazy async bootstrap for tests.</p>
+tools such as <code>@faasjs/pg-dev</code> can register a lazy async bootstrap for tests. A
+custom bootstrap should call <a href="/doc/pg/functions/createClient.html">createClient</a> exactly once for the default
+connection path so <code>getClient()</code> can resolve a single cached client afterwards.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </div></div>

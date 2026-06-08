@@ -69,7 +69,9 @@
 </blockquote>
 <p>Create middleware that serves static files from a directory.</p>
 <p>The middleware resolves the request URL relative to <code>options.root</code>, serves the matching file,
-and optionally delegates missing files to <code>options.notFound</code>.</p>
+and optionally delegates missing files to <code>options.notFound</code>.
+It only handles <code>GET</code>, skips hidden paths starting with <code>/.</code>, blocks directory traversal,
+and leaves the response untouched on misses when <code>notFound</code> is <code>false</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><a href="/doc/core/type-aliases/StaticHandlerOptions.html"><code>StaticHandlerOptions</code></a></p>

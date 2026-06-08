@@ -70,7 +70,10 @@
 <p>Render an Ant Design table from FaasJS item metadata.</p>
 <p>The component can render local <code>dataSource</code> rows or resolve remote rows through <code>faasData</code>. It
 also generates default filters and sorters for built-in item types unless you disable them with
-the corresponding Ant Design column props.</p>
+the corresponding Ant Design column props. Remote list endpoints should return
+<code>{ rows, pagination }</code> when the table should send pagination, filters, and sorters
+back through <code>reload()</code>; a plain array response is rendered as rows without that
+remote list contract.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
@@ -88,6 +91,7 @@ the corresponding Ant Design column props.</p>
 <p>When an entry in <code>extendTypes</code> omits both <code>children</code> and <code>render</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Table</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">TableFaasDataParams</span>, <span class="hljs-title class_">TableFaasDataResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
 <span class="hljs-keyword">const</span> rows = [
   { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span>, <span class="hljs-attr">active</span>: <span class="hljs-literal">true</span> },
@@ -104,6 +108,31 @@ the corresponding Ant Design column props.</p>
         { <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">active</span>&#x27;, <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">boolean</span>&#x27;, <span class="hljs-attr">title:</span> &#x27;<span class="hljs-attr">Active</span>&#x27; },
       ]}
     /&gt;</span></span>
+  )
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
+    <span class="hljs-string">&#x27;users/list&#x27;</span>: {
+      <span class="hljs-title class_">Params</span>: <span class="hljs-title class_">TableFaasDataParams</span> &amp; { <span class="hljs-attr">status</span>?: <span class="hljs-built_in">string</span> }
+      <span class="hljs-title class_">Data</span>: <span class="hljs-title class_">TableFaasDataResponse</span>&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">active</span>: <span class="hljs-built_in">boolean</span> }&gt;
+    }
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">RemoteUserTable</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    &lt;<span class="hljs-title class_">Table</span>&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">active</span>: <span class="hljs-built_in">boolean</span> }&gt;
+      rowKey=<span class="hljs-string">&quot;id&quot;</span>
+      faasData={{
+        <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;users/list&#x27;</span>,
+        <span class="hljs-attr">params</span>: { <span class="hljs-attr">pagination</span>: { <span class="hljs-attr">current</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">pageSize</span>: <span class="hljs-number">20</span> } },
+      }}
+      items={[
+        { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Name&#x27;</span> },
+        { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;active&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;boolean&#x27;</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Active&#x27;</span> },
+      ]}
+    /&gt;
   )
 }
 </code></pre>

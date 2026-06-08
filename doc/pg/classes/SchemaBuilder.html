@@ -65,7 +65,9 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / SchemaBuilder</p>
 <h1 id="class%3A-schemabuilder" tabindex="-1">Class: SchemaBuilder</h1>
 <p>Builds and executes schema changes against a <a href="/doc/pg/classes/Client.html">Client</a>.</p>
-<p>Accumulated statements are executed in a single transaction by <a href="#run">run</a>.</p>
+<p>Accumulated statements are executed in a single transaction by <a href="#run">run</a>. Identifier
+helpers escape table and column names, while <a href="#raw">raw</a> appends trusted SQL text
+exactly as provided.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -124,6 +126,9 @@ scoped to the given table name in create mode.</p>
 <p><strong>raw</strong>(<code>sql</code>): <code>SchemaBuilder</code></p>
 </blockquote>
 <p>Appends a raw SQL statement to the change list.</p>
+<p>Raw statements are executed one by one in the same transaction as generated schema
+statements. Only pass static, trusted SQL; runtime values should be handled outside
+schema generation.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
@@ -149,6 +154,8 @@ scoped to the given table name in create mode.</p>
 <p><strong>run</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 </blockquote>
 <p>Executes all registered schema changes in a single database transaction.</p>
+<p>On failure, the thrown error message includes the full generated SQL block to make
+migration failures easier to diagnose. Successful runs clear the pending change list.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="throws" tabindex="-1">Throws</h4>

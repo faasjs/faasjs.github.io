@@ -69,14 +69,16 @@
 </blockquote>
 <p>Set the global mock handler used by all <a href="/doc/react/classes/FaasBrowserClient.html">FaasBrowserClient</a> instances.</p>
 <p>When a mock handler is set, every <a href="/doc/react/classes/FaasBrowserClient.html#action">FaasBrowserClient.action</a> call will
-route through the mock instead of making a real network request, which is
-useful for testing and local development.</p>
+route through the mock after <code>beforeRequest</code> runs and before any native
+<code>fetch</code> or custom <code>request</code> implementation is called. The mock is process
+global, so it affects every registered React/browser client until cleared.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="handler" tabindex="-1">handler</h3>
 <p><a href="/doc/react/classes/Response.html"><code>Response</code></a>&lt;<code>any</code>&gt; | <a href="/doc/react/type-aliases/MockHandler.html"><code>MockHandler</code></a> | <a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a> | <code>null</code> | <code>undefined</code></p>
 <p>A mock function that receives <code>(action, params, options)</code> and returns a
-response shape, or a static response/value, or <code>null</code>/<code>undefined</code> to
-disable mocking.</p>
+response shape, a <a href="/doc/react/classes/Response.html">Response</a>, an <code>Error</code>, or nothing. Static
+response shapes and <code>Response</code> instances are also accepted. Pass <code>null</code> or
+<code>undefined</code> to disable mocking.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>void</code></p>
 <h2 id="example" tabindex="-1">Example</h2>

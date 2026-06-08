@@ -68,7 +68,9 @@
 <p><strong>escapeValue</strong>(<code>value</code>): <code>string</code></p>
 </blockquote>
 <p>Escapes a literal value for inline SQL generation.</p>
-<p>Prefer bound parameters for runtime values whenever possible.</p>
+<p>Prefer bound parameters for runtime values whenever possible. This helper exists
+for schema generation where PostgreSQL requires inline defaults. Passing a
+<a href="/doc/pg/type-aliases/RawSql.html">RawSql</a> value bypasses escaping.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>any</code></p>

@@ -69,12 +69,21 @@
 </blockquote>
 <p>Load staged <code>faas.yaml</code>, attach the merged config to a function, and
 instantiate any plugins declared in YAML that are not already injected in code.</p>
-<p>Only <code>http</code> is treated as a built-in plugin. Other config-driven plugins must
-declare an explicit module <code>type</code> whose module exports a class as
-<code>export default</code> with <code>onMount</code> or <code>onInvoke</code> on its prototype.</p>
+<p>YAML plugin config is merged with <code>func.config.plugins</code>, with inline function
+config winning. Existing plugin instances with the same <code>name</code> receive the
+merged config through <code>applyConfig()</code> when available, otherwise their
+<code>config</code> object is deep-merged. Missing plugin instances are loaded from the
+resolved plugin <code>type</code> and inserted before the handler plugin when one exists.</p>
+<p>Only <code>http</code> receives a built-in default type. Other config-driven plugins
+must declare an explicit module <code>type</code>. Plain names resolve to <code>@faasjs/&lt;type&gt;</code>,
+<code>http</code> resolves to <code>@faasjs/core</code>, and relative, absolute, <code>file://</code>, or other
+URL-scheme specifiers are imported directly after path normalization.</p>
+<p>Config-driven plugin modules must expose a plugin class as <code>export default</code>
+with <code>onMount</code> or <code>onInvoke</code> on its prototype; named exports are not used as a
+fallback.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
-<p><code>T</code> <em>extends</em> <code>HasExportHandler</code></p>
+<p><code>T</code> <em>extends</em> <code>object</code></p>
 <p>Function instance type enriched with config-driven plugins.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="func" tabindex="-1">func</h3>

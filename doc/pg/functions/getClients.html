@@ -68,6 +68,7 @@
 <p><strong>getClients</strong>(): <a href="/doc/pg/classes/Client.html"><code>Client</code></a>[]</p>
 </blockquote>
 <p>Returns all cached clients created by <a href="/doc/pg/functions/createClient.html">createClient</a>.</p>
+<p>The returned array is a snapshot; mutating it does not affect the internal cache.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/pg/classes/Client.html"><code>Client</code></a>[]</p>
 </div></div>

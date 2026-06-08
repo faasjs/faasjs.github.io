@@ -102,7 +102,8 @@
 <h3 id="1.-keep-migration-filenames-lexically-sortable" tabindex="-1">1. Keep migration filenames lexically sortable</h3>
 <ul>
 <li>Migration files should remain timestamp-based and sortable by filename.</li>
-<li>Prefer the generated <code>faasjs-pg new &lt;name&gt;</code> naming pattern unless there is a strong reason not to.</li>
+<li>Prefer the generated <code>faasjs-pg new &lt;name&gt;</code> naming pattern, <code>&lt;timestamp&gt;-&lt;name&gt;.ts</code>, unless there is a strong reason not to.</li>
+<li>Prefer hyphenated names such as <code>create-users</code> so generated filenames stay readable and match the CLI separator.</li>
 <li>Avoid custom naming schemes that break lexical ordering.</li>
 </ul>
 <h3 id="2.-prefer-builder-helpers-over-handwritten-ddl" tabindex="-1">2. Prefer builder helpers over handwritten DDL</h3>
@@ -135,6 +136,7 @@
 <li>Keep migrations in the project-root <code>src/db/migrations</code> folder unless project tooling is configured otherwise.</li>
 <li>Use <code>faasjs-pg status</code> to inspect history, <code>faasjs-pg migrate</code> to apply all pending files, <code>faasjs-pg up</code> for the next file, and <code>faasjs-pg down</code> for the latest rollback.</li>
 <li>If a project customizes the folder or wrapper commands, document that override explicitly in the project README or contributor guide.</li>
+<li>Keep migrations focused on application-owned schema. Framework-managed tables such as <code>faasjs_jobs</code> are initialized by their owning package and should not be recreated in app migrations.</li>
 </ul>
 <h2 id="see-also" tabindex="-1">See Also</h2>
 <ul>
@@ -151,6 +153,7 @@
 <li>raw DDL does not hide drift with <code>IF EXISTS</code> or <code>IF NOT EXISTS</code></li>
 <li>schema changes expect <code>SchemaBuilder.run()</code> to be atomic</li>
 <li>risky schema changes are covered by focused migration or integration tests</li>
+<li>framework-owned tables are not duplicated in app migrations</li>
 </ul>
 </div></div>
           </div>

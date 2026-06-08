@@ -64,24 +64,51 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/utils/">Documents</a> / <a href="/doc/utils/">@faasjs/utils</a> / parseJson</p>
 <h1 id="function%3A-parsejson()" tabindex="-1">Function: parseJson()</h1>
+<h2 id="call-signature" tabindex="-1">Call Signature</h2>
 <blockquote>
 <p><strong>parseJson</strong>&lt;<code>T</code>&gt;(<code>value</code>): <code>T</code></p>
 </blockquote>
 <p>Parses a JSON string into a JavaScript value.</p>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="t" tabindex="-1">T</h3>
-<p><code>T</code> <em>extends</em> <code>unknown</code></p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="value" tabindex="-1">value</h3>
+<h3 id="type-parameters" tabindex="-1">Type Parameters</h3>
+<h4 id="t" tabindex="-1">T</h4>
+<p><code>T</code> = <code>unknown</code></p>
+<p>Expected parsed value type. Without a schema, this is a TypeScript assertion.</p>
+<h3 id="parameters" tabindex="-1">Parameters</h3>
+<h4 id="value" tabindex="-1">value</h4>
 <p><code>unknown</code></p>
 <p>The JSON string to parse.</p>
-<h2 id="returns" tabindex="-1">Returns</h2>
+<h3 id="returns" tabindex="-1">Returns</h3>
 <p><code>T</code></p>
 <p>The parsed JavaScript value.</p>
-<h2 id="throws" tabindex="-1">Throws</h2>
+<h3 id="throws" tabindex="-1">Throws</h3>
 <p>If the input is not a string.</p>
-<h2 id="throws-1" tabindex="-1">Throws</h2>
+<h3 id="throws-1" tabindex="-1">Throws</h3>
 <p>If the string is not valid JSON.</p>
+<h2 id="call-signature-1" tabindex="-1">Call Signature</h2>
+<blockquote>
+<p><strong>parseJson</strong>&lt;<code>Schema</code>&gt;(<code>value</code>, <code>schema</code>): <code>output</code>&lt;<code>Schema</code>&gt;</p>
+</blockquote>
+<p>Parses a JSON string and validates the parsed value with a Zod schema.</p>
+<h3 id="type-parameters-1" tabindex="-1">Type Parameters</h3>
+<h4 id="schema" tabindex="-1">Schema</h4>
+<p><code>Schema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt;</p>
+<p>Zod schema used to validate and type the parsed value.</p>
+<h3 id="parameters-1" tabindex="-1">Parameters</h3>
+<h4 id="value-1" tabindex="-1">value</h4>
+<p><code>unknown</code></p>
+<p>The JSON string to parse.</p>
+<h4 id="schema-1" tabindex="-1">schema</h4>
+<p><code>Schema</code></p>
+<p>Zod schema used to validate the parsed value.</p>
+<h3 id="returns-1" tabindex="-1">Returns</h3>
+<p><code>output</code>&lt;<code>Schema</code>&gt;</p>
+<p>The Zod schema output.</p>
+<h3 id="throws-2" tabindex="-1">Throws</h3>
+<p>If the input is not a string.</p>
+<h3 id="throws-3" tabindex="-1">Throws</h3>
+<p>If the string is not valid JSON.</p>
+<h3 id="throws-4" tabindex="-1">Throws</h3>
+<p>If schema validation fails.</p>
 </div></div>
           </div>
           

@@ -68,7 +68,8 @@
 <p><strong>getTransport</strong>(): <a href="/doc/node-utils/classes/Transport.html"><code>Transport</code></a></p>
 </blockquote>
 <p>Return the singleton transport used by <a href="/doc/node-utils/classes/Logger.html">Logger</a>.</p>
-<p>The instance is created lazily on first access.</p>
+<p>The instance is created lazily on first access and reused for the lifetime of
+the current process. Calling <code>reset()</code> clears state on that same instance.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/node-utils/classes/Transport.html"><code>Transport</code></a></p>
 <p>Shared transport instance.</p>

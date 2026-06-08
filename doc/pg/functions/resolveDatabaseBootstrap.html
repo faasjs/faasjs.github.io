@@ -69,7 +69,8 @@
 </blockquote>
 <p>Resolves the registered async database bootstrap.</p>
 <p>Ensures the bootstrap only runs once concurrently — if it is already running
-the pending promise is returned instead of starting a second invocation.</p>
+the pending promise is returned instead of starting a second invocation.
+Failed bootstraps clear the active promise so a later call can retry.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>A promise that resolves when the bootstrap has completed.</p>

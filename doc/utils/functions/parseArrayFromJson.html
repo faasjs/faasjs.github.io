@@ -68,16 +68,19 @@
 <p><strong>parseArrayFromJson</strong>&lt;<code>T</code>&gt;(<code>value</code>): <code>T</code></p>
 </blockquote>
 <p>Normalizes JSON-like input into an array.</p>
+<p>Existing arrays are returned as-is. JSON strings are parsed and cast to <code>T</code>;
+callers should validate untrusted parsed values with a schema when shape matters.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>unknown</code>[]</p>
+<p>Expected array type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>unknown</code></p>
 <p>Existing array or JSON string payload.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>T</code></p>
-<p>Parsed array</p>
+<p>Existing array or parsed JSON value cast to <code>T</code>.</p>
 </div></div>
           </div>
           

@@ -68,7 +68,8 @@
 claims them, executes their handlers, and updates their status.</p>
 <p>Supports configurable concurrency, polling interval, and lease duration.
 Failed jobs are retried according to their retry strategy until
-max attempts are reached.</p>
+max attempts are reached.
+Handler errors are persisted to the job row instead of being thrown from <code>poll()</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JobWorker</span>(registry, {
   <span class="hljs-attr">concurrency</span>: <span class="hljs-number">5</span>,
@@ -94,7 +95,8 @@ worker.<span class="hljs-title function_">start</span>()
 <p><strong>poll</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;</p>
 </blockquote>
 <p>Execute one polling cycle: claim up to <code>concurrency</code> pending jobs
-and run their handlers. No-op if a poll is already in progress.</p>
+and run their handlers. No-op if a poll is already in progress.
+Handler failures are recorded in PostgreSQL and retried or marked failed.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>number</code>&gt;</p>
 <p>The number of jobs processed in this cycle.</p>
@@ -119,30 +121,37 @@ before resolving.</p>
 <blockquote>
 <p><code>readonly</code> <strong>concurrency</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum number of jobs claimed in each poll.</p>
 <h3 id="jobs-1" tabindex="-1">jobs</h3>
 <blockquote>
 <p><code>readonly</code> <strong>jobs</strong>: <a href="/doc/jobs/type-aliases/JobRegistry.html"><code>JobRegistry</code></a></p>
 </blockquote>
+<p>Loaded job registry keyed by job path.</p>
 <h3 id="leaseseconds" tabindex="-1">leaseSeconds</h3>
 <blockquote>
 <p><code>readonly</code> <strong>leaseSeconds</strong>: <code>number</code></p>
 </blockquote>
+<p>Lease duration in seconds before a running job can be reclaimed.</p>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>
 <p><code>readonly</code> <strong>logger</strong>: <code>Logger</code></p>
 </blockquote>
+<p>Worker logger.</p>
 <h3 id="pollinterval" tabindex="-1">pollInterval</h3>
 <blockquote>
 <p><code>readonly</code> <strong>pollInterval</strong>: <code>number</code></p>
 </blockquote>
+<p>Milliseconds between automatic poll ticks.</p>
 <h3 id="queue" tabindex="-1">queue</h3>
 <blockquote>
 <p><code>readonly</code> <strong>queue</strong>: <code>string</code></p>
 </blockquote>
+<p>Queue name this worker claims from.</p>
 <h3 id="workerid" tabindex="-1">workerId</h3>
 <blockquote>
 <p><code>readonly</code> <strong>workerId</strong>: <code>string</code></p>
 </blockquote>
+<p>Unique worker id written to claimed rows.</p>
 </div></div>
           </div>
           

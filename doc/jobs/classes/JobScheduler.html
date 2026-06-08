@@ -66,7 +66,8 @@
 <h1 id="class%3A-jobscheduler" tabindex="-1">Class: JobScheduler</h1>
 <p>Periodic scheduler that iterates over registered job definitions,
 evaluates their cron rules, and enqueues matching jobs at the top
-of each minute.</p>
+of each minute.
+The scheduler only enqueues rows; workers execute handlers.</p>
 <p>Deduplicates cron enqueues by computing a hash of the rule configuration
 (job path, expression, timezone, queue, params) and using it as a
 conflict key in the database.</p>
@@ -116,24 +117,29 @@ already in progress.</p>
 <p>The reference time (defaults to the current instant).</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>number</code>&gt;</p>
-<p>The number of jobs enqueued in this tick.</p>
+<p>The number of matching cron rules processed in this tick. Existing
+deduplicated rows may be returned instead of newly inserted rows.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="jobs-1" tabindex="-1">jobs</h3>
 <blockquote>
 <p><code>readonly</code> <strong>jobs</strong>: <a href="/doc/jobs/type-aliases/JobRegistry.html"><code>JobRegistry</code></a></p>
 </blockquote>
+<p>Loaded job registry keyed by job path.</p>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>
 <p><code>readonly</code> <strong>logger</strong>: <code>Logger</code></p>
 </blockquote>
+<p>Scheduler logger.</p>
 <h3 id="pollinterval" tabindex="-1">pollInterval</h3>
 <blockquote>
 <p><code>readonly</code> <strong>pollInterval</strong>: <code>number</code></p>
 </blockquote>
+<p>Milliseconds between automatic cron ticks.</p>
 <h3 id="schedulerid" tabindex="-1">schedulerId</h3>
 <blockquote>
 <p><code>readonly</code> <strong>schedulerId</strong>: <code>string</code></p>
 </blockquote>
+<p>Unique scheduler id used in logs.</p>
 </div></div>
           </div>
           

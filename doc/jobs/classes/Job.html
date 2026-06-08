@@ -98,6 +98,8 @@
 <p><strong>export</strong>(): <code>object</code></p>
 </blockquote>
 <p>Build the exported handler wrapper for the function.</p>
+<p>The wrapper initializes request id/runtime context fields, invokes mount hooks on
+first use, and throws any <code>Error</code> object stored in <code>data.response</code>.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
 <p>Object containing the exported handler.</p>
@@ -151,6 +153,8 @@
 <blockquote>
 <p><code>readonly</code> <strong>__faasjsJob</strong>: <code>true</code> = <code>true</code></p>
 </blockquote>
+<p><strong><code>Internal</code></strong></p>
+<p>Marker used by the job loader to recognize job definitions.</p>
 <h3 id="config" tabindex="-1">config</h3>
 <blockquote>
 <p><strong>config</strong>: <code>Config</code></p>
@@ -162,6 +166,7 @@
 <blockquote>
 <p><code>readonly</code> <strong>cron</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<code>SchemaOutput</code>&lt;<code>TSchema</code>, <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;&gt;&gt;[]</p>
 </blockquote>
+<p>Cron rules used by <a href="/doc/jobs/classes/JobScheduler.html">JobScheduler</a> to enqueue scheduled jobs.</p>
 <h3 id="filename%3F" tabindex="-1">filename?</h3>
 <blockquote>
 <p><code>optional</code> <strong>filename?</strong>: <code>string</code></p>
@@ -180,6 +185,7 @@
 <blockquote>
 <p><code>readonly</code> <strong>maxAttempts</strong>: <code>number</code></p>
 </blockquote>
+<p>Normalized maximum attempts before a job is marked failed.</p>
 <h3 id="mounted" tabindex="-1">mounted</h3>
 <blockquote>
 <p><strong>mounted</strong>: <code>boolean</code> = <code>false</code></p>
@@ -198,10 +204,12 @@
 <blockquote>
 <p><code>readonly</code> <strong>queue</strong>: <code>string</code></p>
 </blockquote>
+<p>Normalized queue name used by default enqueues and workers.</p>
 <h3 id="retry" tabindex="-1">retry</h3>
 <blockquote>
 <p><code>readonly</code> <strong>retry</strong>: <a href="/doc/jobs/type-aliases/JobRetry.html"><code>JobRetry</code></a> | <code>undefined</code></p>
 </blockquote>
+<p>Retry strategy used after failed attempts.</p>
 <h3 id="runtime" tabindex="-1">runtime</h3>
 <blockquote>
 <p><strong>runtime</strong>: <code>FuncRuntime</code> | <code>undefined</code></p>
@@ -214,6 +222,7 @@ provide one.</p>
 <blockquote>
 <p><code>readonly</code> <strong>schema</strong>: <code>TSchema</code> | <code>undefined</code></p>
 </blockquote>
+<p>Zod schema used to validate job params before the handler runs.</p>
 </div></div>
           </div>
           

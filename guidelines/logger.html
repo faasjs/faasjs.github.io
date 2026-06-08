@@ -79,7 +79,7 @@
 <li>Use <code>debug</code> for details, <code>info</code> for normal milestones, <code>warn</code> for degraded paths, and <code>error</code> for failures.</li>
 <li>Keep labels short and stable so related logs stay easy to scan.</li>
 <li>Use <code>time()</code> and <code>timeEnd()</code> around slow steps.</li>
-<li>Change verbosity with environment variables before changing log call sites.</li>
+<li>Change verbosity, color mode, truncation, and transport behavior with environment variables before changing log call sites.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-prefer-the-injected-logger-when-the-framework-provides-one" tabindex="-1">1. Prefer the injected logger when the framework provides one</h3>
@@ -158,11 +158,13 @@ logger.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-strin
 </code></pre>
 <h3 id="6.-tune-output-with-environment-variables" tabindex="-1">6. Tune output with environment variables</h3>
 <ul>
-<li><code>FaasLog=debug|info|warn|error</code> sets the minimum level</li>
-<li><code>FaasLogMode=plain</code> disables ANSI colors</li>
-<li><code>FaasLogMode=pretty</code> forces colorized terminal output</li>
-<li><code>FaasLogSize=2000</code> changes the truncation threshold for long non-error logs</li>
-<li><code>FaasLogTransport=true|false</code> enables or disables shared transport forwarding</li>
+<li>Logger defaults are <code>FaasLog=info</code>, <code>FaasLogSize=1000</code>, auto-detected terminal colors, and shared transport forwarding outside Vitest.</li>
+<li><code>FaasLog=debug|info|warn|error</code> sets the minimum level.</li>
+<li><code>FaasLogMode=plain</code> disables ANSI colors.</li>
+<li><code>FaasLogMode=pretty</code> forces colorized terminal output.</li>
+<li>Without <code>FaasLogMode</code>, color output follows <code>FORCE_COLOR</code>, <code>NO_COLOR</code>, <code>TERM</code>, and whether stdout is a TTY.</li>
+<li><code>FaasLogSize=2000</code> changes the truncation threshold for long debug/info logs. Warnings and errors are not truncated.</li>
+<li><code>FaasLogTransport=true|false</code> enables or disables shared transport forwarding. In Vitest, forwarding is disabled unless <code>FaasLogTransport=true</code>.</li>
 </ul>
 <p>Examples:</p>
 <pre><code class="hljs language-bash">FaasLog=info npx vp <span class="hljs-built_in">test</span>
@@ -172,6 +174,8 @@ FaasLog=debug FaasLogMode=plain node ./scripts/sync-users.ts
 <ul>
 <li><code>Logger</code> forwards messages to the shared transport by default.</li>
 <li>Reach for <code>getTransport()</code> when you want to batch logs into another system.</li>
+<li>Transport handlers receive batches of formatted log messages on the configured interval.</li>
+<li>If a flush happens with no registered handlers, buffered messages are discarded and transport disables itself until a handler is registered or config is applied.</li>
 <li>If you register transport handlers, flush them during shutdown so buffered logs are not lost.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { getTransport } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
@@ -202,7 +206,7 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <li><code>debug</code> is used for noisy diagnostics instead of <code>info</code></li>
 <li>caught errors are logged with <code>logger.error(error)</code> when possible</li>
 <li>slow steps use <code>time()</code> and <code>timeEnd()</code> with matching keys</li>
-<li>environment variables are used to change verbosity</li>
+<li>environment variables are used to change verbosity, color mode, truncation, and transport forwarding</li>
 <li>secrets and sensitive payloads are not logged</li>
 <li>transport handlers call <code>stop()</code> during shutdown when transport is enabled</li>
 </ul>

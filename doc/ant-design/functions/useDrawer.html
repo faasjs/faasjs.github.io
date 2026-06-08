@@ -68,8 +68,9 @@
 <p><strong>useDrawer</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
 <p>Create a hook-managed Ant Design drawer instance.</p>
-<p>The returned setter merges partial updates into the current drawer props instead of replacing the
-entire state object.</p>
+<p>The returned setter shallow-merges partial updates into the drawer props instead
+of replacing the entire state object. The updater form is also merged after it
+returns, so omitted keys stay unchanged.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/DrawerProps.html"><code>DrawerProps</code></a></p>

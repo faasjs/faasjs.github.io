@@ -68,6 +68,9 @@
 <p><strong>createClient</strong>&lt;<code>T</code>&gt;(<code>url</code>, <code>options?</code>): <a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
 </blockquote>
 <p>Creates a new instance of the <code>Client</code> class from a PostgreSQL connection string.</p>
+<p>The returned client is cached by URL for <a href="/doc/pg/functions/getClient.html">getClient</a>. When <code>options.max</code> is omitted,
+the pool size is read from <code>process.env.PG_POOL_MAX</code>; unset uses <code>10</code>. <code>PG_POOL_MAX</code>
+must be a positive safe integer.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>PostgresType</code>&lt;<code>any</code>&gt;&gt; = <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;</p>
@@ -83,6 +86,10 @@ back to <code>10</code>.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/pg/classes/Client.html"><code>Client</code></a></p>
 <p>A new <code>Client</code> instance.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When <code>url</code> is not a string.</p>
+<h2 id="throws-1" tabindex="-1">Throws</h2>
+<p>When <code>PG_POOL_MAX</code> is invalid.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
 

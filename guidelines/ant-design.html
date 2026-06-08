@@ -81,6 +81,7 @@
 <li>Put feature-local request files under <code>api/</code> and keep action paths aligned with file paths.</li>
 <li>Model business fields as shared <code>items</code> metadata reused by <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
 <li>Start CRUD with <code>Table</code>, <code>Description</code>, and <code>Form</code>; use <code>useApp()</code> for <code>message</code>, <code>notification</code>, <code>setModalProps</code>, and <code>setDrawerProps</code>.</li>
+<li>Keep component inputs readable as <code>props.xxx</code>; do not destructure props in component parameters.</li>
 </ol>
 <h2 id="recommended-layout" tabindex="-1">Recommended Layout</h2>
 <pre><code class="hljs language-text">src/features/users/
@@ -282,7 +283,7 @@
 </code></pre>
 <h3 id="create-and-update-forms" tabindex="-1">Create and update forms</h3>
 <ul>
-<li>Prefer <code>Form.faas</code> when the submission flow is a single direct action call.</li>
+<li>Prefer the <code>Form</code> <code>faas</code> prop when the submission flow is a single direct action call.</li>
 <li>Load edit data outside the form and pass it via <code>initialValues</code>.</li>
 <li>Let <code>useApp</code> handle success and failure feedback.</li>
 </ul>
@@ -445,7 +446,7 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserSummary</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">FaasDataWrapper</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;features/users/api/detail&quot;</span> <span class="hljs-attr">params</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">id:</span> <span class="hljs-attr">props.id</span> }}&gt;</span>
-      {({ data }) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
+      {(result) =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{result.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}
     <span class="hljs-tag">&lt;/<span class="hljs-name">FaasDataWrapper</span>&gt;</span></span>
   )
 }
@@ -520,7 +521,7 @@
 </code></pre>
 </li>
 <li>
-<p>Use <code>Form.faas</code>, <code>Table.faasData</code>, <code>Description.faasData</code>, and <code>faas</code> for straightforward request lifecycles before custom loading/effect plumbing. Lean on built-in request props rather than wiring manual loading state and effect-based glue.</p>
+<p>Use the <code>Form</code> <code>faas</code> prop, <code>Table</code> <code>faasData</code> prop, <code>Description</code> <code>faasData</code> prop, and <code>faas</code> for straightforward request lifecycles before custom loading/effect plumbing. Lean on built-in request props rather than wiring manual loading state and effect-based glue.</p>
 </li>
 <li>
 <p>Use <code>useApp()</code> for shared feedback and overlays. Use <code>message</code> for lightweight success/warning feedback, <code>notification</code> for persistent feedback with title and description, <code>setModalProps</code> for confirmations, and <code>setDrawerProps</code> for create/edit/detail panels that should preserve feature context. Prefer drawers for in-context create/edit/detail and modals for confirmations. Use local <code>useModal</code> or <code>useDrawer</code> only when creating isolated instances outside the shared app shell.</p>

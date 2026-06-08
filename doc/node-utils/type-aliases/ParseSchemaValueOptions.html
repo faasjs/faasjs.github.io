@@ -68,6 +68,8 @@
 <p><strong>ParseSchemaValueOptions</strong>&lt;<code>TSchema</code>, <code>TFallback</code>&gt; = <code>object</code></p>
 </blockquote>
 <p>Options for parsing an unknown value with an optional Zod schema.</p>
+<p>This is useful for runtime boundaries where a schema may be optional, such as
+API params, job payloads, or plugin config.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>undefined</code></p>
@@ -91,7 +93,7 @@
 <p><code>optional</code> <strong>defaultValue?</strong>: <code>TFallback</code></p>
 </blockquote>
 <p>Value returned without a schema and parsed when the raw value is nullish.</p>
-<p>Defaults to an empty object.</p>
+<p>Defaults to an empty object when omitted.</p>
 <h3 id="errormessage" tabindex="-1">errorMessage</h3>
 <blockquote>
 <p><strong>errorMessage</strong>: <code>string</code></p>

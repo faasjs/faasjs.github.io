@@ -72,18 +72,20 @@
 </ul>
 <h2 id="what-%40faasjs%2Futils-gives-you" tabindex="-1">What <code>@faasjs/utils</code> Gives You</h2>
 <ul>
-<li><code>parseYaml</code> — parse the YAML subset supported by FaasJS</li>
+<li><code>parseYaml</code> — parse the YAML subset supported by FaasJS, or validate it with a Zod schema</li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Use <code>parseYaml()</code> for direct YAML text parsing in custom tooling or scripts.</li>
+<li>Use <code>parseYaml(raw, schema)</code> when you want Zod validation and a schema-derived output type.</li>
 <li>For <code>faas.yaml</code> config with staged discovery and merging, use <code>loadConfig()</code> from <code>@faasjs/node-utils</code> instead (see <a href="/guidelines/node-utils.html">Node Utils Guide</a>).</li>
-<li>Validate the parsed YAML shape after parsing (e.g., with Zod schemas from <code>@faasjs/utils</code>).</li>
+<li>Validate the parsed YAML shape with Zod schemas from <code>@faasjs/utils</code>.</li>
+<li>Do not import <code>parseYaml</code> from <code>@faasjs/node-utils</code>; the public parser entrypoint is <code>@faasjs/utils</code>.</li>
 </ol>
 <h2 id="common-patterns" tabindex="-1">Common Patterns</h2>
 <h3 id="1.-parse-yaml-text-directly" tabindex="-1">1. Parse YAML text directly</h3>
-<p>Use <code>parseYaml</code> when your script receives YAML text directly and you want the same supported subset and error messages as FaasJS config parsing.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+<p>Use <code>parseYaml</code> when your script receives YAML text directly and you want the same supported subset and error messages as FaasJS config parsing. Pass a Zod schema as the second argument when you want runtime validation and the schema output type.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseYaml, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> config = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">`defaults:
   plugins:
@@ -96,11 +98,24 @@
 `</span>)
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(config)
+
+<span class="hljs-keyword">const</span> frontmatter = <span class="hljs-title function_">parseYaml</span>(
+  <span class="hljs-string">`title: Docs
+priority: 1
+`</span>,
+  z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">priority</span>: z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">default</span>(<span class="hljs-number">0</span>),
+    <span class="hljs-attr">title</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
+)
+<span class="hljs-comment">// frontmatter is { priority: number; title: string }</span>
 </code></pre>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li><code>parseYaml</code> is used for direct YAML text parsing</li>
-<li>parsed YAML shape is validated after parsing (e.g. with Zod schemas from <code>@faasjs/utils</code>)</li>
+<li><code>parseYaml</code> is imported from <code>@faasjs/utils</code></li>
+<li><code>loadConfig()</code> is used instead for staged <code>faas.yaml</code> discovery and merging</li>
+<li>parsed YAML shape uses <code>parseYaml(raw, schema)</code> or is validated after parsing when shape matters</li>
 </ul>
 </div></div>
           </div>

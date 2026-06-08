@@ -67,7 +67,11 @@
 <p>Builds and executes parameterized PostgreSQL queries through a fluent, chainable API.</p>
 <p>Supports SELECT, INSERT, UPDATE, DELETE, and upsert operations with strongly-typed
 WHERE clauses, JOINs, ORDER BY, LIMIT/OFFSET, and result-type inference from the
-table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.</p>
+table type map declared via the exported <code>Tables</code> interface. Column and table identifiers are escaped
+automatically; raw fragments are accepted only through the explicit <code>*Raw</code> methods
+and should be reserved for trusted SQL controlled by the application.</p>
+<p>UPDATE, JSON UPDATE, and DELETE require at least one WHERE condition and throw
+<code>Missing where conditions</code> otherwise.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> <span class="hljs-title function_">db</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-number">5</span>).<span class="hljs-title function_">limit</span>(<span class="hljs-number">10</span>)
 <span class="hljs-comment">// SELECT &quot;id&quot;,&quot;name&quot; FROM &quot;users&quot; WHERE &quot;id&quot; &gt; ? LIMIT ?</span>
@@ -110,6 +114,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>delete</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
 <p>Deletes records from the specified table based on the provided where conditions.</p>
+<p>A WHERE clause is required to reduce accidental full-table deletes.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <p>The result of the raw SQL execution.</p>
@@ -132,6 +137,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>insert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
 </blockquote>
 <p>Inserts one or more rows into the table.</p>
+<p>For multi-row inserts, the keys of the first row define the inserted columns.
+Values are bound as parameters. Use <code>returning: ['*']</code> or explicit columns when
+inserted rows should be returned.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="firstvalue" tabindex="-1">FirstValue</h5>
 <p><code>FirstValue</code> <em>extends</em> <code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
@@ -166,6 +174,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds an INNER JOIN clause.</p>
+<p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
+The three-argument overload uses <code>=</code> as the join operator; the four-argument
+overload validates that the operator is a normal comparison operator.</p>
 <h5 id="parameters-2" tabindex="-1">Parameters</h5>
 <h6 id="table-1" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
@@ -175,7 +186,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p>The left operand for the ON condition.</p>
 <h6 id="right" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
-<p>The right operand when an explicit operator is provided.</p>
+<p>Right operand, or the third argument when using the default <code>=</code> operator.</p>
 <h5 id="returns-5" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-1" tabindex="-1">Call Signature</h4>
@@ -183,6 +194,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds an INNER JOIN clause.</p>
+<p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
+The three-argument overload uses <code>=</code> as the join operator; the four-argument
+overload validates that the operator is a normal comparison operator.</p>
 <h5 id="parameters-3" tabindex="-1">Parameters</h5>
 <h6 id="table-2" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
@@ -194,7 +208,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
 <h6 id="right-1" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
-<p>The right operand when an explicit operator is provided.</p>
+<p>Right operand, or the third argument when using the default <code>=</code> operator.</p>
 <h5 id="returns-6" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="leftjoin()" tabindex="-1">leftJoin()</h3>
@@ -203,6 +217,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a LEFT JOIN clause.</p>
+<p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
+The three-argument overload uses <code>=</code> as the join operator; the four-argument
+overload validates that the operator is a normal comparison operator.</p>
 <h5 id="parameters-4" tabindex="-1">Parameters</h5>
 <h6 id="table-3" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
@@ -212,7 +229,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p>The left operand for the ON condition.</p>
 <h6 id="right-2" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
-<p>The right operand when an explicit operator is provided.</p>
+<p>Right operand, or the third argument when using the default <code>=</code> operator.</p>
 <h5 id="returns-7" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-3" tabindex="-1">Call Signature</h4>
@@ -220,6 +237,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a LEFT JOIN clause.</p>
+<p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
+The three-argument overload uses <code>=</code> as the join operator; the four-argument
+overload validates that the operator is a normal comparison operator.</p>
 <h5 id="parameters-5" tabindex="-1">Parameters</h5>
 <h6 id="table-4" tabindex="-1">table</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
@@ -231,7 +251,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><code>&quot;&gt;&quot;</code> | <code>&quot;&gt;=&quot;</code> | <code>&quot;&lt;=&quot;</code> | <code>&quot;=&quot;</code> | <code>&quot;!=&quot;</code> | <code>&quot;&lt;&quot;</code></p>
 <h6 id="right-3" tabindex="-1">right</h6>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>
-<p>The right operand when an explicit operator is provided.</p>
+<p>Right operand, or the third argument when using the default <code>=</code> operator.</p>
 <h5 id="returns-8" tabindex="-1">Returns</h5>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="limit()" tabindex="-1">limit()</h3>
@@ -239,6 +259,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>limit</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Sets the limit value for the query.</p>
+<p>The value is bound as a parameter when SQL is generated.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="value" tabindex="-1">value</h5>
 <p><code>number</code></p>
@@ -253,6 +274,7 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>offset</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Sets the offset value for the query.</p>
+<p>The value is bound as a parameter when SQL is generated.</p>
 <h4 id="parameters-7" tabindex="-1">Parameters</h4>
 <h5 id="value-1" tabindex="-1">value</h5>
 <p><code>number</code></p>
@@ -267,6 +289,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orderBy</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>direction?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Sets the order by column and direction for the query.</p>
+<p>Direction must be one of <a href="/doc/pg/type-aliases/QueryOrderDirections.html">QueryOrderDirections</a>; invalid directions throw
+before SQL is generated.</p>
 <h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="c" tabindex="-1">C</h5>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -287,6 +311,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orderByRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to ORDER BY with parameter bindings.</p>
+<p>The SQL fragment is inserted as-is. Use <code>?</code> placeholders for values and pass
+matching <code>params</code>; do not interpolate user input into <code>sql</code>.</p>
 <h4 id="parameters-9" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
@@ -302,6 +328,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-3" tabindex="-1">Type Parameters</h5>
 <h6 id="c-1" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -325,6 +353,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-4" tabindex="-1">Type Parameters</h5>
 <h6 id="c-2" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -348,6 +378,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-5" tabindex="-1">Type Parameters</h5>
 <h6 id="c-3" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -368,6 +400,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-6" tabindex="-1">Type Parameters</h5>
 <h6 id="c-4" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -391,6 +425,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-7" tabindex="-1">Type Parameters</h5>
 <h6 id="c-5" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -414,6 +450,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhere</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
+<p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
+<code>OR</code> instead of <code>AND</code>.</p>
 <h5 id="type-parameters-8" tabindex="-1">Type Parameters</h5>
 <h6 id="c-6" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -434,6 +472,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>orWhereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to the WHERE clause using OR with parameter bindings.</p>
+<p>The SQL fragment is inserted as-is inside parentheses. Use <code>?</code> placeholders for
+values and pass matching <code>params</code>; do not interpolate user input into <code>sql</code>.</p>
 <h4 id="parameters-16" tabindex="-1">Parameters</h4>
 <h5 id="sql-1" tabindex="-1">sql</h5>
 <p><code>string</code></p>
@@ -467,6 +507,9 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>select</strong>&lt;<code>ColumnNames</code>&gt;(...<code>columns</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <a href="/doc/pg/type-aliases/InferTResult.html"><code>InferTResult</code></a>&lt;<code>T</code>, <code>ColumnNames</code>&gt;[]&gt;</p>
 </blockquote>
 <p>Selects specific columns for the query.</p>
+<p>Calling <code>select()</code> with no columns leaves the current selection unchanged. JSONB
+field selectors use <code>jsonb_build_object</code> and default their alias to the source
+JSON column name.</p>
 <h4 id="type-parameters-10" tabindex="-1">Type Parameters</h4>
 <h5 id="columnnames" tabindex="-1">ColumnNames</h5>
 <p><code>ColumnNames</code> <em>extends</em> (<a href="/doc/pg/type-aliases/JsonSelectField.html"><code>JsonSelectField</code></a>&lt;<code>T</code>&gt; | <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>T</code>&gt;)[]</p>
@@ -486,6 +529,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>then</strong>&lt;<code>TResult1</code>, <code>TResult2</code>&gt;(<code>onfulfilled?</code>, <code>onrejected?</code>): <code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;</p>
 </blockquote>
 <p>Makes the QueryBuilder thenable — calling <code>await builder</code> implicitly executes the query.</p>
+<p>This is why <code>await client.query('users').where('id', id)</code> returns rows without
+an explicit <code>.run()</code> call.</p>
 <h4 id="type-parameters-11" tabindex="-1">Type Parameters</h4>
 <h5 id="tresult1" tabindex="-1">TResult1</h5>
 <p><code>TResult1</code> = <code>TResult</code></p>
@@ -506,6 +551,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>toSql</strong>(): <code>object</code></p>
 </blockquote>
 <p>Serializes the query builder state into a parameterized SQL statement and bound parameters.</p>
+<p>The returned SQL uses <code>?</code> placeholders. <code>Client.raw(sql, ...params)</code> converts
+those placeholders into <code>postgres.js</code> template parameters at execution time.</p>
 <h4 id="returns-23" tabindex="-1">Returns</h4>
 <p><code>object</code></p>
 <p>An object containing the generated <code>sql</code> string and <code>params</code> array.</p>
@@ -522,6 +569,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 <p><strong>update</strong>&lt;<code>Returning</code>&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
 </blockquote>
 <p>Updates records in the table with the specified values and returns the updated records.</p>
+<p>Values and WHERE operands are parameterized. A WHERE clause is required to
+reduce accidental full-table updates.</p>
 <h4 id="type-parameters-12" tabindex="-1">Type Parameters</h4>
 <h5 id="returning-1" tabindex="-1">Returning</h5>
 <p><code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] | keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[]</p>
@@ -550,6 +599,8 @@ table type map declared via <a href="/doc/pg/interfaces/Tables.html">Tables</a>.
 </blockquote>
 <p>Atomically updates a JSON/JSONB column using the <code>||</code> merge operator,
 avoiding read-modify-write race conditions.</p>
+<p>A WHERE clause is required to reduce accidental full-table updates. The merge
+object is bound as a parameter.</p>
 <h4 id="type-parameters-13" tabindex="-1">Type Parameters</h4>
 <h5 id="c-8" tabindex="-1">C</h5>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -571,6 +622,8 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>upsert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;(<code>values</code>, <code>options</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;[]&gt;</p>
 </blockquote>
 <p>Inserts or updates records in the database table.</p>
+<p>Values are parameterized. Conflict and returning columns are escaped as identifiers,
+and omitted <code>update</code> defaults to every non-conflict column from the first row.</p>
 <h4 id="type-parameters-14" tabindex="-1">Type Parameters</h4>
 <h5 id="firstvalue-1" tabindex="-1">FirstValue</h5>
 <p><code>FirstValue</code> <em>extends</em> <code>Partial</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;</p>
@@ -606,6 +659,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-15" tabindex="-1">Type Parameters</h5>
 <h6 id="c-9" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -635,6 +692,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-16" tabindex="-1">Type Parameters</h5>
 <h6 id="c-10" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -664,6 +725,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-17" tabindex="-1">Type Parameters</h5>
 <h6 id="c-11" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -690,6 +755,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-18" tabindex="-1">Type Parameters</h5>
 <h6 id="c-12" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -719,6 +788,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-19" tabindex="-1">Type Parameters</h5>
 <h6 id="c-13" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -748,6 +821,10 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>where</strong>&lt;<code>C</code>&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
+<p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
+one of the exported <code>Operators</code> literals; invalid operators throw before SQL is
+generated. <code>IN</code> and <code>NOT IN</code> expect arrays, and <code>IS NULL</code> / <code>IS NOT NULL</code> do
+not bind a value.</p>
 <h5 id="type-parameters-20" tabindex="-1">Type Parameters</h5>
 <h6 id="c-14" tabindex="-1">C</h6>
 <p><code>C</code> <em>extends</em> <code>string</code></p>
@@ -774,6 +851,8 @@ avoiding read-modify-write race conditions.</p>
 <p><strong>whereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to the WHERE clause with parameter bindings.</p>
+<p>The SQL fragment is inserted as-is inside parentheses. Use <code>?</code> placeholders for
+values and pass matching <code>params</code>; do not interpolate user input into <code>sql</code>.</p>
 <h4 id="parameters-29" tabindex="-1">Parameters</h4>
 <h5 id="sql-3" tabindex="-1">sql</h5>
 <p><code>string</code></p>

@@ -71,28 +71,48 @@
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
-<p>Action path or response data type used for inference.</p>
+<p>Registered action path used to infer params and response data.</p>
 <h3 id="tcomponentprops" tabindex="-1">TComponentProps</h3>
 <p><code>TComponentProps</code> <em>extends</em> <code>Required</code>&lt;<a href="/doc/ant-design/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;&gt; = <code>Required</code>&lt;<a href="/doc/ant-design/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;&gt;</p>
-<p>Component props including injected Faas data fields.</p>
+<p>Component props including every field from <a href="/doc/ant-design/type-aliases/FaasDataInjection.html">FaasDataInjection</a>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="component" tabindex="-1">Component</h3>
 <p><code>FC</code>&lt;<code>TComponentProps</code> &amp; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;</p>
 <p>Component that consumes injected Faas data props.</p>
 <h3 id="faasprops" tabindex="-1">faasProps</h3>
 <p><a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>Path</code>&gt;</p>
-<p>Request configuration forwarded to <a href="/doc/ant-design/functions/FaasDataWrapper.html">FaasDataWrapper</a>.</p>
+<p>Request configuration forwarded to <a href="/doc/ant-design/functions/FaasDataWrapper.html">FaasDataWrapper</a>; this is the second argument.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>FC</code>&lt;<code>Omit</code>&lt;<code>TComponentProps</code>, keyof <a href="/doc/ant-design/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;&gt;&gt;</p>
-<p>Higher-order component that injects Faas data props.</p>
+<p>Higher-order component that accepts caller-owned props while <code>withFaasData</code> supplies the Faas data props.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasDataInjection</span>, withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserCard</span> = <span class="hljs-title function_">withFaasData</span>(
-  <span class="hljs-function">(<span class="hljs-params">{ data, error, reload }</span>) =&gt;</span>
-    error ? <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;Retry<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span> : <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>,
-  { <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;user/get&#x27;</span>, <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> } },
-)
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
+    <span class="hljs-string">&#x27;user/get&#x27;</span>: {
+      <span class="hljs-title class_">Params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }
+      <span class="hljs-title class_">Data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }
+    }
+  }
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">GetUserAction</span> = <span class="hljs-string">&#x27;user/get&#x27;</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserCardProps</span> = <span class="hljs-title class_">FaasDataInjection</span>&lt;<span class="hljs-title class_">GetUserAction</span>&gt; &amp; {
+  <span class="hljs-attr">compact</span>?: <span class="hljs-built_in">boolean</span>
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">UserCard</span> = (<span class="hljs-params">{ data, error, reload, compact }: <span class="hljs-title class_">UserCardProps</span></span>) =&gt;
+  error ? (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;Retry<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+  ) : (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{compact ? data.name : `User: ${data.name}`}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserCardWithData</span> = withFaasData&lt;<span class="hljs-title class_">GetUserAction</span>, <span class="hljs-title class_">UserCardProps</span>&gt;(<span class="hljs-title class_">UserCard</span>, {
+  <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;user/get&#x27;</span>,
+  <span class="hljs-attr">params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> },
+})
 </code></pre>
 </div></div>
           </div>

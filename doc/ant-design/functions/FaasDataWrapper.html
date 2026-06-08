@@ -73,7 +73,7 @@ the wrapped FaasJS request is pending.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>FaasActionPaths</code> = <code>any</code></p>
-<p>Action path or response data type used for inference.</p>
+<p>Registered action path used to infer params and response data.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>T</code>&gt;</p>
@@ -83,12 +83,24 @@ the wrapped FaasJS request is pending.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Alert</span>, <span class="hljs-title class_">Button</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">FaasDataInjection</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
-  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
+    <span class="hljs-string">&#x27;user/get&#x27;</span>: {
+      <span class="hljs-title class_">Params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }
+      <span class="hljs-title class_">Data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }
+    }
+  }
 }
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserView</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { data?: User; error?: <span class="hljs-built_in">Error</span>; reload?: () =&gt; <span class="hljs-built_in">void</span> }</span>) {
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">GetUserAction</span> = <span class="hljs-string">&#x27;user/get&#x27;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserView</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: {
+  data?: FaasDataInjection&lt;GetUserAction&gt;[<span class="hljs-string">&#x27;data&#x27;</span>]
+  error?: <span class="hljs-built_in">Error</span>
+  reload?: () =&gt; <span class="hljs-built_in">void</span>
+}</span>) {
   <span class="hljs-keyword">if</span> (props.<span class="hljs-property">error</span>) {
     <span class="hljs-keyword">return</span> (
       <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Alert</span>
@@ -109,7 +121,7 @@ the wrapped FaasJS request is pending.</p>
 <span class="hljs-comment">// Render-prop mode</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
-    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
+    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">GetUserAction</span>&gt;
       action=<span class="hljs-string">&quot;user/get&quot;</span>
       params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
       loading={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}
@@ -137,7 +149,7 @@ the wrapped FaasJS request is pending.</p>
 <span class="hljs-comment">// Children injection mode</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserProfileWithChildren</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
   <span class="hljs-keyword">return</span> (
-    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">User</span>&gt;
+    &lt;<span class="hljs-title class_">FaasDataWrapper</span>&lt;<span class="hljs-title class_">GetUserAction</span>&gt;
       action=<span class="hljs-string">&quot;user/get&quot;</span>
       params={{ <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> }}
       loading={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading user...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>}

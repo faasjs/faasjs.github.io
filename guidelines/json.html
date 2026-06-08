@@ -73,7 +73,7 @@
 </ul>
 <h2 id="what-%40faasjs%2Futils-gives-you" tabindex="-1">What <code>@faasjs/utils</code> Gives You</h2>
 <ul>
-<li><code>parseJson</code> — safely parse a JSON string with type inference</li>
+<li><code>parseJson</code> — safely parse a JSON string with type inference, or validate it with a Zod schema</li>
 <li><code>parseObjectFromJson</code> — normalize an existing object or JSON string into an object record</li>
 <li><code>parseArrayFromJson</code> — normalize an existing array or JSON string into an array</li>
 <li><code>objectToStream</code> — serialize JSON data into a <code>ReadableStream</code></li>
@@ -81,20 +81,31 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Use <code>parseJson&lt;T&gt;()</code> when you have a JSON string and want a typed result.</li>
+<li>Use <code>parseJson&lt;T&gt;()</code> when you have a JSON string and want a typed result without runtime validation.</li>
+<li>Use <code>parseJson(raw, schema)</code> when you want Zod validation and a schema-derived output type.</li>
 <li>Use <code>parseObjectFromJson&lt;T&gt;()</code> when input could be an object or a JSON string.</li>
 <li>Use <code>parseArrayFromJson&lt;T&gt;()</code> when input could be an array or a JSON string.</li>
 <li>Use <code>objectToStream()</code> / <code>streamToObject()</code> for JSON stream serialization.</li>
-<li>Wrap parsing calls in try/catch at trust boundaries.</li>
+<li>Treat generic type arguments as TypeScript assertions, not runtime validation.</li>
+<li>Wrap parsing calls in try/catch at trust boundaries and validate untrusted shapes with a schema.</li>
 </ol>
 <h2 id="common-patterns" tabindex="-1">Common Patterns</h2>
 <h3 id="1.-parse-json-safely" tabindex="-1">1. Parse JSON safely</h3>
-<p>Use <code>parseJson</code> when you have a JSON string and want a typed result. Use <code>parseObjectFromJson</code> when input could be an object or a JSON string — normalizes both into a typed record. Use <code>parseArrayFromJson</code> when input could be an array or a JSON string — normalizes both into a typed array.</p>
-<p>All three throw on invalid input, so wrap them in try/catch at trust boundaries.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseJson, parseObjectFromJson, parseArrayFromJson } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+<p>Use <code>parseJson</code> when you have a JSON string and want a typed result. Pass a Zod schema as the second argument when you want runtime validation and the schema output type. Use <code>parseObjectFromJson</code> when input could be an object or a JSON string — normalizes both into a typed record. Use <code>parseArrayFromJson</code> when input could be an array or a JSON string — normalizes both into a typed array.</p>
+<p>All three throw on invalid input. <code>parseJson(raw, schema)</code> also throws the Zod validation error when the parsed shape does not match the schema.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseJson, parseObjectFromJson, parseArrayFromJson, z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> data = parseJson&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }&gt;(<span class="hljs-string">&#x27;{&quot;id&quot;: 1}&#x27;</span>)
 <span class="hljs-comment">// data.id === 1</span>
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-title function_">parseJson</span>(
+  <span class="hljs-string">&#x27;{&quot;id&quot;: 1, &quot;name&quot;: &quot;admin&quot;}&#x27;</span>,
+  z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">id</span>: z.<span class="hljs-title function_">number</span>(),
+    <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
+)
+<span class="hljs-comment">// user is { id: number; name: string }</span>
 
 <span class="hljs-keyword">const</span> obj = parseObjectFromJson&lt;{ <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }&gt;(event.<span class="hljs-property">body</span>)
 <span class="hljs-comment">// Accepts both { name: &quot;alice&quot; } and &#x27;{&quot;name&quot;: &quot;alice&quot;}&#x27;</span>
@@ -131,6 +142,7 @@
 <ul>
 <li>JSON parsing uses <code>parseJson</code> / <code>parseObjectFromJson</code> / <code>parseArrayFromJson</code> instead of raw <code>JSON.parse</code></li>
 <li>input normalization prefers <code>parseObjectFromJson</code> or <code>parseArrayFromJson</code> over type assertions</li>
+<li>untrusted parsed JSON uses <code>parseJson(raw, schema)</code> or is validated after parsing when shape matters</li>
 <li>JSON payloads use <code>objectToStream</code> / <code>streamToObject</code> instead of manual <code>JSON.stringify</code> / <code>JSON.parse</code></li>
 <li>examples and tests choose the smallest helper that keeps intent obvious</li>
 </ul>

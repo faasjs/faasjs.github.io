@@ -68,6 +68,7 @@
 <ul>
 <li>Merging config objects recursively</li>
 <li>Converting text to and from streams</li>
+<li>Parsing JSON or YAML text in portable code</li>
 <li>Writing portable helper code that works across Node.js, browsers, and edge runtimes</li>
 </ul>
 <h2 id="what-%40faasjs%2Futils-gives-you" tabindex="-1">What <code>@faasjs/utils</code> Gives You</h2>
@@ -144,13 +145,20 @@ config
 </ul>
 <h3 id="5.-parse-json-safely" tabindex="-1">5. Parse JSON safely</h3>
 <p>See <a href="/guidelines/json.html">JSON Guide</a> for JSON parsing patterns with <code>parseJson</code>, <code>parseObjectFromJson</code>, and <code>parseArrayFromJson</code>.</p>
-<h3 id="6.-validate-data-with-zod-schemas" tabindex="-1">6. Validate data with Zod schemas</h3>
+<h3 id="6.-parse-yaml-directly" tabindex="-1">6. Parse YAML directly</h3>
+<p>Use <code>parseYaml</code> from <code>@faasjs/utils</code> only when code already has YAML text. For staged <code>faas.yaml</code> discovery, use <code>loadConfig()</code> from <code>@faasjs/node-utils</code> instead.</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseYaml } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> value = <span class="hljs-title function_">parseYaml</span>(<span class="hljs-string">&#x27;enabled: true&#x27;</span>)
+</code></pre>
+<h3 id="7.-validate-data-with-zod-schemas" tabindex="-1">7. Validate data with Zod schemas</h3>
 <p>See <a href="/guidelines/valid.html">Validation Guide</a> for data validation patterns with <code>z</code> and <code>isObjectRecord</code>.</p>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li><code>deepMerge</code> is used only when recursive merging is actually needed</li>
 <li>text payloads use <code>stringToStream</code> / <code>streamToString</code></li>
 <li>JSON payloads use the helpers from <a href="/guidelines/json.html">JSON Guide</a></li>
+<li>direct YAML text parsing uses <code>parseYaml</code> from <code>@faasjs/utils</code>; staged <code>faas.yaml</code> loading uses <code>loadConfig</code></li>
 <li>data validation uses the helpers from <a href="/guidelines/valid.html">Validation Guide</a></li>
 <li>examples and tests choose the smallest helper that keeps intent obvious</li>
 </ul>

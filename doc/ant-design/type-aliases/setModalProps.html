@@ -68,6 +68,9 @@
 <p><strong>setModalProps</strong> = <code>Dispatch</code>&lt;<code>SetStateAction</code>&lt;<a href="/doc/ant-design/interfaces/ModalProps.html"><code>ModalProps</code></a>&gt;&gt;</p>
 </blockquote>
 <p>State setter used to update hook-managed modal props.</p>
+<p>Each call shallow-merges the provided object, or the object returned by an
+updater function, into the existing modal props. Omitted keys are preserved;
+set a key to <code>undefined</code> or a new value when you need to clear or replace it.</p>
 </div></div>
           </div>
           

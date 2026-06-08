@@ -69,13 +69,13 @@
 <p>Before starting, make sure your environment meets these requirements:</p>
 <ul>
 <li><strong>Node.js</strong> &gt;= 26.x — FaasJS relies on modern Node features including native TypeScript module loading.</li>
-<li><strong>npm</strong> &gt;= 9.x — used for dependency management and scaffolding.</li>
+<li><strong>npm</strong> &gt;= 11.x — used for dependency management and scaffolding.</li>
 <li><strong>PostgreSQL</strong> &gt;= 14.x — FaasJS uses PostgreSQL as its relational data store (via <code>@faasjs/pg</code>). A running local instance or Docker container is required for database features and integration tests.</li>
 <li><strong>Basic TypeScript knowledge</strong> — FaasJS is TypeScript-first. You should be comfortable with types, interfaces, and module imports.</li>
 </ul>
 <p>Verify your environment:</p>
 <pre><code class="hljs language-bash">node --version   <span class="hljs-comment"># &gt;= 26.x</span>
-npm --version    <span class="hljs-comment"># &gt;= 9.x</span>
+npm --version    <span class="hljs-comment"># &gt;= 11.x</span>
 psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </code></pre>
 <h2 id="creating-a-new-project" tabindex="-1">Creating a New Project</h2>
@@ -143,7 +143,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
       tables/
         &lt;table_name.ts&gt;  # PostgreSQL table type declarations (declaration merging on `Tables`)
       migrations/          # Database migration files (timestamped)
-        20250101000000_create_users.ts
+        20250101000000-create-users.ts
   faas.yaml                # (optional) Root-level config overrides
   tsconfig.json            # TypeScript configuration
   vite.config.ts           # Vite + Vitest configuration
@@ -194,7 +194,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </tr>
 <tr>
 <td><code>vite.config.ts</code></td>
-<td>Vite/Vitest config, uses <code>viteConfig</code> from <code>@faasjs/dev</code></td>
+<td>Vite/Vitest config, uses <code>ViteConfig</code> from <code>@faasjs/dev</code></td>
 <td><a href="/guidelines/project-config.html">Project Config Guide</a></td>
 </tr>
 </tbody>
@@ -230,7 +230,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <p><strong>Step 1: Database migration</strong> — Create a timestamped migration with <code>npx faasjs-pg new &lt;name&gt;</code>, define the table with <code>SchemaBuilder</code>/<code>TableBuilder</code>, run with <code>npx faasjs-pg migrate</code>. See <a href="/guidelines/pg-schema-and-migrations.html">PG Schema and Migrations Guide</a>.</p>
 <p><strong>Step 2: Table types</strong> — Add declaration merging on <code>Tables</code> in <code>src/db/tables/&lt;table_name&gt;.ts</code>. See <a href="/guidelines/pg-table-types.html">PG Table Types Guide</a>.</p>
 <p><strong>Step 3: API endpoints</strong> — Create five <code>.api.ts</code> files (<code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>) under <code>src/features/&lt;feature&gt;/api/</code>, each with inline Zod schema + handler. See <a href="/guidelines/define-api.html">defineApi Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
-<p><strong>Step 4: Frontend page</strong> — Create shared <code>use&lt;Feature&gt;Items</code> hook, then compose <code>Table.faasData</code> (list), <code>Description.faasData</code> (detail), <code>Form.faas</code> (create/edit), and <code>faas</code> + modal (delete). See <a href="/guidelines/ant-design.html">Ant Design Guide</a>, <a href="/guidelines/react.html">React Guide</a>, and <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>.</p>
+<p><strong>Step 4: Frontend page</strong> — Create shared <code>use&lt;Feature&gt;Items</code> hook, then compose the <code>Table</code> <code>faasData</code> prop (list), <code>Description</code> <code>faasData</code> prop (detail), <code>Form</code> <code>faas</code> prop (create/edit), and <code>faas</code> + modal (delete). See <a href="/guidelines/ant-design.html">Ant Design Guide</a>, <a href="/guidelines/react.html">React Guide</a>, and <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>.</p>
 <p><strong>Step 5: Tests</strong> — Place API tests under <code>api/__tests__/</code> using <code>testApi</code> from <code>@faasjs/dev</code>. See <a href="/guidelines/testing.html">Testing Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
 <p><strong>Step 6: Type generation</strong> — After creating/modifying <code>.api.ts</code> files, run <code>npx faas types</code> to update <code>src/.faasjs/types.d.ts</code>. Then run <code>vp test</code> to verify.</p>
 <p>The <code>admin</code> template also includes a users slice with the same pattern — copy it as a reference. See the <a href="/guidelines/application-slices.html">Application Slices Guide</a> for the recommended slice layout.</p>
@@ -278,15 +278,15 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </thead>
 <tbody>
 <tr>
-<td><code>Table.faasData</code></td>
+<td><code>Table</code> <code>faasData</code> prop</td>
 <td>Server-driven list with automatic re-fetch on params change</td>
 </tr>
 <tr>
-<td><code>Form.faas</code></td>
+<td><code>Form</code> <code>faas</code> prop</td>
 <td>Form submission with built-in loading, validation, and feedback</td>
 </tr>
 <tr>
-<td><code>Description.faasData</code></td>
+<td><code>Description</code> <code>faasData</code> prop</td>
 <td>Detail view with loading and error states</td>
 </tr>
 <tr>
@@ -314,7 +314,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <td>Imperative one-off requests (form submit, delete)</td>
 </tr>
 <tr>
-<td><code>Form.faas</code></td>
+<td><code>Form</code> <code>faas</code> prop</td>
 <td>Form submissions (preferred over raw <code>faas</code>)</td>
 </tr>
 </tbody>
@@ -373,7 +373,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </ol>
 <h3 id="database-migrations" tabindex="-1">Database migrations</h3>
 <pre><code class="hljs language-bash"><span class="hljs-comment"># Create a new migration</span>
-DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_due_date_to_todos
+DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add-due-date-to-todos
 
 <span class="hljs-comment"># Check migration status</span>
 DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg status

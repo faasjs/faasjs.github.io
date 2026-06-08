@@ -68,17 +68,19 @@
 <p><strong>parseObjectFromJson</strong>&lt;<code>T</code>&gt;(<code>value</code>): <code>T</code></p>
 </blockquote>
 <p>Normalizes JSON-like input into an object record.</p>
-<p>This accepts an existing object value or a JSON string.</p>
+<p>Existing object records are returned as-is. JSON strings are parsed and cast to <code>T</code>;
+callers should validate untrusted parsed values with a schema when shape matters.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
+<p>Expected object record type.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>unknown</code></p>
 <p>Existing object or JSON string payload.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>T</code></p>
-<p>Parsed object record</p>
+<p>Existing object record or parsed JSON value cast to <code>T</code>.</p>
 </div></div>
           </div>
           

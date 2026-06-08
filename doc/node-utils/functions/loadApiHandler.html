@@ -68,7 +68,11 @@
 <p><strong>loadApiHandler</strong>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;(<code>root</code>, <code>filename</code>, <code>staging</code>, <code>logger?</code>): <code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/ExportedHandler.html"><code>ExportedHandler</code></a>&lt;<code>TEvent</code>, <code>TContext</code>, <code>TResult</code>&gt;&gt;</p>
 </blockquote>
 <p>Load a packaged FaasJS API file, attach its resolved config, and return the exported handler.</p>
-<p>The loaded module is expected to expose an <code>export()</code> method that returns an object with a <code>handler</code>.</p>
+<p>The API module is loaded through <a href="/doc/node-utils/functions/loadPackage.html">loadPackage</a>, so it must default-export
+a FaasJS API instance. That instance must expose an <code>export()</code> method that
+returns an object with a promise-based <code>handler</code>. Before the handler is
+returned, <a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a> merges staged config and applies YAML-driven
+plugin instances.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tevent" tabindex="-1">TEvent</h3>
 <p><code>TEvent</code> = <code>any</code></p>

@@ -66,12 +66,14 @@
 <h1 id="class%3A-apitester%3Ctapi%3E" tabindex="-1">Class: ApiTester&lt;TApi&gt;</h1>
 <p>Wrap a FaasJS API with helpers for mounting and assertion-friendly invocations.</p>
 <p>The tester resolves config for the current <code>FaasEnv</code> or <code>development</code>, mounts lazily, and
-exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
+exposes helpers for raw handler calls and HTTP-style JSON assertions. When the wrapped
+API has a filename under <code>src/</code>, JSON requests infer the pathname from FaasJS API file
+conventions such as <code>index.api.ts</code>, <code>default.api.ts</code>, and nested <code>*.api.ts</code> files.</p>
 <h2 id="see" tabindex="-1">See</h2>
 <p><a href="/doc/dev/functions/testApi.html">testApi</a></p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApiTester</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api&#x27;</span>
 
 <span class="hljs-keyword">const</span> wrapped = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiTester</span>(api)
 
@@ -95,7 +97,7 @@ exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
 <p><code>ApiTester</code>&lt;<code>TApi</code>&gt;</p>
 <h4 id="example-1" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ApiTester</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api&#x27;</span>
 
 <span class="hljs-keyword">const</span> wrapped = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiTester</span>(api)
 </code></pre>
@@ -121,30 +123,36 @@ exposes helpers for raw handler calls and HTTP-style JSON assertions.</p>
 <p>Handler result.</p>
 <h3 id="jsonhandler()" tabindex="-1">JSONhandler()</h3>
 <blockquote>
-<p><strong>JSONhandler</strong>&lt;<code>TData</code>&gt;(<code>body?</code>, <code>options?</code>): <code>Promise</code>&lt;<code>JsonHandlerResult</code>&lt;<code>TData</code>&gt;&gt;</p>
+<p><strong>JSONhandler</strong>&lt;<code>TData</code>&gt;(<code>body?</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/dev/type-aliases/JsonHandlerResult.html"><code>JsonHandlerResult</code></a>&lt;<code>TData</code>&gt;&gt;</p>
 </blockquote>
 <p>Invoke an HTTP-enabled API with JSON body helpers and decoded cookies.</p>
-<p>JSON responses populate <code>data</code> and <code>error</code>, while <code>Set-Cookie</code> headers are
-decoded into the returned <code>cookie</code> and <code>session</code> objects.</p>
+<p>The helper mounts the API, sends a POST request with <code>content-type: application/json</code>,
+stringifies non-string bodies, and leaves string bodies untouched for malformed-JSON
+or raw-payload tests. JSON responses populate <code>data</code> and <code>error</code>; response
+<code>Set-Cookie</code> headers are merged back into the returned <code>cookie</code> object and the
+session cookie is decoded into <code>session</code>.</p>
+<p>ReadableStream response bodies are consumed into strings before JSON parsing. If
+stream decoding fails, the result is normalized to a 500-style JSON error object
+so tests can assert <code>response.error.message</code>.</p>
 <h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="tdata" tabindex="-1">TData</h5>
 <p><code>TData</code> = <code>any</code></p>
 <p>Expected JSON <code>data</code> payload returned by the API.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="body%3F" tabindex="-1">body?</h5>
-<p><code>JsonHandlerBody</code>&lt;<code>TApi</code>&gt;</p>
+<p><a href="/doc/dev/type-aliases/JsonHandlerBody.html"><code>JsonHandlerBody</code></a>&lt;<code>TApi</code>&gt;</p>
 <p>Request body object or raw JSON string.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
-<p><code>JsonHandlerOptions</code> = <code>...</code></p>
+<p><a href="/doc/dev/type-aliases/JsonHandlerOptions.html"><code>JsonHandlerOptions</code></a> = <code>...</code></p>
 <p>Extra headers, request cookies, and session seed values.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;<code>JsonHandlerResult</code>&lt;<code>TData</code>&gt;&gt;</p>
+<p><code>Promise</code>&lt;<a href="/doc/dev/type-aliases/JsonHandlerResult.html"><code>JsonHandlerResult</code></a>&lt;<code>TData</code>&gt;&gt;</p>
 <p>Normalized HTTP response payload for assertions.</p>
 <h4 id="throws" tabindex="-1">Throws</h4>
 <p>When the wrapped API does not use the HTTP plugin.</p>
 <h4 id="example-2" tabindex="-1">Example</h4>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
-<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api.ts&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./hello.api&#x27;</span>
 
 <span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
 <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> }, { <span class="hljs-attr">session</span>: { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;1&#x27;</span> } })

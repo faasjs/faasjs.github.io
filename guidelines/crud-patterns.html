@@ -69,9 +69,9 @@
 <ol>
 <li>Model business fields as shared <code>items</code> metadata in a <code>use&lt;Feature&gt;Items</code> hook.</li>
 <li>Create five API files: <code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>.</li>
-<li>Build the list page with <code>Table.faasData</code>, search/filter controls, and action column.</li>
-<li>Add detail view with <code>Description.faasData</code> inside a drawer.</li>
-<li>Add create/update forms that reuse the same <code>items</code> and use <code>Form.faas</code>.</li>
+<li>Build the list page with the <code>Table</code> <code>faasData</code> prop, search/filter controls, and action column.</li>
+<li>Add detail view with the <code>Description</code> <code>faasData</code> prop inside a drawer.</li>
+<li>Add create/update forms that reuse the same <code>items</code> and use the <code>Form</code> <code>faas</code> prop.</li>
 <li>Add delete with a modal confirmation.</li>
 <li>Wire mutation feedback (<code>message.success</code>, <code>notification.error</code>) and surface refresh/close.</li>
 <li>Add API tests with <code>testApi</code> covering success, validation, and error paths.</li>
@@ -220,7 +220,7 @@
 <li>Use <code>extendTypes</code> for repeated custom field behavior (see <a href="/guidelines/ant-design.html#core-patterns">Ant Design Guide</a>).</li>
 </ul>
 <h2 id="list-page-pattern" tabindex="-1">List Page Pattern</h2>
-<p>Use <code>Table.faasData</code> for server-driven list fetches. Add search/filter controls in a row above the table and an actions column for detail/edit/delete.</p>
+<p>Use the <code>Table</code> <code>faasData</code> prop for server-driven list fetches. Add search/filter controls in a row above the table and an actions column for detail/edit/delete.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Table</span>, <span class="hljs-title class_">Title</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Input</span>, <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 <span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
@@ -309,12 +309,12 @@
 </code></pre>
 <h3 id="search-%2F-filter-trigger" tabindex="-1">Search / Filter Trigger</h3>
 <ul>
-<li>Use <code>setSearchParams</code> to trigger <code>Table.faasData</code> re-fetch. The table re-fetches automatically when <code>faasData.params</code> changes.</li>
+<li>Use <code>setSearchParams</code> to trigger <code>Table</code> <code>faasData</code> re-fetch. The table re-fetches automatically when <code>faasData.params</code> changes.</li>
 <li>Use <code>debounce</code> via the <code>useFaas</code> lifecycle instead of custom timers (see <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>).</li>
 <li>Keep <code>keyword</code> local state for the input and only push to <code>searchParams</code> on search submit.</li>
 </ul>
 <h2 id="detail-pattern" tabindex="-1">Detail Pattern</h2>
-<p>Use <code>Description.faasData</code> for detail fetches. Open in a drawer to keep list context visible.</p>
+<p>Use the <code>Description</code> <code>faasData</code> prop for detail fetches. Open in a drawer to keep list context visible.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
 <span class="hljs-keyword">import</span> { useUserItems, <span class="hljs-keyword">type</span> <span class="hljs-title class_">UserField</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
@@ -366,7 +366,7 @@
 <li>Keep the detail API response shape aligned with the item field ids.</li>
 </ul>
 <h2 id="create-form-pattern" tabindex="-1">Create Form Pattern</h2>
-<p>Use <code>Form.faas</code> for form submission with built-in loading, validation, feedback, and error handling.</p>
+<p>Use the <code>Form</code> <code>faas</code> prop for form submission with built-in loading, validation, feedback, and error handling.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
 <span class="hljs-keyword">import</span> { useUserItems } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../hooks/useUserItems&#x27;</span>
@@ -424,7 +424,7 @@
 </code></pre>
 <p><strong>Rules for create forms:</strong></p>
 <ul>
-<li><code>Form.faas</code> handles button loading, validation, and error feedback automatically.</li>
+<li>The <code>Form</code> <code>faas</code> prop handles button loading, validation, and error feedback automatically.</li>
 <li>Use <code>message.success</code> for success feedback and <code>notification.error</code> for failure feedback.</li>
 <li>Close the drawer/modal on success via <code>setDrawerProps({ open: false })</code>.</li>
 <li>Call <code>props.onSuccess?.()</code> so the parent can refresh the list.</li>
@@ -493,7 +493,7 @@
 <li>Use the same <code>UserForm</code> component for both create and update — the <code>id</code> prop determines the mode.</li>
 <li>Fetch current values on the page/component that opens the drawer, then pass them as <code>initialValues</code>.</li>
 <li>Make update API fields optional (<code>z.string().optional()</code>) so partial updates work.</li>
-<li>Use <code>Form.faas</code> <code>params</code> function to conditionally include <code>id</code> for updates.</li>
+<li>Use the <code>Form</code> <code>faas.params</code> function to conditionally include <code>id</code> for updates.</li>
 </ul>
 <h2 id="delete-pattern" tabindex="-1">Delete Pattern</h2>
 <p>Use a modal confirmation for destructive actions. Call <code>faas</code> imperatively in the <code>onOk</code> handler.</p>
@@ -570,7 +570,7 @@
 <p><strong>Rules for delete:</strong></p>
 <ul>
 <li>Use <code>setModalProps</code> from <code>useApp()</code> for modal confirmation.</li>
-<li>Call <code>faas</code> imperatively inside the <code>onOk</code> handler — not <code>Form.faas</code>.</li>
+<li>Call <code>faas</code> imperatively inside the <code>onOk</code> handler — not the <code>Form</code> <code>faas</code> prop.</li>
 <li>Always fetch the record first and return <code>404</code> if not found.</li>
 <li>On success, close modal, show <code>message.success</code>, and call <code>onSuccess</code> to refresh the parent.</li>
 </ul>
@@ -790,7 +790,7 @@
 <h3 id="3.-copy-paste-the-combined-form" tabindex="-1">3. Copy-paste the combined form</h3>
 <p>The <code>UserForm</code> pattern with <code>id</code>-based mode switching (create vs update) is reusable. Generate one combined form instead of separate create/update components.</p>
 <h3 id="4.-generate-list-%2B-drawer-wiring-in-one-go" tabindex="-1">4. Generate list + drawer wiring in one go</h3>
-<pre><code class="hljs language-text">Prompt: &quot;Create features/products/index.tsx with a Table.faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
+<pre><code class="hljs language-text">Prompt: &quot;Create features/products/index.tsx with a Table faasData list, search button, create button that opens a drawer with ProductForm, and an actions column with detail/edit/delete. Use the shared items from useProductItems.&quot;
 </code></pre>
 <p>One prompt covers the feature entry, table, drawer wiring, and action column.</p>
 <h3 id="5.-batch-api-tests" tabindex="-1">5. Batch API tests</h3>
@@ -805,9 +805,9 @@
 <ol>
 <li>Use shared <code>items</code> in a <code>use&lt;Feature&gt;Items</code> hook as the single source of truth for business fields across <code>Form</code>, <code>Table</code>, and <code>Description</code>.</li>
 <li>Name API files with the CRUD action (<code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>) and place them under <code>&lt;feature&gt;/api/</code>.</li>
-<li>Use <code>Form.faas</code> for create/update submissions — it handles loading, validation, and error feedback automatically.</li>
-<li>Use <code>Table.faasData</code> for list fetches — it handles loading, error, and re-fetch on params change.</li>
-<li>Use <code>Description.faasData</code> for detail fetches.</li>
+<li>Use the <code>Form</code> <code>faas</code> prop for create/update submissions — it handles loading, validation, and error feedback automatically.</li>
+<li>Use the <code>Table</code> <code>faasData</code> prop for list fetches — it handles loading, error, and re-fetch on params change.</li>
+<li>Use the <code>Description</code> <code>faasData</code> prop for detail fetches.</li>
 <li>Use a combined <code>UserForm</code> component with an <code>id</code> prop to switch between create and update modes.</li>
 <li>Use <code>faas</code> imperatively for delete and other one-off mutations.</li>
 <li>Close overlays and refresh the affected surface after every mutation.</li>
@@ -828,9 +828,9 @@
 <li>[ ] List API returns <code>{ rows, total }</code> shape</li>
 <li>[ ] Detail/update/remove APIs check for existence and return <code>404</code> when not found</li>
 <li>[ ] Create/update APIs check for duplicates and return <code>409</code> on conflict</li>
-<li>[ ] <code>Table.faasData</code> drives the list with search/filter params</li>
-<li>[ ] <code>Description.faasData</code> drives the detail view</li>
-<li>[ ] <code>Form.faas</code> drives create/update with <code>id</code>-based mode switching</li>
+<li>[ ] <code>Table</code> <code>faasData</code> drives the list with search/filter params</li>
+<li>[ ] <code>Description</code> <code>faasData</code> drives the detail view</li>
+<li>[ ] <code>Form</code> <code>faas</code> drives create/update with <code>id</code>-based mode switching</li>
 <li>[ ] <code>faas</code> + modal confirmation drives delete</li>
 <li>[ ] Mutations provide feedback (<code>message.success</code>, <code>notification.error</code>)</li>
 <li>[ ] Mutations close overlays and call <code>onSuccess</code> to refresh the parent</li>

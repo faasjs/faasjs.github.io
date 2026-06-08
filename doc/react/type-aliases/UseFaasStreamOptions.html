@@ -65,14 +65,47 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / UseFaasStreamOptions</p>
 <h1 id="type-alias%3A-usefaasstreamoptions" tabindex="-1">Type Alias: UseFaasStreamOptions</h1>
 <blockquote>
-<p><strong>UseFaasStreamOptions</strong> = <code>SharedUseFaasOptions</code>&lt;<code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;, <code>string</code>&gt;</p>
+<p><strong>UseFaasStreamOptions</strong> = <code>object</code></p>
 </blockquote>
 <p>Options that customize the <a href="/doc/react/functions/useFaasStream.html">useFaasStream</a> request lifecycle.</p>
-<p>Extends the shared request options so stream consumers can control params,
-skip logic, debounce timing, polling, and base URL overrides the same way
-<a href="/doc/react/functions/useFaas.html">useFaas</a> does.</p>
-<h2 id="see" tabindex="-1">See</h2>
-<p>SharedUseFaasOptions for a full description of each field.</p>
+<p>Stream consumers can control params, skip logic, debounce timing, polling,
+and base URL overrides the same way <a href="/doc/react/functions/useFaas.html">useFaas</a> does.</p>
+<h2 id="properties" tabindex="-1">Properties</h2>
+<h3 id="baseurl%3F" tabindex="-1">baseUrl?</h3>
+<blockquote>
+<p><code>optional</code> <strong>baseUrl?</strong>: <a href="/doc/react/type-aliases/BaseUrl.html"><code>BaseUrl</code></a></p>
+</blockquote>
+<p>Base URL override used for this stream request lifecycle.</p>
+<h3 id="data%3F" tabindex="-1">data?</h3>
+<blockquote>
+<p><code>optional</code> <strong>data?</strong>: <code>string</code></p>
+</blockquote>
+<p>Controlled stream text used instead of internal hook state.</p>
+<h3 id="debounce%3F" tabindex="-1">debounce?</h3>
+<blockquote>
+<p><code>optional</code> <strong>debounce?</strong>: <code>number</code></p>
+</blockquote>
+<p>Milliseconds to wait before opening the latest stream request.</p>
+<h3 id="params%3F" tabindex="-1">params?</h3>
+<blockquote>
+<p><code>optional</code> <strong>params?</strong>: <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+</blockquote>
+<p>Controlled params override sent with the request without mutating local params state.</p>
+<h3 id="polling%3F" tabindex="-1">polling?</h3>
+<blockquote>
+<p><code>optional</code> <strong>polling?</strong>: <code>number</code> | <code>false</code></p>
+</blockquote>
+<p>Milliseconds to wait after each completed stream before refreshing in the background.</p>
+<h3 id="setdata%3F" tabindex="-1">setData?</h3>
+<blockquote>
+<p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;</p>
+</blockquote>
+<p>Controlled setter paired with <code>data</code>.</p>
+<h3 id="skip%3F" tabindex="-1">skip?</h3>
+<blockquote>
+<p><code>optional</code> <strong>skip?</strong>: <code>boolean</code> | ((<code>params</code>) =&gt; <code>boolean</code>)</p>
+</blockquote>
+<p>Boolean or predicate that suppresses the automatic stream request.</p>
 </div></div>
           </div>
           

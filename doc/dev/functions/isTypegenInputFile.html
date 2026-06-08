@@ -68,6 +68,9 @@
 <p><strong>isTypegenInputFile</strong>(<code>filePath</code>): <code>boolean</code></p>
 </blockquote>
 <p>Determine whether a file change should trigger Faas type generation.</p>
+<p>API files affect route declarations directly. <code>faas.yaml</code> and <code>faas.yml</code> files
+can affect the resolved server root, so watchers should treat them as typegen
+inputs as well.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="filepath" tabindex="-1">filePath</h3>
 <p><code>string</code></p>

@@ -82,8 +82,21 @@ typed as <code>Record&lt;string, never&gt;</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options" tabindex="-1">options</h3>
 <p><code>Omit</code>&lt;<a href="/doc/jobs/type-aliases/DefineJobOptions.html"><code>DefineJobOptions</code></a>&lt;<code>TSchema</code>, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;, <code>&quot;handler&quot;</code>&gt; &amp; <code>object</code></p>
+<p>Job schema, defaults, cron rules, retry strategy, and handler.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/jobs/classes/Job.html"><code>Job</code></a>&lt;<code>TSchema</code>, <code>TContext</code>, <code>Awaited</code>&lt;<code>ReturnType</code>&lt;<code>THandler</code>&gt;&gt;&gt;</p>
+<p>A <a href="/doc/jobs/classes/Job.html">Job</a> instance with normalized queue, retry, and cron metadata.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({ <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>() }),
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params, job, attempt, logger }</span>) {
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Sync %s from job %s attempt %s&#x27;</span>, params.<span class="hljs-property">userId</span>, job.<span class="hljs-property">id</span>, attempt)
+  },
+})
+</code></pre>
 </div></div>
           </div>
           

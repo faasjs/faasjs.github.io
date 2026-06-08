@@ -80,6 +80,7 @@
 <li>Use equal memo hooks for object, array, or function dependencies.</li>
 <li>Reach for state, context, and rendering helpers only when they solve a specific problem.</li>
 <li>Keep data-fetching choices explicit; read <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a> for request flows.</li>
+<li>Receive component inputs as <code>props</code> and read <code>props.xxx</code>; destructure hook returns or local objects inside the body when it improves readability.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-avoid-native-useeffect-by-default" tabindex="-1">1. Avoid native <code>useEffect</code> by default</h3>
@@ -89,8 +90,8 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DisplayName</span>(<span class="hljs-params">{ firstName, lastName }: <span class="hljs-title class_">Props</span></span>) {
-  <span class="hljs-keyword">const</span> fullName = <span class="hljs-string">`<span class="hljs-subst">${firstName}</span> <span class="hljs-subst">${lastName}</span>`</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DisplayName</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
+  <span class="hljs-keyword">const</span> fullName = <span class="hljs-string">`<span class="hljs-subst">${props.firstName}</span> <span class="hljs-subst">${props.lastName}</span>`</span>
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{fullName}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
@@ -100,12 +101,12 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DisplayName</span>(<span class="hljs-params">{ firstName, lastName }: <span class="hljs-title class_">Props</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DisplayName</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
   <span class="hljs-keyword">const</span> [fullName, setFullName] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)
 
   <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> {
-    <span class="hljs-title function_">setFullName</span>(<span class="hljs-string">`<span class="hljs-subst">${firstName}</span> <span class="hljs-subst">${lastName}</span>`</span>)
-  }, [firstName, lastName])
+    <span class="hljs-title function_">setFullName</span>(<span class="hljs-string">`<span class="hljs-subst">${props.firstName}</span> <span class="hljs-subst">${props.lastName}</span>`</span>)
+  }, [props.<span class="hljs-property">firstName</span>, props.<span class="hljs-property">lastName</span>])
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{fullName}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
@@ -115,12 +116,12 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">page</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">tags</span>: <span class="hljs-built_in">string</span>[] }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Logger</span>(<span class="hljs-params">{ page, tags }: <span class="hljs-title class_">Props</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Logger</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
   <span class="hljs-title function_">useEqualEffect</span>(<span class="hljs-function">() =&gt;</span> {
-    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;filters changed&#x27;</span>, { page, tags })
-  }, [page, tags])
+    logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;filters changed&#x27;</span>, { <span class="hljs-attr">page</span>: props.<span class="hljs-property">page</span>, <span class="hljs-attr">tags</span>: props.<span class="hljs-property">tags</span> })
+  }, [props.<span class="hljs-property">page</span>, props.<span class="hljs-property">tags</span>])
 
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Current page: {page}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Current page: {props.page}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
 </code></pre>
 <ul>
@@ -134,8 +135,8 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">filters</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">QueryPreview</span>(<span class="hljs-params">{ filters }: <span class="hljs-title class_">Props</span></span>) {
-  <span class="hljs-keyword">const</span> query = <span class="hljs-title function_">useEqualMemo</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(filters), [filters])
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">QueryPreview</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
+  <span class="hljs-keyword">const</span> query = <span class="hljs-title function_">useEqualMemo</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(props.<span class="hljs-property">filters</span>), [props.<span class="hljs-property">filters</span>])
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Query: {query}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
@@ -145,10 +146,10 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">onSearch</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">query</span>: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>; <span class="hljs-attr">filters</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchButton</span>(<span class="hljs-params">{ onSearch, filters }: <span class="hljs-title class_">Props</span></span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchButton</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
   <span class="hljs-keyword">const</span> handleSearch = <span class="hljs-title function_">useEqualCallback</span>(
-    <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">onSearch</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(filters)),
-    [filters, onSearch],
+    <span class="hljs-function">() =&gt;</span> props.<span class="hljs-title function_">onSearch</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(props.<span class="hljs-property">filters</span>)),
+    [props.<span class="hljs-property">filters</span>, props.<span class="hljs-property">onSearch</span>],
   )
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{handleSearch}</span>&gt;</span>Search<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
@@ -159,8 +160,8 @@
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">filters</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchPanel</span>(<span class="hljs-params">{ filters }: <span class="hljs-title class_">Props</span></span>) {
-  <span class="hljs-keyword">const</span> stableFilters = <span class="hljs-title function_">useEqualMemoize</span>(filters)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchPanel</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
+  <span class="hljs-keyword">const</span> stableFilters = <span class="hljs-title function_">useEqualMemoize</span>(props.<span class="hljs-property">filters</span>)
 
   <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Stable: {JSON.stringify(stableFilters)}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
@@ -257,10 +258,15 @@
 <h3 id="6.-use-rendering-helpers-at-composition-boundaries" tabindex="-1">6. Use rendering helpers at composition boundaries</h3>
 <p><code>OptionalWrapper</code>: same children sometimes need a wrapper and sometimes render directly.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OptionalWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Card</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Widget</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { wrapper?: <span class="hljs-built_in">boolean</span>; children: React.ReactNode }</span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">OptionalWrapper</span> <span class="hljs-attr">wrapper</span>=<span class="hljs-string">{props.wrapper}</span> <span class="hljs-attr">renderWrapper</span>=<span class="hljs-string">{(children)</span> =&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">Card</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">Card</span>&gt;</span>}&gt;
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">OptionalWrapper</span>
+      <span class="hljs-attr">condition</span>=<span class="hljs-string">{Boolean(props.wrapper)}</span>
+      <span class="hljs-attr">Wrapper</span>=<span class="hljs-string">{Card}</span>
+      <span class="hljs-attr">wrapperProps</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">size:</span> &#x27;<span class="hljs-attr">small</span>&#x27; }}
+    &gt;</span>
       {props.children}
     <span class="hljs-tag">&lt;/<span class="hljs-name">OptionalWrapper</span>&gt;</span></span>
   )
@@ -269,10 +275,10 @@
 <p><code>ErrorBoundary</code>: unstable widgets, remote content, or feature islands where local failure should not break the whole page.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorBoundary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SafeWidget</span>(<span class="hljs-params">{ content }: { content: <span class="hljs-built_in">string</span> }</span>) {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SafeWidget</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { content: <span class="hljs-built_in">string</span> }</span>) {
   <span class="hljs-keyword">return</span> (
     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ErrorBoundary</span> <span class="hljs-attr">errorChildren</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Something went wrong<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>}&gt;
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{content}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.content}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">ErrorBoundary</span>&gt;</span></span>
   )
 }

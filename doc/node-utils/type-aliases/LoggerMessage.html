@@ -68,17 +68,21 @@
 <p><strong>LoggerMessage</strong> = <code>object</code></p>
 </blockquote>
 <p>Serialized log entry sent to transport handlers.</p>
+<p><a href="/doc/node-utils/classes/Logger.html">Logger</a> creates these messages after formatting and before writing to
+stdout or stderr.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="extra%3F" tabindex="-1">extra?</h3>
 <blockquote>
 <p><code>optional</code> <strong>extra?</strong>: <code>any</code>[]</p>
 </blockquote>
-<p>Original extra values forwarded alongside the formatted message.</p>
+<p>Original extra values forwarded alongside the formatted message, including
+hidden metadata such as timer performance data.</p>
 <h3 id="labels" tabindex="-1">labels</h3>
 <blockquote>
 <p><strong>labels</strong>: <code>string</code>[]</p>
 </blockquote>
-<p>Label segments captured from the logger.</p>
+<p>Label segments captured from the logger label.</p>
+<p>A label such as <code>app] [config</code> becomes <code>['app', 'config']</code>.</p>
 <h3 id="level" tabindex="-1">level</h3>
 <blockquote>
 <p><strong>level</strong>: <a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a></p>

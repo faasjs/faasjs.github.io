@@ -68,10 +68,15 @@
 <p><strong>PgVitestPlugin</strong>(): <code>Plugin</code></p>
 </blockquote>
 <p>Creates the Vitest plugin that wires <code>@faasjs/pg-dev</code> into the test runner.</p>
-<p>The plugin registers a lazy setup module for each enabled project. The first <code>await getClient()</code>
-in a test file starts PGlite, runs migrations from <code>./src/db/migrations</code>, backfills
-<code>process.env.DATABASE_URL</code>, and later <code>beforeEach</code> hooks clear table contents before each test.</p>
-<p>By default the plugin skips browser-like projects such as <code>jsdom</code> and <code>happy-dom</code>.</p>
+<p>The plugin prepends a generated setup module for each enabled Vitest project. That setup
+module registers a lazy database bootstrap instead of starting PGlite during config load:
+the first default <code>await getClient()</code> in a test file starts PGlite, runs migrations from
+<code>./src/db/migrations</code>, backfills <code>process.env.DATABASE_URL</code>, and creates the cached
+<code>@faasjs/pg</code> client. Later <code>beforeEach</code> hooks close cached clients and clear table contents
+before each test while preserving the migrations tracking table.</p>
+<p>By default the plugin skips browser-like projects such as <code>jsdom</code> and <code>happy-dom</code>. Existing
+<code>setupFiles</code> are preserved and the generated setup module is deduplicated if Vitest config
+hooks run more than once.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Plugin</code></p>
 <p>Vitest/Vite plugin instance.</p>

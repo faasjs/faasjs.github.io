@@ -177,12 +177,14 @@ vp dev
 <p>After scaffolding, the script automatically runs:</p>
 <ol>
 <li><code>npm install</code> — Installs dependencies.</li>
+<li><code>npm run types</code> — Generates FaasJS action route declarations.</li>
 <li><code>npm run test</code> — Runs the initial test suite to verify the setup.</li>
 </ol>
 <p>To run these steps manually after creation:</p>
 <pre><code class="hljs language-bash"><span class="hljs-built_in">cd</span> &lt;project-name&gt;
 npm install
-npx faas types
+npm run types
+npm run <span class="hljs-built_in">test</span>
 </code></pre>
 <h2 id="migration-commands" tabindex="-1">Migration Commands</h2>
 <p>Provided by <code>@faasjs/pg</code> as the <code>faasjs-pg</code> binary.</p>
@@ -231,7 +233,7 @@ npx faas types
 <p>Example:</p>
 <pre><code class="hljs language-bash">DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg migrate
 DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg sql <span class="hljs-string">&quot;SELECT 1&quot;</span>
-DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_users_table
+DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add-users-table
 </code></pre>
 <h2 id="type-generation-workflow" tabindex="-1">Type Generation Workflow</h2>
 <p>Keep type declarations in sync with your API routes:</p>
@@ -245,7 +247,7 @@ DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add_users_table
 <p>The generated file is written to <code>src/.faasjs/types.d.ts</code>.</p>
 </li>
 <li>
-<p>The output declares a <code>FaasActions</code> interface via module augmentation on <code>@faasjs/types</code>, providing typed <code>InferFaasAction</code> and <code>InferFaasApi</code> for every route.</p>
+<p>The output declares a <code>FaasActions</code> interface via module augmentation on <code>@faasjs/types</code>, using <code>InferFaasAction</code> for every route.</p>
 </li>
 <li>
 <p><code>faas types</code> is idempotent: it compares the generated content against the existing file and only writes when something changed.</p>
@@ -406,7 +408,7 @@ npx faas types --root /path/to/project
 </tr>
 <tr>
 <td><code>vite.config.ts</code></td>
-<td>Vite/Vitest configuration, uses <code>viteConfig</code> from <code>@faasjs/dev</code></td>
+<td>Vite/Vitest configuration, uses <code>ViteConfig</code> from <code>@faasjs/dev</code></td>
 </tr>
 <tr>
 <td><code>.env</code></td>

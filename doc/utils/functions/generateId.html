@@ -68,6 +68,8 @@
 <p><strong>generateId</strong>(<code>prefix?</code>, <code>length?</code>): <code>string</code></p>
 </blockquote>
 <p>Generate a random identifier with an optional prefix.</p>
+<p>The identifier is built from the current timestamp and <code>Math.random()</code>. It is useful for
+local correlation IDs and temporary names, not for secrets or security tokens.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="prefix%3F" tabindex="-1">prefix?</h3>
 <p><code>string</code> = <code>''</code></p>

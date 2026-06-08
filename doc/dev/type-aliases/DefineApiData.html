@@ -69,7 +69,9 @@
 </blockquote>
 <p>Handler data passed to <a href="/doc/dev/functions/defineApi.html">defineApi</a>.</p>
 <p>Extends the normal invoke data with validated <code>params</code>, <code>cookie</code>, <code>session</code>,
-and any plugin-provided fields declared through <code>DefineApiInject</code>.</p>
+and any plugin-provided fields declared through <code>DefineApiInject</code>. The built-in
+HTTP plugin augments this type with <code>headers</code>, <code>body</code>, <code>setHeader</code>,
+<code>setContentType</code>, <code>setStatusCode</code>, and <code>setBody</code>.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="cookie" tabindex="-1">cookie</h3>
 <blockquote>

@@ -64,6 +64,62 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/dev</p>
 <h1 id="%40faasjs%2Fdev" tabindex="-1">@faasjs/dev</h1>
+<h1 id="%40faasjs%2Fdev-1" tabindex="-1">@faasjs/dev</h1>
+<p>FaasJS development toolkit for local servers, generated route types, and test helpers.</p>
+<p><a href="https://github.com/faasjs/faasjs/blob/main/packages/dev/LICENSE" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/l/@faasjs/dev.svg" alt="License: MIT"></a>
+<a href="https://www.npmjs.com/package/@faasjs/dev" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/v/@faasjs/dev.svg" alt="NPM Version"></a></p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install -D @faasjs/dev
+</code></pre>
+<h2 id="features" tabindex="-1">Features</h2>
+<ul>
+<li><code>viteFaasJsServer()</code> runs a FaasJS server inside Vite during local development.</li>
+<li><code>ViteConfig</code> bundles the standard FaasJS React and Vite Plus defaults.</li>
+<li><code>OxfmtConfig</code> and <code>OxlintConfig</code> expose the shared FaasJS formatting and lint rules.</li>
+<li><code>generateFaasTypes()</code> emits route declarations for <code>@faasjs/types</code>.</li>
+<li><code>testApi()</code> and <a href="/doc/dev/classes/ApiTester.html">ApiTester</a> help invoke and assert FaasJS APIs in tests.</li>
+</ul>
+<h2 id="usage%3A-shared-vite-preset" tabindex="-1">Usage: Shared Vite Preset</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViteConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
+  ...<span class="hljs-title class_">ViteConfig</span>,
+})
+</code></pre>
+<h2 id="usage%3A-manual-vite-integration" tabindex="-1">Usage: Manual Vite Integration</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { viteFaasJsServer, <span class="hljs-title class_">OxfmtConfig</span>, <span class="hljs-title class_">OxlintConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> react <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vitejs/plugin-react&#x27;</span>
+<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>({
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">react</span>(), <span class="hljs-title function_">viteFaasJsServer</span>()],
+  <span class="hljs-attr">fmt</span>: <span class="hljs-title class_">OxfmtConfig</span>,
+  <span class="hljs-attr">lint</span>: <span class="hljs-title class_">OxlintConfig</span>,
+})
+</code></pre>
+<h2 id="usage%3A-type-generation" tabindex="-1">Usage: Type Generation</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { generateFaasTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">generateFaasTypes</span>()
+</code></pre>
+<h2 id="usage%3A-test-helpers" tabindex="-1">Usage: Test Helpers</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { testApi } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+<span class="hljs-keyword">import</span> api <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../demo.api&#x27;</span>
+
+<span class="hljs-keyword">const</span> handler = <span class="hljs-title function_">testApi</span>(api)
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">handler</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;FaasJS&#x27;</span> })
+
+<span class="hljs-title function_">expect</span>(response.<span class="hljs-property">statusCode</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>)
+<span class="hljs-title function_">expect</span>(response.<span class="hljs-property">data</span>).<span class="hljs-title function_">toEqual</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello, FaasJS&#x27;</span> })
+</code></pre>
+<h2 id="api" tabindex="-1">API</h2>
+<ul>
+<li>Vite: <a href="/doc/dev/functions/viteFaasJsServer.html">viteFaasJsServer</a></li>
+<li>Config: <a href="/doc/dev/variables/ViteConfig.md">ViteConfig</a>, <a href="/doc/dev/variables/OxfmtConfig.md">OxfmtConfig</a>, <a href="/doc/dev/variables/OxlintConfig.md">OxlintConfig</a></li>
+<li>Typegen: <a href="/doc/dev/functions/generateFaasTypes.html">generateFaasTypes</a>, <a href="/doc/dev/functions/isTypegenInputFile.html">isTypegenInputFile</a></li>
+<li>Test: <a href="/doc/dev/functions/testApi.html">testApi</a>, <a href="/doc/dev/classes/ApiTester.html">ApiTester</a></li>
+</ul>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/dev/functions/closeAll.html">closeAll</a></li>
@@ -113,6 +169,9 @@
 <li><a href="/doc/dev/type-aliases/HttpSetHeader.html">HttpSetHeader</a></li>
 <li><a href="/doc/dev/type-aliases/HttpSetStatusCode.html">HttpSetStatusCode</a></li>
 <li><a href="/doc/dev/type-aliases/InvokeData.html">InvokeData</a></li>
+<li><a href="/doc/dev/type-aliases/JsonHandlerBody.html">JsonHandlerBody</a></li>
+<li><a href="/doc/dev/type-aliases/JsonHandlerOptions.html">JsonHandlerOptions</a></li>
+<li><a href="/doc/dev/type-aliases/JsonHandlerResult.html">JsonHandlerResult</a></li>
 <li><a href="/doc/dev/type-aliases/LifecycleKey.md">LifecycleKey</a></li>
 <li><a href="/doc/dev/type-aliases/Middleware.html">Middleware</a></li>
 <li><a href="/doc/dev/type-aliases/MiddlewareContext.html">MiddlewareContext</a></li>
@@ -127,6 +186,7 @@
 <li><a href="/doc/dev/type-aliases/SessionContent.html">SessionContent</a></li>
 <li><a href="/doc/dev/type-aliases/SessionOptions.html">SessionOptions</a></li>
 <li><a href="/doc/dev/type-aliases/StaticHandlerOptions.html">StaticHandlerOptions</a></li>
+<li><a href="/doc/dev/type-aliases/TestApiHandler.html">TestApiHandler</a></li>
 </ul>
 <h2 id="variables" tabindex="-1">Variables</h2>
 <ul>

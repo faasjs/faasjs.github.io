@@ -70,8 +70,8 @@
 <p>Extended Zod instance with custom helpers.</p>
 <p>Currently includes:</p>
 <ul>
-<li><code>positiveint()</code>: A helper that returns a Zod schema for positive integers.</li>
-<li><code>nonemptystring()</code>: A helper that returns a Zod schema for non-empty strings.</li>
+<li><code>positiveint()</code>: returns <code>z.int().gt(0)</code>.</li>
+<li><code>nonemptystring()</code>: returns <code>z.string().min(1)</code>.</li>
 </ul>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>

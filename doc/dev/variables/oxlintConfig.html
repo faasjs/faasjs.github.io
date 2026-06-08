@@ -73,7 +73,8 @@ plugins with type-aware checking. The most opinionated rule is
 <a href="https://oxc.rs/docs/guide/usage/linter/rules/eslint/no-unused-vars.html" target="_blank" rel="noopener noreferrer" class="external-link">no-unused-vars</a>
 with <code>argsIgnorePattern: '^_'</code>, while
 <a href="https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-type-imports.html" target="_blank" rel="noopener noreferrer" class="external-link">consistent-type-imports</a>
-enforces <code>type</code>-only imports.</p>
+enforces <code>type</code>-only imports.
+Generated output under <code>dist/</code>, <code>.faasjs/</code>, and <code>node_modules/</code> is ignored by default.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">OxlintConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>

@@ -65,8 +65,11 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / AppProps</p>
 <h1 id="interface%3A-appprops" tabindex="-1">Interface: AppProps</h1>
 <p>Props for the root <a href="/doc/ant-design/functions/App.html">App</a> shell.</p>
-<p><code>App</code> composes the Ant Design provider tree, FaasJS config provider, shared modal and drawer
-state, and optional browser routing into a single wrapper component.</p>
+<p><code>App</code> composes Ant Design feedback APIs, the FaasJS Ant Design config layer,
+shared modal and drawer state, error handling, and optional browser routing
+into a single wrapper component. Use <code>configProviderProps</code> for Ant Design's
+own <code>ConfigProvider</code>; use <code>faasConfigProviderProps</code> for the FaasJS
+<code>ConfigProvider</code> exported by this package.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="browserrouterprops%3F" tabindex="-1">browserRouterProps?</h3>
 <blockquote>
@@ -86,6 +89,8 @@ state, and optional browser routing into a single wrapper component.</p>
 <p><code>optional</code> <strong>configProviderProps?</strong>: <code>ConfigProviderProps</code></p>
 </blockquote>
 <p>Props forwarded to Ant Design's <code>ConfigProvider</code>.</p>
+<p>Omit this prop when you do not need Ant Design token, locale, direction, or
+component config overrides from this root shell.</p>
 <h4 id="see-1" tabindex="-1">See</h4>
 <p><a href="https://ant.design/components/config-provider/#API" target="_blank" rel="noopener noreferrer" class="external-link">Ant Design ConfigProvider API</a></p>
 <h3 id="errorboundaryprops%3F" tabindex="-1">errorBoundaryProps?</h3>
@@ -99,7 +104,10 @@ state, and optional browser routing into a single wrapper component.</p>
 <blockquote>
 <p><code>optional</code> <strong>faasConfigProviderProps?</strong>: <code>false</code> | <code>Omit</code>&lt;<a href="/doc/ant-design/interfaces/ConfigProviderProps.html"><code>ConfigProviderProps</code></a>, <code>&quot;children&quot;</code>&gt;</p>
 </blockquote>
-<p>Props forwarded to <a href="/doc/ant-design/functions/ConfigProvider.html">ConfigProvider</a>, or <code>false</code> to skip the FaasJS config layer.</p>
+<p>Props forwarded to the FaasJS Ant Design <a href="/doc/ant-design/functions/ConfigProvider.html">ConfigProvider</a>.</p>
+<p><code>App</code> still mounts the FaasJS config layer so descendants can read theme
+defaults. Pass <code>false</code> to use only the built-in defaults and App's default
+<code>onError</code> handler.</p>
 <h4 id="see-3" tabindex="-1">See</h4>
 <p><a href="https://faasjs.com/doc/ant-design/#configprovider" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS Ant Design ConfigProvider docs</a></p>
 </div></div>

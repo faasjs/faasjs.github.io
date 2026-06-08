@@ -80,7 +80,9 @@
 <p><code>ReadableStream</code>&lt;<code>Uint8Array</code>&lt;<code>ArrayBufferLike</code>&gt;&gt;</p>
 <p>Readable stream containing the JSON payload.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
-<p>If the value cannot be serialized to JSON.</p>
+<p>If <code>JSON.stringify</code> cannot serialize the value, such as circular objects.</p>
+<p>Values follow native <code>JSON.stringify</code> semantics. Unsupported top-level values such as
+<code>undefined</code> can serialize to an empty stream.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { objectToStream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 

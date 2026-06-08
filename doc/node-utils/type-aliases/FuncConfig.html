@@ -68,6 +68,9 @@
 <p><strong>FuncConfig</strong> = <code>object</code></p>
 </blockquote>
 <p>Resolved stage config merged from matching <code>faas.yaml</code> files.</p>
+<p>Unknown fields are preserved so applications and plugins can store their own
+stage-specific config. <code>server.root</code> and <code>server.base</code>, when present, must be
+strings.</p>
 <h2 id="indexable" tabindex="-1">Indexable</h2>
 <blockquote>
 <p>[<code>key</code>: <code>string</code>]: <code>any</code></p>

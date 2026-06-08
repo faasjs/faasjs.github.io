@@ -64,17 +64,31 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / FaasBrowserClient</p>
 <h1 id="class%3A-faasbrowserclient" tabindex="-1">Class: FaasBrowserClient</h1>
-<p>Browser client for FaasJS - provides HTTP client functionality for making API requests from web applications.</p>
+<p>Browser client for FaasJS action requests from web applications.</p>
 <p>Handles request URL construction, default and per-request option merging,
-before-request hooks, mock resolution for testing, and native fetch dispatching.</p>
+before-request hooks, mock resolution for testing, and native fetch dispatching.
+When a global mock is configured with <code>setMock</code>, the mock response wins
+over both native <code>fetch</code> and a custom <code>request</code> option.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasBrowserClient</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
+    <span class="hljs-string">&#x27;posts/get&#x27;</span>: {
+      <span class="hljs-title class_">Params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }
+      <span class="hljs-title class_">Data</span>: { <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }
+    }
+  }
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">GetPostAction</span> = <span class="hljs-string">&#x27;posts/get&#x27;</span>
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FaasBrowserClient</span>(<span class="hljs-string">&#x27;https://api.example.com/&#x27;</span>, {
   <span class="hljs-attr">headers</span>: { <span class="hljs-string">&#x27;X-Custom-Header&#x27;</span>: <span class="hljs-string">&#x27;value&#x27;</span> },
 })
 
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">action</span>(<span class="hljs-string">&#x27;posts/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-property">action</span>&lt;<span class="hljs-title class_">GetPostAction</span>&gt;(<span class="hljs-string">&#x27;posts/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
+
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>)
 </code></pre>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
@@ -107,7 +121,7 @@ consume the body stream themselves.</p>
 <h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
 <h5 id="path" tabindex="-1">Path</h5>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
-<p>Action path used to infer the request params and response data types.</p>
+<p>Registered action path used to infer request params and response data.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="action" tabindex="-1">action</h5>
 <p><code>Path</code></p>
@@ -129,6 +143,7 @@ consume the body stream themselves.</p>
 <p><strong>baseUrl</strong>: <code>`${string}/`</code></p>
 </blockquote>
 <p>Base URL used to build action request URLs.</p>
+<p>The action path is appended directly to this value, so it always ends with <code>/</code>.</p>
 <h3 id="defaultoptions" tabindex="-1">defaultOptions</h3>
 <blockquote>
 <p><strong>defaultOptions</strong>: <a href="/doc/react/type-aliases/Options.html"><code>Options</code></a></p>

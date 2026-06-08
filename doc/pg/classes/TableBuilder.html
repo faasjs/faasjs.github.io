@@ -66,7 +66,8 @@
 <h1 id="class%3A-tablebuilder" tabindex="-1">Class: TableBuilder</h1>
 <p>Builder for table schema definitions, supporting both CREATE and ALTER TABLE modes.</p>
 <p>Column definitions and alterations are accumulated and then serialized to SQL
-via <a href="#tosql">toSQL</a>.</p>
+via <a href="#tosql">toSQL</a>. Generated identifiers are escaped; raw SQL added with <a href="#raw">raw</a>
+is emitted unchanged and should only contain trusted schema text.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -149,6 +150,7 @@ the auto-generated naming convention <code>idx_{tableName}_{columns}</code>.</p>
 </blockquote>
 <p>Creates an index on one or more columns. The index name is auto-generated as
 <code>idx_{tableName}_{columns}</code>.</p>
+<p>Reusing the same generated name replaces the pending in-memory index definition.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
 <h5 id="columns-1" tabindex="-1">columns</h5>
 <p><code>string</code> | <code>string</code>[]</p>
@@ -185,6 +187,7 @@ the auto-generated naming convention <code>idx_{tableName}_{columns}</code>.</p>
 <p><strong>number</strong>(<code>name</code>, <code>precision?</code>, <code>scale?</code>): <code>ColumnBuilder</code></p>
 </blockquote>
 <p>Defines an <code>integer</code> column, or <code>decimal(precision, scale)</code> if precision is provided.</p>
+<p>When <code>precision</code> is provided and <code>scale</code> is omitted, the scale defaults to <code>0</code>.</p>
 <h4 id="parameters-9" tabindex="-1">Parameters</h4>
 <h5 id="name-6" tabindex="-1">name</h5>
 <p><code>string</code></p>
@@ -202,6 +205,8 @@ the auto-generated naming convention <code>idx_{tableName}_{columns}</code>.</p>
 <p><strong>raw</strong>(<code>sql</code>): <code>TableBuilder</code></p>
 </blockquote>
 <p>Appends a raw SQL fragment to the generated output.</p>
+<p>The fragment is emitted unchanged after generated table and index SQL. Only pass
+static, trusted schema SQL.</p>
 <h4 id="parameters-10" tabindex="-1">Parameters</h4>
 <h5 id="sql" tabindex="-1">sql</h5>
 <p><code>string</code></p>
@@ -228,6 +233,8 @@ In <code>alter</code> mode this stages a RENAME COLUMN operation.</p>
 <p><strong>specificType</strong>(<code>name</code>, <code>type</code>): <code>ColumnBuilder</code></p>
 </blockquote>
 <p>Defines a column with an explicit PostgreSQL type.</p>
+<p>Use this for types not covered by the convenience helpers, such as arrays or
+extension-provided types.</p>
 <h4 id="parameters-12" tabindex="-1">Parameters</h4>
 <h5 id="name-7" tabindex="-1">name</h5>
 <p><code>string</code></p>

@@ -68,6 +68,9 @@
 <p><strong>MockHandler</strong> = (<code>action</code>, <code>params</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/type-aliases/ResponseProps.html"><code>ResponseProps</code></a>&gt; | <code>Promise</code>&lt;<code>void</code>&gt; | <code>Promise</code>&lt;<code>Error</code>&gt;</p>
 </blockquote>
 <p>Mock handler function type for testing FaasJS requests.</p>
+<p>The handler receives the action path, request params, and fully resolved
+request options. Returning an <code>Error</code> makes the request reject with a
+response error; returning nothing creates an empty successful response.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="action" tabindex="-1">action</h3>
 <p><code>string</code></p>

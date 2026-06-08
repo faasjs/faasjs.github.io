@@ -68,6 +68,11 @@
 <p><strong>main</strong>(<code>argv</code>): <code>Promise</code>&lt;<code>Command</code>&gt;</p>
 </blockquote>
 <p>Run the <code>create-faas-app</code> CLI with a provided argv array.</p>
+<p>The array should use the same shape as <code>process.argv</code>, including executable
+and script slots. Parsing may prompt for a project name, create files, install
+dependencies, generate FaasJS action types, and run template tests. Commander
+help exits are swallowed and return the shared program; unexpected errors are
+printed with <code>console.error</code> and also return the program.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="argv" tabindex="-1">argv</h3>
 <p><code>string</code>[]</p>

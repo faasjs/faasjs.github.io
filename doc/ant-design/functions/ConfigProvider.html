@@ -69,7 +69,10 @@
 </blockquote>
 <p>Provide theme overrides and optional FaasJS client initialization for descendants.</p>
 <p>Theme overrides are merged with the built-in defaults. When <code>theme.lang</code> is omitted, the
-provider infers a default language from <code>navigator.language</code>.</p>
+provider infers a default language from <code>navigator.language</code>. This is the
+low-level FaasJS config boundary; the higher-level <code>App</code> component wraps it
+together with Ant Design feedback APIs, an error boundary, modal/drawer state,
+and optional routing.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/ConfigProviderProps.html"><code>ConfigProviderProps</code></a></p>

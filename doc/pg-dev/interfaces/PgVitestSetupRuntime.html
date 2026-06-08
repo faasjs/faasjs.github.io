@@ -65,6 +65,9 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg-dev/">Documents</a> / <a href="/doc/pg-dev/">@faasjs/pg-dev</a> / PgVitestSetupRuntime</p>
 <h1 id="interface%3A-pgvitestsetupruntime" tabindex="-1">Interface: PgVitestSetupRuntime</h1>
 <p>Runtime hooks provided by the Vitest project that <code>setupPgVitest</code> wires into.</p>
+<p>Pass Vitest's <code>afterAll</code> and <code>beforeEach</code> functions from the active setup module.
+<code>projectRoot</code> should point at the project whose <code>src/db/migrations</code> directory should
+be applied to the temporary database.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="afterall" tabindex="-1">afterAll</h3>
 <blockquote>
@@ -73,7 +76,7 @@
 <p>Lifecycle hook called once after all tests in the file finish.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="callback" tabindex="-1">callback</h5>
-<p>() =&gt; <code>Awaitable</code>&lt;<code>void</code>&gt;</p>
+<p>() =&gt; <code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="beforeeach" tabindex="-1">beforeEach</h3>
@@ -83,7 +86,7 @@
 <p>Lifecycle hook called before each test in the file.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="callback-1" tabindex="-1">callback</h5>
-<p>() =&gt; <code>Awaitable</code>&lt;<code>void</code>&gt;</p>
+<p>() =&gt; <code>void</code> | <code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>void</code></p>
 <h3 id="projectroot%3F" tabindex="-1">projectRoot?</h3>

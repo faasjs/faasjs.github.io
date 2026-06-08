@@ -69,10 +69,11 @@
 </blockquote>
 <p>Union of all declared action path string literals.</p>
 <p>Used internally by <a href="/doc/types/type-aliases/FaasParams.html">FaasParams</a> and <a href="/doc/types/type-aliases/FaasData.html">FaasData</a> to
-resolve parameter and response types by action path.</p>
+resolve parameter and response types by action path.
+Resolves to <code>never</code> until <code>FaasActions</code> is augmented, usually by the
+generated <code>src/.faasjs/types.d.ts</code> file being included in <code>tsconfig.json</code>.</p>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
-<li>FaasActions</li>
 <li><a href="/doc/types/type-aliases/FaasParams.html">FaasParams</a></li>
 <li><a href="/doc/types/type-aliases/FaasData.html">FaasData</a></li>
 </ul>

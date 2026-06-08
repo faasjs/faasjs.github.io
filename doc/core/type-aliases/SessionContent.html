@@ -68,6 +68,8 @@
 <p><strong>SessionContent</strong> = <code>string</code> | <code>number</code> | {[<code>key</code>: <code>string</code>]: <code>any</code>; } | <code>null</code> | <code>undefined</code></p>
 </blockquote>
 <p>Allowed payload values stored in the session cookie.</p>
+<p>Object-like payloads are the normal session shape. Direct string payloads can be
+encrypted by <code>encode()</code> but will not decode successfully unless they contain valid JSON.</p>
 </div></div>
           </div>
           

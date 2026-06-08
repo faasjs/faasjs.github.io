@@ -68,6 +68,8 @@
 <p><strong>OptionalWrapper</strong>(<code>props</code>): <code>string</code> | <code>number</code> | <code>bigint</code> | <code>boolean</code> | <code>Element</code> | <code>Iterable</code>&lt;<code>ReactNode</code>, <code>any</code>, <code>any</code>&gt; | <code>Promise</code>&lt;<code>AwaitedReactNode</code>&gt; | <code>null</code> | <code>undefined</code></p>
 </blockquote>
 <p>Conditionally wrap children with another component.</p>
+<p><code>Wrapper</code> is required for a stable component contract, but it is not rendered
+and does not receive <code>wrapperProps</code> when <code>condition</code> is <code>false</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/react/type-aliases/OptionalWrapperProps.html"><code>OptionalWrapperProps</code></a></p>
@@ -78,12 +80,12 @@
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OptionalWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">Wrapper</span> = (<span class="hljs-params">{ children }: { children: React.ReactNode }</span>) =&gt; (
-  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;wrapper&quot;</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">Wrapper</span> = (<span class="hljs-params">{ children, className }: { children: React.ReactNode; className: <span class="hljs-built_in">string</span> }</span>) =&gt; (
+  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">{className}</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 )
 
 <span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params"></span>) =&gt; (
-  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">OptionalWrapper</span> <span class="hljs-attr">condition</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">Wrapper</span>=<span class="hljs-string">{Wrapper}</span>&gt;</span>
+  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">OptionalWrapper</span> <span class="hljs-attr">condition</span>=<span class="hljs-string">{true}</span> <span class="hljs-attr">Wrapper</span>=<span class="hljs-string">{Wrapper}</span> <span class="hljs-attr">wrapperProps</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">className:</span> &#x27;<span class="hljs-attr">wrapper</span>&#x27; }}&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Test<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">OptionalWrapper</span>&gt;</span></span>
 )

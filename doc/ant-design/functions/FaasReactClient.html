@@ -69,7 +69,10 @@
 </blockquote>
 <p>Create and register a FaasReactClient instance.</p>
 <p>The returned client is stored by <code>baseUrl</code> and becomes the default client
-used by helpers such as <a href="/doc/ant-design/functions/faas.html">faas</a> and <a href="/doc/ant-design/functions/useFaas.html">useFaas</a>.</p>
+used by helpers such as <a href="/doc/ant-design/functions/faas.html">faas</a> and <a href="/doc/ant-design/functions/useFaas.html">useFaas</a>. The instance-bound
+<code>faas</code> and <code>useFaas</code> helpers inject this <code>baseUrl</code> when request options do
+not provide one; the instance-bound <code>FaasDataWrapper</code> is always bound to this
+<code>baseUrl</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/ant-design/type-aliases/FaasReactClientOptions.html"><code>FaasReactClientOptions</code></a> = <code>...</code></p>
@@ -79,6 +82,17 @@ used by helpers such as <a href="/doc/ant-design/functions/faas.html">faas</a> a
 <p>Registered FaasReactClient instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, <span class="hljs-title class_">ResponseError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
+  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
+    <span class="hljs-string">&#x27;features/users/api/get&#x27;</span>: {
+      <span class="hljs-title class_">Params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }
+      <span class="hljs-title class_">Data</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }
+    }
+  }
+}
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">GetUserAction</span> = <span class="hljs-string">&#x27;features/users/api/get&#x27;</span>
 
 <span class="hljs-keyword">const</span> client = <span class="hljs-title class_">FaasReactClient</span>({
   <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;http://localhost:8080/api/&#x27;</span>,
@@ -91,6 +105,8 @@ used by helpers such as <a href="/doc/ant-design/functions/faas.html">faas</a> a
     }
   },
 })
+
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> client.<span class="hljs-property">faas</span>&lt;<span class="hljs-title class_">GetUserAction</span>&gt;(<span class="hljs-string">&#x27;features/users/api/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
 </code></pre>
 </div></div>
           </div>

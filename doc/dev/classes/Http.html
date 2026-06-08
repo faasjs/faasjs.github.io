@@ -65,6 +65,10 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/dev/">Documents</a> / <a href="/doc/dev/">@faasjs/dev</a> / Http</p>
 <h1 id="class%3A-http%3Ctparams%2C-tcookie%2C-tsession%3E" tabindex="-1">Class: Http&lt;TParams, TCookie, TSession&gt;</h1>
 <p>HTTP lifecycle plugin that enriches invoke data with cookies, sessions, and response helpers.</p>
+<p>The plugin skips non-<code>api</code> runtimes, parses JSON request bodies into params,
+removes the <code>_</code> query param, turns invalid JSON into <code>400</code>, persists session
+changes automatically, and wraps handler results in the FaasJS JSON response
+envelope. Session use requires <code>cookie.session.secret</code> in config or environment.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Http</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
 
@@ -112,7 +116,9 @@
 </blockquote>
 <p>Attach HTTP helpers, cookies, sessions, and response handling to invoke data.</p>
 <p>The HTTP plugin also injects runtime helpers such as <code>headers</code>, <code>body</code>, <code>params</code>, <code>cookie</code>,
-and <code>session</code> before invoking the next handler in the chain.</p>
+and <code>session</code> before invoking the next handler in the chain. Successful values default
+to status <code>200</code>, missing bodies default to <code>204</code>, and response headers include
+JSON content type, no-cache, request id, and queued cookies.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="data" tabindex="-1">data</h5>
 <p><a href="/doc/dev/type-aliases/InvokeData.html"><code>InvokeData</code></a></p>

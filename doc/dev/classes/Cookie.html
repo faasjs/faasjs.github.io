@@ -79,7 +79,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="c" tabindex="-1">C</h3>
 <p><code>C</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
-<p>Cookie value map exposed by <code>read()</code> and <code>content</code>.</p>
+<p>Caller-declared cookie value map. Runtime parsed content is stored as strings.</p>
 <h3 id="s" tabindex="-1">S</h3>
 <p><code>S</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt; = <code>any</code></p>
 <p>Session value map exposed by the nested session helper.</p>
@@ -97,7 +97,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p><code>Logger</code></p>
 <p>Optional logger used by cookie and session helpers.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
-<p>Internal template reuse options.</p>
+<p>Internal template reuse options used by <code>fork()</code>.</p>
 <h6 id="template%3F" tabindex="-1">template?</h6>
 <p><code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;</p>
 <p>Existing cookie template reused by <code>fork()</code>.</p>

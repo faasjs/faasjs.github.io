@@ -78,7 +78,8 @@
 <blockquote>
 <p><strong>fileCount</strong>: <code>number</code></p>
 </blockquote>
-<p>Number of <code>*.api.ts</code> files discovered under <code>src/</code>.</p>
+<p>Number of <code>*.api.ts</code> files discovered under <code>src/</code>, including files that lose
+route precedence to a more specific file.</p>
 <h3 id="output" tabindex="-1">output</h3>
 <blockquote>
 <p><strong>output</strong>: <code>string</code></p>
@@ -88,7 +89,8 @@
 <blockquote>
 <p><strong>routeCount</strong>: <code>number</code></p>
 </blockquote>
-<p>Number of route entries emitted into the declaration file.</p>
+<p>Number of route entries emitted into the declaration file after duplicate
+routes are resolved by precedence.</p>
 </div></div>
           </div>
           

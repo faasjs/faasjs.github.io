@@ -68,6 +68,8 @@
 <p><strong>enqueueJob</strong>(<code>jobPath</code>, <code>params?</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
 </blockquote>
 <p>Enqueue a pending job by its <code>.job.ts</code> path-derived identifier.</p>
+<p>The jobs table is initialized automatically. When <code>idempotencyKey</code> is supplied
+and a matching row already exists, the existing row is returned unchanged.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="jobpath" tabindex="-1">jobPath</h3>
 <p><code>string</code></p>
@@ -81,6 +83,8 @@
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
 <p>The persisted job record.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>When queue, job path, priority, max attempts, or database writes are invalid.</p>
 <h2 id="examples" tabindex="-1">Examples</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> })
 </code></pre>

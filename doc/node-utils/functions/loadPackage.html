@@ -68,8 +68,12 @@
 <p><strong>loadPackage</strong>&lt;<code>T</code>&gt;(<code>name</code>): <code>Promise</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
 <p>Load a module in the current Node ESM runtime and return its default export.</p>
-<p>The loader can install tsconfig-aware hooks and append a version query string to bust Node's
-import cache for project-local files.</p>
+<p>Local file paths are converted to <code>file://</code> URLs, tsconfig-aware hooks are
+installed when a project root can be inferred, and project-local file imports
+can receive a version query string for cache busting. Bare package specifiers
+and URL-scheme specifiers are imported as provided.</p>
+<p>The target module must provide a <code>default</code> export; named exports are not used
+as a fallback.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>unknown</code></p>

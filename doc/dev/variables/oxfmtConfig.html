@@ -70,7 +70,8 @@
 <p>Shared Oxfmt configuration used by FaasJS projects.</p>
 <p>Enables single quotes, omits semicolons, and sorts import declarations.
 These defaults match the FaasJS repository style and can be overridden
-by spreading additional <code>fmt</code> options.</p>
+by spreading additional <code>fmt</code> options. Generated output under <code>dist/</code>,
+<code>.faasjs/</code>, and <code>node_modules/</code> is ignored by default.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">OxfmtConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>

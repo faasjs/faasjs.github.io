@@ -68,6 +68,8 @@
 <p><strong>colorize</strong>(<code>level</code>, <code>message</code>): <code>string</code></p>
 </blockquote>
 <p>Wrap a log message with the ANSI foreground color for a log level.</p>
+<p>This low-level helper always emits ANSI escape sequences; use <a href="/doc/node-utils/classes/Logger.html">Logger</a>
+when you want environment-aware color decisions.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="level" tabindex="-1">level</h3>
 <p><a href="/doc/node-utils/type-aliases/Level.html"><code>Level</code></a></p>

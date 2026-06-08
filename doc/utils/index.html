@@ -64,6 +64,28 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/utils</p>
 <h1 id="%40faasjs%2Futils" tabindex="-1">@faasjs/utils</h1>
+<h1 id="%40faasjs%2Futils-1" tabindex="-1">@faasjs/utils</h1>
+<p>FaasJS cross-runtime utility helpers.</p>
+<p>The package bundles pure utilities that work across Node.js, browsers, and edge runtimes,
+including deep merge helpers, random identifier helpers, and stream conversion helpers.</p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install @faasjs/utils
+</code></pre>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { deepMerge, streamToString } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> merged = <span class="hljs-title function_">deepMerge</span>({ <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }, { <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> })
+<span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> <span class="hljs-title function_">streamToString</span>(
+  <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReadableStream</span>&lt;<span class="hljs-title class_">Uint8Array</span>&gt;({
+    <span class="hljs-title function_">start</span>(<span class="hljs-params">controller</span>) {
+      controller.<span class="hljs-title function_">enqueue</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(<span class="hljs-string">&#x27;hello&#x27;</span>))
+      controller.<span class="hljs-title function_">close</span>()
+    },
+  }),
+)
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(merged, text)
+</code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/utils/functions/deepMerge.html">deepMerge</a></li>

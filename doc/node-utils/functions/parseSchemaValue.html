@@ -68,9 +68,10 @@
 <p><strong>parseSchemaValue</strong>&lt;<code>TSchema</code>, <code>TFallback</code>&gt;(<code>options</code>): <code>Promise</code>&lt;<a href="/doc/node-utils/type-aliases/SchemaOutput.html"><code>SchemaOutput</code></a>&lt;<code>TSchema</code>, <code>TFallback</code>&gt;&gt;</p>
 </blockquote>
 <p>Parse a value with an optional Zod schema.</p>
-<p>If <code>schema</code> is omitted, <code>defaultValue</code> is returned. If <code>value</code> is <code>null</code> or
-<code>undefined</code>, the same <code>defaultValue</code> is passed to the schema parser. When
-<code>defaultValue</code> is omitted, an empty object is used.</p>
+<p>If <code>schema</code> is omitted, <code>defaultValue</code> is returned and <code>value</code> is ignored. If
+<code>value</code> is <code>null</code> or <code>undefined</code>, <code>defaultValue</code> is passed to
+<code>schema.safeParseAsync()</code>. When <code>defaultValue</code> is omitted, an empty object is
+used. Validation failures are formatted with <a href="/doc/node-utils/functions/formatSchemaError.html">formatSchemaError</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tschema" tabindex="-1">TSchema</h3>
 <p><code>TSchema</code> <em>extends</em> <code>ZodType</code>&lt;<code>unknown</code>, <code>unknown</code>, <code>$ZodTypeInternals</code>&lt;<code>unknown</code>, <code>unknown</code>&gt;&gt; | <code>undefined</code> = <code>undefined</code></p>
@@ -87,6 +88,18 @@
 <p>Parsed (and validated) value matching the schema or fallback type.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>If the schema validation fails, using the provided <code>createError</code> factory or a plain <code>Error</code>.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { parseSchemaValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> params = <span class="hljs-keyword">await</span> <span class="hljs-title function_">parseSchemaValue</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">page</span>: z.<span class="hljs-property">coerce</span>.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">default</span>(<span class="hljs-number">1</span>),
+  }),
+  <span class="hljs-attr">value</span>: { <span class="hljs-attr">page</span>: <span class="hljs-string">&#x27;2&#x27;</span> },
+  <span class="hljs-attr">errorMessage</span>: <span class="hljs-string">&#x27;Invalid params&#x27;</span>,
+})
+</code></pre>
 </div></div>
           </div>
           

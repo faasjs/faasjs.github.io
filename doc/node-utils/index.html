@@ -64,6 +64,30 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/node-utils</p>
 <h1 id="%40faasjs%2Fnode-utils" tabindex="-1">@faasjs/node-utils</h1>
+<h1 id="%40faasjs%2Fnode-utils-1" tabindex="-1">@faasjs/node-utils</h1>
+<p>FaasJS utilities for Node.js runtimes and local development workflows.</p>
+<p>The package bundles logging helpers, shared transport primitives, <code>faas.yaml</code>
+configuration loaders, schema parsing helpers, filesystem guards, and
+runtime-aware module loading helpers for Node.js.</p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install @faasjs/node-utils
+</code></pre>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Logger</span>, loadConfig, parseSchemaValue } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
+
+<span class="hljs-keyword">const</span> logger = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Logger</span>(<span class="hljs-string">&#x27;app&#x27;</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-title function_">loadConfig</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&#x27;/project/src/hello.api.ts&#x27;</span>, <span class="hljs-string">&#x27;development&#x27;</span>)
+<span class="hljs-keyword">const</span> params = <span class="hljs-keyword">await</span> <span class="hljs-title function_">parseSchemaValue</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">page</span>: z.<span class="hljs-property">coerce</span>.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">default</span>(<span class="hljs-number">1</span>),
+  }),
+  <span class="hljs-attr">value</span>: { <span class="hljs-attr">page</span>: <span class="hljs-string">&#x27;1&#x27;</span> },
+  <span class="hljs-attr">errorMessage</span>: <span class="hljs-string">&#x27;Invalid params&#x27;</span>,
+})
+
+logger.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Loaded config %o with params %o&#x27;</span>, config, params)
+</code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/node-utils/functions/colorize.html">colorize</a></li>

@@ -69,8 +69,12 @@
 </blockquote>
 <p>Generate <code>src/.faasjs/types.d.ts</code> for a FaasJS project.</p>
 <p>The generator scans the <code>src/</code> tree for <code>.api.ts</code> files, converts file
-names into routes, and keeps the most specific file when multiple files
-resolve to the same route.</p>
+names into routes, and keeps the most specific file when multiple files resolve to
+the same route. Route precedence is: regular <code>*.api.ts</code> files, then <code>index.api.ts</code>,
+then fallback <code>default.api.ts</code> files. Fallback files emit wildcard routes such as
+<code>*</code> and <code>users/*</code>, while root and index files emit <code>/</code> or the directory route.</p>
+<p>Generated route keys omit the leading slash except for <code>/</code>; for example,
+<code>src/users/default.api.ts</code> becomes <code>users/*</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/dev/type-aliases/GenerateFaasTypesOptions.html"><code>GenerateFaasTypesOptions</code></a> = <code>{}</code></p>

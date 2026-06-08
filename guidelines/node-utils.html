@@ -80,7 +80,7 @@
 <li>Node module bootstrapping: <code>loadPackage</code>, <code>registerNodeModuleHooks</code>, <code>resetRuntime</code></li>
 <li>filesystem containment checks: <code>isPathInsideRoot</code> (see <a href="/guidelines/valid.html">Validation Guide</a>)</li>
 <li>schema parsing: <code>parseSchemaValue</code>, <code>formatSchemaError</code>, <code>SchemaOutput</code> (see <a href="/guidelines/valid.html">Validation Guide</a>)</li>
-<li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorfy</code></li>
+<li>logging and log shipping: <code>Logger</code>, <code>formatLogger</code>, <code>getTransport</code>, <code>Transport</code>, <code>colorize</code></li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
@@ -88,8 +88,8 @@
 <li>Let <code>Server</code> or <code>viteFaasJsServer()</code> auto-load the project <code>.env</code> when they own bootstrap from a FaasJS app root, and call Node's built-in <code>loadEnvFile()</code> yourself in <code>faas run</code> entry files, plain Node scripts, tests, or other entrypoints that read env before those helpers start.</li>
 <li>Use <code>loadConfig()</code> when you only need staged <code>faas.yaml</code> data.</li>
 <li>Use <code>parseYaml()</code> from <code>@faasjs/utils</code> when you need the raw FaasJS YAML subset in custom tooling without staged discovery (see <a href="/guidelines/yaml.html">YAML Guide</a>).</li>
-<li>Use <code>loadApiHandler()</code> when you need the final exported handler, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
-<li>Prefer the FaasJS TypeScript loader when direct Node execution must understand local TypeScript files or tsconfig aliases, and keep local imports extensionless without <code>.ts</code> or <code>.tsx</code> suffixes.</li>
+<li>Use <code>loadApiHandler()</code> when you need the final exported handler from a default-exported FaasJS API module, or <code>loadPlugins()</code> when you already have a <code>Func</code> instance.</li>
+<li>Prefer the FaasJS TypeScript loader when direct Node execution must understand local TypeScript files or tsconfig aliases, keep local imports extensionless without <code>.ts</code> or <code>.tsx</code> suffixes, and use default exports for modules loaded through <code>loadPackage()</code>.</li>
 <li>Use <code>isPathInsideRoot()</code> before reading or loading root-scoped files from user-controlled or URL-derived paths.</li>
 <li>Use <code>parseSchemaValue()</code> for custom Node-side boundaries that need the same optional Zod schema parsing and error formatting as FaasJS APIs and jobs.</li>
 <li>Reuse <code>Logger</code> and the shared transport instead of building a custom logging wrapper.</li>
@@ -121,6 +121,8 @@
 <ul>
 <li>Do not reimplement directory walking or manual deep merging for <code>faas.yaml</code>.</li>
 <li><code>loadConfig()</code> walks from project root to the target API directory, merges nested files, applies <code>defaults</code>, and annotates plugin entries with their resolved <code>name</code>.</li>
+<li>Relative plugin <code>type</code> values in YAML are resolved from the <code>faas.yaml</code> file that declared them, including <code>./plugin.ts</code> and <code>file://./plugin.ts</code>.</li>
+<li><code>loadConfig()</code> validates the YAML shape and preserves custom stage fields, but it does not instantiate plugin classes.</li>
 <li>This keeps runtime behavior consistent with FaasJS plugin loading.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/node-utils&#x27;</span>
@@ -132,9 +134,12 @@
 <h3 id="4.-pick-the-smallest-loader-for-the-job" tabindex="-1">4. Pick the smallest loader for the job</h3>
 <ul>
 <li>Use <code>loadConfig()</code> when you need staged <code>faas.yaml</code> resolution with directory walking and merging.</li>
-<li>Use <code>loadApiHandler()</code> when you need the final handler that a runtime or test will invoke.</li>
+<li>Use <code>loadApiHandler()</code> when you need the final handler that a runtime or test will invoke; the API module must default-export a FaasJS API instance.</li>
 <li>Use <code>loadPlugins()</code> when you already have a <code>Func</code> instance and want YAML-driven plugins and config attached before exporting or mounting it.</li>
+<li><code>loadPlugins()</code> merges YAML plugin config with inline <code>func.config.plugins</code>; inline config wins, existing plugin instances are configured in place, and missing YAML plugins are instantiated.</li>
+<li>Only <code>http</code> gets a built-in plugin type. Other YAML plugins need an explicit <code>type</code>, and config-driven plugin modules must default-export a plugin class with <code>onMount</code> or <code>onInvoke</code>.</li>
 <li>Use <code>loadPackage()</code> for default-export dynamic module loading in Node.js, especially when the target is a local TypeScript file or a path-alias-aware module.</li>
+<li><code>loadPackage()</code> returns only <code>module.default</code>; named exports are not fallback values.</li>
 <li>Prefer these helpers over ad hoc <code>import()</code> wrappers so cache busting, tsconfig resolution, and plugin wiring stay consistent.</li>
 </ul>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { loadEnvFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:process&#x27;</span>
@@ -169,10 +174,17 @@
 <ul>
 <li>Use <code>Logger</code> for structured levels, labels, timers, and environment-driven verbosity.</li>
 <li>Use <code>getTransport()</code> only when logs must be buffered and forwarded to another sink.</li>
-<li><code>colorfy()</code> and <code>formatLogger()</code> are lower-level helpers; prefer the <code>Logger</code> class unless you are implementing logging infrastructure.</li>
+<li><code>Logger</code> defaults to <code>info</code> level, a 1000-character truncation threshold for debug/info output, auto-detected terminal colors, and shared transport forwarding outside Vitest.</li>
+<li><code>colorize()</code> and <code>formatLogger()</code> are lower-level helpers; prefer the <code>Logger</code> class unless you are implementing logging infrastructure.</li>
+<li><code>colorize()</code> always emits ANSI escapes; let <code>Logger</code> decide whether output should be colorized.</li>
 </ul>
 <h3 id="7.-use-schema-helpers-for-custom-node-boundaries" tabindex="-1">7. Use schema helpers for custom Node boundaries</h3>
-<p>See <a href="/guidelines/valid.html">Validation Guide</a> for <code>parseSchemaValue</code>, <code>formatSchemaError</code>, and <code>SchemaOutput</code> patterns.</p>
+<ul>
+<li>Use <code>parseSchemaValue()</code> when a boundary has an optional Zod schema and needs consistent fallback and error formatting.</li>
+<li>Without a schema, it returns <code>defaultValue</code> (or <code>{}</code>) and ignores the raw value.</li>
+<li>With a schema, <code>null</code> and <code>undefined</code> are replaced by <code>defaultValue</code> (or <code>{}</code>) before <code>safeParseAsync()</code>.</li>
+<li>See <a href="/guidelines/valid.html">Validation Guide</a> for <code>parseSchemaValue</code>, <code>formatSchemaError</code>, and <code>SchemaOutput</code> patterns.</li>
+</ul>
 <h3 id="8.-validate-root-scoped-file-paths-with-ispathinsideroot()" tabindex="-1">8. Validate root-scoped file paths with <code>isPathInsideRoot()</code></h3>
 <p>See <a href="/guidelines/valid.html">Validation Guide</a> for <code>isPathInsideRoot</code> patterns.</p>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
@@ -180,7 +192,10 @@
 <li><code>@faasjs/node-utils</code> imports stay in Node-only code</li>
 <li><code>faas run</code> entry files and local scripts load <code>.env</code> before env-dependent bootstrap logic unless <code>Server</code> or <code>viteFaasJsServer()</code> fully owns that bootstrap</li>
 <li>staged <code>faas.yaml</code> is read through <code>loadConfig()</code> or <code>loadApiHandler()</code>, not custom merge code</li>
+<li>relative YAML plugin <code>type</code> values are left for <code>loadConfig()</code>/<code>loadPlugins()</code> to normalize</li>
 <li>loaders use <code>loadApiHandler()</code>, <code>loadPlugins()</code>, or <code>loadPackage()</code> instead of custom dynamic import wrappers</li>
+<li>modules loaded through <code>loadPackage()</code> and config-driven plugin modules use default exports</li>
+<li>non-<code>http</code> YAML plugins declare an explicit <code>type</code></li>
 <li>module hooks are registered at process startup, not deep inside feature code</li>
 <li>custom Node-side boundary validation uses <code>parseSchemaValue()</code> (see <a href="/guidelines/valid.html">Validation Guide</a>)</li>
 <li>root-scoped file access validates resolved paths with <code>isPathInsideRoot()</code> (see <a href="/guidelines/valid.html">Validation Guide</a>)</li>

@@ -68,6 +68,8 @@
 <p><strong>RegisterNodeModuleHooksOptions</strong> = <code>object</code></p>
 </blockquote>
 <p>Options for preloading Node module hooks that resolve tsconfig paths and local TypeScript files.</p>
+<p>These options are used by <a href="/doc/node-utils/functions/registerNodeModuleHooks.html">registerNodeModuleHooks</a>. <code>loadPackage()</code> can
+infer equivalent state for local files before it imports them.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="entry%3F" tabindex="-1">entry?</h3>
 <blockquote>
@@ -82,6 +84,8 @@
 <p><code>optional</code> <strong>root?</strong>: <code>string</code></p>
 </blockquote>
 <p>Project root used to scope tsconfig path alias resolution.</p>
+<p>When omitted, the root is inferred from <code>entry</code>, <code>tsconfigPath</code>, or the
+nearest project marker around a loaded local file.</p>
 <h3 id="tsconfigpath%3F" tabindex="-1">tsconfigPath?</h3>
 <blockquote>
 <p><code>optional</code> <strong>tsconfigPath?</strong>: <code>string</code></p>
@@ -95,6 +99,7 @@
 <p><code>optional</code> <strong>version?</strong>: <code>string</code></p>
 </blockquote>
 <p>Version token appended to ESM file URLs to bypass Node's module cache.</p>
+<p>When omitted, <code>FAASJS_MODULE_VERSION</code> is used if present.</p>
 </div></div>
           </div>
           

@@ -70,8 +70,9 @@
 <p>Infer the response data type for a given action path.</p>
 <p>When <code>T</code> matches a declared <a href="/doc/types/type-aliases/FaasActionPaths.html">action path</a>,
 resolves to <code>FaasActions[T]['Data']</code>. Falls back to
-<code>Record&lt;string, unknown&gt;</code> for unrecognized string paths.
-Returns <code>never</code> when <code>T</code> is not a string.</p>
+<code>Record&lt;string, unknown&gt;</code> for explicit unrecognized string paths.
+Returns <code>never</code> when <code>T</code> is not a string; the bare <code>FaasData</code> default uses
+<code>unknown</code>, so it also resolves to <code>never</code>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> = <code>unknown</code></p>
@@ -95,7 +96,6 @@ or <code>never</code> when <code>T</code> is not a string.</p>
 </code></pre>
 <h2 id="see" tabindex="-1">See</h2>
 <ul>
-<li>FaasActions</li>
 <li><a href="/doc/types/type-aliases/FaasActionPaths.html">FaasActionPaths</a></li>
 <li><a href="/doc/types/type-aliases/FaasParams.html">FaasParams</a></li>
 </ul>

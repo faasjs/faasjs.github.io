@@ -82,13 +82,14 @@
 <li>Use <code>FaasDataWrapper</code> or <code>withFaasData</code> only when wrapper composition helps.</li>
 <li>Configure <code>FaasReactClient</code> once at app setup; use <code>getClient</code> only for multiple-client scenarios.</li>
 <li>Always handle loading, error, and retry states in user-facing code.</li>
+<li>Keep component props visible as <code>props.xxx</code>; avoid destructuring props in the component parameter list.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-standard-requests-use-usefaas" tabindex="-1">1. Standard requests use <code>useFaas</code></h3>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>, { id })
+  <span class="hljs-keyword">const</span> { data, error, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> })
 
   <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
   <span class="hljs-keyword">if</span> (error)
@@ -237,7 +238,7 @@
 <ul>
 <li>Use in event handlers, confirmations, submit callbacks, or one-off commands.</li>
 <li>Pair mutations with user feedback and an intentional reload, close, or invalidate step.</li>
-<li>For form submissions, prefer <code>Form.faas</code> when available.</li>
+<li>For form submissions, prefer the <code>Form</code> <code>faas</code> prop when available.</li>
 </ul>
 <h3 id="6.-wrappers-are-for-composition-boundaries" tabindex="-1">6. Wrappers are for composition boundaries</h3>
 <ul>
@@ -262,8 +263,8 @@
 <p>Wrapper with children pattern:</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasDataWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserContent</span>(<span class="hljs-params">{ data }: { data: <span class="hljs-built_in">any</span> }</span>) {
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserContent</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { data: <span class="hljs-built_in">any</span> }</span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">UserDetail</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
@@ -275,11 +276,19 @@
 }
 </code></pre>
 <h3 id="7.-hoc-style-integration" tabindex="-1">7. HOC-style integration</h3>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-keyword">type</span> <span class="hljs-title class_">FaasDataInjection</span>, withFaasData } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserDetail</span> = <span class="hljs-title function_">withFaasData</span>({
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserDetailProps</span> = <span class="hljs-title class_">FaasDataInjection</span>&lt;<span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>&gt; &amp; {
+  <span class="hljs-attr">compact</span>?: <span class="hljs-built_in">boolean</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">UserDetail</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">UserDetailProps</span></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{props.data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> withFaasData&lt;<span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>, <span class="hljs-title class_">UserDetailProps</span>&gt;(<span class="hljs-title class_">UserDetail</span>, {
   <span class="hljs-attr">action</span>: <span class="hljs-string">&#x27;features/users/api/detail&#x27;</span>,
-})(<span class="hljs-function">(<span class="hljs-params">{ data }</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)
+})
 </code></pre>
 <ul>
 <li>Use <code>withFaasData</code> for legacy component boundaries or when the export shape requires an HOC.</li>
@@ -288,10 +297,10 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-title class_">FaasReactClient</span>({
-  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api&#x27;</span>,
-  <span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">error, action, params</span>) =&gt;</span> {
+  <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api/&#x27;</span>,
+  <span class="hljs-attr">onError</span>: <span class="hljs-function">(<span class="hljs-params">action, params</span>) =&gt;</span> <span class="hljs-title function_">async</span> (error) =&gt; {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`[<span class="hljs-subst">${action}</span>]`</span>, error.<span class="hljs-property">message</span>, params)
-    <span class="hljs-comment">// reportError(error)</span>
+    <span class="hljs-comment">// reportError(error, { action, params })</span>
   },
 })
 </code></pre>
@@ -304,12 +313,12 @@
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FaasReactClient</span>, getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-comment">// Default client</span>
-<span class="hljs-title class_">FaasReactClient</span>({ <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api&#x27;</span> })
+<span class="hljs-title class_">FaasReactClient</span>({ <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;/api/&#x27;</span> })
 <span class="hljs-comment">// Secondary client</span>
-<span class="hljs-title class_">FaasReactClient</span>({ <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://other-service.com&#x27;</span> }, <span class="hljs-string">&#x27;other&#x27;</span>)
+<span class="hljs-title class_">FaasReactClient</span>({ <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">&#x27;https://other-service.com/&#x27;</span> })
 
-<span class="hljs-keyword">const</span> otherClient = <span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;other&#x27;</span>)
-<span class="hljs-keyword">await</span> <span class="hljs-title function_">otherClient</span>(<span class="hljs-string">&#x27;/external/endpoint&#x27;</span>, { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;value&#x27;</span> })
+<span class="hljs-keyword">const</span> otherClient = <span class="hljs-title function_">getClient</span>(<span class="hljs-string">&#x27;https://other-service.com/&#x27;</span>)
+<span class="hljs-keyword">await</span> otherClient.<span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;external/endpoint&#x27;</span>, { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;value&#x27;</span> })
 </code></pre>
 <ul>
 <li>Use <code>getClient(host)</code> only for special multiple-client cases.</li>
@@ -318,7 +327,7 @@
 <h2 id="see-also" tabindex="-1">See Also</h2>
 <ul>
 <li><a href="/guidelines/react.html">React Guide</a> — component and hook patterns</li>
-<li><a href="/guidelines/ant-design.html">Ant Design Guide</a> — <code>Form.faas</code>, <code>Table.faasData</code>, <code>Description.faasData</code> wrappers</li>
+<li><a href="/guidelines/ant-design.html">Ant Design Guide</a> — <code>Form</code> <code>faas</code>, <code>Table</code> <code>faasData</code>, and <code>Description</code> <code>faasData</code> props</li>
 <li><a href="/guidelines/define-api.html">defineApi Guide</a> — building the API endpoints that these hooks call</li>
 <li><a href="/guidelines/react-testing.html">React Testing Guide</a> — testing request flows with <code>setMock</code></li>
 </ul>

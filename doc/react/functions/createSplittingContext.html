@@ -73,7 +73,7 @@ the provided shape is backed by a separate React context so readers only
 subscribe to the values they access.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
-<p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
 <p>Context value shape exposed by the provider and hook.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="defaultvalue" tabindex="-1">defaultValue</h3>
@@ -88,7 +88,7 @@ subscribe to the values they access.</p>
 <p>Hook used to read values from the splitting context.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="newt" tabindex="-1">NewT</h5>
-<p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>T</code></p>
+<p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; = <code>T</code></p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
 <h5 id="this" tabindex="-1">this</h5>
 <p><code>void</code></p>
@@ -115,7 +115,7 @@ subscribe to the values they access.</p>
 <p>The provider component of the splitting context.</p>
 <h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="newt-1" tabindex="-1">NewT</h5>
-<p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>T</code></p>
+<p><code>NewT</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt; = <code>T</code></p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
 <h5 id="this-1" tabindex="-1">this</h5>
 <p><code>void</code></p>
@@ -136,7 +136,7 @@ subscribe to the values they access.</p>
 <span class="hljs-comment">// `Child` can read `value` and `setValue`</span>
 </code></pre>
 <h6 id="memo%3F" tabindex="-1">memo?</h6>
-<p><code>true</code> | <code>any</code>[]</p>
+<p><code>true</code> | <code>Key</code>[]</p>
 <p>Memoization mode for <code>children</code>.</p>
 <p><strong>Default</strong></p>
 <p>false</p>

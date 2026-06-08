@@ -68,35 +68,43 @@
 <p><code>const</code> <strong>ViteConfig</strong>: <code>object</code></p>
 </blockquote>
 <p>Shared Vite Plus configuration for standard FaasJS React apps.</p>
-<p>This preset combines the React plugin, <code>viteFaasJsServer()</code>, workspace-safe
-dev server defaults, <code>tsconfigPaths</code> resolution, and the shared FaasJS
-format and lint settings. Spread it into <code>defineConfig()</code> when the default
-stack matches your app, then override only the fields that differ.</p>
+<p><code>ViteConfig</code> is intentionally named as a configuration object, not a plugin:
+spread it into <code>defineConfig()</code> when you want the default FaasJS React development
+stack. The preset combines staged checks, the React plugin, <code>viteFaasJsServer()</code>,
+workspace-safe dev server defaults, <code>tsconfigPaths</code> resolution, and the shared
+FaasJS format and lint settings. Override individual fields after spreading
+the object when an app needs different defaults.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="fmt" tabindex="-1">fmt</h3>
 <blockquote>
 <p><strong>fmt</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;fmt&quot;</code>]&gt;</p>
 </blockquote>
+<p>Applies the shared FaasJS Oxfmt defaults.</p>
 <h3 id="lint" tabindex="-1">lint</h3>
 <blockquote>
 <p><strong>lint</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;lint&quot;</code>]&gt;</p>
 </blockquote>
+<p>Applies the shared FaasJS Oxlint defaults.</p>
 <h3 id="plugins" tabindex="-1">plugins</h3>
 <blockquote>
 <p><strong>plugins</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;plugins&quot;</code>]&gt;</p>
 </blockquote>
+<p>Registers React support and the in-process FaasJS POST server plugin.</p>
 <h3 id="resolve" tabindex="-1">resolve</h3>
 <blockquote>
 <p><strong>resolve</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;resolve&quot;</code>]&gt;</p>
 </blockquote>
+<p>Enables Vite Plus <code>tsconfigPaths</code> resolution.</p>
 <h3 id="server" tabindex="-1">server</h3>
 <blockquote>
 <p><strong>server</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;server&quot;</code>]&gt;</p>
 </blockquote>
+<p>Binds to all interfaces, allows port fallback, and disables strict filesystem serving.</p>
 <h3 id="staged" tabindex="-1">staged</h3>
 <blockquote>
 <p><strong>staged</strong>: <code>NonNullable</code>&lt;<code>UserConfig</code>[<code>&quot;staged&quot;</code>]&gt;</p>
 </blockquote>
+<p>Runs <code>vp check --fix</code> for staged files.</p>
 <h2 id="examples" tabindex="-1">Examples</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vite-plus&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ViteConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>

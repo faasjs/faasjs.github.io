@@ -68,8 +68,11 @@
 <p><strong>registerNodeModuleHooks</strong>(<code>options?</code>): <code>void</code></p>
 </blockquote>
 <p>Install Node module hooks for tsconfig path aliases and TypeScript-friendly local imports.</p>
-<p>Calling this function multiple times is safe. Hooks are installed once, while loader state is refreshed
-from the latest options when a root, entry, or tsconfig path can be inferred.</p>
+<p>Calling this function multiple times is safe. Hooks are installed once, while
+loader state is refreshed from the latest options when a root, entry, or
+tsconfig path can be inferred. The hooks resolve tsconfig <code>paths</code>,
+extensionless local script imports, and optional cache-busting query strings
+for project-local <code>file://</code> URLs.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><a href="/doc/node-utils/type-aliases/RegisterNodeModuleHooksOptions.html"><code>RegisterNodeModuleHooksOptions</code></a> = <code>{}</code></p>

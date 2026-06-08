@@ -75,7 +75,8 @@
 <ul>
 <li><code>packages/core/src/func/index.ts</code></li>
 <li><code>packages/core/src/index.ts</code></li>
-<li><code>packages/node-utils/src/load_config.ts</code></li>
+<li><code>packages/node-utils/src/runtime-loading/load-config.ts</code></li>
+<li><code>packages/node-utils/src/runtime-loading/load-plugins.ts</code></li>
 <li><code>packages/core/src/plugins/http/index.ts</code></li>
 </ul>
 <h2 id="goals" tabindex="-1">Goals</h2>
@@ -83,7 +84,7 @@
 <li>Keep plugin authoring and loading behavior predictable.</li>
 <li>Define how plugin identity, ordering, config precedence, and deduplication work.</li>
 <li>Make code registration and <code>faas.yaml</code> config play together without ambiguous ownership.</li>
-<li>Align config-driven loading with current <code>defineApi()</code> behavior.</li>
+<li>Align config-driven loading with current <code>defineApi()</code> endpoint behavior.</li>
 </ul>
 <h2 id="non-goals" tabindex="-1">Non-goals</h2>
 <ul>
@@ -98,7 +99,7 @@
 <li>Plugin <code>type</code> MUST identify the plugin source, family, or module specifier rather than the runtime instance id.</li>
 <li>Plugin <code>name</code> SHOULD stay stable within the same function because ordering, deduplication, logs, and config lookup rely on it.</li>
 <li>A plugin MAY implement <code>onMount</code>, <code>onInvoke</code>, or both.</li>
-<li>Plugins auto-loaded by <code>defineApi()</code> MUST be created from a constructor whose prototype implements at least one lifecycle method: <code>onMount</code> or <code>onInvoke</code>.</li>
+<li>Plugins loaded from config for a <code>defineApi()</code> endpoint MUST be created from a constructor whose prototype implements at least one lifecycle method: <code>onMount</code> or <code>onInvoke</code>.</li>
 <li>Plugins registered in code MAY implement <code>applyConfig(resolvedConfig)</code> to receive the final merged config for their plugin id before first mount.</li>
 </ol>
 <h3 id="2.-lifecycle-execution-model" tabindex="-1">2. Lifecycle Execution Model</h3>
@@ -130,9 +131,9 @@
 <li>When code registers a plugin instance, that instance remains the source of runtime behavior; config resolution MAY augment its settings but MUST NOT silently replace it with another instance from YAML.</li>
 <li>When a pre-registered plugin instance implements <code>applyConfig</code>, the loader SHOULD call it with the final merged config for that plugin id.</li>
 </ol>
-<h3 id="5.-config-driven-loading-in-defineapi()" tabindex="-1">5. Config-Driven Loading In <code>defineApi()</code></h3>
+<h3 id="5.-config-driven-loading-for-defineapi()-endpoints" tabindex="-1">5. Config-Driven Loading For <code>defineApi()</code> Endpoints</h3>
 <ol>
-<li><code>defineApi()</code> MUST resolve staged <code>faas.yaml</code> config and <code>func.config.plugins</code> before the first mount or invoke.</li>
+<li>A loader that invokes a <code>defineApi()</code> endpoint MUST resolve staged <code>faas.yaml</code> config and <code>func.config.plugins</code> before the first mount or invoke.</li>
 <li>The loader MUST inspect only own enumerable keys on <code>config.plugins</code>.</li>
 <li>Plugin config entries in <code>func.config.plugins</code> MUST be keyed by plugin id.</li>
 <li>For config-driven loading, resolved plugin <code>name</code> MUST default to the entry key and therefore represent the plugin id.</li>

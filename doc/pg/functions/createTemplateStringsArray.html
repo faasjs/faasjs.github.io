@@ -68,6 +68,8 @@
 <p><strong>createTemplateStringsArray</strong>(<code>str</code>): <code>TemplateStringsArray</code></p>
 </blockquote>
 <p>Normalizes a SQL string or template input into a <code>TemplateStringsArray</code>.</p>
+<p>String input is split on <code>?</code>, so each <code>?</code> becomes a <code>postgres.js</code> parameter gap.
+Template-literal input is returned unchanged.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="str" tabindex="-1">str</h3>
 <p><code>string</code> | <code>TemplateStringsArray</code></p>

@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><h1 id="http-plugin-guide" tabindex="-1">HTTP Plugin Guide</h1>
 <p>Use this guide when working with cookies, sessions, response helpers, or HTTP plugin configuration in FaasJS APIs.</p>
 <h2 id="overview" tabindex="-1">Overview</h2>
-<p>The HTTP plugin is built into <code>@faasjs/core</code> and <strong>activated automatically</strong> for every <code>defineApi</code> endpoint. You do not need to declare it in <code>faas.yaml</code>.</p>
+<p>The HTTP plugin is built into <code>@faasjs/core</code> and every <code>defineApi</code> endpoint requires it after plugin resolution. The standard starters declare <code>http</code> in <code>src/faas.yaml</code>, and the config-driven loader treats that plugin id as the built-in <code>Http</code> class from <code>@faasjs/core</code>. Direct <code>defineApi().export().handler()</code> tests or one-off APIs must inject <code>new Http()</code> in code or provide <code>api.config.plugins.http</code>.</p>
 <p>It only processes invocations when <code>data.context.runtime</code> is missing or set to <code>api</code>. When the same plugin is inherited by a background job, <code>context.runtime === 'job'</code> makes the HTTP plugin call <code>await next()</code> without parsing HTTP params, injecting HTTP helpers, or rewriting job params.</p>
 <p>It injects the following fields into every <code>defineApi</code> handler:</p>
 <ul>

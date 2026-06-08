@@ -70,7 +70,8 @@
 <p>Render the root provider shell for a FaasJS Ant Design application.</p>
 <p><code>App</code> initializes Ant Design message and notification APIs, exposes hook-managed modal and
 drawer state through <a href="/doc/ant-design/variables/AppContext.html">AppContext</a>, wraps descendants with <a href="/doc/ant-design/functions/ErrorBoundary.html">ErrorBoundary</a>, and
-optionally mounts React Router's <code>BrowserRouter</code>.</p>
+optionally mounts React Router's <code>BrowserRouter</code>. Route changes close the hook-managed modal
+and drawer by setting their <code>open</code> prop to <code>false</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/AppProps.html"><code>AppProps</code></a></p>

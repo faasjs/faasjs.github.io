@@ -67,22 +67,29 @@
 <blockquote>
 <p><strong>JsonSelectField</strong>&lt;<code>T</code>&gt; = <code>object</code></p>
 </blockquote>
+<p>Select a subset of fields from a JSON or JSONB column.</p>
+<p>Used by <a href="/doc/pg/classes/QueryBuilder.html#select">QueryBuilder.select</a> to emit <code>jsonb_build_object(...)</code> for a
+typed JSON column while keeping the result row narrowed to the selected keys.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code> <em>extends</em> <code>string</code></p>
+<p>Table name used to infer JSON-capable columns and fields.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="alias%3F" tabindex="-1">alias?</h3>
 <blockquote>
 <p><code>optional</code> <strong>alias?</strong>: <code>string</code></p>
 </blockquote>
+<p>Optional result alias. Defaults to the source column name.</p>
 <h3 id="column" tabindex="-1">column</h3>
 <blockquote>
 <p><strong>column</strong>: <code>JsonbColumns</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
+<p>JSON/JSONB column whose fields should be projected.</p>
 <h3 id="fields" tabindex="-1">fields</h3>
 <blockquote>
 <p><strong>fields</strong>: <code>JsonbFields</code>&lt;<code>T</code>, <code>JsonbColumns</code>&lt;<code>T</code>&gt;&gt;[]</p>
 </blockquote>
+<p>Field names to include from the JSON/JSONB column.</p>
 </div></div>
           </div>
           

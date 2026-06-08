@@ -67,17 +67,18 @@
 <blockquote>
 <p><strong>isObjectRecord</strong>(<code>value</code>): <code>value is Record&lt;string, unknown&gt;</code></p>
 </blockquote>
-<p>Type guard that checks whether a value is a plain object record.</p>
-<p>Uses Zod's <code>safeParse</code> to validate that the value is an object with
-string keys and unknown values. Returns <code>false</code> for arrays, null,
-primitives, and other non-plain-object values.</p>
+<p>Type guard that checks whether a value is an object record.</p>
+<p>Uses Zod's <code>safeParse</code> to check the coarse object shape. It does not validate
+any required keys or value shapes; use an explicit Zod schema for trusted
+business data. Returns <code>false</code> for arrays, null, primitives, and other
+non-object values.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="value" tabindex="-1">value</h3>
 <p><code>unknown</code></p>
 <p>Value to check.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>value is Record&lt;string, unknown&gt;</code></p>
-<p><code>true</code> if the value is a plain object record.</p>
+<p><code>true</code> if the value is an object record.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isObjectRecord } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 

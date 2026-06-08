@@ -66,15 +66,10 @@
 <h1 id="class%3A-migrator" tabindex="-1">Class: Migrator</h1>
 <p>The <code>Migrator</code> class is responsible for handling database migrations.
 It provides methods to check migration status, apply migrations, and roll back migrations.</p>
-<h2 id="param" tabindex="-1">Param</h2>
-<p><strong>options</strong></p>
-<p>The options for the migrator.</p>
-<h2 id="param-1" tabindex="-1">Param</h2>
-<p><strong>options.client</strong></p>
-<p>The database client.</p>
-<h2 id="param-2" tabindex="-1">Param</h2>
-<p><strong>options.folder</strong></p>
-<p>The folder containing migration files.</p>
+<p>Migration files are loaded from the configured folder with lexical filename ordering.
+Each file should export <code>up(builder)</code> and optionally <code>down(builder)</code> functions that
+receive a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Builder changes, including raw SQL statements, are
+executed inside <code>SchemaBuilder.run()</code> transactions.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
@@ -97,6 +92,7 @@ It provides methods to check migration status, apply migrations, and roll back m
 <p><strong>createMigrationTable</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
 <p>Creates the <code>faasjs_pg_migrations</code> tracking table if it does not exist.</p>
+<p>The table uses the migration filename without <code>.ts</code> as its primary key.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="down()" tabindex="-1">down()</h3>
@@ -104,6 +100,8 @@ It provides methods to check migration status, apply migrations, and roll back m
 <p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 </blockquote>
 <p>Rolls back the last applied migration by calling its <code>down</code> function.</p>
+<p>If no migration history exists or the matching migration file is missing, the
+method logs and returns without modifying the tracking table.</p>
 <h4 id="returns-2" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 <p>A rejected promise if the rollback fails.</p>
@@ -113,7 +111,9 @@ It provides methods to check migration status, apply migrations, and roll back m
 </blockquote>
 <p>Runs all pending migration files in lexical order.</p>
 <p>Each migration file is loaded dynamically and its <code>up</code> function is invoked
-with a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Changes are run in a transaction per migration.</p>
+with a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Changes are run in a transaction per migration.
+Already-recorded migrations are skipped. When the folder has no <code>.ts</code> files,
+the method logs and returns without throwing.</p>
 <h4 id="returns-3" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 <h3 id="status()" tabindex="-1">status()</h3>
@@ -121,6 +121,7 @@ with a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Changes a
 <p><strong>status</strong>(): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
 <p>Returns all applied migration records from the tracking table.</p>
+<p>Creates <code>faasjs_pg_migrations</code> first if needed.</p>
 <h4 id="returns-4" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="up()" tabindex="-1">up()</h3>
@@ -128,6 +129,9 @@ with a <a href="/doc/pg/classes/SchemaBuilder.html">SchemaBuilder</a>. Changes a
 <p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 </blockquote>
 <p>Runs the next pending migration, if one exists.</p>
+<p>The &quot;next&quot; file is the first lexical filename greater than the latest recorded
+migration name. When there are no files or no pending migration, the method logs
+and returns without throwing.</p>
 <h4 id="returns-5" tabindex="-1">Returns</h4>
 <p><code>Promise</code>&lt;<code>undefined</code>&gt;</p>
 <p>A rejected promise if the migration fails.</p>

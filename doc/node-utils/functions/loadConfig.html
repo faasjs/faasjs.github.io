@@ -69,7 +69,12 @@
 </blockquote>
 <p>Resolve the staged <code>faas.yaml</code> config for an API file.</p>
 <p>This walks from <code>root</code> to the API directory, merges every discovered <code>faas.yaml</code>,
-applies the <code>defaults</code> stage, and annotates plugin entries with their resolved <code>name</code>.</p>
+applies the <code>defaults</code> stage, annotates plugin entries with their resolved
+<code>name</code>, and normalizes relative plugin <code>type</code> values from the YAML file that
+declared them. A missing requested stage returns the resolved <code>defaults</code>
+config, and an empty YAML file contributes no config.</p>
+<p><code>loadConfig</code> only resolves and validates config; use <a href="/doc/node-utils/functions/loadPlugins.html">loadPlugins</a> when
+you also need plugin instances created or existing plugin instances updated.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="root" tabindex="-1">root</h3>
 <p><code>string</code></p>

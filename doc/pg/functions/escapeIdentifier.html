@@ -68,6 +68,8 @@
 <p><strong>escapeIdentifier</strong>(<code>identifier</code>): <code>string</code></p>
 </blockquote>
 <p>Escapes a SQL identifier, preserving trusted <a href="/doc/pg/type-aliases/RawSql.html">RawSql</a> fragments.</p>
+<p>Dotted identifiers are escaped segment by segment, <code>*</code> and <code>COUNT(*)</code> are preserved
+for query-builder output, and non-string values throw before SQL is generated.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="identifier" tabindex="-1">identifier</h3>
 <p><code>string</code> | <a href="/doc/pg/type-aliases/RawSql.html"><code>RawSql</code></a></p>

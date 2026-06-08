@@ -64,6 +64,29 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/jobs</p>
 <h1 id="%40faasjs%2Fjobs" tabindex="-1">@faasjs/jobs</h1>
+<h1 id="%40faasjs%2Fjobs-1" tabindex="-1">@faasjs/jobs</h1>
+<p>PostgreSQL-backed background jobs for FaasJS.</p>
+<p>Jobs are persisted in PostgreSQL, executed with at-least-once delivery, and split
+between enqueueing, worker polling, and scheduler cron enqueueing. Handlers should
+be idempotent and use retry options to make failure behavior explicit.</p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install @faasjs/jobs @faasjs/pg
+</code></pre>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob, enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
+  }),
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(params.<span class="hljs-property">userId</span>)
+  },
+})
+
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> })
+</code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/jobs/functions/defineJob.html">defineJob</a></li>

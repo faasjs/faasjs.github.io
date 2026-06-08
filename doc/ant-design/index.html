@@ -64,6 +64,30 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/ant-design</p>
 <h1 id="%40faasjs%2Fant-design" tabindex="-1">@faasjs/ant-design</h1>
+<h1 id="%40faasjs%2Fant-design-1" tabindex="-1">@faasjs/ant-design</h1>
+<p>React UI primitives and data-aware helpers for building FaasJS applications with Ant Design.</p>
+<p><code>@faasjs/ant-design</code> combines FaasJS request helpers, Ant Design components, and optional
+React Router integration behind a single public entrypoint.</p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install @faasjs/ant-design
+</code></pre>
+<h2 id="highlights" tabindex="-1">Highlights</h2>
+<ul>
+<li>Use <a href="/doc/ant-design/functions/App.html">App</a> to wire Ant Design feedback APIs, routing, and FaasJS config providers.</li>
+<li>Use <a href="/doc/ant-design/functions/Form.html">Form</a>, <a href="/doc/ant-design/functions/Description.html">Description</a>, and <a href="/doc/ant-design/functions/Table.html">Table</a> with shared FaasJS item metadata.</li>
+<li>Use <a href="/doc/ant-design/functions/FaasDataWrapper.html">FaasDataWrapper</a> or <a href="/doc/ant-design/functions/withFaasData.html">withFaasData</a> to bind components to FaasJS actions.</li>
+</ul>
+<h2 id="usage" tabindex="-1">Usage</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">App</span>, <span class="hljs-title class_">Form</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Form</span> <span class="hljs-attr">items</span>=<span class="hljs-string">{[{</span> <span class="hljs-attr">id:</span> &#x27;<span class="hljs-attr">name</span>&#x27;, <span class="hljs-attr">required:</span> <span class="hljs-attr">true</span> }]} /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">App</span>&gt;</span></span>
+  )
+}
+</code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/ant-design/functions/App.html">App</a></li>
@@ -122,12 +146,12 @@
 <li><a href="/doc/ant-design/interfaces/TabsProps.html">TabsProps</a></li>
 <li><a href="/doc/ant-design/interfaces/TitleProps.html">TitleProps</a></li>
 <li><a href="/doc/ant-design/interfaces/UnionFaasItemProps.html">UnionFaasItemProps</a></li>
-<li><a href="/doc/ant-design/interfaces/useAppProps.html">useAppProps</a></li>
 </ul>
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
 <li><a href="/doc/ant-design/type-aliases/BaseExtendTypeProps.html">BaseExtendTypeProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/BaseOption.html">BaseOption</a></li>
+<li><a href="/doc/ant-design/type-aliases/ConfigContextValue.html">ConfigContextValue</a></li>
 <li><a href="/doc/ant-design/type-aliases/DescriptionProps.html">DescriptionProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/ExtendDescriptionItemProps.html">ExtendDescriptionItemProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/ExtendDescriptionTypeProps.html">ExtendDescriptionTypeProps</a></li>
@@ -140,6 +164,7 @@
 <li><a href="/doc/ant-design/type-aliases/FaasItemType.html">FaasItemType</a></li>
 <li><a href="/doc/ant-design/type-aliases/FaasItemTypeValue.html">FaasItemTypeValue</a></li>
 <li><a href="/doc/ant-design/type-aliases/FaasReactClientOptions.html">FaasReactClientOptions</a></li>
+<li><a href="/doc/ant-design/type-aliases/FormCommonProps.html">FormCommonProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/FormFaasProps.html">FormFaasProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/FormProps.html">FormProps</a></li>
 <li><a href="/doc/ant-design/type-aliases/FormSubmitProps.html">FormSubmitProps</a></li>
@@ -156,6 +181,7 @@
 <li><a href="/doc/ant-design/type-aliases/UnionFaasItemInjection.html">UnionFaasItemInjection</a></li>
 <li><a href="/doc/ant-design/type-aliases/UnionFaasItemRender.html">UnionFaasItemRender</a></li>
 <li><a href="/doc/ant-design/type-aliases/UnionScene.html">UnionScene</a></li>
+<li><a href="/doc/ant-design/type-aliases/useAppProps.html">useAppProps</a></li>
 </ul>
 <h2 id="variables" tabindex="-1">Variables</h2>
 <ul>

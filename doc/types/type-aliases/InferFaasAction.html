@@ -67,17 +67,15 @@
 <blockquote>
 <p><strong>InferFaasAction</strong>&lt;<code>TApi</code>&gt; = <code>TApi</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>TApi</code> <em>extends</em> <code>object</code> ? <code>TDefault</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>never</code> : <code>never</code></p>
 </blockquote>
-<p>Infer <code>{ Params, Data }</code> from a Func, Func-like object, or a
-module whose default export is a Func.</p>
-<p>Peers into the handler signature of an API definition to extract:</p>
+<p>Infer <code>{ Params, Data }</code> from a FaasJS API object or a module whose default
+export is a FaasJS API object.</p>
+<p>Peers into the exported handler signature to extract:</p>
 <ul>
-<li><code>Params</code> — resolved from the <a href="https://faasjs.com/doc/func" target="_blank" rel="noopener noreferrer" class="external-link">event</a>
-argument of the handler via <code>event.params</code>.</li>
+<li><code>Params</code> — resolved from the handler event's <code>params</code> field.</li>
 <li><code>Data</code> — resolved from the handler's return type.</li>
 </ul>
-<p>Supports both direct Func exports and default-export patterns
-(ESM <code>default</code> / CJS <code>module.exports</code>). Returns <code>never</code> when
-inference fails.</p>
+<p>Supports direct API objects and module objects with an ESM <code>default</code> export.
+Returns <code>never</code> when inference fails.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="tapi" tabindex="-1">TApi</h3>
 <p><code>TApi</code></p>
@@ -88,7 +86,7 @@ inference fails.</p>
 when inference succeeds, otherwise <code>never</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> { <span class="hljs-title class_">InferFaasAction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span>
-<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> * <span class="hljs-keyword">as</span> loginApi <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user/login.func&#x27;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> * <span class="hljs-keyword">as</span> loginApi <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user/login.api&#x27;</span>
 
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">LoginAction</span> = <span class="hljs-title class_">InferFaasAction</span>&lt;<span class="hljs-keyword">typeof</span> loginApi&gt;
 <span class="hljs-comment">// → { Params: { email: string }; Data: { token: string } }</span>

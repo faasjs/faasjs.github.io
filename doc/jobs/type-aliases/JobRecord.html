@@ -73,82 +73,102 @@
 <blockquote>
 <p><strong>attempts</strong>: <code>number</code></p>
 </blockquote>
+<p>Number of attempts already claimed.</p>
 <h3 id="completed_at" tabindex="-1">completed_at</h3>
 <blockquote>
 <p><strong>completed_at</strong>: <code>Date</code> | <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Completion timestamp.</p>
 <h3 id="created_at" tabindex="-1">created_at</h3>
 <blockquote>
 <p><strong>created_at</strong>: <code>Date</code> | <code>string</code></p>
 </blockquote>
+<p>Row creation timestamp.</p>
 <h3 id="cron_key" tabindex="-1">cron_key</h3>
 <blockquote>
 <p><strong>cron_key</strong>: <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Optional cron hash used to deduplicate scheduler rows by minute.</p>
 <h3 id="failed_at" tabindex="-1">failed_at</h3>
 <blockquote>
 <p><strong>failed_at</strong>: <code>Date</code> | <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Final failure timestamp.</p>
 <h3 id="id" tabindex="-1">id</h3>
 <blockquote>
 <p><strong>id</strong>: <code>string</code></p>
 </blockquote>
+<p>Unique job row id.</p>
 <h3 id="idempotency_key" tabindex="-1">idempotency_key</h3>
 <blockquote>
 <p><strong>idempotency_key</strong>: <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Optional idempotency key used to deduplicate manual enqueues.</p>
 <h3 id="job_path" tabindex="-1">job_path</h3>
 <blockquote>
 <p><strong>job_path</strong>: <code>string</code></p>
 </blockquote>
+<p>Path-derived <code>.job.ts</code> identifier.</p>
 <h3 id="last_error" tabindex="-1">last_error</h3>
 <blockquote>
 <p><strong>last_error</strong>: <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Last failure message or stack.</p>
 <h3 id="lease_id" tabindex="-1">lease_id</h3>
 <blockquote>
 <p><strong>lease_id</strong>: <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Lease id used to complete or fail the claimed row.</p>
 <h3 id="locked_by" tabindex="-1">locked_by</h3>
 <blockquote>
 <p><strong>locked_by</strong>: <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Worker id currently holding the lease.</p>
 <h3 id="locked_until" tabindex="-1">locked_until</h3>
 <blockquote>
 <p><strong>locked_until</strong>: <code>Date</code> | <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Time when the current lease expires.</p>
 <h3 id="max_attempts" tabindex="-1">max_attempts</h3>
 <blockquote>
 <p><strong>max_attempts</strong>: <code>number</code></p>
 </blockquote>
+<p>Maximum attempts before permanent failure.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
 <p><strong>params</strong>: <code>unknown</code></p>
 </blockquote>
+<p>Serialized params passed to the job handler.</p>
 <h3 id="priority" tabindex="-1">priority</h3>
 <blockquote>
 <p><strong>priority</strong>: <code>number</code></p>
 </blockquote>
+<p>Higher priority rows are claimed before lower priority rows.</p>
 <h3 id="queue" tabindex="-1">queue</h3>
 <blockquote>
 <p><strong>queue</strong>: <code>string</code></p>
 </blockquote>
+<p>Queue this row is claimed from.</p>
 <h3 id="run_at" tabindex="-1">run_at</h3>
 <blockquote>
 <p><strong>run_at</strong>: <code>Date</code> | <code>string</code></p>
 </blockquote>
+<p>Earliest time this row may be claimed.</p>
 <h3 id="scheduled_at" tabindex="-1">scheduled_at</h3>
 <blockquote>
 <p><strong>scheduled_at</strong>: <code>Date</code> | <code>string</code> | <code>null</code></p>
 </blockquote>
+<p>Minute timestamp associated with a scheduler enqueue.</p>
 <h3 id="status" tabindex="-1">status</h3>
 <blockquote>
 <p><strong>status</strong>: <a href="/doc/jobs/type-aliases/JobStatus.html"><code>JobStatus</code></a></p>
 </blockquote>
+<p>Current lifecycle status.</p>
 <h3 id="updated_at" tabindex="-1">updated_at</h3>
 <blockquote>
 <p><strong>updated_at</strong>: <code>Date</code> | <code>string</code></p>
 </blockquote>
+<p>Row update timestamp.</p>
 </div></div>
           </div>
           

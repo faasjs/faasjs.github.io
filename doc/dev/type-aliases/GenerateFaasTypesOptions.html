@@ -78,7 +78,9 @@
 <blockquote>
 <p><code>optional</code> <strong>root?</strong>: <code>string</code></p>
 </blockquote>
-<p>Project root used to resolve <code>src/</code> and emit <code>src/.faasjs/types.d.ts</code>.</p>
+<p>Project root passed through FaasJS server config resolution.</p>
+<p>When <code>src/faas.yaml</code> contains <code>defaults.server.root</code>, generation runs from that
+resolved project root and emits <code>src/.faasjs/types.d.ts</code> beneath it.</p>
 <h4 id="default" tabindex="-1">Default</h4>
 <pre><code class="hljs language-ts">process.<span class="hljs-title function_">cwd</span>()
 </code></pre>

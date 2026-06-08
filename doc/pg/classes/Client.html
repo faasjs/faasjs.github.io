@@ -65,8 +65,10 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / Client</p>
 <h1 id="class%3A-client" tabindex="-1">Class: Client</h1>
 <p>PostgreSQL client wrapping <code>postgres.js</code> with a fluent query builder API.</p>
-<p>Clients created with the same connection URL are automatically cached and
-reused via <a href="/doc/pg/functions/getClient.html">getClient</a>.</p>
+<p>Constructing a client creates a <code>postgres.js</code> connection pool and caches the instance
+by connection URL. A later client created for the same URL replaces the cached
+default for that URL; <a href="#quit">quit</a> only removes the cache entry when it still points
+at the same instance.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { createClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
 <span class="hljs-keyword">const</span> client = <span class="hljs-title function_">createClient</span>(<span class="hljs-string">&#x27;postgres://user:pass@localhost:5432/db&#x27;</span>)
@@ -83,17 +85,22 @@ reused via <a href="/doc/pg/functions/getClient.html">getClient</a>.</p>
 <p>PostgreSQL connection string.</p>
 <h5 id="options%3F" tabindex="-1">options?</h5>
 <p><code>AnyClientOptions</code></p>
-<p>Optional <code>postgres.js</code> options.</p>
+<p>Optional <code>postgres.js</code> options. <code>options.max</code> overrides <code>PG_POOL_MAX</code>.</p>
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><code>Client</code></p>
 <h4 id="throws" tabindex="-1">Throws</h4>
 <p>When <code>url</code> is not a string.</p>
+<h4 id="throws-1" tabindex="-1">Throws</h4>
+<p>When <code>PG_POOL_MAX</code> is set and is not a positive safe integer.</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="query()" tabindex="-1">query()</h3>
 <blockquote>
 <p><strong>query</strong>&lt;<code>T</code>&gt;(<code>table</code>): <a href="/doc/pg/classes/QueryBuilder.html"><code>QueryBuilder</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
 <p>Initiates a query builder for the specified table.</p>
+<p>Table and column names are escaped as identifiers by the query builder. Add entries
+to the exported <code>Tables</code> interface through declaration merging to get typed
+table names, columns, values, and selected result rows.</p>
 <h4 id="type-parameters" tabindex="-1">Type Parameters</h4>
 <h5 id="t" tabindex="-1">T</h5>
 <p><code>T</code> <em>extends</em> <a href="/doc/pg/type-aliases/TableName.html"><code>TableName</code></a></p>
@@ -120,6 +127,12 @@ reused via <a href="/doc/pg/functions/getClient.html">getClient</a>.</p>
 <p><strong>raw</strong>&lt;<code>T</code>&gt;(<code>query</code>, ...<code>params</code>): <code>Promise</code>&lt;<code>T</code>[]&gt;</p>
 </blockquote>
 <p>Executes a raw SQL query and returns the result as an array of objects.</p>
+<p>Template-literal usage delegates placeholders to <code>postgres.js</code> with <code>${value}</code>.
+String usage treats every <code>?</code> as a parameter placeholder and converts the string
+into a <code>TemplateStringsArray</code> before execution. Use placeholders for values; do
+not concatenate user input into the SQL string.</p>
+<p>In debug logging mode the SQL template and parameters are timed and query errors
+are logged before being rethrown.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
 <h5 id="t-1" tabindex="-1">T</h5>
 <p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; = <code>any</code></p>
@@ -149,6 +162,8 @@ reused via <a href="/doc/pg/functions/getClient.html">getClient</a>.</p>
 <p><strong>transaction</strong>&lt;<code>T</code>&gt;(<code>fn</code>): <code>Promise</code>&lt;<code>UnwrapPromiseArray</code>&lt;<code>T</code>&gt;&gt;</p>
 </blockquote>
 <p>Executes a function within a database transaction.</p>
+<p>The callback receives a lightweight <code>Client</code> facade backed by the transactional
+<code>postgres.js</code> connection. Do not keep that facade after the callback resolves.</p>
 <h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
 <h5 id="t-2" tabindex="-1">T</h5>
 <p><code>T</code></p>

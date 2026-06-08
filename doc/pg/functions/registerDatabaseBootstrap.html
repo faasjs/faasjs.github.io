@@ -68,6 +68,9 @@
 <p><strong>registerDatabaseBootstrap</strong>(<code>bootstrap</code>): <code>void</code></p>
 </blockquote>
 <p>Replaces the async bootstrap used by <a href="/doc/pg/functions/getClient.html">getClient</a> for the default client path.</p>
+<p>The replacement is process-wide for the current module instance. It is primarily
+intended for test harnesses and local tooling that must lazily start a database
+before the first default <code>getClient()</code> call.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="bootstrap" tabindex="-1">bootstrap</h3>
 <p><a href="/doc/pg/type-aliases/DatabaseBootstrap.html"><code>DatabaseBootstrap</code></a></p>

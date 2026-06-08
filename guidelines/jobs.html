@@ -69,6 +69,7 @@
 <li>Create feature-owned <code>.job.ts</code> files under <code>src/features/&lt;feature&gt;/jobs/</code>; use <code>src/jobs/</code> for cross-cutting or platform jobs.</li>
 <li>Default-export <code>defineJob(...)</code> with a schema when the params have a shape.</li>
 <li>Enqueue work with <code>enqueueJob(jobPath, params)</code> from APIs, scripts, or other jobs.</li>
+<li>Let <code>enqueueJob()</code> initialize the internal <code>faasjs_jobs</code> schema; do not duplicate it in app migrations.</li>
 <li>Run <code>startJobWorker()</code> in a worker process for execution.</li>
 <li>Run <code>startJobScheduler()</code> only when <code>.job.ts</code> files include <code>cron</code> rules.</li>
 <li>Keep handlers idempotent; delivery is at-least-once.</li>
@@ -146,6 +147,7 @@ src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
 <li>Prefer idempotent writes, unique keys, and explicit state transitions.</li>
 <li>Use <code>maxAttempts</code> and <code>retry</code> to make failure behavior visible instead of looping forever.</li>
 <li>Missing job files are recorded as job failures and retried according to the row's attempt policy.</li>
+<li>The jobs package owns the <code>faasjs_jobs</code> and <code>faasjs_jobs_schema_migrations</code> tables through <code>ensureJobsSchema()</code>; application migrations should model business data, not the internal queue schema.</li>
 </ul>
 <h3 id="6.-test-with-real-postgresql-behavior" tabindex="-1">6. Test with real PostgreSQL behavior</h3>
 <ul>
@@ -263,6 +265,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 <li>idempotency and retry behavior are explicit</li>
 <li>cron rules enqueue jobs instead of doing work directly</li>
 <li>worker and scheduler startup are separate from HTTP server lifecycle</li>
+<li>app migrations do not recreate the internal jobs tables</li>
 <li>tests cover enqueue shape, success, validation, retry/failure, and cron dedupe when relevant</li>
 </ul>
 </div></div>

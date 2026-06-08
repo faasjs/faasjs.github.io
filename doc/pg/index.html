@@ -64,6 +64,21 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/pg</p>
 <h1 id="%40faasjs%2Fpg" tabindex="-1">@faasjs/pg</h1>
+<h1 id="%40faasjs%2Fpg-1" tabindex="-1">@faasjs/pg</h1>
+<p>A TypeScript-first PostgreSQL query builder and migration toolkit built on top of <code>postgres.js</code>.</p>
+<p>The package exposes:</p>
+<ul>
+<li>cached <a href="/doc/pg/classes/Client.html">Client</a> instances created with <a href="/doc/pg/functions/createClient.html">createClient</a> and resolved with <a href="/doc/pg/functions/getClient.html">getClient</a>;</li>
+<li>a fluent <a href="/doc/pg/classes/QueryBuilder.html">QueryBuilder</a> for parameterized SELECT, INSERT, UPDATE, DELETE, and upsert calls;</li>
+<li>schema and migration helpers for test and application database setup;</li>
+<li>declaration-merging types such as <a href="/doc/pg/interfaces/Tables.html">Tables</a>, <a href="/doc/pg/type-aliases/TableName.html">TableName</a>, and <a href="/doc/pg/type-aliases/ColumnName.html">ColumnName</a>.</li>
+</ul>
+<p>Prefer query-builder methods or <code>Client.raw</code> parameters for runtime values. Helpers such as
+<a href="/doc/pg/functions/rawSql.html">rawSql</a>, <code>whereRaw</code>, <code>orderByRaw</code>, and schema <code>raw()</code> methods accept trusted SQL text and
+should only be used for fragments controlled by the application.</p>
+<h2 id="install" tabindex="-1">Install</h2>
+<pre><code class="hljs language-sh">npm install @faasjs/pg
+</code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
 <li><a href="/doc/pg/functions/createClient.html">createClient</a></li>

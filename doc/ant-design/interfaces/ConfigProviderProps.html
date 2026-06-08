@@ -65,6 +65,10 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / ConfigProviderProps</p>
 <h1 id="interface%3A-configproviderprops" tabindex="-1">Interface: ConfigProviderProps</h1>
 <p>Props for the <code>@faasjs/ant-design</code> <a href="/doc/ant-design/functions/ConfigProvider.html">ConfigProvider</a>.</p>
+<p>This provider owns FaasJS Ant Design component copy, small component defaults,
+and optional FaasJS client initialization. It does not configure Ant Design's
+token/theme provider; use the <code>configProviderProps</code> prop on <code>App</code> or Ant
+Design's <code>ConfigProvider</code> for that boundary.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="children" tabindex="-1">children</h3>
 <blockquote>
@@ -76,11 +80,15 @@
 <p><code>optional</code> <strong>faasClientOptions?</strong>: <a href="/doc/ant-design/type-aliases/FaasReactClientOptions.html"><code>FaasReactClientOptions</code></a></p>
 </blockquote>
 <p>Optional FaasJS client options used to initialize <a href="/doc/ant-design/functions/FaasReactClient.html">FaasReactClient</a>.</p>
+<p>Use this for request <code>baseUrl</code>, default browser-client options, and the
+shared <code>onError</code> hook consumed by <code>faas</code> and <code>useFaas</code>.</p>
 <h3 id="theme%3F" tabindex="-1">theme?</h3>
 <blockquote>
 <p><code>optional</code> <strong>theme?</strong>: <code>object</code></p>
 </blockquote>
-<p>Theme overrides merged with the built-in defaults.</p>
+<p>FaasJS Ant Design theme overrides merged with the built-in defaults.</p>
+<p>These values drive copy and small component defaults inside this package;
+they are separate from Ant Design token configuration.</p>
 <h4 id="blank%3F" tabindex="-1">Blank?</h4>
 <blockquote>
 <p><code>optional</code> <strong>Blank?</strong>: <code>object</code></p>

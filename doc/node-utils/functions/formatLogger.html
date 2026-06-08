@@ -68,8 +68,10 @@
 <p><strong>formatLogger</strong>(<code>fmt</code>, ...<code>args</code>): <code>string</code></p>
 </blockquote>
 <p>Format logger arguments into a printable string.</p>
-<p>Values marked with <code>__hidden__: true</code> are skipped so callers can attach transport-only metadata.
-When formatting fails, the formatter returns a fallback error message instead of throwing.</p>
+<p>Values marked with <code>__hidden__: true</code> are skipped so callers can attach
+transport-only metadata. <code>Error</code> objects include their message and stack.
+When formatting fails, the formatter returns a fallback error message instead
+of throwing.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="fmt" tabindex="-1">fmt</h3>
 <p><code>any</code></p>

@@ -66,7 +66,9 @@
 <h1 id="class%3A-server" tabindex="-1">Class: Server</h1>
 <p>HTTP server that loads and runs FaasJS API files from an app source root.</p>
 <p>A Server resolves API route files on demand, caches loaded handlers, and
-dispatches each request through the matching function lifecycle.</p>
+dispatches each request through the matching function lifecycle. It normalizes the
+source root with a trailing path separator, loads the project <code>.env</code>, blocks unsafe
+route traversal, and skips test-only route files.</p>
 <h2 id="example" tabindex="-1">Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:path&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/core&#x27;</span>
@@ -154,6 +156,7 @@ server.<span class="hljs-title function_">listen</span>()
 <blockquote>
 <p><code>protected</code> <strong>closed</strong>: <code>boolean</code> = <code>false</code></p>
 </blockquote>
+<p>Tracks whether shutdown has completed. Subclasses may read this to avoid duplicate cleanup.</p>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>
 <p><code>readonly</code> <strong>logger</strong>: <code>Logger</code></p>
