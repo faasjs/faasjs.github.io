@@ -77,18 +77,18 @@
 <li>Keep render logic pure and derive values inline when possible.</li>
 <li>Use event handlers for user-driven updates.</li>
 <li>Avoid native <code>useEffect</code> by default; use <code>useEqualEffect</code> only for real side effects.</li>
+<li>Use <code>useStates</code> for component-local state instead of React <code>useState</code>.</li>
+<li>Use <code>useStatesRef</code> when component-local state also needs latest-value refs.</li>
 <li>Use equal memo hooks for object, array, or function dependencies.</li>
 <li>Reach for state, context, and rendering helpers only when they solve a specific problem.</li>
 <li>Keep data-fetching choices explicit; read <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a> for request flows.</li>
-<li>Receive component inputs as <code>props</code> and read <code>props.xxx</code>; destructure hook returns or local objects inside the body when it improves readability.</li>
+<li>Receive component inputs as <code>props</code> and read <code>props.xxx</code>; destructure React hook returns at the call site.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-avoid-native-useeffect-by-default" tabindex="-1">1. Avoid native <code>useEffect</code> by default</h3>
 <p>Prefer derived values in render instead of mirroring props or state through <code>useEffect</code>. Use event handlers for actions that can run directly from user interaction.</p>
 <p>Prefer:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
-
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = { <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>; <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">DisplayName</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">Props</span></span>) {
   <span class="hljs-keyword">const</span> fullName = <span class="hljs-string">`<span class="hljs-subst">${props.firstName}</span> <span class="hljs-subst">${props.lastName}</span>`</span>
@@ -169,7 +169,27 @@
 <ul>
 <li>If dependencies are primitives and computation is cheap, inline it.</li>
 </ul>
-<h3 id="4.-use-state-helpers-only-for-their-specific-jobs" tabindex="-1">4. Use state helpers only for their specific jobs</h3>
+<h3 id="4.-use-usestates-for-component-local-state" tabindex="-1">4. Use <code>useStates</code> for component-local state</h3>
+<p><code>useStates</code>: default local state with matching setters.</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useStates } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">SearchBox</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> { keyword, setKeyword, setPage } = <span class="hljs-title function_">useStates</span>({ <span class="hljs-attr">keyword</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">page</span>: <span class="hljs-number">1</span> })
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{keyword}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setKeyword(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setPage((page) =&gt; page + 1)}&gt;Next page<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+}
+</code></pre>
+<ul>
+<li>Prefer <code>useStates</code> over React <code>useState</code> for component-local state.</li>
+<li>Destructure the fields used from <code>useStates</code> at the call site.</li>
+<li>Group related local fields in one <code>useStates</code> call.</li>
+</ul>
+<h3 id="5.-use-other-state-helpers-only-for-their-specific-jobs" tabindex="-1">5. Use other state helpers only for their specific jobs</h3>
 <p><code>useConstant</code>: create one value per component instance.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useConstant } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
@@ -192,11 +212,11 @@
   )
 }
 </code></pre>
-<p><code>useStateRef</code>: async callbacks, timers, or subscriptions need both state and latest-value ref.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useStateRef } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<p><code>useStatesRef</code>: async callbacks, timers, subscriptions, or other delayed work need both state and latest-value refs.</p>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useStatesRef } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">AsyncCounter</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> [count, setCount, countRef] = <span class="hljs-title function_">useStateRef</span>(<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">const</span> { count, setCount, countRef } = <span class="hljs-title function_">useStatesRef</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> })
 
   <span class="hljs-keyword">const</span> <span class="hljs-title function_">logLater</span> = (<span class="hljs-params"></span>) =&gt; {
     <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
@@ -214,10 +234,11 @@
 }
 </code></pre>
 <ul>
-<li>Do not replace normal <code>useState</code> with <code>useStateRef</code> unless the live ref is needed.</li>
+<li>Prefer <code>useStatesRef</code> over pairing <code>useStates</code> with separate refs when the same local fields need current state and latest-value refs.</li>
+<li>Destructure the fields and refs used from <code>useStatesRef</code> at the call site.</li>
 </ul>
-<h3 id="5.-split-multi-field-shared-state-deliberately" tabindex="-1">5. Split multi-field shared state deliberately</h3>
-<p>Use <code>createSplittingContext</code> when one context object has fields that change independently. Use <code>useStates</code> to build a small object state container with matching setters. Use <code>useStatesRef</code> when the same state fields also need latest-value refs. Prefer this over putting a large mutable object into one normal context.</p>
+<h3 id="6.-split-shared-state-deliberately" tabindex="-1">6. Split shared state deliberately</h3>
+<p>Use <code>createSplittingContext</code> when one state object is shared and its fields change independently. Use <code>useStates</code> to build the provider value with matching setters. Use <code>useStatesRef</code> only when the same provider state also needs latest-value refs. Prefer this over putting a large mutable object into one normal context.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { createSplittingContext, useStates } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">CounterContext</span> = createSplittingContext&lt;{
@@ -245,17 +266,17 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> states = <span class="hljs-title function_">useStates</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">keyword</span>: <span class="hljs-string">&#x27;&#x27;</span> })
+  <span class="hljs-keyword">const</span> { count, setCount, keyword, setKeyword } = <span class="hljs-title function_">useStates</span>({ <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">keyword</span>: <span class="hljs-string">&#x27;&#x27;</span> })
 
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CounterContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{states}</span>&gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CounterContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">count</span>, <span class="hljs-attr">setCount</span>, <span class="hljs-attr">keyword</span>, <span class="hljs-attr">setKeyword</span> }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Filters</span> /&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Count</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">CounterContext.Provider</span>&gt;</span></span>
   )
 }
 </code></pre>
-<h3 id="6.-use-rendering-helpers-at-composition-boundaries" tabindex="-1">6. Use rendering helpers at composition boundaries</h3>
+<h3 id="7.-use-rendering-helpers-at-composition-boundaries" tabindex="-1">7. Use rendering helpers at composition boundaries</h3>
 <p><code>OptionalWrapper</code>: same children sometimes need a wrapper and sometimes render directly.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OptionalWrapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Card</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
@@ -286,7 +307,7 @@
 <ul>
 <li>Keep fallbacks simple and user-facing.</li>
 </ul>
-<h3 id="7.-keep-request%2Fclient-choices-explicit" tabindex="-1">7. Keep request/client choices explicit</h3>
+<h3 id="8.-keep-request%2Fclient-choices-explicit" tabindex="-1">8. Keep request/client choices explicit</h3>
 <ul>
 <li>Use <code>useFaas</code>, <code>useFaasStream</code>, <code>faas</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code> intentionally.</li>
 <li>Configure <code>FaasReactClient</code> centrally.</li>
@@ -297,6 +318,9 @@
 <ul>
 <li>native <code>useEffect</code> is not used for normal React logic</li>
 <li>derived state is computed inline instead of mirrored through effects</li>
+<li>component-local state uses <code>useStates</code> instead of React <code>useState</code></li>
+<li>component-local state with latest-value refs uses <code>useStatesRef</code></li>
+<li>React hook return values are destructured at the call site</li>
 <li>object or array dependencies use equal hook variants</li>
 <li>memoization solves real stability or performance needs</li>
 <li>state, context, rendering, request, and client helpers are used for their specific purposes</li>
