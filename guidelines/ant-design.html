@@ -70,7 +70,7 @@
 <li>Configuring routes with <code>Routes</code> and <code>lazy</code></li>
 <li>Building list, detail, create, update, or delete flows</li>
 <li>Deciding how to split feature frontend files</li>
-<li>Choosing between <code>faas</code>, <code>faasData</code>, and custom hooks for requests</li>
+<li>Choosing between <code>faas</code>, <code>useFaas</code>, <code>useFaasStream</code>, <code>faasData</code>, and custom hooks for requests</li>
 <li>Implementing message prompts, notifications, confirmation modals, or drawer workflows</li>
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
@@ -81,6 +81,7 @@
 <li>Put feature-local request files under <code>api/</code> and keep action paths aligned with file paths.</li>
 <li>Model business fields as shared <code>items</code> metadata reused by <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
 <li>Start CRUD with <code>Table</code>, <code>Description</code>, and <code>Form</code>; use <code>useApp()</code> for <code>message</code>, <code>notification</code>, <code>setModalProps</code>, and <code>setDrawerProps</code>.</li>
+<li>Import re-exported request helpers from <code>@faasjs/ant-design</code>, including <code>faas</code>, <code>useFaas</code>, <code>useFaasStream</code>, <code>FaasReactClient</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code>.</li>
 <li>Keep component inputs readable as <code>props.xxx</code>; do not destructure props in component parameters.</li>
 </ol>
 <h2 id="recommended-layout" tabindex="-1">Recommended Layout</h2>
@@ -527,6 +528,9 @@
 <p>Use <code>useApp()</code> for shared feedback and overlays. Use <code>message</code> for lightweight success/warning feedback, <code>notification</code> for persistent feedback with title and description, <code>setModalProps</code> for confirmations, and <code>setDrawerProps</code> for create/edit/detail panels that should preserve feature context. Prefer drawers for in-context create/edit/detail and modals for confirmations. Use local <code>useModal</code> or <code>useDrawer</code> only when creating isolated instances outside the shared app shell.</p>
 </li>
 <li>
+<p>Import request helpers that <code>@faasjs/ant-design</code> re-exports from <code>@faasjs/ant-design</code>, not <code>@faasjs/react</code>, including <code>faas</code>, <code>useFaas</code>, <code>useFaasStream</code>, <code>FaasReactClient</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code>. This keeps failed request feedback aligned with the shared <code>App</code> configuration.</p>
+</li>
+<li>
 <p>Promote repeated custom field behavior into <code>extendTypes</code>; keep one-off customization on the item itself.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Form</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">ExtendFormItemProps</span>, <span class="hljs-keyword">type</span> <span class="hljs-title class_">FormProps</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Input</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
@@ -561,6 +565,7 @@
 <li>feature entry composes feature components instead of containing all logic inline</li>
 <li>shared <code>items</code> metadata drives <code>Form</code>, <code>Description</code>, and <code>Table</code></li>
 <li>wrappers and <code>faas</code>/<code>faasData</code> cover straightforward request flows</li>
+<li>re-exported request helpers are imported from <code>@faasjs/ant-design</code>, not <code>@faasjs/react</code></li>
 <li>CRUD feature UI primarily uses <code>Table</code>, <code>Description</code>, and <code>Form</code></li>
 <li>FaasJS wrapper components are preferred over raw Ant Design primitives where they fit</li>
 <li>custom <code>div</code>-based UI is not written unless existing components are insufficient</li>

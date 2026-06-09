@@ -66,7 +66,20 @@
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
 <p>Unreleased</p>
 <ul>
-<li><code>@faasjs/react</code>
+<li>
+<p><code>@faasjs/ant-design</code></p>
+<ul>
+<li>[Feature] Re-export <code>useFaasStream</code> and request helper types so Ant Design apps can keep FaasJS request imports on <code>@faasjs/ant-design</code>.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/create-faas-app</code></p>
+<ul>
+<li>[Fix] Update the admin starter to import <code>useFaas</code> from <code>@faasjs/ant-design</code> for consistent request error feedback.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/react</code></p>
 <ul>
 <li>[Break] Remove the <code>useStateRef</code> export while keeping <code>useStatesRef</code> for object-based state refs.</li>
 </ul>

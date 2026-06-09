@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: useFaas() | FaasJS</title>
+    <title>Type Alias: UseFaasStreamResult\&lt;Path\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,42 +62,80 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / useFaas</p>
-<h1 id="function%3A-usefaas()" tabindex="-1">Function: useFaas()</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / UseFaasStreamResult</p>
+<h1 id="type-alias%3A-usefaasstreamresult%3Cpath%3E" tabindex="-1">Type Alias: UseFaasStreamResult&lt;Path&gt;</h1>
 <blockquote>
-<p><strong>useFaas</strong>&lt;<code>Path</code>&gt;(<code>action</code>, <code>defaultParams</code>, <code>options?</code>): <a href="/doc/ant-design/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;</p>
+<p><strong>UseFaasStreamResult</strong>&lt;<code>Path</code>&gt; = <code>object</code></p>
 </blockquote>
-<p>Request FaasJS data and keep request state in React state.</p>
-<p>In Ant Design apps, import this hook from <code>@faasjs/ant-design</code> so failed requests use the same
-configured feedback behavior as <code>App</code>, <code>Form</code>, <code>Table</code>, and <code>Description</code>.</p>
+<p>Result returned by <a href="/doc/ant-design/functions/useFaasStream.html">useFaasStream</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
-<p>Registered action path used to infer params and response data.</p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
+<p>Registered action path used for params inference.</p>
+<h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="action" tabindex="-1">action</h3>
-<p><code>Path</code></p>
-<p>Action path to invoke.</p>
-<h3 id="defaultparams" tabindex="-1">defaultParams</h3>
+<blockquote>
+<p><strong>action</strong>: <code>Path</code></p>
+</blockquote>
+<p>Action path currently associated with the stream request.</p>
+<h3 id="data" tabindex="-1">data</h3>
+<blockquote>
+<p><strong>data</strong>: <code>string</code></p>
+</blockquote>
+<p>Accumulated text decoded from the stream response.</p>
+<h3 id="error" tabindex="-1">error</h3>
+<blockquote>
+<p><strong>error</strong>: <code>any</code></p>
+</blockquote>
+<p>Last error raised while opening or consuming the stream.</p>
+<h3 id="loading" tabindex="-1">loading</h3>
+<blockquote>
+<p><strong>loading</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Whether the hook is currently waiting for stream data and should block the main UI.</p>
+<h3 id="params" tabindex="-1">params</h3>
+<blockquote>
+<p><strong>params</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
+</blockquote>
+<p>Params used for the most recent request attempt.</p>
+<h3 id="refreshing" tabindex="-1">refreshing</h3>
+<blockquote>
+<p><strong>refreshing</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Whether a background stream refresh is currently in flight.</p>
+<h3 id="reload" tabindex="-1">reload</h3>
+<blockquote>
+<p><strong>reload</strong>: (<code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt;</p>
+</blockquote>
+<p>Trigger a new streaming request with optional params.</p>
+<h4 id="parameters" tabindex="-1">Parameters</h4>
+<h5 id="params%3F" tabindex="-1">params?</h5>
 <p><code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
-<p>Params used for the initial request and future reloads.</p>
-<h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/ant-design/type-aliases/UseFaasOptions.html"><code>UseFaasOptions</code></a>&lt;<code>Path</code>&gt; = <code>{}</code></p>
-<p>Optional hook configuration such as skip, debounce, polling, controlled data, or base URL overrides.</p>
-<h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/ant-design/type-aliases/FaasDataInjection.html"><code>FaasDataInjection</code></a>&lt;<code>Path</code>&gt;</p>
-<p>Request state and helper methods.</p>
-<h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Profile</span>(<span class="hljs-params"><span class="hljs-attr">props</span>: { id: <span class="hljs-built_in">number</span> }</span>) {
-  <span class="hljs-keyword">const</span> { data, loading, reload } = <span class="hljs-title function_">useFaas</span>(<span class="hljs-string">&#x27;features/users/api/get&#x27;</span>, { <span class="hljs-attr">id</span>: props.<span class="hljs-property">id</span> })
-
-  <span class="hljs-keyword">if</span> (loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-
-  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> reload()}&gt;{data?.name}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
-}
-</code></pre>
+<h5 id="options%3F" tabindex="-1">options?</h5>
+<h6 id="silent%3F" tabindex="-1">silent?</h6>
+<p><code>boolean</code></p>
+<h4 id="returns" tabindex="-1">Returns</h4>
+<p><code>Promise</code>&lt;<code>string</code>&gt;</p>
+<h3 id="reloadtimes" tabindex="-1">reloadTimes</h3>
+<blockquote>
+<p><strong>reloadTimes</strong>: <code>number</code></p>
+</blockquote>
+<p>Number of times <code>reload()</code> or polling has triggered a new request.</p>
+<h3 id="setdata" tabindex="-1">setData</h3>
+<blockquote>
+<p><strong>setData</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;</p>
+</blockquote>
+<p>Controlled or internal setter for the accumulated text.</p>
+<h3 id="seterror" tabindex="-1">setError</h3>
+<blockquote>
+<p><strong>setError</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>any</code>&gt;&gt;</p>
+</blockquote>
+<p>Setter for the last stream error.</p>
+<h3 id="setloading" tabindex="-1">setLoading</h3>
+<blockquote>
+<p><strong>setLoading</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>boolean</code>&gt;&gt;</p>
+</blockquote>
+<p>Setter for the loading flag.</p>
 </div></div>
           </div>
           

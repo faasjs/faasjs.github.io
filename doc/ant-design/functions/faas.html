@@ -68,8 +68,8 @@
 <p><strong>faas</strong>&lt;<code>Path</code>&gt;(<code>action</code>, <code>params</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Response</code>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 </blockquote>
 <p>Call the currently configured FaasReactClient.</p>
-<p>This helper forwards the request to <code>getClient</code>. When the registered
-client defines <code>onError</code>, the hook is invoked before the promise rejects.</p>
+<p>In Ant Design apps, import this helper from <code>@faasjs/ant-design</code> so failed requests use the
+same configured feedback behavior as the rest of the UI.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
 <p><code>Path</code> <em>extends</em> <code>FaasActionPaths</code></p>
@@ -83,29 +83,14 @@ client defines <code>onError</code>, the hook is invoked before the promise reje
 <p>Parameters sent to the action.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
 <p><code>Options</code></p>
-<p>Optional per-request overrides such as headers or base URL.
-See the browser-client <code>Options</code> type for supported fields such as <code>headers</code>, <code>beforeRequest</code>,
-<code>request</code>, <code>baseUrl</code>, and <code>stream</code>.</p>
+<p>Optional per-request overrides such as headers or base URL.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<code>Response</code>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
 <p>Response returned by the active browser client.</p>
-<h2 id="throws" tabindex="-1">Throws</h2>
-<p>When the request fails and the active client does not recover inside <code>onError</code>.</p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { faas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { faas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
 
-<span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@faasjs/types&#x27;</span> {
-  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FaasActions</span> {
-    <span class="hljs-string">&#x27;posts/get&#x27;</span>: {
-      <span class="hljs-title class_">Params</span>: { <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span> }
-      <span class="hljs-title class_">Data</span>: { <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span> }
-    }
-  }
-}
-
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> faas&lt;<span class="hljs-string">&#x27;posts/get&#x27;</span>&gt;(<span class="hljs-string">&#x27;posts/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response.<span class="hljs-property">data</span>.<span class="hljs-property">title</span>)
+<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">faas</span>(<span class="hljs-string">&#x27;features/users/api/get&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span> })
 </code></pre>
 </div></div>
           </div>

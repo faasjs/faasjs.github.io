@@ -84,8 +84,10 @@
 <li>Always handle loading, error, and retry states in user-facing code.</li>
 <li>Keep component props visible as <code>props.xxx</code>; avoid destructuring props in the component parameter list.</li>
 <li>Destructure React hook returns such as <code>useFaas</code>, <code>useFaasStream</code>, and <code>useStates</code> at the call site.</li>
+<li>In apps using <code>@faasjs/ant-design</code>, import re-exported request helpers from <code>@faasjs/ant-design</code>, including <code>faas</code>, <code>useFaas</code>, <code>useFaasStream</code>, <code>FaasReactClient</code>, <code>FaasDataWrapper</code>, and <code>withFaasData</code>.</li>
 </ol>
 <h2 id="rules" tabindex="-1">Rules</h2>
+<p>Examples in this guide use <code>@faasjs/react</code> for plain React apps. When the UI uses <code>@faasjs/ant-design</code>, keep request-helper imports on <code>@faasjs/ant-design</code> so failed request feedback follows the shared Ant Design app configuration.</p>
 <h3 id="1.-standard-requests-use-usefaas" tabindex="-1">1. Standard requests use <code>useFaas</code></h3>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { useFaas } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
 
