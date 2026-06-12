@@ -68,9 +68,9 @@
 <p><strong>useModal</strong>(<code>init?</code>): <code>object</code></p>
 </blockquote>
 <p>Create a hook-managed Ant Design modal instance.</p>
-<p>The returned setter shallow-merges partial updates into the modal props instead
-of replacing the entire state object. The updater form is also merged after it
-returns, so omitted keys stay unchanged.</p>
+<p>The returned setter shallow-merges partial updates into the modal props. When
+an update sets <code>open</code> to <code>false</code>, previous modal props are discarded and the
+modal resets to its initial props.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="init%3F" tabindex="-1">init?</h3>
 <p><a href="/doc/ant-design/interfaces/ModalProps.html"><code>ModalProps</code></a></p>

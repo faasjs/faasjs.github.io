@@ -69,8 +69,9 @@
 </blockquote>
 <p>State setter used to update hook-managed drawer props.</p>
 <p>Each call shallow-merges the provided object, or the object returned by an
-updater function, into the existing drawer props. Omitted keys are preserved;
-set a key to <code>undefined</code> or a new value when you need to clear or replace it.</p>
+updater function, into the existing drawer props. When <code>open</code> is set to
+<code>false</code>, previous drawer props are discarded and the drawer resets to its
+initial props.</p>
 </div></div>
           </div>
           
