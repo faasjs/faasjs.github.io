@@ -100,6 +100,7 @@ src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
 })
 </code></pre>
 <p>When a job needs database access, use <code>getClient()</code> from <code>@faasjs/pg</code> inside the handler. Job handlers do not receive an externally provided database client, so tests and callers cannot silently swap the default database path.</p>
+<p>Destructure only the top-level handler context as <code>handler({ params, logger, job })</code>; do not further destructure fields from <code>params</code>. Use <code>params.userId</code> and similar property access so the source of each business value stays visible, like <code>props.id</code> in React components.</p>
 <p>If a job has no business input, omit <code>schema</code>; <code>params</code> will be typed as <code>Record&lt;string, never&gt;</code>.</p>
 <h3 id="3.-enqueue-asynchronous-work-explicitly" tabindex="-1">3. Enqueue asynchronous work explicitly</h3>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>

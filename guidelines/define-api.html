@@ -122,6 +122,7 @@
 <li><code>params</code> is the parsed, validated view of <code>event.params</code>.</li>
 <li><code>event</code> keeps the raw request payload; reach for it only when you need transport-level details or unparsed input.</li>
 <li>Prefer <code>params</code> over raw request fields for business logic.</li>
+<li>Destructure only the top-level handler context as <code>handler({ params })</code>; do not further destructure fields from <code>params</code>. Use <code>params.id</code>, <code>params.title</code>, and similar property access so the source of each business value stays visible, like <code>props.id</code> in React components.</li>
 <li>Read <code>event</code>, <code>headers</code>, or <code>body</code> only when transport-level behavior matters.</li>
 <li>Let <code>schema</code> cover request-shape validation at the boundary, then fail fast inside <code>handler</code> when domain state is invalid instead of layering extra fallback branches.</li>
 </ul>
