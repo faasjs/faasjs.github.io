@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>@faasjs/jobs | FaasJS</title>
+    <title>Function: parseCronExpression() | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,68 +62,29 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/jobs</p>
-<h1 id="%40faasjs%2Fjobs" tabindex="-1">@faasjs/jobs</h1>
-<h1 id="%40faasjs%2Fjobs-1" tabindex="-1">@faasjs/jobs</h1>
-<p>PostgreSQL-backed background jobs for FaasJS.</p>
-<p>Jobs are persisted in PostgreSQL, executed with at-least-once delivery, and split
-between enqueueing, worker polling, and scheduler cron enqueueing. Handlers should
-be idempotent and use retry options to make failure behavior explicit.</p>
-<h2 id="install" tabindex="-1">Install</h2>
-<pre><code class="hljs language-sh">npm install @faasjs/jobs @faasjs/pg
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / parseCronExpression</p>
+<h1 id="function%3A-parsecronexpression()" tabindex="-1">Function: parseCronExpression()</h1>
+<blockquote>
+<p><strong>parseCronExpression</strong>(<code>expression</code>): <a href="/doc/jobs/type-aliases/CronMatcher.html"><code>CronMatcher</code></a>[]</p>
+</blockquote>
+<p>Parse a cron expression into an array of field matchers.</p>
+<p>Accepts the standard 5-field format: <code>minute hour dayOfMonth month dayOfWeek</code>.
+Supports comma-separated values, ranges (<code>-</code>), steps (<code>/</code>), and wildcards (<code>*</code>).
+Day-of-week accepts both numeric (0–7) and abbreviated names (SUN–SAT).</p>
+<h2 id="parameters" tabindex="-1">Parameters</h2>
+<h3 id="expression" tabindex="-1">expression</h3>
+<p><code>string</code></p>
+<p>A cron expression string.</p>
+<h2 id="returns" tabindex="-1">Returns</h2>
+<p><a href="/doc/jobs/type-aliases/CronMatcher.html"><code>CronMatcher</code></a>[]</p>
+<p>An array of five matcher functions, one per field.</p>
+<h2 id="throws" tabindex="-1">Throws</h2>
+<p>If the expression is empty, has the wrong number of fields,
+or contains invalid values.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-title function_">parseCronExpression</span>(<span class="hljs-string">&#x27;0 9 * * 1-5&#x27;</span>)
+<span class="hljs-comment">// every weekday at 9:00</span>
 </code></pre>
-<h2 id="usage" tabindex="-1">Usage</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob, enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
-<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
-  <span class="hljs-attr">schema</span>: z.<span class="hljs-title function_">object</span>({
-    <span class="hljs-attr">userId</span>: z.<span class="hljs-title function_">string</span>(),
-  }),
-  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params">{ params }</span>) {
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(params.<span class="hljs-property">userId</span>)
-  },
-})
-
-<span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> })
-</code></pre>
-<h2 id="functions" tabindex="-1">Functions</h2>
-<ul>
-<li><a href="/doc/jobs/functions/defineJob.html">defineJob</a></li>
-<li><a href="/doc/jobs/functions/enqueueJob.html">enqueueJob</a></li>
-<li><a href="/doc/jobs/functions/parseCronExpression.html">parseCronExpression</a></li>
-<li><a href="/doc/jobs/functions/startJobScheduler.html">startJobScheduler</a></li>
-<li><a href="/doc/jobs/functions/startJobWorker.html">startJobWorker</a></li>
-</ul>
-<h2 id="classes" tabindex="-1">Classes</h2>
-<ul>
-<li><a href="/doc/jobs/classes/Job.html">Job</a></li>
-<li><a href="/doc/jobs/classes/JobScheduler.html">JobScheduler</a></li>
-<li><a href="/doc/jobs/classes/JobWorker.html">JobWorker</a></li>
-</ul>
-<h2 id="interfaces" tabindex="-1">Interfaces</h2>
-<ul>
-<li><a href="/doc/jobs/interfaces/DefineJobInject.html">DefineJobInject</a></li>
-</ul>
-<h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
-<ul>
-<li><a href="/doc/jobs/type-aliases/CronMatcher.html">CronMatcher</a></li>
-<li><a href="/doc/jobs/type-aliases/DefineJobData.html">DefineJobData</a></li>
-<li><a href="/doc/jobs/type-aliases/DefineJobOptions.html">DefineJobOptions</a></li>
-<li><a href="/doc/jobs/type-aliases/DefineJobParams.html">DefineJobParams</a></li>
-<li><a href="/doc/jobs/type-aliases/EnqueueJobOptions.html">EnqueueJobOptions</a></li>
-<li><a href="/doc/jobs/type-aliases/JobCron.html">JobCron</a></li>
-<li><a href="/doc/jobs/type-aliases/JobEvent.html">JobEvent</a></li>
-<li><a href="/doc/jobs/type-aliases/JobRecord.html">JobRecord</a></li>
-<li><a href="/doc/jobs/type-aliases/JobRegistry.html">JobRegistry</a></li>
-<li><a href="/doc/jobs/type-aliases/JobRetry.html">JobRetry</a></li>
-<li><a href="/doc/jobs/type-aliases/JobRetryContext.html">JobRetryContext</a></li>
-<li><a href="/doc/jobs/type-aliases/JobRetryOptions.html">JobRetryOptions</a></li>
-<li><a href="/doc/jobs/type-aliases/JobSchedulerOptions.html">JobSchedulerOptions</a></li>
-<li><a href="/doc/jobs/type-aliases/JobStatus.html">JobStatus</a></li>
-<li><a href="/doc/jobs/type-aliases/JobWorkerOptions.html">JobWorkerOptions</a></li>
-<li><a href="/doc/jobs/type-aliases/LoadJobRegistryOptions.html">LoadJobRegistryOptions</a></li>
-</ul>
 </div></div>
           </div>
           
