@@ -63,11 +63,10 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="ant-design-guide" tabindex="-1">Ant Design Guide</h1>
-<p>Use when building or reviewing <code>@faasjs/ant-design</code> feature UI, CRUD surfaces, routes, app feedback, modals, and drawers.</p>
+<p>Use when building or reviewing <code>@faasjs/ant-design</code> feature UI, CRUD surfaces, app feedback, modals, and drawers.</p>
 <h2 id="applicable-scenarios" tabindex="-1">Applicable Scenarios</h2>
 <ul>
 <li>Creating feature UI under <code>features/</code></li>
-<li>Configuring routes with <code>Routes</code> and <code>lazy</code></li>
 <li>Building list, detail, create, update, or delete flows</li>
 <li>Deciding how to split feature frontend files</li>
 <li>Choosing between <code>faas</code>, <code>useFaas</code>, <code>useFaasStream</code>, <code>faasData</code>, and custom hooks for requests</li>
@@ -76,7 +75,7 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Follow <a href="/guidelines/file-conventions.html">File Conventions</a> and place features under <code>features/&lt;feature-name&gt;/</code>.</li>
-<li>Use <code>App</code> once near the frontend root, then <code>Routes</code> plus <code>lazy</code> for feature UI entries.</li>
+<li>Use <code>App</code> once near the frontend root.</li>
 <li>Keep feature entries mostly compositional; move concrete UI to <code>components/</code> only when it earns a boundary.</li>
 <li>Put feature-local request files under <code>api/</code> and keep action paths aligned with file paths.</li>
 <li>Model business fields as shared <code>items</code> metadata reused by <code>Form</code>, <code>Description</code>, and <code>Table</code>.</li>
@@ -116,23 +115,7 @@
 <li><code>/features/users/api/remove</code></li>
 </ul>
 <h2 id="core-patterns" tabindex="-1">Core Patterns</h2>
-<h3 id="routes-and-feature-entries" tabindex="-1">Routes and feature entries</h3>
-<p>Root routes should stay minimal, letting each feature lazy-load its own entry:</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Routes</span>, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Pages</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Routes</span>
-      <span class="hljs-attr">routes</span>=<span class="hljs-string">{[</span>
-        {
-          <span class="hljs-attr">path:</span> &#x27;<span class="hljs-attr">users</span>&#x27;,
-          <span class="hljs-attr">page:</span> <span class="hljs-attr">lazy</span>(() =&gt;</span> import(&#x27;./users&#x27;)),
-        },
-      ]}
-    /&gt;</span>
-  )
-}
-</code></pre>
+<h3 id="feature-entries" tabindex="-1">Feature entries</h3>
 <p>Feature entry files should focus on composing existing components and triggering shared app interactions through <code>useApp</code>:</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Button</span>, <span class="hljs-title class_">Space</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
 <span class="hljs-keyword">import</span> { useApp } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
@@ -384,18 +367,6 @@
   )
 }
 </code></pre>
-<h3 id="link" tabindex="-1"><code>Link</code></h3>
-<p>Use for internal navigation, external links, and button-style navigation. Prefer over raw anchor tags, manual <code>navigate</code>, or button + router glue code.</p>
-<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Link</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Actions</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/users/create&quot;</span> <span class="hljs-attr">button</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">type:</span> &#x27;<span class="hljs-attr">primary</span>&#x27; }}&gt;</span>
-      Create User
-    <span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
-  )
-}
-</code></pre>
 <h3 id="blank" tabindex="-1"><code>Blank</code></h3>
 <p>Use for empty field display instead of scattering <code>'-'</code>, <code>'N/A'</code>, or empty fragments through templates.</p>
 <pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Blank</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/ant-design&#x27;</span>
@@ -485,7 +456,7 @@
 <h2 id="rules" tabindex="-1">Rules</h2>
 <ol>
 <li>
-<p>Follow the <code>features/</code>, <code>components/</code>, <code>hooks/</code>, <code>api/</code> structure and routing-mapping for feature-local APIs. Feature UI lives under <code>features/&lt;feature&gt;/</code>, entry files use <code>index.tsx</code>, components go in <code>components/</code>, hooks in <code>hooks/</code>, request handlers in <code>api/</code>.</p>
+<p>Follow the <code>features/</code>, <code>components/</code>, <code>hooks/</code>, <code>api/</code> structure and action-path mapping for feature-local APIs. Feature UI lives under <code>features/&lt;feature&gt;/</code>, entry files use <code>index.tsx</code>, components go in <code>components/</code>, hooks in <code>hooks/</code>, request handlers in <code>api/</code>.</p>
 </li>
 <li>
 <p>Use <code>App</code> once as the application shell; do not scatter independent app shells through features. <code>App</code> owns shared <code>message</code>, <code>notification</code>, <code>modal</code>, and <code>drawer</code> behavior. Only drop down to <code>ConfigProvider</code> when a smaller boundary is intentional.</p>
@@ -494,7 +465,7 @@
 <p>Treat <code>items</code> as the source of truth for business fields across <code>Form</code>, <code>Description</code>, and <code>Table</code>. Start with <code>id</code>, <code>type</code>, <code>title</code>, <code>options</code>, and nested <code>object</code> definitions. Reuse the same metadata across surfaces unless domain semantics truly diverge.</p>
 </li>
 <li>
-<p>Prefer FaasJS wrappers over raw Ant Design primitives when the wrapper fits common CRUD, loading, empty, route, or feedback surfaces. Start from <code>Table</code>, <code>Description</code>, <code>Form</code>, <code>Title</code>, <code>Tabs</code>, <code>Link</code>, <code>Blank</code>, <code>Loading</code>, <code>ErrorBoundary</code>, and <code>FaasDataWrapper</code> before reaching for raw primitives.</p>
+<p>Prefer FaasJS wrappers over raw Ant Design primitives when the wrapper fits common CRUD, loading, empty, or feedback surfaces. Start from <code>Table</code>, <code>Description</code>, <code>Form</code>, <code>Title</code>, <code>Tabs</code>, <code>Blank</code>, <code>Loading</code>, <code>ErrorBoundary</code>, and <code>FaasDataWrapper</code> before reaching for raw primitives.</p>
 </li>
 <li>
 <p>If custom layout is necessary, read visual values from <code>useThemeToken()</code> instead of hardcoding tokens.</p>
@@ -560,8 +531,7 @@
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
 <li>feature layout and action paths follow the <code>features/</code>, <code>components/</code>, <code>hooks/</code>, <code>api/</code> structure</li>
-<li>routes use <code>Routes</code> and <code>lazy</code></li>
-<li>API files align with routing-mapping conventions</li>
+<li>API files align with action-path mapping conventions</li>
 <li>feature entry composes feature components instead of containing all logic inline</li>
 <li>shared <code>items</code> metadata drives <code>Form</code>, <code>Description</code>, and <code>Table</code></li>
 <li>wrappers and <code>faas</code>/<code>faasData</code> cover straightforward request flows</li>

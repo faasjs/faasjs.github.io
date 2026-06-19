@@ -69,13 +69,11 @@
 </blockquote>
 <p>Render the root provider shell for a FaasJS Ant Design application.</p>
 <p><code>App</code> initializes Ant Design message and notification APIs, exposes hook-managed modal and
-drawer state through <a href="/doc/ant-design/variables/AppContext.html">AppContext</a>, wraps descendants with <a href="/doc/ant-design/functions/ErrorBoundary.html">ErrorBoundary</a>, and
-optionally mounts React Router's <code>BrowserRouter</code>. Route changes close the hook-managed modal
-and drawer by setting their <code>open</code> prop to <code>false</code>.</p>
+drawer state through <a href="/doc/ant-design/variables/AppContext.html">AppContext</a>, and wraps descendants with <a href="/doc/ant-design/functions/ErrorBoundary.html">ErrorBoundary</a>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="props" tabindex="-1">props</h3>
 <p><a href="/doc/ant-design/interfaces/AppProps.html"><code>AppProps</code></a></p>
-<p>App shell props including providers, routing, and error handling options.</p>
+<p>App shell props including providers and error handling options.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Element</code></p>
 <h2 id="example" tabindex="-1">Example</h2>
@@ -83,12 +81,7 @@ and drawer by setting their <code>open</code> prop to <code>false</code>.</p>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Page</span>(<span class="hljs-params"></span>) {
   <span class="hljs-keyword">return</span> (
-    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>
-      <span class="hljs-attr">configProviderProps</span>=<span class="hljs-string">{{}}</span>
-      <span class="hljs-attr">browserRouterProps</span>=<span class="hljs-string">{{}}</span>
-      <span class="hljs-attr">errorBoundaryProps</span>=<span class="hljs-string">{{}}</span>
-      <span class="hljs-attr">faasConfigProviderProps</span>=<span class="hljs-string">{{}}</span>
-    &gt;</span>
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> <span class="hljs-attr">configProviderProps</span>=<span class="hljs-string">{{}}</span> <span class="hljs-attr">errorBoundaryProps</span>=<span class="hljs-string">{{}}</span> <span class="hljs-attr">faasConfigProviderProps</span>=<span class="hljs-string">{{}}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">App</span>&gt;</span></span>
   )
