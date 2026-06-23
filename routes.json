@@ -406,6 +406,7 @@
   "/guidelines/valid.html",
   "/guidelines/yaml.html",
   "/SECURITY.html",
+  "/specs/",
   "/specs/faas-yaml.html",
   "/specs/http-protocol.html",
   "/specs/plugin.html",
