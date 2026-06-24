@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>@faasjs/react | FaasJS</title>
+    <title>Type Alias: WindowStates\&lt;T\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,125 +62,16 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/">Documents</a> / @faasjs/react</p>
-<h1 id="%40faasjs%2Freact" tabindex="-1">@faasjs/react</h1>
-<h1 id="react-plugin-for-faasjs." tabindex="-1">React plugin for FaasJS.</h1>
-<p><a href="https://github.com/faasjs/faasjs/blob/main/packages/react/LICENSE" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/l/@faasjs/react.svg" alt="License: MIT"></a>
-<a href="https://www.npmjs.com/package/@faasjs/react" target="_blank" rel="noopener noreferrer" class="external-link"><img src="https://img.shields.io/npm/v/@faasjs/react.svg" alt="NPM Version"></a></p>
-<p>Includes browser client utilities (<code>FaasBrowserClient</code>, <code>ResponseError</code>, <code>setMock</code>) and React helpers.</p>
-<h2 id="features" tabindex="-1">Features</h2>
-<ul>
-<li>Support <a href="https://faasjs.com/guide/request-spec.html" target="_blank" rel="noopener noreferrer" class="external-link">FaasJS Request Specifications</a>.</li>
-<li>Support global and per-request configurations.</li>
-<li>Additional React functions:
-<ul>
-<li>Utils:
-<ul>
-<li><code>equal</code>: Compare two values for deep equality.</li>
-<li><code>createSplittingContext</code>: Create a context for code splitting.</li>
-<li><code>createWindowStates</code>: Create window-backed shared states.</li>
-<li><code>useStates</code>: Create splitting states.</li>
-<li><code>useStatesRef</code>: Create splitting states with refs.</li>
-</ul>
-</li>
-<li>Hooks:
-<ul>
-<li><code>useEqualMemoize</code>: Memoize a value with deep equality.</li>
-<li><code>useEqualEffect</code>: Run an effect with deep equality.</li>
-<li><code>useEqualMemo</code>: Memoize a value with deep equality.</li>
-<li><code>useEqualCallback</code>: Memoize a callback with deep equality.</li>
-<li><code>useConstant</code>: Create a constant value with hooks.</li>
-<li><code>usePrevious</code>: Get the previous value of a state.</li>
-</ul>
-</li>
-<li>Components:
-<ul>
-<li><code>OptionalWrapper</code>: Render a component optionally.</li>
-<li><code>ErrorBoundary</code>: Catch errors in the component tree.</li>
-</ul>
-</li>
-<li>Fetch Data:
-<ul>
-<li><code>faas</code>: Fetch data from FaasJS.</li>
-<li><code>useFaas</code>: Fetch data from FaasJS with hooks.</li>
-<li><code>useFaasStream</code>: Fetch streaming data from FaasJS with hooks.</li>
-<li><code>FaasDataWrapper</code>: Fetch data from FaasJS with a wrapper component.</li>
-<li><code>withFaasData</code>: Fetch data from FaasJS using a higher-order component (HOC).</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="install" tabindex="-1">Install</h2>
-<pre><code class="hljs language-sh">npm install @faasjs/react react
-</code></pre>
-<h2 id="functions" tabindex="-1">Functions</h2>
-<ul>
-<li><a href="/doc/react/functions/createSplittingContext.html">createSplittingContext</a></li>
-<li><a href="/doc/react/functions/createWindowStates.html">createWindowStates</a></li>
-<li><a href="/doc/react/functions/equal.html">equal</a></li>
-<li><a href="/doc/react/functions/faas.html">faas</a></li>
-<li><a href="/doc/react/functions/FaasReactClient.html">FaasReactClient</a></li>
-<li><a href="/doc/react/functions/getClient.html">getClient</a></li>
-<li><a href="/doc/react/functions/OptionalWrapper.html">OptionalWrapper</a></li>
-<li><a href="/doc/react/functions/setMock.html">setMock</a></li>
-<li><a href="/doc/react/functions/useConstant.html">useConstant</a></li>
-<li><a href="/doc/react/functions/useEqualCallback.html">useEqualCallback</a></li>
-<li><a href="/doc/react/functions/useEqualEffect.html">useEqualEffect</a></li>
-<li><a href="/doc/react/functions/useEqualMemo.html">useEqualMemo</a></li>
-<li><a href="/doc/react/functions/useEqualMemoize.html">useEqualMemoize</a></li>
-<li><a href="/doc/react/functions/useFaas.html">useFaas</a></li>
-<li><a href="/doc/react/functions/useFaasStream.html">useFaasStream</a></li>
-<li><a href="/doc/react/functions/usePrevious.html">usePrevious</a></li>
-<li><a href="/doc/react/functions/useStates.html">useStates</a></li>
-<li><a href="/doc/react/functions/useStatesRef.html">useStatesRef</a></li>
-<li><a href="/doc/react/functions/withFaasData.html">withFaasData</a></li>
-</ul>
-<h2 id="classes" tabindex="-1">Classes</h2>
-<ul>
-<li><a href="/doc/react/classes/ErrorBoundary.html">ErrorBoundary</a></li>
-<li><a href="/doc/react/classes/FaasBrowserClient.html">FaasBrowserClient</a></li>
-<li><a href="/doc/react/classes/Response.html">Response</a></li>
-<li><a href="/doc/react/classes/ResponseError.html">ResponseError</a></li>
-</ul>
-<h2 id="interfaces" tabindex="-1">Interfaces</h2>
-<ul>
-<li><a href="/doc/react/interfaces/ErrorBoundaryProps.html">ErrorBoundaryProps</a></li>
-</ul>
-<h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
-<ul>
-<li><a href="/doc/react/type-aliases/BaseUrl.html">BaseUrl</a></li>
-<li><a href="/doc/react/type-aliases/ErrorChildrenProps.html">ErrorChildrenProps</a></li>
-<li><a href="/doc/react/type-aliases/FaasBrowserClientAction.html">FaasBrowserClientAction</a></li>
-<li><a href="/doc/react/type-aliases/FaasDataInjection.html">FaasDataInjection</a></li>
-<li><a href="/doc/react/type-aliases/FaasDataWrapperProps.html">FaasDataWrapperProps</a></li>
-<li><a href="/doc/react/type-aliases/FaasDataWrapperRef.html">FaasDataWrapperRef</a></li>
-<li><a href="/doc/react/type-aliases/FaasReactClientInstance.html">FaasReactClientInstance</a></li>
-<li><a href="/doc/react/type-aliases/FaasReactClientOptions.html">FaasReactClientOptions</a></li>
-<li><a href="/doc/react/type-aliases/MockHandler.html">MockHandler</a></li>
-<li><a href="/doc/react/type-aliases/OnError.html">OnError</a></li>
-<li><a href="/doc/react/type-aliases/OptionalWrapperProps.html">OptionalWrapperProps</a></li>
-<li><a href="/doc/react/type-aliases/Options.html">Options</a></li>
-<li><a href="/doc/react/type-aliases/ResponseErrorProps.html">ResponseErrorProps</a></li>
-<li><a href="/doc/react/type-aliases/ResponseHeaders.html">ResponseHeaders</a></li>
-<li><a href="/doc/react/type-aliases/ResponseProps.html">ResponseProps</a></li>
-<li><a href="/doc/react/type-aliases/StateRefs.html">StateRefs</a></li>
-<li><a href="/doc/react/type-aliases/StateSetters.html">StateSetters</a></li>
-<li><a href="/doc/react/type-aliases/StatesWithSetters.html">StatesWithSetters</a></li>
-<li><a href="/doc/react/type-aliases/StatesWithSettersAndRefs.html">StatesWithSettersAndRefs</a></li>
-<li><a href="/doc/react/type-aliases/UseFaasOptions.md">UseFaasOptions</a></li>
-<li><a href="/doc/react/type-aliases/UseFaasStreamOptions.html">UseFaasStreamOptions</a></li>
-<li><a href="/doc/react/type-aliases/UseFaasStreamResult.html">UseFaasStreamResult</a></li>
-<li><a href="/doc/react/type-aliases/WindowStateHooks.html">WindowStateHooks</a></li>
-<li><a href="/doc/react/type-aliases/WindowStateRef.html">WindowStateRef</a></li>
-<li><a href="/doc/react/type-aliases/WindowStateRefs.html">WindowStateRefs</a></li>
-<li><a href="/doc/react/type-aliases/WindowStates.html">WindowStates</a></li>
-<li><a href="/doc/react/type-aliases/WindowStateSetters.html">WindowStateSetters</a></li>
-</ul>
-<h2 id="variables" tabindex="-1">Variables</h2>
-<ul>
-<li><a href="/doc/react/variables/FaasDataWrapper.html">FaasDataWrapper</a></li>
-</ul>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / WindowStates</p>
+<h1 id="type-alias%3A-windowstates%3Ct%3E" tabindex="-1">Type Alias: WindowStates&lt;T&gt;</h1>
+<blockquote>
+<p><strong>WindowStates</strong>&lt;<code>T</code>&gt; = <a href="/doc/react/type-aliases/WindowStateHooks.html"><code>WindowStateHooks</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/WindowStateSetters.html"><code>WindowStateSetters</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/WindowStateRefs.html"><code>WindowStateRefs</code></a>&lt;<code>T</code>&gt;</p>
+</blockquote>
+<p>Shared state helpers returned by <a href="/doc/react/functions/createWindowStates.html">createWindowStates</a>.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="t" tabindex="-1">T</h3>
+<p><code>T</code></p>
+<p>Shared state object shape.</p>
 </div></div>
           </div>
           
