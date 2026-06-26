@@ -74,10 +74,19 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
 </code></pre>
 <h2 id="usage" tabindex="-1">Usage</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineWorkflow, done, next, runWorkflow } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
 
 <span class="hljs-keyword">const</span> workflow = <span class="hljs-title function_">defineWorkflow</span>({
   <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;agent_workflow&#x27;</span>,
   <span class="hljs-attr">root</span>: <span class="hljs-string">&#x27;plan&#x27;</span>,
+  <span class="hljs-attr">schemas</span>: {
+    <span class="hljs-attr">plan</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">taskId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+    <span class="hljs-attr">run</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">taskId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+  },
   <span class="hljs-attr">steps</span>: {
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">plan</span>(<span class="hljs-params">ctx</span>) {
       <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;run&#x27;</span>, { <span class="hljs-attr">taskId</span>: ctx.<span class="hljs-property">params</span>.<span class="hljs-property">taskId</span> })
@@ -104,6 +113,7 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
 <h2 id="type-aliases" tabindex="-1">Type Aliases</h2>
 <ul>
 <li><a href="/doc/workflow/type-aliases/DefineWorkflowOptions.html">DefineWorkflowOptions</a></li>
+<li><a href="/doc/workflow/type-aliases/DefineWorkflowOptionsInput.html">DefineWorkflowOptionsInput</a></li>
 <li><a href="/doc/workflow/type-aliases/DoneWorkflowInstruction.html">DoneWorkflowInstruction</a></li>
 <li><a href="/doc/workflow/type-aliases/FailWorkflowInstruction.html">FailWorkflowInstruction</a></li>
 <li><a href="/doc/workflow/type-aliases/ForkWorkflowInstruction.html">ForkWorkflowInstruction</a></li>
@@ -118,13 +128,20 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
 <li><a href="/doc/workflow/type-aliases/WorkflowDefinition.html">WorkflowDefinition</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowInstruction.html">WorkflowInstruction</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowRecord.html">WorkflowRecord</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowSchemaSteps.html">WorkflowSchemaSteps</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStatus.html">WorkflowStatus</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStepContext.html">WorkflowStepContext</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStepHandler.html">WorkflowStepHandler</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowStepParams.html">WorkflowStepParams</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStepRecord.html">WorkflowStepRecord</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowSteps.html">WorkflowSteps</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html">WorkflowStepSchemas</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStepStatus.html">WorkflowStepStatus</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStepTarget.html">WorkflowStepTarget</a></li>
+</ul>
+<h2 id="variables" tabindex="-1">Variables</h2>
+<ul>
+<li><a href="/doc/workflow/variables/defineWorkflowOptionsSchema.html">defineWorkflowOptionsSchema</a></li>
 </ul>
 </div></div>
           </div>

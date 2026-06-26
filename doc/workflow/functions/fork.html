@@ -74,6 +74,26 @@
 <p>Child steps to create.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/workflow/type-aliases/ForkWorkflowInstruction.html"><code>ForkWorkflowInstruction</code></a></p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { fork } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">notifyTeams</span>(<span class="hljs-params">{ params }</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">fork</span>([
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;notifyWarehouse&#x27;</span>,
+      <span class="hljs-attr">params</span>: {
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      },
+    },
+    {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;notifyCustomer&#x27;</span>,
+      <span class="hljs-attr">params</span>: {
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      },
+    },
+  ])
+}
+</code></pre>
 </div></div>
           </div>
           

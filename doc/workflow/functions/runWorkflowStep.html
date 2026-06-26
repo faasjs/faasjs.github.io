@@ -77,6 +77,25 @@
 <p>Optional claim restrictions and lease settings.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/workflow/type-aliases/RunWorkflowStepResult.html"><code>RunWorkflowStepResult</code></a>&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { runWorkflowStep } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+
+<span class="hljs-keyword">import</span> { orderWorkflow } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../workflows/order&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineJob</span>({
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">handler</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">runWorkflowStep</span>(orderWorkflow, {
+      <span class="hljs-attr">workerId</span>: <span class="hljs-string">&#x27;order-worker&#x27;</span>,
+      <span class="hljs-attr">leaseSeconds</span>: <span class="hljs-number">60</span>,
+    })
+
+    <span class="hljs-keyword">if</span> (!result.<span class="hljs-property">claimed</span>) <span class="hljs-keyword">return</span>
+
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Ran step <span class="hljs-subst">${result.stepId}</span> for workflow <span class="hljs-subst">${result.workflowId}</span>`</span>)
+  },
+})
+</code></pre>
 </div></div>
           </div>
           

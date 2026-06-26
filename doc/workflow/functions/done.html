@@ -77,6 +77,18 @@
 <p>Optional JSON-serializable data to persist on the step.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><a href="/doc/workflow/type-aliases/DoneWorkflowInstruction.html"><code>DoneWorkflowInstruction</code></a>&lt;<code>TData</code>&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { done } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sendReceipt</span>(<span class="hljs-params">{ params }</span>) {
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">emailReceipt</span>(params.<span class="hljs-property">orderId</span>)
+
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">done</span>({
+    <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+    <span class="hljs-attr">emailed</span>: <span class="hljs-literal">true</span>,
+  })
+}
+</code></pre>
 </div></div>
           </div>
           

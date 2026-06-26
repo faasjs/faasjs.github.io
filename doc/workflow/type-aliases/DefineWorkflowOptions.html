@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: DefineWorkflowOptions\&lt;TSteps\&gt; | FaasJS</title>
+    <title>Type Alias: DefineWorkflowOptions\&lt;TSteps, TRoot, TSchemas\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,18 +63,15 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / DefineWorkflowOptions</p>
-<h1 id="type-alias%3A-defineworkflowoptions%3Ctsteps%3E" tabindex="-1">Type Alias: DefineWorkflowOptions&lt;TSteps&gt;</h1>
+<h1 id="type-alias%3A-defineworkflowoptions%3Ctsteps%2C-troot%2C-tschemas%3E" tabindex="-1">Type Alias: DefineWorkflowOptions&lt;TSteps, TRoot, TSchemas&gt;</h1>
 <blockquote>
-<p><strong>DefineWorkflowOptions</strong>&lt;<code>TSteps</code>&gt; = <code>object</code></p>
+<p><strong>DefineWorkflowOptions</strong>&lt;<code>TSteps</code>, <code>TRoot</code>, <code>TSchemas</code>&gt; = <code>Omit</code>&lt;<a href="/doc/workflow/type-aliases/DefineWorkflowOptionsInput.html"><code>DefineWorkflowOptionsInput</code></a>, <code>&quot;root&quot;</code> | <code>&quot;steps&quot;</code> | <code>&quot;schemas&quot;</code>&gt; &amp; <code>object</code> &amp; <code>TSchemas</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a> ? <code>object</code> : <code>object</code></p>
 </blockquote>
 <p>Options for <a href="/doc/workflow/functions/defineWorkflow.html">defineWorkflow</a>.</p>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tsteps" tabindex="-1">TSteps</h3>
-<p><code>TSteps</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a> = <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a></p>
-<h2 id="properties" tabindex="-1">Properties</h2>
+<h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
 <h3 id="root" tabindex="-1">root</h3>
 <blockquote>
-<p><strong>root</strong>: <code>Extract</code>&lt;keyof <code>TSteps</code>, <code>string</code>&gt;</p>
+<p><strong>root</strong>: <code>TRoot</code></p>
 </blockquote>
 <p>Root step name.</p>
 <h3 id="steps" tabindex="-1">steps</h3>
@@ -82,11 +79,13 @@
 <p><strong>steps</strong>: <code>TSteps</code></p>
 </blockquote>
 <p>Step handlers keyed by step name.</p>
-<h3 id="type" tabindex="-1">type</h3>
-<blockquote>
-<p><strong>type</strong>: <code>string</code></p>
-</blockquote>
-<p>Business workflow type, for example <code>agent_workflow</code>.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tsteps" tabindex="-1">TSteps</h3>
+<p><code>TSteps</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a> = <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a></p>
+<h3 id="troot" tabindex="-1">TRoot</h3>
+<p><code>TRoot</code> <em>extends</em> <code>Extract</code>&lt;keyof <code>TSteps</code>, <code>string</code>&gt; = <code>Extract</code>&lt;keyof <code>TSteps</code>, <code>string</code>&gt;</p>
+<h3 id="tschemas" tabindex="-1">TSchemas</h3>
+<p><code>TSchemas</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a> | <code>undefined</code> = <code>undefined</code></p>
 </div></div>
           </div>
           

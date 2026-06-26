@@ -65,18 +65,38 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / startWorkflow</p>
 <h1 id="function%3A-startworkflow()" tabindex="-1">Function: startWorkflow()</h1>
 <blockquote>
-<p><strong>startWorkflow</strong>(<code>workflow</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/workflow/type-aliases/StartWorkflowResult.html"><code>StartWorkflowResult</code></a>&gt;</p>
+<p><strong>startWorkflow</strong>&lt;<code>TSteps</code>, <code>TRoot</code>, <code>TSchemas</code>&gt;(<code>workflow</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/workflow/type-aliases/StartWorkflowResult.html"><code>StartWorkflowResult</code></a>&gt;</p>
 </blockquote>
 <p>Create a workflow row and its root runnable step.</p>
+<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
+<h3 id="tsteps" tabindex="-1">TSteps</h3>
+<p><code>TSteps</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a></p>
+<h3 id="troot" tabindex="-1">TRoot</h3>
+<p><code>TRoot</code> <em>extends</em> <code>string</code></p>
+<h3 id="tschemas" tabindex="-1">TSchemas</h3>
+<p><code>TSchemas</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a> | <code>undefined</code> = <code>undefined</code></p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="workflow" tabindex="-1">workflow</h3>
-<p><a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a></p>
+<p><a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<code>TSteps</code>, <code>TRoot</code>, <code>TSchemas</code>&gt;</p>
 <p>Workflow definition.</p>
 <h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/workflow/type-aliases/StartWorkflowOptions.html"><code>StartWorkflowOptions</code></a> = <code>{}</code></p>
+<p><a href="/doc/workflow/type-aliases/StartWorkflowOptions.html"><code>StartWorkflowOptions</code></a>&lt;<a href="/doc/workflow/type-aliases/WorkflowStepParams.html"><code>WorkflowStepParams</code></a>&lt;<code>TSchemas</code>, <code>TRoot</code>&gt;&gt; = <code>{}</code></p>
 <p>Root step params.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/workflow/type-aliases/StartWorkflowResult.html"><code>StartWorkflowResult</code></a>&gt;</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { startWorkflow } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+
+<span class="hljs-keyword">import</span> { orderWorkflow } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./workflows/order&#x27;</span>
+
+<span class="hljs-keyword">const</span> { workflowId } = <span class="hljs-keyword">await</span> <span class="hljs-title function_">startWorkflow</span>(orderWorkflow, {
+  <span class="hljs-attr">params</span>: {
+    <span class="hljs-attr">orderId</span>: <span class="hljs-string">&#x27;order_001&#x27;</span>,
+  },
+})
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Started workflow <span class="hljs-subst">${workflowId}</span>`</span>)
+</code></pre>
 </div></div>
           </div>
           

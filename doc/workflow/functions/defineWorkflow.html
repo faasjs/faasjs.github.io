@@ -64,19 +64,110 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / defineWorkflow</p>
 <h1 id="function%3A-defineworkflow()" tabindex="-1">Function: defineWorkflow()</h1>
+<h2 id="call-signature" tabindex="-1">Call Signature</h2>
 <blockquote>
-<p><strong>defineWorkflow</strong>&lt;<code>TSteps</code>&gt;(<code>options</code>): <a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<code>TSteps</code>&gt;</p>
+<p><strong>defineWorkflow</strong>&lt;<code>TSchemas</code>, <code>TRoot</code>&gt;(<code>options</code>): <a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<a href="/doc/workflow/type-aliases/WorkflowSchemaSteps.html"><code>WorkflowSchemaSteps</code></a>&lt;<code>TSchemas</code>&gt;, <code>TRoot</code>, <code>TSchemas</code>&gt;</p>
 </blockquote>
-<p>Define a workflow. The definition is explicit and is not registered globally.</p>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tsteps" tabindex="-1">TSteps</h3>
-<p><code>TSteps</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a></p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="options" tabindex="-1">options</h3>
-<p><a href="/doc/workflow/type-aliases/DefineWorkflowOptions.html"><code>DefineWorkflowOptions</code></a>&lt;<code>TSteps</code>&gt;</p>
+<p>Define a workflow. The definition is explicit and is not registered globally.
+When <code>schemas</code> is provided, each step's params are validated with its Zod
+schema before the handler runs, and <code>context.params</code> is inferred from that
+schema's output type.</p>
+<h3 id="type-parameters" tabindex="-1">Type Parameters</h3>
+<h4 id="tschemas" tabindex="-1">TSchemas</h4>
+<p><code>TSchemas</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a></p>
+<h4 id="troot" tabindex="-1">TRoot</h4>
+<p><code>TRoot</code> <em>extends</em> <code>string</code></p>
+<h3 id="parameters" tabindex="-1">Parameters</h3>
+<h4 id="options" tabindex="-1">options</h4>
+<p><a href="/doc/workflow/type-aliases/DefineWorkflowOptions.html"><code>DefineWorkflowOptions</code></a>&lt;<a href="/doc/workflow/type-aliases/WorkflowSchemaSteps.html"><code>WorkflowSchemaSteps</code></a>&lt;<code>TSchemas</code>&gt;, <code>TRoot</code>, <code>TSchemas</code>&gt;</p>
 <p>Workflow type, root step name, and step handlers.</p>
-<h2 id="returns" tabindex="-1">Returns</h2>
-<p><a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<code>TSteps</code>&gt;</p>
+<h3 id="returns" tabindex="-1">Returns</h3>
+<p><a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<a href="/doc/workflow/type-aliases/WorkflowSchemaSteps.html"><code>WorkflowSchemaSteps</code></a>&lt;<code>TSchemas</code>&gt;, <code>TRoot</code>, <code>TSchemas</code>&gt;</p>
+<h3 id="example" tabindex="-1">Example</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineWorkflow, done, next } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> orderWorkflow = <span class="hljs-title function_">defineWorkflow</span>({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;order_fulfillment&#x27;</span>,
+  <span class="hljs-attr">root</span>: <span class="hljs-string">&#x27;reserveInventory&#x27;</span>,
+  <span class="hljs-attr">schemas</span>: {
+    <span class="hljs-attr">reserveInventory</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">orderId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+    <span class="hljs-attr">capturePayment</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">orderId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+  },
+  <span class="hljs-attr">steps</span>: {
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">reserveInventory</span>(<span class="hljs-params">{ params }</span>) {
+      <span class="hljs-keyword">await</span> orders.<span class="hljs-title function_">reserveInventory</span>(params.<span class="hljs-property">orderId</span>)
+
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;capturePayment&#x27;</span>, {
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      })
+    },
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">capturePayment</span>(<span class="hljs-params">{ params }</span>) {
+      <span class="hljs-keyword">await</span> payments.<span class="hljs-title function_">capture</span>(params.<span class="hljs-property">orderId</span>)
+
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">done</span>({
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      })
+    },
+  },
+})
+</code></pre>
+<h2 id="call-signature-1" tabindex="-1">Call Signature</h2>
+<blockquote>
+<p><strong>defineWorkflow</strong>&lt;<code>TSteps</code>, <code>TRoot</code>&gt;(<code>options</code>): <a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<code>TSteps</code>, <code>TRoot</code>&gt;</p>
+</blockquote>
+<p>Define a workflow. The definition is explicit and is not registered globally.
+When <code>schemas</code> is provided, each step's params are validated with its Zod
+schema before the handler runs, and <code>context.params</code> is inferred from that
+schema's output type.</p>
+<h3 id="type-parameters-1" tabindex="-1">Type Parameters</h3>
+<h4 id="tsteps" tabindex="-1">TSteps</h4>
+<p><code>TSteps</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowSteps.html"><code>WorkflowSteps</code></a></p>
+<h4 id="troot-1" tabindex="-1">TRoot</h4>
+<p><code>TRoot</code> <em>extends</em> <code>string</code></p>
+<h3 id="parameters-1" tabindex="-1">Parameters</h3>
+<h4 id="options-1" tabindex="-1">options</h4>
+<p><a href="/doc/workflow/type-aliases/DefineWorkflowOptions.html"><code>DefineWorkflowOptions</code></a>&lt;<code>TSteps</code>, <code>TRoot</code>&gt;</p>
+<p>Workflow type, root step name, and step handlers.</p>
+<h3 id="returns-1" tabindex="-1">Returns</h3>
+<p><a href="/doc/workflow/type-aliases/WorkflowDefinition.html"><code>WorkflowDefinition</code></a>&lt;<code>TSteps</code>, <code>TRoot</code>&gt;</p>
+<h3 id="example-1" tabindex="-1">Example</h3>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineWorkflow, done, next } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/workflow&#x27;</span>
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/utils&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> orderWorkflow = <span class="hljs-title function_">defineWorkflow</span>({
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;order_fulfillment&#x27;</span>,
+  <span class="hljs-attr">root</span>: <span class="hljs-string">&#x27;reserveInventory&#x27;</span>,
+  <span class="hljs-attr">schemas</span>: {
+    <span class="hljs-attr">reserveInventory</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">orderId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+    <span class="hljs-attr">capturePayment</span>: z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">orderId</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+  },
+  <span class="hljs-attr">steps</span>: {
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">reserveInventory</span>(<span class="hljs-params">{ params }</span>) {
+      <span class="hljs-keyword">await</span> orders.<span class="hljs-title function_">reserveInventory</span>(params.<span class="hljs-property">orderId</span>)
+
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;capturePayment&#x27;</span>, {
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      })
+    },
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">capturePayment</span>(<span class="hljs-params">{ params }</span>) {
+      <span class="hljs-keyword">await</span> payments.<span class="hljs-title function_">capture</span>(params.<span class="hljs-property">orderId</span>)
+
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">done</span>({
+        <span class="hljs-attr">orderId</span>: params.<span class="hljs-property">orderId</span>,
+      })
+    },
+  },
+})
+</code></pre>
 </div></div>
           </div>
           
