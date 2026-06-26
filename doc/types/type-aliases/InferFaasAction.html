@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / InferFaasAction</p>
 <h1 id="type-alias%3A-inferfaasaction%3Ctapi%3E" tabindex="-1">Type Alias: InferFaasAction&lt;TApi&gt;</h1>
 <blockquote>
-<p><strong>InferFaasAction</strong>&lt;<code>TApi</code>&gt; = <code>TApi</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>TApi</code> <em>extends</em> <code>object</code> ? <code>TDefault</code> <em>extends</em> <code>object</code> ? <code>object</code> : <code>never</code> : <code>never</code></p>
+<p><strong>InferFaasAction</strong>&lt;<code>TApi</code>&gt; = <code>InferFaasActionFromApi</code>&lt;<code>TApi</code>&gt; <em>extends</em> <code>never</code> ? <code>TApi</code> <em>extends</em> <code>object</code> ? <code>InferFaasActionFromApi</code>&lt;<code>TDefault</code>&gt; : <code>never</code> : <code>InferFaasActionFromApi</code>&lt;<code>TApi</code>&gt;</p>
 </blockquote>
 <p>Infer <code>{ Params, Data }</code> from a FaasJS API object or a module whose default
 export is a FaasJS API object.</p>
