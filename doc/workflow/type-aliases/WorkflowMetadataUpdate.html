@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: WorkflowStepContext\&lt;TParams, TMetadata\&gt; | FaasJS</title>
+    <title>Type Alias: WorkflowMetadataUpdate\&lt;TMetadata\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,73 +62,15 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / WorkflowStepContext</p>
-<h1 id="type-alias%3A-workflowstepcontext%3Ctparams%2C-tmetadata%3E" tabindex="-1">Type Alias: WorkflowStepContext&lt;TParams, TMetadata&gt;</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / WorkflowMetadataUpdate</p>
+<h1 id="type-alias%3A-workflowmetadataupdate%3Ctmetadata%3E" tabindex="-1">Type Alias: WorkflowMetadataUpdate&lt;TMetadata&gt;</h1>
 <blockquote>
-<p><strong>WorkflowStepContext</strong>&lt;<code>TParams</code>, <code>TMetadata</code>&gt; = <code>object</code></p>
+<p><strong>WorkflowMetadataUpdate</strong>&lt;<code>TMetadata</code>&gt; = <code>TMetadata</code> | ((<code>metadata</code>) =&gt; <code>TMetadata</code>)</p>
 </blockquote>
-<p>Context passed to each workflow step handler.</p>
+<p>Metadata replacement accepted by <a href="/doc/workflow/type-aliases/WorkflowStepContext.html#updatemetadata">WorkflowStepContext.updateMetadata</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tparams" tabindex="-1">TParams</h3>
-<p><code>TParams</code> = <code>any</code></p>
 <h3 id="tmetadata" tabindex="-1">TMetadata</h3>
-<p><code>TMetadata</code> = <code>any</code></p>
-<h2 id="properties" tabindex="-1">Properties</h2>
-<h3 id="metadata" tabindex="-1">metadata</h3>
-<blockquote>
-<p><strong>metadata</strong>: <code>TMetadata</code></p>
-</blockquote>
-<p>Metadata persisted on the workflow.</p>
-<h3 id="params" tabindex="-1">params</h3>
-<blockquote>
-<p><strong>params</strong>: <code>TParams</code></p>
-</blockquote>
-<p>Params persisted for this step.</p>
-<h3 id="patchmetadata" tabindex="-1">patchMetadata</h3>
-<blockquote>
-<p><strong>patchMetadata</strong>: (<code>patch</code>) =&gt; <code>Promise</code>&lt;<code>TMetadata</code>&gt;</p>
-</blockquote>
-<p>Deep-merge a patch into workflow metadata and persist the new value immediately.</p>
-<h4 id="parameters" tabindex="-1">Parameters</h4>
-<h5 id="patch" tabindex="-1">patch</h5>
-<p><a href="/doc/workflow/type-aliases/WorkflowMetadataPatch.html"><code>WorkflowMetadataPatch</code></a>&lt;<code>TMetadata</code>&gt; | ((<code>metadata</code>) =&gt; <a href="/doc/workflow/type-aliases/WorkflowMetadataPatch.html"><code>WorkflowMetadataPatch</code></a>&lt;<code>TMetadata</code>&gt;)</p>
-<h4 id="returns" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;<code>TMetadata</code>&gt;</p>
-<h3 id="step" tabindex="-1">step</h3>
-<blockquote>
-<p><strong>step</strong>: <a href="/doc/workflow/type-aliases/WorkflowStepRecord.html"><code>WorkflowStepRecord</code></a></p>
-</blockquote>
-<p>Persisted current step row.</p>
-<h3 id="stepid" tabindex="-1">stepId</h3>
-<blockquote>
-<p><strong>stepId</strong>: <code>string</code></p>
-</blockquote>
-<p>Current step id.</p>
-<h3 id="stepname" tabindex="-1">stepName</h3>
-<blockquote>
-<p><strong>stepName</strong>: <code>string</code></p>
-</blockquote>
-<p>Current step name.</p>
-<h3 id="updatemetadata" tabindex="-1">updateMetadata</h3>
-<blockquote>
-<p><strong>updateMetadata</strong>: (<code>update</code>) =&gt; <code>Promise</code>&lt;<code>TMetadata</code>&gt;</p>
-</blockquote>
-<p>Replace workflow metadata and persist the new value immediately.</p>
-<h4 id="parameters-1" tabindex="-1">Parameters</h4>
-<h5 id="update" tabindex="-1">update</h5>
-<p><a href="/doc/workflow/type-aliases/WorkflowMetadataUpdate.html"><code>WorkflowMetadataUpdate</code></a>&lt;<code>TMetadata</code>&gt;</p>
-<h4 id="returns-1" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;<code>TMetadata</code>&gt;</p>
-<h3 id="workflowid" tabindex="-1">workflowId</h3>
-<blockquote>
-<p><strong>workflowId</strong>: <code>string</code></p>
-</blockquote>
-<p>Persisted workflow id.</p>
-<h3 id="workflowtype" tabindex="-1">workflowType</h3>
-<blockquote>
-<p><strong>workflowType</strong>: <code>string</code></p>
-</blockquote>
-<p>Workflow type from the definition.</p>
+<p><code>TMetadata</code></p>
 </div></div>
           </div>
           

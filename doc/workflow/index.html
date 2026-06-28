@@ -87,9 +87,26 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
       <span class="hljs-attr">taskId</span>: z.<span class="hljs-title function_">string</span>(),
     }),
   },
+  <span class="hljs-attr">metadataSchema</span>: z.<span class="hljs-title function_">object</span>({
+    <span class="hljs-attr">tenantId</span>: z.<span class="hljs-title function_">string</span>(),
+    <span class="hljs-attr">progress</span>: z
+      .<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">planned</span>: z.<span class="hljs-title function_">boolean</span>().<span class="hljs-title function_">optional</span>(),
+      })
+      .<span class="hljs-title function_">default</span>({}),
+  }),
   <span class="hljs-attr">steps</span>: {
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">plan</span>(<span class="hljs-params">ctx</span>) {
-      <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;run&#x27;</span>, { <span class="hljs-attr">taskId</span>: ctx.<span class="hljs-property">params</span>.<span class="hljs-property">taskId</span> })
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">reserveTenantCapacity</span>(ctx.<span class="hljs-property">metadata</span>.<span class="hljs-property">tenantId</span>)
+      <span class="hljs-keyword">await</span> ctx.<span class="hljs-title function_">patchMetadata</span>({
+        <span class="hljs-attr">progress</span>: {
+          <span class="hljs-attr">planned</span>: <span class="hljs-literal">true</span>,
+        },
+      })
+
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;run&#x27;</span>, {
+        <span class="hljs-attr">taskId</span>: ctx.<span class="hljs-property">params</span>.<span class="hljs-property">taskId</span>,
+      })
     },
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) {
       <span class="hljs-keyword">return</span> <span class="hljs-title function_">done</span>()
@@ -97,7 +114,10 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
   },
 })
 
-<span class="hljs-keyword">await</span> <span class="hljs-title function_">runWorkflow</span>(workflow, { <span class="hljs-attr">params</span>: { <span class="hljs-attr">taskId</span>: <span class="hljs-string">&#x27;task_001&#x27;</span> } })
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">runWorkflow</span>(workflow, {
+  <span class="hljs-attr">params</span>: { <span class="hljs-attr">taskId</span>: <span class="hljs-string">&#x27;task_001&#x27;</span> },
+  <span class="hljs-attr">metadata</span>: { <span class="hljs-attr">tenantId</span>: <span class="hljs-string">&#x27;tenant_001&#x27;</span> },
+})
 </code></pre>
 <h2 id="functions" tabindex="-1">Functions</h2>
 <ul>
@@ -127,6 +147,9 @@ invocation, or <code>runWorkflow()</code> to run a workflow until it reaches a t
 <li><a href="/doc/workflow/type-aliases/StartWorkflowResult.html">StartWorkflowResult</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowDefinition.html">WorkflowDefinition</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowInstruction.html">WorkflowInstruction</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowMetadata.html">WorkflowMetadata</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowMetadataPatch.html">WorkflowMetadataPatch</a></li>
+<li><a href="/doc/workflow/type-aliases/WorkflowMetadataUpdate.html">WorkflowMetadataUpdate</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowRecord.html">WorkflowRecord</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowSchemaSteps.html">WorkflowSchemaSteps</a></li>
 <li><a href="/doc/workflow/type-aliases/WorkflowStatus.html">WorkflowStatus</a></li>

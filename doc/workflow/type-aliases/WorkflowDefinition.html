@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: WorkflowDefinition\&lt;TSteps, TRoot, TSchemas\&gt; | FaasJS</title>
+    <title>Type Alias: WorkflowDefinition\&lt;TSteps, TRoot, TSchemas, TMetadataSchema\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -63,9 +63,9 @@
         <main class="vp-page">
           <div vp-content>
             <div id="content"><div class="theme-default-content"><p><a href="/doc/workflow/">Documents</a> / <a href="/doc/workflow/">@faasjs/workflow</a> / WorkflowDefinition</p>
-<h1 id="type-alias%3A-workflowdefinition%3Ctsteps%2C-troot%2C-tschemas%3E" tabindex="-1">Type Alias: WorkflowDefinition&lt;TSteps, TRoot, TSchemas&gt;</h1>
+<h1 id="type-alias%3A-workflowdefinition%3Ctsteps%2C-troot%2C-tschemas%2C-tmetadataschema%3E" tabindex="-1">Type Alias: WorkflowDefinition&lt;TSteps, TRoot, TSchemas, TMetadataSchema&gt;</h1>
 <blockquote>
-<p><strong>WorkflowDefinition</strong>&lt;<code>TSteps</code>, <code>TRoot</code>, <code>TSchemas</code>&gt; = <code>Readonly</code>&lt;{ <code>root</code>: <code>TRoot</code>; <code>schemas?</code>: <code>TSchemas</code>; <code>steps</code>: <code>TSteps</code>; <code>type</code>: <code>string</code>; }&gt;</p>
+<p><strong>WorkflowDefinition</strong>&lt;<code>TSteps</code>, <code>TRoot</code>, <code>TSchemas</code>, <code>TMetadataSchema</code>&gt; = <code>Readonly</code>&lt;{ <code>metadataSchema?</code>: <code>TMetadataSchema</code>; <code>root</code>: <code>TRoot</code>; <code>schemas?</code>: <code>TSchemas</code>; <code>steps</code>: <code>TSteps</code>; <code>type</code>: <code>string</code>; }&gt;</p>
 </blockquote>
 <p>Workflow definition returned by <a href="/doc/workflow/functions/defineWorkflow.html">defineWorkflow</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -75,6 +75,8 @@
 <p><code>TRoot</code> <em>extends</em> <code>Extract</code>&lt;keyof <code>TSteps</code>, <code>string</code>&gt; = <code>Extract</code>&lt;keyof <code>TSteps</code>, <code>string</code>&gt;</p>
 <h3 id="tschemas" tabindex="-1">TSchemas</h3>
 <p><code>TSchemas</code> <em>extends</em> <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a> | <code>undefined</code> = <a href="/doc/workflow/type-aliases/WorkflowStepSchemas.html"><code>WorkflowStepSchemas</code></a> | <code>undefined</code></p>
+<h3 id="tmetadataschema" tabindex="-1">TMetadataSchema</h3>
+<p><code>TMetadataSchema</code> <em>extends</em> <code>ZodType</code> | <code>undefined</code> = <code>ZodType</code> | <code>undefined</code></p>
 </div></div>
           </div>
           
