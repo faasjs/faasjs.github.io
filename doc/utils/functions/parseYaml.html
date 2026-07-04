@@ -70,8 +70,9 @@
 </blockquote>
 <p>Parse the FaasJS-supported YAML subset into JavaScript values.</p>
 <p>Supports the YAML subset used by <code>faas.yaml</code>: mappings, sequences, plain and quoted
-scalars, inline comments, anchors, aliases, booleans, numbers, nulls, arrays, and objects.
-Unsupported syntax throws an <code>Error</code> whose message is prefixed with <code>[parseYaml]</code>.</p>
+scalars, literal and folded block scalars, inline comments, anchors, aliases,
+booleans, numbers, nulls, arrays, and objects. Unsupported syntax throws an
+<code>Error</code> whose message is prefixed with <code>[parseYaml]</code>.</p>
 <p>Prefer <code>loadConfig()</code> from <code>@faasjs/node-utils</code> when you want FaasJS to resolve
 layered config files for a function.</p>
 <h3 id="type-parameters" tabindex="-1">Type Parameters</h3>

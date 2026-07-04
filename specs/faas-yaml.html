@@ -131,11 +131,12 @@
 <ol>
 <li>The parser MUST support indentation-based mappings and sequences.</li>
 <li>The parser MUST support plain, single-quoted, and double-quoted scalars.</li>
+<li>The parser MUST support literal (<code>|</code>) and folded (<code>&gt;</code>) block scalars, including <code>-</code>/<code>+</code> chomping and explicit indentation indicators <code>1</code> through <code>9</code>.</li>
 <li>The parser MUST support scalar values: <code>null</code>, <code>boolean</code>, <code>number</code>, and <code>string</code>.</li>
 <li>The parser MUST support anchors (<code>&amp;</code>), aliases (<code>*</code>), and merge key (<code>&lt;&lt;</code>) for mappings.</li>
 <li>The parser MUST NOT allow tabs for indentation.</li>
 <li>The parser MUST NOT allow multiple YAML documents (<code>---</code>, <code>...</code>).</li>
-<li>The parser MUST NOT allow block scalars (<code>|</code>, <code>&gt;</code>), YAML tags (<code>!</code>), or non-empty flow collections (<code>[a]</code>, <code>{a: 1}</code>).</li>
+<li>The parser MUST NOT allow YAML tags (<code>!</code>) or non-empty flow collections (<code>[a]</code>, <code>{a: 1}</code>).</li>
 <li>Empty flow collections <code>[]</code> and <code>{}</code> MAY be used.</li>
 </ol>
 <h3 id="7.-error-handling" tabindex="-1">7. Error handling</h3>
