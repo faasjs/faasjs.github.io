@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: WindowStates\&lt;T\&gt; | FaasJS</title>
+    <title>Function: createProxyStates() | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,16 +62,42 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / WindowStates</p>
-<h1 id="type-alias%3A-windowstates%3Ct%3E" tabindex="-1">Type Alias: WindowStates&lt;T&gt;</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / createProxyStates</p>
+<h1 id="function%3A-createproxystates()" tabindex="-1">Function: createProxyStates()</h1>
 <blockquote>
-<p><strong>WindowStates</strong>&lt;<code>T</code>&gt; = <a href="/doc/react/type-aliases/WindowStateHooks.html"><code>WindowStateHooks</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/WindowStateSetters.html"><code>WindowStateSetters</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/WindowStateRefs.html"><code>WindowStateRefs</code></a>&lt;<code>T</code>&gt;</p>
+<p><strong>createProxyStates</strong>&lt;<code>T</code>&gt;(<code>defaultStates</code>): <a href="/doc/react/type-aliases/ProxyStates.html"><code>ProxyStates</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Shared state helpers returned by <a href="/doc/react/functions/createWindowStates.html">createWindowStates</a>.</p>
+<p>Create Proxy-backed shared states with generated hooks, setters, and latest-value refs.</p>
+<p>Each key receives an independent external store. Components using a generated hook re-render
+when the matching setter runs, and code outside React can read the latest value from the
+generated ref.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
-<p><code>T</code></p>
+<p><code>T</code> <em>extends</em> <code>Record</code>&lt;<code>string</code>, <code>unknown</code>&gt;</p>
 <p>Shared state object shape.</p>
+<h2 id="parameters" tabindex="-1">Parameters</h2>
+<h3 id="defaultstates" tabindex="-1">defaultStates</h3>
+<p><code>T</code></p>
+<p>Initial values used to create shared state entries.</p>
+<h2 id="returns" tabindex="-1">Returns</h2>
+<p><a href="/doc/react/type-aliases/ProxyStates.html"><code>ProxyStates</code></a>&lt;<code>T</code>&gt;</p>
+<p>Generated <code>useXxx</code>, <code>setXxx</code>, and <code>xxxRef</code> helpers for each key.</p>
+<h2 id="example" tabindex="-1">Example</h2>
+<pre><code class="hljs language-tsx"><span class="hljs-keyword">import</span> { createProxyStates } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/react&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> { useText, setText, textRef } = <span class="hljs-title function_">createProxyStates</span>({
+  <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+})
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Preview</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> text = <span class="hljs-title function_">useText</span>()
+
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+}
+
+<span class="hljs-title function_">setText</span>(<span class="hljs-string">&#x27;updated&#x27;</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(textRef.<span class="hljs-property">current</span>)
+</code></pre>
 </div></div>
           </div>
           

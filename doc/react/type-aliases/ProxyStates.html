@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: WindowStateRef\&lt;T\&gt; | FaasJS</title>
+    <title>Type Alias: ProxyStates\&lt;T\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,16 +62,16 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / WindowStateRef</p>
-<h1 id="type-alias%3A-windowstateref%3Ct%3E" tabindex="-1">Type Alias: WindowStateRef&lt;T&gt;</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / ProxyStates</p>
+<h1 id="type-alias%3A-proxystates%3Ct%3E" tabindex="-1">Type Alias: ProxyStates&lt;T&gt;</h1>
 <blockquote>
-<p><strong>WindowStateRef</strong>&lt;<code>T</code>&gt; = <code>Readonly</code>&lt;{ <code>current</code>: <code>T</code>; }&gt;</p>
+<p><strong>ProxyStates</strong>&lt;<code>T</code>&gt; = <a href="/doc/react/type-aliases/ProxyStateHooks.html"><code>ProxyStateHooks</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/ProxyStateSetters.html"><code>ProxyStateSetters</code></a>&lt;<code>T</code>&gt; &amp; <a href="/doc/react/type-aliases/ProxyStateRefs.html"><code>ProxyStateRefs</code></a>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Ref object exposed by <a href="/doc/react/functions/createWindowStates.html">createWindowStates</a> for reading the latest shared state value.</p>
+<p>Shared state helpers returned by <a href="/doc/react/functions/createProxyStates.html">createProxyStates</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>
 <p><code>T</code></p>
-<p>Shared state value type.</p>
+<p>Shared state object shape.</p>
 </div></div>
           </div>
           
