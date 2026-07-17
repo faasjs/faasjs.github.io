@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Function: enqueueJob() | FaasJS</title>
+    <title>Type Alias: FaasJobParams\&lt;Path\&gt; | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,48 +62,16 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / enqueueJob</p>
-<h1 id="function%3A-enqueuejob()" tabindex="-1">Function: enqueueJob()</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/types/">Documents</a> / <a href="/doc/types/">@faasjs/types</a> / FaasJobParams</p>
+<h1 id="type-alias%3A-faasjobparams%3Cpath%3E" tabindex="-1">Type Alias: FaasJobParams&lt;Path&gt;</h1>
 <blockquote>
-<p><strong>enqueueJob</strong>&lt;<code>Path</code>&gt;(<code>jobPath</code>, <code>params</code>, <code>options?</code>): <code>Promise</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
+<p><strong>FaasJobParams</strong>&lt;<code>Path</code>&gt; = <code>FaasJobs</code>[<code>Path</code>] <em>extends</em> <code>object</code> ? <code>TParams</code> : <code>never</code></p>
 </blockquote>
-<p>Enqueue a pending job by its <code>.job.ts</code> path-derived identifier.</p>
-<p>The jobs table is initialized automatically. When <code>idempotencyKey</code> is supplied
-and a matching row already exists, the existing row is returned unchanged.</p>
+<p>Infer the params type for a registered job path.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="path" tabindex="-1">Path</h3>
-<p><code>Path</code> <em>extends</em> <code>FaasJobPaths</code></p>
-<h2 id="parameters" tabindex="-1">Parameters</h2>
-<h3 id="jobpath" tabindex="-1">jobPath</h3>
-<p><code>Path</code></p>
-<p>The job path identifier derived from the <code>.job.ts</code> file location.</p>
-<h3 id="params" tabindex="-1">params</h3>
-<p><code>FaasJobParams</code>&lt;<code>Path</code>&gt;</p>
-<p>The parameters to pass to the job handler.</p>
-<h3 id="options%3F" tabindex="-1">options?</h3>
-<p><a href="/doc/jobs/type-aliases/EnqueueJobOptions.html"><code>EnqueueJobOptions</code></a> = <code>{}</code></p>
-<p>Enqueue options including client, queue, priority, run time, and idempotency.</p>
-<h2 id="returns" tabindex="-1">Returns</h2>
-<p><code>Promise</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
-<p>The persisted job record.</p>
-<h2 id="throws" tabindex="-1">Throws</h2>
-<p>When queue, job path, priority, max attempts, or database writes are invalid.</p>
-<h2 id="examples" tabindex="-1">Examples</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> })
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/reports/jobs/daily&#x27;</span>, {}, {
-  <span class="hljs-attr">queue</span>: <span class="hljs-string">&#x27;reports&#x27;</span>,
-  <span class="hljs-attr">priority</span>: <span class="hljs-number">10</span>,
-  <span class="hljs-attr">idempotencyKey</span>: <span class="hljs-string">&#x27;report-2025-01-01&#x27;</span>,
-})
-</code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> client.<span class="hljs-title function_">transaction</span>(<span class="hljs-title function_">async</span> (trx) =&gt; {
-  <span class="hljs-keyword">await</span> <span class="hljs-title function_">updateBusinessState</span>(trx)
-  <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(<span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>, { <span class="hljs-attr">userId</span>: <span class="hljs-string">&#x27;u_123&#x27;</span> }, {
-    <span class="hljs-attr">client</span>: trx,
-  })
-})
-</code></pre>
+<p><code>Path</code> <em>extends</em> <a href="/doc/types/type-aliases/FaasJobPaths.html"><code>FaasJobPaths</code></a></p>
+<p>A path registered in <code>FaasJobs</code>.</p>
 </div></div>
           </div>
           

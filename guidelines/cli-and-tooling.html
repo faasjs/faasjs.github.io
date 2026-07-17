@@ -67,7 +67,7 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Install dependencies with <code>npm install</code> before running any FaasJS commands.</li>
-<li>After creating, renaming, or moving a <code>.api.ts</code> file, run <code>faas types</code> to regenerate type declarations.</li>
+<li>After creating, renaming, moving, or removing a <code>.api.ts</code> or <code>.job.ts</code> file, run <code>faas types</code> to regenerate type declarations.</li>
 <li>Use <code>vp check --fix</code> for code formatting and linting before committing.</li>
 <li>Use <code>vp test</code> as the default test runner; narrow to <code>vp test &lt;pattern&gt;</code> for focused runs.</li>
 <li>Run database migrations through <code>faasjs-pg migrate</code> when a migration is pending.</li>
@@ -93,7 +93,7 @@
 </tr>
 <tr>
 <td><code>faas types</code></td>
-<td>Generate API type declarations to <code>src/.faasjs/types.d.ts</code></td>
+<td>Generate API and job declarations to <code>src/.faasjs/types.d.ts</code></td>
 </tr>
 <tr>
 <td><code>faas types --root &lt;path&gt;</code></td>
@@ -110,7 +110,7 @@
 <p><strong>Run details</strong>: <code>faas run</code> resolves <code>@faasjs/node-utils/register-hooks</code> and spawns a child Node process with <code>--import</code> so the target script gets a normal <code>process.argv</code>.</p>
 </blockquote>
 <blockquote>
-<p><strong>Type generation details</strong>: <code>faas types</code> scans <code>src/</code> for <code>.api.ts</code> files, converts filenames into routes, and writes <code>src/.faasjs/types.d.ts</code>. It skips <code>.faasjs</code> and <code>node_modules</code> directories. Only <code>.api.ts</code> files and <code>faas.yaml</code> changes trigger type regeneration (see <code>isTypegenInputFile</code> in <code>@faasjs/dev</code>).</p>
+<p><strong>Type generation details</strong>: <code>faas types</code> scans <code>src/</code> for <code>.api.ts</code> and <code>.job.ts</code> files, converts filenames into API routes and job paths, and writes <code>src/.faasjs/types.d.ts</code>. It skips <code>.faasjs</code>, <code>dist</code>, and <code>node_modules</code> directories. API files, job files, and <code>faas.yaml</code> changes trigger type regeneration (see <code>isTypegenInputFile</code> in <code>@faasjs/dev</code>).</p>
 </blockquote>
 <h2 id="vite-plus-%2F-vp" tabindex="-1">Vite Plus / vp</h2>
 <p>Provided by the <code>vite-plus</code> package. It is the development and build tooling layer on top of Vite and Vitest.</p>
@@ -236,10 +236,10 @@ DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg sql <span class="hljs
 DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add-users-table
 </code></pre>
 <h2 id="type-generation-workflow" tabindex="-1">Type Generation Workflow</h2>
-<p>Keep type declarations in sync with your API routes:</p>
+<p>Keep type declarations in sync with your API routes and jobs:</p>
 <ol>
 <li>
-<p>After <strong>creating</strong>, <strong>renaming</strong>, or <strong>moving</strong> a <code>.api.ts</code> file, run:</p>
+<p>After <strong>creating</strong>, <strong>renaming</strong>, <strong>moving</strong>, or <strong>removing</strong> a <code>.api.ts</code> or <code>.job.ts</code> file, run:</p>
 <pre><code class="hljs language-bash">npx faas types
 </code></pre>
 </li>
@@ -247,7 +247,7 @@ DATABASE_URL=postgres://localhost:5432/myapp npx faasjs-pg new add-users-table
 <p>The generated file is written to <code>src/.faasjs/types.d.ts</code>.</p>
 </li>
 <li>
-<p>The output declares a <code>FaasActions</code> interface via module augmentation on <code>@faasjs/types</code>, using <code>InferFaasAction</code> for every route.</p>
+<p>The output declares <code>FaasActions</code> and <code>FaasJobs</code> through module augmentation on <code>@faasjs/types</code>, using <code>InferFaasAction</code> for routes and <code>InferFaasJob</code> for job params.</p>
 </li>
 <li>
 <p><code>faas types</code> is idempotent: it compares the generated content against the existing file and only writes when something changed.</p>
@@ -418,7 +418,7 @@ npx faas types --root /path/to/project
 </table>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <ol>
-<li><strong>Run <code>faas types</code> after every <code>.api.ts</code> change.</strong> Creating, renaming, or moving API files without regenerating types will cause type errors in callers.</li>
+<li><strong>Run <code>faas types</code> after API or job file changes.</strong> Creating, renaming, moving, or removing <code>.api.ts</code> or <code>.job.ts</code> files without regenerating types will leave caller paths stale.</li>
 <li><strong>Prefer <code>vp check --fix</code> over manual formatting.</strong> It uses oxlint and oxfmt through vite-plus shared configs.</li>
 <li><strong>Prefer <code>vp test</code> over direct <code>vitest</code> calls.</strong> It uses the project's <code>vite.config.ts</code> which includes all necessary plugins and aliases.</li>
 <li><strong>Use <code>npx</code> when the binary is not globally installed.</strong> Both <code>faas</code> and <code>vp</code> are local to the project's <code>node_modules</code>.</li>
@@ -429,7 +429,7 @@ npx faas types --root /path/to/project
 </ol>
 <h2 id="review-checklist" tabindex="-1">Review Checklist</h2>
 <ul>
-<li><code>.api.ts</code> changes are followed by <code>faas types</code> (or a recorded reason)</li>
+<li><code>.api.ts</code> and <code>.job.ts</code> path changes are followed by <code>faas types</code> (or a recorded reason)</li>
 <li><code>faas.yaml</code> is valid YAML and follows the <a href="/specs/faas-yaml.html">faas.yaml specification</a></li>
 <li><code>vp check --fix</code> passes before commit</li>
 <li><code>vp test</code> passes (or a recorded blocker + narrower validation that did run)</li>

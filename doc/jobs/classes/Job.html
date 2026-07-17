@@ -109,6 +109,7 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 </blockquote>
 <h4 id="inherited-from" tabindex="-1">Inherited from</h4>
 <p><code>Func.export</code></p>
+<hr>
 <h3 id="invoke()" tabindex="-1">invoke()</h3>
 <blockquote>
 <p><strong>invoke</strong>(<code>data</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -123,6 +124,7 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Promise that resolves after invoke hooks complete.</p>
 <h4 id="inherited-from-1" tabindex="-1">Inherited from</h4>
 <p><code>Func.invoke</code></p>
+<hr>
 <h3 id="mount()" tabindex="-1">mount()</h3>
 <blockquote>
 <p><strong>mount</strong>(<code>data?</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -155,6 +157,14 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 </blockquote>
 <p><strong><code>Internal</code></strong></p>
 <p>Marker used by the job loader to recognize job definitions.</p>
+<hr>
+<h3 id="__faasjsjobparams" tabindex="-1">__faasjsJobParams</h3>
+<blockquote>
+<p><code>readonly</code> <strong>__faasjsJobParams</strong>: <code>SchemaOutput</code>&lt;<code>TSchema</code>&gt;</p>
+</blockquote>
+<p><strong><code>Internal</code></strong></p>
+<p>Type-only marker used by <code>InferFaasJob</code> to infer enqueue params.</p>
+<hr>
 <h3 id="config" tabindex="-1">config</h3>
 <blockquote>
 <p><strong>config</strong>: <code>Config</code></p>
@@ -162,11 +172,13 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Mutable runtime configuration used by the function.</p>
 <h4 id="inherited-from-3" tabindex="-1">Inherited from</h4>
 <p><code>Func.config</code></p>
+<hr>
 <h3 id="cron" tabindex="-1">cron</h3>
 <blockquote>
 <p><code>readonly</code> <strong>cron</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<code>SchemaOutput</code>&lt;<code>TSchema</code>, <code>Record</code>&lt;<code>string</code>, <code>never</code>&gt;&gt;&gt;[]</p>
 </blockquote>
 <p>Cron rules used by <a href="/doc/jobs/classes/JobScheduler.html">JobScheduler</a> to enqueue scheduled jobs.</p>
+<hr>
 <h3 id="filename%3F" tabindex="-1">filename?</h3>
 <blockquote>
 <p><code>optional</code> <strong>filename?</strong>: <code>string</code></p>
@@ -174,6 +186,7 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Resolved source filename inferred from the constructor call stack.</p>
 <h4 id="inherited-from-4" tabindex="-1">Inherited from</h4>
 <p><code>Func.filename</code></p>
+<hr>
 <h3 id="handler%3F" tabindex="-1">handler?</h3>
 <blockquote>
 <p><code>optional</code> <strong>handler?</strong>: <code>Handler</code>&lt;<a href="/doc/jobs/type-aliases/JobEvent.html"><code>JobEvent</code></a>&lt;<code>TSchema</code>&gt;, <code>TContext</code>, <code>TResult</code>&gt;</p>
@@ -181,11 +194,13 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Final business handler invoked after plugins finish.</p>
 <h4 id="inherited-from-5" tabindex="-1">Inherited from</h4>
 <p><code>Func.handler</code></p>
+<hr>
 <h3 id="maxattempts" tabindex="-1">maxAttempts</h3>
 <blockquote>
 <p><code>readonly</code> <strong>maxAttempts</strong>: <code>number</code></p>
 </blockquote>
 <p>Normalized maximum attempts before a job is marked failed.</p>
+<hr>
 <h3 id="mounted" tabindex="-1">mounted</h3>
 <blockquote>
 <p><strong>mounted</strong>: <code>boolean</code> = <code>false</code></p>
@@ -193,6 +208,7 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Indicates whether mount hooks have already run.</p>
 <h4 id="inherited-from-6" tabindex="-1">Inherited from</h4>
 <p><code>Func.mounted</code></p>
+<hr>
 <h3 id="plugins" tabindex="-1">plugins</h3>
 <blockquote>
 <p><strong>plugins</strong>: <code>Plugin</code>[]</p>
@@ -200,16 +216,19 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 <p>Ordered plugin instances attached to this function.</p>
 <h4 id="inherited-from-7" tabindex="-1">Inherited from</h4>
 <p><code>Func.plugins</code></p>
+<hr>
 <h3 id="queue" tabindex="-1">queue</h3>
 <blockquote>
 <p><code>readonly</code> <strong>queue</strong>: <code>string</code></p>
 </blockquote>
 <p>Normalized queue name used by default enqueues and workers.</p>
+<hr>
 <h3 id="retry" tabindex="-1">retry</h3>
 <blockquote>
 <p><code>readonly</code> <strong>retry</strong>: <a href="/doc/jobs/type-aliases/JobRetry.html"><code>JobRetry</code></a> | <code>undefined</code></p>
 </blockquote>
 <p>Retry strategy used after failed attempts.</p>
+<hr>
 <h3 id="runtime" tabindex="-1">runtime</h3>
 <blockquote>
 <p><strong>runtime</strong>: <code>FuncRuntime</code> | <code>undefined</code></p>
@@ -218,6 +237,7 @@ first use, and throws any <code>Error</code> object stored in <code>data.respons
 provide one.</p>
 <h4 id="inherited-from-8" tabindex="-1">Inherited from</h4>
 <p><code>Func.runtime</code></p>
+<hr>
 <h3 id="schema" tabindex="-1">schema</h3>
 <blockquote>
 <p><code>readonly</code> <strong>schema</strong>: <code>TSchema</code> | <code>undefined</code></p>

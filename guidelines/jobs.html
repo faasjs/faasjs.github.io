@@ -68,7 +68,7 @@
 <ol>
 <li>Create feature-owned <code>.job.ts</code> files under <code>src/features/&lt;feature&gt;/jobs/</code>; use <code>src/jobs/</code> for cross-cutting or platform jobs.</li>
 <li>Default-export <code>defineJob(...)</code> with a schema when the params have a shape.</li>
-<li>Enqueue work with <code>enqueueJob(jobPath, params)</code> from APIs, scripts, or other jobs.</li>
+<li>Enqueue work with the generated path and params types through <code>enqueueJob(jobPath, params)</code>.</li>
 <li>Let <code>enqueueJob()</code> initialize the internal <code>faasjs_jobs</code> schema; do not duplicate it in app migrations.</li>
 <li>Run <code>startJobWorker()</code> in a worker process for execution.</li>
 <li>Run <code>startJobScheduler()</code> only when <code>.job.ts</code> files include <code>cron</code> rules.</li>
@@ -118,6 +118,30 @@ src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
 )
 </code></pre>
 <p>Use <code>idempotencyKey</code> for enqueue-side dedupe. It does not make the handler exactly-once, so database writes and external calls should still tolerate retries.</p>
+<p>When a business write and its job must commit atomically, pass the surrounding transaction
+client through the enqueue options:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { enqueueJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
+<span class="hljs-keyword">import</span> { getClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getClient</span>()
+
+<span class="hljs-keyword">await</span> client.<span class="hljs-title function_">transaction</span>(<span class="hljs-title function_">async</span> (trx) =&gt; {
+  <span class="hljs-keyword">await</span> trx.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, userId).<span class="hljs-title function_">update</span>({ <span class="hljs-attr">status</span>: <span class="hljs-string">&#x27;syncing&#x27;</span> })
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">enqueueJob</span>(
+    <span class="hljs-string">&#x27;features/users/jobs/sync&#x27;</span>,
+    {
+      userId,
+    },
+    {
+      <span class="hljs-attr">client</span>: trx,
+      <span class="hljs-attr">idempotencyKey</span>: <span class="hljs-string">`users:sync:<span class="hljs-subst">${userId}</span>`</span>,
+    },
+  )
+})
+</code></pre>
+<p>The <code>client</code> option only selects the database context for that enqueue. Omitting it keeps
+the default <code>getClient()</code> behavior. The jobs package still initializes and owns its internal
+tables; application code should not insert into or declare <code>faasjs_jobs</code> directly.</p>
 <h3 id="4.-separate-scheduler-from-worker-execution" tabindex="-1">4. Separate scheduler from worker execution</h3>
 <p>Cron rules only enqueue jobs:</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { defineJob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/jobs&#x27;</span>
@@ -197,6 +221,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 <li>validation case: enqueue invalid params with <code>maxAttempts: 1</code>, run <code>worker.poll()</code>, and assert the row failed with an <code>Invalid job params</code> error</li>
 <li>retry/failure case: make the handler fail through a controlled external boundary, then assert <code>attempts</code>, <code>status</code>, <code>last_error</code>, and next <code>run_at</code></li>
 <li>cron case: call <code>scheduler.tick(fixedDate)</code> once or twice and assert pending rows, <code>cron_key</code>, <code>scheduled_at</code>, and dedupe for the same minute</li>
+<li>transaction case: enqueue with <code>{ client: trx }</code>, roll back the outer transaction, and assert neither the business state nor the job was committed</li>
 </ul>
 <p>For focused queue tests, prefer public <code>JobWorker</code> and <code>JobScheduler</code> with a small in-memory registry. Call <code>poll()</code> or <code>tick(fixedDate)</code> directly instead of starting timer loops. Use <code>startJobWorker({ root })</code> or <code>startJobScheduler({ root })</code> only when the behavior under test is file discovery or startup wiring, and stop them in <code>finally</code>.</p>
 <p>Example queue lifecycle tests:</p>
@@ -264,6 +289,7 @@ vi.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x2
 <li>handlers use <code>getClient()</code> when they need database access and use the injected <code>logger</code></li>
 <li>plugins that are API-only check <code>data.context.runtime !== 'api'</code> and call <code>await next()</code> so inherited HTTP concerns do not rewrite job params</li>
 <li>idempotency and retry behavior are explicit</li>
+<li>transaction-coupled jobs pass <code>{ client: trx }</code> instead of copying queue-table SQL</li>
 <li>cron rules enqueue jobs instead of doing work directly</li>
 <li>worker and scheduler startup are separate from HTTP server lifecycle</li>
 <li>app migrations do not recreate the internal jobs tables</li>

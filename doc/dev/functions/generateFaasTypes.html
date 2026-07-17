@@ -68,11 +68,11 @@
 <p><strong>generateFaasTypes</strong>(<code>options?</code>): <code>Promise</code>&lt;<a href="/doc/dev/type-aliases/GenerateFaasTypesResult.html"><code>GenerateFaasTypesResult</code></a>&gt;</p>
 </blockquote>
 <p>Generate <code>src/.faasjs/types.d.ts</code> for a FaasJS project.</p>
-<p>The generator scans the <code>src/</code> tree for <code>.api.ts</code> files, converts file
-names into routes, and keeps the most specific file when multiple files resolve to
-the same route. Route precedence is: regular <code>*.api.ts</code> files, then <code>index.api.ts</code>,
-then fallback <code>default.api.ts</code> files. Fallback files emit wildcard routes such as
-<code>*</code> and <code>users/*</code>, while root and index files emit <code>/</code> or the directory route.</p>
+<p>The generator scans the <code>src/</code> tree for <code>.api.ts</code> and <code>.job.ts</code> files. API
+names become routes, while job names become path identifiers with <code>.job.ts</code>
+removed and trailing <code>/index</code> collapsed. Duplicate job paths are rejected.
+API route precedence is: regular <code>*.api.ts</code> files, then <code>index.api.ts</code>, then
+fallback <code>default.api.ts</code> files.</p>
 <p>Generated route keys omit the leading slash except for <code>/</code>; for example,
 <code>src/users/default.api.ts</code> becomes <code>users/*</code>.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
@@ -81,7 +81,7 @@ then fallback <code>default.api.ts</code> files. Fallback files emit wildcard ro
 <p>Project root and logger overrides.</p>
 <h2 id="returns" tabindex="-1">Returns</h2>
 <p><code>Promise</code>&lt;<a href="/doc/dev/type-aliases/GenerateFaasTypesResult.html"><code>GenerateFaasTypesResult</code></a>&gt;</p>
-<p>Summary describing the generated file and discovered routes.</p>
+<p>Summary describing the generated file, routes, and jobs.</p>
 <h2 id="throws" tabindex="-1">Throws</h2>
 <p>When the resolved <code>src/</code> directory does not exist.</p>
 <h2 id="example" tabindex="-1">Example</h2>
@@ -91,7 +91,7 @@ then fallback <code>default.api.ts</code> files. Fallback files emit wildcard ro
   <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>(),
 })
 
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">output</span>, result.<span class="hljs-property">routeCount</span>)
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">output</span>, result.<span class="hljs-property">routeCount</span>, result.<span class="hljs-property">jobCount</span>)
 </code></pre>
 </div></div>
           </div>

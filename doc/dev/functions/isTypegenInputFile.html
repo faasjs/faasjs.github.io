@@ -68,9 +68,9 @@
 <p><strong>isTypegenInputFile</strong>(<code>filePath</code>): <code>boolean</code></p>
 </blockquote>
 <p>Determine whether a file change should trigger Faas type generation.</p>
-<p>API files affect route declarations directly. <code>faas.yaml</code> and <code>faas.yml</code> files
-can affect the resolved server root, so watchers should treat them as typegen
-inputs as well.</p>
+<p>API and job files affect generated declarations directly. <code>faas.yaml</code> and
+<code>faas.yml</code> files can affect the resolved server root, so watchers should treat
+them as typegen inputs as well.</p>
 <h2 id="parameters" tabindex="-1">Parameters</h2>
 <h3 id="filepath" tabindex="-1">filePath</h3>
 <p><code>string</code></p>
@@ -82,6 +82,7 @@ inputs as well.</p>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { isTypegenInputFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
 
 <span class="hljs-title function_">isTypegenInputFile</span>(<span class="hljs-string">&#x27;src/orders/create.api.ts&#x27;</span>) <span class="hljs-comment">// true</span>
+<span class="hljs-title function_">isTypegenInputFile</span>(<span class="hljs-string">&#x27;src/orders/process.job.ts&#x27;</span>) <span class="hljs-comment">// true</span>
 <span class="hljs-title function_">isTypegenInputFile</span>(<span class="hljs-string">&#x27;src/orders/service.ts&#x27;</span>) <span class="hljs-comment">// false</span>
 </code></pre>
 </div></div>

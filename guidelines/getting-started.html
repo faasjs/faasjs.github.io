@@ -232,7 +232,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <p><strong>Step 3: API endpoints</strong> — Create five <code>.api.ts</code> files (<code>list</code>, <code>detail</code>, <code>create</code>, <code>update</code>, <code>remove</code>) under <code>src/features/&lt;feature&gt;/api/</code>, each with inline Zod schema + handler. See <a href="/guidelines/define-api.html">defineApi Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
 <p><strong>Step 4: Frontend page</strong> — Create shared <code>use&lt;Feature&gt;Items</code> hook, then compose the <code>Table</code> <code>faasData</code> prop (list), <code>Description</code> <code>faasData</code> prop (detail), <code>Form</code> <code>faas</code> prop (create/edit), and <code>faas</code> + modal (delete). See <a href="/guidelines/ant-design.html">Ant Design Guide</a>, <a href="/guidelines/react.html">React Guide</a>, and <a href="/guidelines/react-data-fetching.html">React Data Fetching Guide</a>.</p>
 <p><strong>Step 5: Tests</strong> — Place API tests under <code>api/__tests__/</code> using <code>testApi</code> from <code>@faasjs/dev</code>. See <a href="/guidelines/testing.html">Testing Guide</a> and <a href="/guidelines/crud-patterns.html">CRUD Patterns Guide</a>.</p>
-<p><strong>Step 6: Type generation</strong> — After creating/modifying <code>.api.ts</code> files, run <code>npx faas types</code> to update <code>src/.faasjs/types.d.ts</code>. Then run <code>vp test</code> to verify.</p>
+<p><strong>Step 6: Type generation</strong> — After adding, moving, or removing <code>.api.ts</code> or <code>.job.ts</code> files, run <code>npx faas types</code> to update <code>src/.faasjs/types.d.ts</code>. Then run <code>vp test</code> to verify.</p>
 <p>The <code>admin</code> template also includes a users slice with the same pattern — copy it as a reference. See the <a href="/guidelines/application-slices.html">Application Slices Guide</a> for the recommended slice layout.</p>
 <h2 id="key-concepts" tabindex="-1">Key Concepts</h2>
 <h3 id="defineapi-and-endpoint-definition" tabindex="-1"><code>defineApi</code> and endpoint definition</h3>
@@ -351,7 +351,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 </tr>
 <tr>
 <td><code>npx faas types</code></td>
-<td>Regenerate API type declarations in <code>src/.faasjs/types.d.ts</code></td>
+<td>Regenerate API and job declarations in <code>src/.faasjs/types.d.ts</code></td>
 </tr>
 <tr>
 <td><code>npx faasjs-pg migrate</code></td>
@@ -367,7 +367,7 @@ psql --version   <span class="hljs-comment"># &gt;= 14.x</span>
 <ol>
 <li>Start the dev server: <code>vp dev</code></li>
 <li>Edit API files (<code>*.api.ts</code>) and feature UI (<code>*.tsx</code>)</li>
-<li>After creating, renaming, or moving <code>.api.ts</code> files, regenerate types: <code>npx faas types</code></li>
+<li>After creating, renaming, moving, or removing <code>.api.ts</code> or <code>.job.ts</code> files, regenerate types: <code>npx faas types</code></li>
 <li>Run focused tests: <code>vp test src/features/todos/api/__tests__/list.test.ts</code></li>
 <li>Before committing: <code>vp check --fix &amp;&amp; vp test</code></li>
 </ol>
