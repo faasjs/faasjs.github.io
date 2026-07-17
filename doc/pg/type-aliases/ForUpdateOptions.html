@@ -34,7 +34,7 @@
       } catch {}
     </script>
     <link rel="icon" href="/logo.jpg" />
-    <title>Type Alias: InferTResult\&lt;TName, ColumnNames\&gt; | FaasJS</title>
+    <title>Type Alias: ForUpdateOptions | FaasJS</title>
     <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
     <link rel="stylesheet" href="/assets/style.css" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
@@ -62,19 +62,28 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / InferTResult</p>
-<h1 id="type-alias%3A-infertresult%3Ctname%2C-columnnames%3E" tabindex="-1">Type Alias: InferTResult&lt;TName, ColumnNames&gt;</h1>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / ForUpdateOptions</p>
+<h1 id="type-alias%3A-forupdateoptions" tabindex="-1">Type Alias: ForUpdateOptions</h1>
 <blockquote>
-<p><strong>InferTResult</strong>&lt;<code>TName</code>, <code>ColumnNames</code>&gt; = <code>ColumnNames</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>TName</code>&gt; : <code>MergeTypes</code>&lt;<code>{ [K in keyof ColumnNames]: InferColumnType&lt;TName, ColumnNames[K]&gt; }</code>&gt;</p>
+<p><strong>ForUpdateOptions</strong> = <code>object</code></p>
 </blockquote>
-<p>Infers the result row type for a SELECT query based on the table name and selected columns.</p>
-<h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
-<h3 id="tname" tabindex="-1">TName</h3>
-<p><code>TName</code> <em>extends</em> <code>string</code></p>
-<p>The table name.</p>
-<h3 id="columnnames" tabindex="-1">ColumnNames</h3>
-<p><code>ColumnNames</code> <em>extends</em> <a href="/doc/pg/type-aliases/SelectField.html"><code>SelectField</code></a>&lt;<code>TName</code>&gt;[] = <a href="/doc/pg/type-aliases/ColumnName.html"><code>ColumnName</code></a>&lt;<code>TName</code>&gt;[]</p>
-<p>The columns selected, or defaults to all columns.</p>
+<p>Options for a <code>SELECT ... FOR UPDATE</code> locking clause.</p>
+<h2 id="properties" tabindex="-1">Properties</h2>
+<h3 id="nowait%3F" tabindex="-1">noWait?</h3>
+<blockquote>
+<p><code>optional</code> <strong>noWait?</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Fail immediately instead of waiting for a conflicting row lock.</p>
+<h3 id="of%3F" tabindex="-1">of?</h3>
+<blockquote>
+<p><code>optional</code> <strong>of?</strong>: <code>string</code> | readonly <code>string</code>[]</p>
+</blockquote>
+<p>Tables or aliases whose selected rows should be locked.</p>
+<h3 id="skiplocked%3F" tabindex="-1">skipLocked?</h3>
+<blockquote>
+<p><code>optional</code> <strong>skipLocked?</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Skip rows that cannot be locked immediately.</p>
 </div></div>
           </div>
           

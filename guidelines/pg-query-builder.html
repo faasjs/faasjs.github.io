@@ -74,16 +74,19 @@
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
 <li>Prefer <code>await getClient()</code> for the default client path. The built-in bootstrap reads <code>DATABASE_URL</code>, and tests can override that bootstrap lazily.</li>
-<li>Start from <code>client.query('&lt;table&gt;')</code> and keep <code>select</code>, <code>where</code>, <code>join</code>, <code>orderBy</code>, <code>limit</code>, <code>offset</code>, and <code>returning</code> in builder methods when available.</li>
+<li>Start from <code>client.query('&lt;table&gt;')</code> and keep <code>select</code>, <code>where</code>, <code>join</code>, <code>orderBy</code>, <code>limit</code>, <code>offset</code>, row locking, and <code>returning</code> in builder methods when available.</li>
 <li>Narrow results with <code>select(...)</code>, <code>first()</code>, <code>pluck(...)</code>, or explicit <code>returning</code> columns when the caller does not need full rows.</li>
 <li>Use <code>whereRaw</code>, <code>orWhereRaw</code>, <code>orderByRaw</code>, or <code>client.raw(...)</code> only for expressions or statements the builder cannot represent directly.</li>
 <li>Keep runtime values parameterized, and use <code>rawSql(...)</code> or <code>escapeIdentifier(...)</code> only for trusted SQL fragments or identifiers.</li>
-<li>Wrap multi-step read-write flows in <code>client.transaction(...)</code> when atomicity matters.</li>
+<li>Wrap multi-step read-write flows in <code>client.transaction(...)</code> when atomicity matters, and declare isolation or read-only mode when the workflow depends on it.</li>
 </ol>
 <h2 id="builder-first-example" tabindex="-1">Builder-First Example</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> client
   .<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>)
-  .<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>, { <span class="hljs-attr">column</span>: <span class="hljs-string">&#x27;metadata&#x27;</span>, <span class="hljs-attr">fields</span>: [<span class="hljs-string">&#x27;age&#x27;</span>] })
+  .<span class="hljs-title function_">select</span>({ <span class="hljs-attr">column</span>: <span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-attr">alias</span>: <span class="hljs-string">&#x27;userId&#x27;</span> }, <span class="hljs-string">&#x27;name&#x27;</span>, {
+    <span class="hljs-attr">column</span>: <span class="hljs-string">&#x27;metadata&#x27;</span>,
+    <span class="hljs-attr">fields</span>: [<span class="hljs-string">&#x27;age&#x27;</span>],
+  })
   .<span class="hljs-title function_">leftJoin</span>(<span class="hljs-string">&#x27;profiles&#x27;</span>, <span class="hljs-string">&#x27;users.id&#x27;</span>, <span class="hljs-string">&#x27;profiles.user_id&#x27;</span>)
   .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;ILIKE&#x27;</span>, <span class="hljs-string">&#x27;a%&#x27;</span>)
   .<span class="hljs-title function_">orderBy</span>(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;ASC&#x27;</span>)
@@ -98,10 +101,34 @@
   <span class="hljs-keyword">await</span> trx.<span class="hljs-property">raw</span><span class="hljs-string">`INSERT INTO audit_logs (action, user_id) VALUES (<span class="hljs-subst">${<span class="hljs-string">&#x27;rename_user&#x27;</span>}</span>, <span class="hljs-subst">${<span class="hljs-number">1</span>}</span>)`</span>
 })
 </code></pre>
+<h2 id="transaction-and-row-lock-example" tabindex="-1">Transaction and Row-lock Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> job = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">transaction</span>(
+  { <span class="hljs-attr">isolation</span>: <span class="hljs-string">&#x27;repeatable read&#x27;</span>, <span class="hljs-attr">readOnly</span>: <span class="hljs-literal">false</span> },
+  <span class="hljs-title function_">async</span> (trx) =&gt;
+    trx
+      .<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;jobs&#x27;</span>)
+      .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;status&#x27;</span>, <span class="hljs-string">&#x27;pending&#x27;</span>)
+      .<span class="hljs-title function_">orderBy</span>(<span class="hljs-string">&#x27;id&#x27;</span>)
+      .<span class="hljs-title function_">forUpdate</span>({ <span class="hljs-attr">skipLocked</span>: <span class="hljs-literal">true</span> })
+      .<span class="hljs-title function_">first</span>(),
+)
+</code></pre>
+<h2 id="parameterized-update-expression-example" tabindex="-1">Parameterized Update-expression Example</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { sql } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/pg&#x27;</span>
+
+<span class="hljs-keyword">await</span> client
+  .<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;jobs&#x27;</span>)
+  .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, jobId)
+  .<span class="hljs-title function_">update</span>({
+    <span class="hljs-attr">attempts</span>: sql<span class="hljs-string">`<span class="hljs-subst">${sql.ref(<span class="hljs-string">&#x27;attempts&#x27;</span>)}</span> + <span class="hljs-subst">${<span class="hljs-number">1</span>}</span>`</span>,
+    <span class="hljs-attr">updated_at</span>: sql<span class="hljs-string">`NOW()`</span>,
+  })
+</code></pre>
 <h2 id="rules" tabindex="-1">Rules</h2>
 <h3 id="1.-keep-query-shape-and-result-shape-aligned" tabindex="-1">1. Keep query shape and result shape aligned</h3>
 <ul>
 <li><code>select(...)</code>, <code>first()</code>, <code>pluck(...)</code>, and <code>returning</code> define what downstream code can safely assume.</li>
+<li>Use <code>{ column, alias }</code> when a scalar result key differs from its database column; JSON field selectors support the same <code>alias</code> behavior.</li>
 <li>If you extract a shared query helper, keep the narrowed result shape explicit instead of widening back to full rows.</li>
 <li>When contributing to <code>@faasjs/pg</code> itself, update runtime coverage and type coverage together.</li>
 </ul>
@@ -131,20 +158,28 @@
 <li>Treat an unbounded mutation as a bug unless it is a deliberate migration or maintenance action.</li>
 <li>Do not remove or bypass the package's missing-where protection.</li>
 <li>Use <code>client.transaction(...)</code> for multi-step DML or mixed read-write flows that must succeed or fail together.</li>
+<li>Use transaction <code>isolation</code> and <code>readOnly</code> options only when the workflow requires explicit PostgreSQL semantics; omit them to keep the database defaults.</li>
+<li>Run <code>forUpdate()</code> inside an explicit transaction. Use <code>skipLocked</code> for competing workers or <code>noWait</code> for fail-fast behavior, but never combine them.</li>
 </ul>
-<h3 id="6.-use-returning-only-when-the-caller-needs-changed-rows" tabindex="-1">6. Use <code>returning</code> only when the caller needs changed rows</h3>
+<h3 id="6.-keep-update-expressions-parameterized" tabindex="-1">6. Keep update expressions parameterized</h3>
+<ul>
+<li>Use the exported <code>sql</code> tag for atomic updates such as counters or database functions.</li>
+<li>Insert identifiers with <code>sql.ref(...)</code>; other interpolations are always bound values.</li>
+<li>Treat the static template text as trusted application SQL and never concatenate runtime input into it.</li>
+</ul>
+<h3 id="7.-use-returning-only-when-the-caller-needs-changed-rows" tabindex="-1">7. Use <code>returning</code> only when the caller needs changed rows</h3>
 <ul>
 <li><code>insert</code>, <code>update</code>, and <code>upsert</code> return an empty result shape unless <code>returning</code> is requested.</li>
 <li>Keep <code>returning</code> columns explicit so the result type stays narrow and predictable.</li>
 <li>Prefer the minimum set of returned columns instead of <code>['*']</code> unless the caller truly needs the whole row.</li>
 </ul>
-<h3 id="7.-move-repeated-raw-sql-back-toward-shared-helpers-or-the-builder" tabindex="-1">7. Move repeated raw SQL back toward shared helpers or the builder</h3>
+<h3 id="8.-move-repeated-raw-sql-back-toward-shared-helpers-or-the-builder" tabindex="-1">8. Move repeated raw SQL back toward shared helpers or the builder</h3>
 <ul>
 <li>If a raw query becomes common or reusable, consider whether it belongs in a shared helper or in the fluent query surface instead.</li>
 <li>Prefer one reviewed abstraction over many near-duplicate raw SQL snippets.</li>
 <li>When <code>@faasjs/pg</code> grows a clause helper that covers the same case, update app code to leave raw SQL behind.</li>
 </ul>
-<h3 id="8.-use-query-logging-selectively" tabindex="-1">8. Use query logging selectively</h3>
+<h3 id="9.-use-query-logging-selectively" tabindex="-1">9. Use query logging selectively</h3>
 <ul>
 <li>The client logger is optional.</li>
 <li>Debug logging is appropriate for query timing, troubleshooting, or temporary diagnostics.</li>
@@ -164,6 +199,7 @@
 <li>the default client bootstrap goes through <code>await getClient()</code> and the registered async bootstrap (<code>process.env.DATABASE_URL</code> by default)</li>
 <li><code>select</code>, <code>first</code>, <code>pluck</code>, or explicit <code>returning</code> narrow rows when appropriate</li>
 <li><code>update</code> and <code>delete</code> stay guarded by <code>where</code>, and multi-step writes use <code>transaction(...)</code> when atomicity matters</li>
+<li>row locks stay inside transactions, and update-expression values remain parameterized</li>
 <li>shared query helpers or package changes keep runtime and type coverage aligned</li>
 </ul>
 </div></div>

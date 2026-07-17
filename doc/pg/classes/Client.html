@@ -158,36 +158,62 @@ are logged before being rethrown.</p>
 <span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> client.<span class="hljs-property">raw</span>&lt;<span class="hljs-title class_">User</span>&gt;(<span class="hljs-string">&#x27;SELECT * FROM users WHERE id = ?&#x27;</span>, userId)
 </code></pre>
 <h3 id="transaction()" tabindex="-1">transaction()</h3>
+<h4 id="call-signature" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>transaction</strong>&lt;<code>T</code>&gt;(<code>fn</code>): <code>Promise</code>&lt;<code>UnwrapPromiseArray</code>&lt;<code>T</code>&gt;&gt;</p>
+<p><strong>transaction</strong>&lt;<code>T</code>&gt;(<code>fn</code>): <code>Promise</code>&lt;<code>T</code>&gt;</p>
 </blockquote>
-<p>Executes a function within a database transaction.</p>
+<p>Executes a function within a database transaction, optionally with an isolation
+level and explicit read-only/read-write mode.</p>
 <p>The callback receives a lightweight <code>Client</code> facade backed by the transactional
 <code>postgres.js</code> connection. Do not keep that facade after the callback resolves.</p>
-<h4 id="type-parameters-2" tabindex="-1">Type Parameters</h4>
-<h5 id="t-2" tabindex="-1">T</h5>
+<h5 id="type-parameters-2" tabindex="-1">Type Parameters</h5>
+<h6 id="t-2" tabindex="-1">T</h6>
 <p><code>T</code></p>
 <p>The type of the result returned by the transaction function.</p>
-<h4 id="parameters-3" tabindex="-1">Parameters</h4>
-<h5 id="fn" tabindex="-1">fn</h5>
+<h5 id="parameters-3" tabindex="-1">Parameters</h5>
+<h6 id="fn" tabindex="-1">fn</h6>
 <p>(<code>client</code>) =&gt; <code>Promise</code>&lt;<code>T</code>&gt;</p>
-<p>A function that takes a <code>Client</code> instance and returns a promise.</p>
-<h4 id="returns-4" tabindex="-1">Returns</h4>
-<p><code>Promise</code>&lt;<code>UnwrapPromiseArray</code>&lt;<code>T</code>&gt;&gt;</p>
+<p>A function that takes a transaction-scoped <code>Client</code> and returns a promise.</p>
+<h5 id="returns-4" tabindex="-1">Returns</h5>
+<p><code>Promise</code>&lt;<code>T</code>&gt;</p>
 <ul>
 <li>A promise that resolves to the result of the transaction function.</li>
 </ul>
-<h4 id="example-3" tabindex="-1">Example</h4>
+<h5 id="example-3" tabindex="-1">Example</h5>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">transaction</span>(<span class="hljs-title function_">async</span> (trx) =&gt; {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> trx.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>).<span class="hljs-title function_">insert</span>({ <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span> })
 })
+
+<span class="hljs-keyword">const</span> snapshot = <span class="hljs-keyword">await</span> client.<span class="hljs-title function_">transaction</span>(
+  { <span class="hljs-attr">isolation</span>: <span class="hljs-string">&#x27;repeatable read&#x27;</span>, <span class="hljs-attr">readOnly</span>: <span class="hljs-literal">true</span> },
+  <span class="hljs-title function_">async</span> (trx) =&gt; trx.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;users&#x27;</span>),
+)
 </code></pre>
+<h4 id="call-signature-1" tabindex="-1">Call Signature</h4>
+<blockquote>
+<p><strong>transaction</strong>&lt;<code>T</code>&gt;(<code>options</code>, <code>fn</code>): <code>Promise</code>&lt;<code>T</code>&gt;</p>
+</blockquote>
+<p>Executes a function within a database transaction using explicit transaction modes.</p>
+<h5 id="type-parameters-3" tabindex="-1">Type Parameters</h5>
+<h6 id="t-3" tabindex="-1">T</h6>
+<p><code>T</code></p>
+<p>The type of the result returned by the transaction function.</p>
+<h5 id="parameters-4" tabindex="-1">Parameters</h5>
+<h6 id="options" tabindex="-1">options</h6>
+<p><a href="/doc/pg/type-aliases/TransactionOptions.html"><code>TransactionOptions</code></a></p>
+<p>Transaction isolation and access-mode settings.</p>
+<h6 id="fn-1" tabindex="-1">fn</h6>
+<p>(<code>client</code>) =&gt; <code>Promise</code>&lt;<code>T</code>&gt;</p>
+<p>A function that takes a transaction-scoped <code>Client</code> and returns a promise.</p>
+<h5 id="returns-5" tabindex="-1">Returns</h5>
+<p><code>Promise</code>&lt;<code>T</code>&gt;</p>
+<p>A promise that resolves to the result of the transaction function.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="logger" tabindex="-1">logger</h3>
 <blockquote>
 <p><code>readonly</code> <strong>logger</strong>: <code>Logger</code></p>
 </blockquote>
-<h3 id="options" tabindex="-1">options</h3>
+<h3 id="options-1" tabindex="-1">options</h3>
 <blockquote>
 <p><code>readonly</code> <strong>options</strong>: <a href="/doc/pg/type-aliases/ClientOptions.html"><code>ClientOptions</code></a>&lt;<code>Record</code>&lt;<code>string</code>, <code>PostgresType</code>&lt;<code>any</code>&gt;&gt;&gt;</p>
 </blockquote>
