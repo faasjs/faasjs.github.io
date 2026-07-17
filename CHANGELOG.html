@@ -71,12 +71,47 @@
 <ul>
 <li>[Break] Remove the <code>Loading</code> component's built-in vertical margin and center alignment when <code>size</code> is <code>&quot;large&quot;</code> or unspecified. Use the new <code>full</code> prop to fill the surrounding flex container instead.</li>
 <li>[Feature] Add <code>Loading</code> component with <code>full</code> prop to fill surrounding flex container.</li>
+<li>[Fix] Keep <code>FormItem</code> visibility synchronized when its <code>hidden</code> prop changes.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/core</code></p>
+<ul>
+<li>[Fix] Share concurrent function mount attempts, propagate mount failures consistently, and allow later invocations to retry.</li>
+<li>[Fix] Keep dev-server request accounting correct for aborted connections, preserve native <code>Response</code> headers and cookies, and resolve static files without including URL query strings.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/create-faas-app</code></p>
+<ul>
+<li>[Fix] Resolve bundled templates from installed packages, reject unknown CLI options, and return a non-zero exit status when project creation fails.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/jobs</code></p>
+<ul>
+<li>[Fix] Correct single-value cron steps and day-of-month/day-of-week matching, and fail expired jobs that have exhausted their attempts.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/node-utils</code></p>
+<ul>
+<li>[Fix] Make transport start and stop lifecycle cleanup idempotent, restore runtime configuration correctly, and resolve chained or package-based <code>tsconfig</code> extensions.</li>
+</ul>
+</li>
+<li>
+<p><code>@faasjs/pg</code></p>
+<ul>
+<li>[Fix] Handle zero limits, nullable first rows, empty <code>IN</code> and <code>NOT IN</code> filters, and conflict-only upserts correctly in the query builder.</li>
+<li>[Fix] Generate executable foreign-key and unique-constraint alterations with escaped identifiers and preserved referential actions.</li>
 </ul>
 </li>
 <li>
 <p><code>@faasjs/react</code></p>
 <ul>
 <li>[Break] Rename <code>createWindowStates</code> to <code>createProxyStates</code> and rename the related <code>WindowState*</code> types to <code>ProxyState*</code> while replacing window events with Proxy-backed external stores.</li>
+<li>[Fix] Merge request headers case-insensitively, propagate configured base URLs, and reject non-successful streaming responses consistently.</li>
+<li>[Fix] Keep state and splitting-context hooks stable when keys or context membership change.</li>
 </ul>
 </li>
 </ul>
