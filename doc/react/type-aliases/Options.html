@@ -62,7 +62,8 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / Options</p>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/"><strong>@faasjs/react</strong></a></p>
+<p><a href="/doc/react/">@faasjs/react</a> / Options</p>
 <h1 id="type-alias%3A-options" tabindex="-1">Type Alias: Options</h1>
 <blockquote>
 <p><strong>Options</strong> = <code>RequestInit</code> &amp; <code>object</code></p>
@@ -78,7 +79,7 @@ customizing request behavior, adding request hooks, and overriding defaults.</p>
 <p>Base URL override for the current request; it also selects the registered React client.</p>
 <h3 id="beforerequest%3F" tabindex="-1">beforeRequest?</h3>
 <blockquote>
-<p><code>optional</code> <strong>beforeRequest?</strong>: (<code>{     action,     params,     options,     headers,   }</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>beforeRequest?</strong>: (<code>{     action,     params,     options,     headers,   }</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Async hook called after default and per-request options are merged, but before
 mock resolution or the final network/custom request dispatch.</p>
@@ -102,11 +103,11 @@ headers,
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
-<p><code>optional</code> <strong>headers?</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>headers?</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <h3 id="request%3F" tabindex="-1">request?</h3>
 <blockquote>
-<p><code>optional</code> <strong>request?</strong>: (<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>request?</strong>: (<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Custom request implementation used instead of native <code>fetch</code> when no global
 mock is active.</p>

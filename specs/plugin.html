@@ -71,6 +71,14 @@
 </ul>
 <p>The runtime behavior is already stable across <code>@faasjs/core</code> and <code>@faasjs/node-utils</code>, but the contract is currently spread across source code, tests, and published docs.</p>
 <p>This specification defines the baseline for plugin identity, lifecycle execution, config layering, and config-driven loading.</p>
+<h2 id="contents" tabindex="-1">Contents</h2>
+<ul>
+<li><a href="#background">Background</a></li>
+<li><a href="#goals">Goals</a></li>
+<li><a href="#non-goals">Non-goals</a></li>
+<li><a href="#normative-rules">Normative Rules</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
 <p>Related references:</p>
 <ul>
 <li><code>packages/core/src/func/index.ts</code></li>
@@ -105,7 +113,13 @@
 <h3 id="2.-lifecycle-execution-model" tabindex="-1">2. Lifecycle Execution Model</h3>
 <ol>
 <li>User plugins MUST execute before the built-in run-handler plugin.</li>
-<li><code>onMount</code> hooks MUST run in plugin order and MUST run at most once per <code>Func</code> instance.</li>
+<li><code>onMount</code> hooks MUST run in plugin order within each mount attempt.</li>
+<li>At most one mount attempt MUST be in progress for a <code>Func</code> instance at a time.</li>
+<li>Concurrent invocations that arrive before mounting completes MUST share the in-progress mount attempt and receive the same success or failure outcome.</li>
+<li>A <code>Func</code> instance MUST become mounted only after the complete <code>onMount</code> chain succeeds.</li>
+<li>A failed mount attempt MUST leave the function unmounted, MUST propagate its error to every waiting invocation, and MAY be retried by a later invocation.</li>
+<li>After a mount attempt succeeds, the <code>onMount</code> chain MUST NOT run again for that <code>Func</code> instance.</li>
+<li>Plugin authors SHOULD make <code>onMount</code> retry-safe: failed attempts SHOULD clean up partial resources and MUST NOT publish partially initialized state as ready.</li>
 <li><code>onInvoke</code> hooks MUST run in plugin order for every invocation.</li>
 <li>Plugins MUST use <code>await next()</code> to continue the lifecycle chain.</li>
 <li>Calling <code>next()</code> multiple times from the same lifecycle hook MUST reject with <code>next() called multiple times</code>.</li>

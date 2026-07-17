@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="FaasJS Custom SSG" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      try {
+        const useChoice = localStorage.getItem('vuepress-color-scheme');
+        const systemStatus =
+          'matchMedia' in window
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : false;
+
+        if (useChoice === 'light') {
+          document.documentElement.dataset.theme = 'light';
+        } else if (useChoice === 'dark' || systemStatus) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      } catch {}
+    </script>
+    <link rel="icon" href="/logo.jpg" />
+    <title>Job Types and Paths Guide | FaasJS</title>
+    <meta name="description" content="A Rails-inspired, curated full-stack TypeScript framework for database-driven React business applications." />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0049636498302507" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006612-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-143006612-1');
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="vp-theme-container external-link-icon">
+        <header class="vp-navbar" vp-navbar>
+          <div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0">
+            <div class="icon" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+          <span>
+            <a class="route-link" href="/"><span class="vp-site-name" aria-hidden="true">FaasJS</span></a>
+          </span>
+          <div class="vp-navbar-items-wrapper"><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></div>
+        </header>
+        <div class="vp-sidebar-mask"></div>
+        <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav><ul class="vp-sidebar-items"><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/curated-stack.html" aria-label="Curated Stack Guide">Curated Stack Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/getting-started.html" aria-label="Getting Started Guide">Getting Started Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/application-slices.html" aria-label="Application Slices Guide">Application Slices Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/project-config.html" aria-label="Project Config Guide">Project Config Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/file-conventions.html" aria-label="File Conventions">File Conventions</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/naming-convention.html" aria-label="Naming Convention">Naming Convention</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/code-comments.html" aria-label="Code Comments Guide">Code Comments Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/cli-and-tooling.html" aria-label="CLI and Tooling Guide">CLI and Tooling Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/define-api.html" aria-label="defineApi Guide">defineApi Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/jobs.html" aria-label="Jobs Guide">Jobs Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/http-plugin.html" aria-label="HTTP Plugin Guide">HTTP Plugin Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/middleware.html" aria-label="Middleware Guide">Middleware Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/testing.html" aria-label="Testing Guide">Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react.html" aria-label="React Guide">React Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-data-fetching.html" aria-label="React Data Fetching Guide">React Data Fetching Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/react-testing.html" aria-label="React Testing Guide">React Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/ant-design.html" aria-label="Ant Design Guide">Ant Design Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/crud-patterns.html" aria-label="CRUD Patterns Guide">CRUD Patterns Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-table-types.html" aria-label="PG Table Types Guide">PG Table Types Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-query-builder.html" aria-label="PG Query Builder and Raw SQL Guide">PG Query Builder and Raw SQL Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-schema-and-migrations.html" aria-label="PG Schema and Migrations Guide">PG Schema and Migrations Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-testing.html" aria-label="PG Testing Guide">PG Testing Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/plugins.html" aria-label="Plugins Guide">Plugins Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/node-utils.html" aria-label="Node Utils Guide">Node Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/logger.html" aria-label="Logger Guide">Logger Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/utils.html" aria-label="Utils Guide">Utils Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/json.html" aria-label="JSON Guide">JSON Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/valid.html" aria-label="Validation Guide">Validation Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/yaml.html" aria-label="YAML Guide">YAML Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/job-scheduling-and-retries.html" aria-label="Job Scheduling and Retries Guide">Job Scheduling and Retries Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/job-testing.html" aria-label="Job [Testing Guide](/guidelines/testing.html)">Job [Testing Guide](/guidelines/testing.html)</a></li><li><a class="vp-sidebar-item vp-sidebar-heading active" href="/guidelines/job-types-and-paths.html" aria-label="Job Types and Paths Guide">Job Types and Paths Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-numeric-boundaries.html" aria-label="PG Numeric Boundaries Guide">PG Numeric Boundaries Guide</a></li><li><a class="vp-sidebar-item vp-sidebar-heading" href="/guidelines/pg-transactions-and-locking.html" aria-label="PG Transactions and Locking Guide">PG Transactions and Locking Guide</a></li></ul></aside>
+        <main class="vp-page">
+          <div vp-content>
+            <div id="content"><div class="theme-default-content"><h1 id="job-types-and-paths-guide" tabindex="-1">Job Types and Paths Guide</h1>
+<p>Use this guide when generating job declarations, resolving <code>.job.ts</code> paths, or diagnosing compile-time and runtime path mismatches.</p>
+<h2 id="generated-contract" tabindex="-1">Generated Contract</h2>
+<p><code>faas types</code> scans <code>.job.ts</code> files and augments <code>@faasjs/types</code> with <code>FaasJobs</code>. Public enqueueing uses:</p>
+<ul>
+<li><code>FaasJobPaths</code>: the union of generated job paths</li>
+<li><code>FaasJobParams&lt;Path&gt;</code>: the params required by one generated path</li>
+<li><code>InferFaasJob</code>: the helper used in generated declarations</li>
+<li><code>enqueueJob(path, params)</code>: accepts only a generated path and its inferred params</li>
+</ul>
+<p>Do not cast dynamic strings to <code>FaasJobPaths</code> or widen params to <code>any</code>. Add or move the <code>.job.ts</code> file, regenerate declarations, and fix the caller against the generated contract.</p>
+<p>Jobs without a schema use <code>Record&lt;string, never&gt;</code> for params, so callers must pass <code>{}</code>.</p>
+<p>Keep compatible versions of <code>@faasjs/jobs</code> and its <code>@faasjs/types</code> peer dependency so the generated declarations and public enqueue overload agree.</p>
+<h2 id="path-mapping" tabindex="-1">Path Mapping</h2>
+<p>Job paths are relative to the source or discovery root, use <code>/</code> separators, remove <code>.job.ts</code>, and collapse a trailing <code>/index</code>:</p>
+<pre><code class="hljs language-text">src/features/users/jobs/cleanup.job.ts -&gt; features/users/jobs/cleanup
+src/features/emails/jobs/send.job.ts   -&gt; features/emails/jobs/send
+src/features/reports/jobs/index.job.ts -&gt; features/reports/jobs
+src/index.job.ts                       -&gt; &quot;&quot;
+</code></pre>
+<p>Moving or renaming a job file changes its public path. Update callers and regenerate types in the same change.</p>
+<p>The following files collide and must be rejected because both resolve to <code>jobs/reports</code>:</p>
+<pre><code class="hljs language-text">src/jobs/reports.job.ts
+src/jobs/reports/index.job.ts
+</code></pre>
+<p>Do not resolve a collision with a type cast. Rename one job so every runtime path has exactly one definition.</p>
+<h2 id="keep-typegen-and-discovery-roots-aligned" tabindex="-1">Keep Typegen And Discovery Roots Aligned</h2>
+<p><code>faas types</code> resolves the project through server config and scans <code>&lt;resolved-project-root&gt;/src</code>. Runtime discovery uses an explicit <code>root</code> when provided; otherwise it uses <code>&lt;cwd&gt;/src</code> when that directory exists, then falls back to the current directory.</p>
+<p>When <code>defaults.server.root</code> moves the application under another directory, pass the matching source root to worker and scheduler startup. For example, if typegen scans <code>app/src</code>, use <code>startJobWorker({ root: 'app/src' })</code> and the same root for the scheduler.</p>
+<p>Generated types prove that a path existed during generation; they do not prove the worker can currently discover that file. A moved or deleted job can still compile against stale declarations until typegen runs again.</p>
+<h2 id="type-generation-workflow" tabindex="-1">Type Generation Workflow</h2>
+<p>Run typegen after creating, renaming, moving, or removing <code>.api.ts</code> or <code>.job.ts</code> files:</p>
+<pre><code class="hljs language-bash">npx faas types
+</code></pre>
+<p>Editing only a handler or schema does not require a path declaration rewrite because the generated file imports the endpoint or job type. Running typegen again is safe but should not be used as a substitute for typechecking.</p>
+<p>Programmatic callers can inspect all counters:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { generateFaasTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@faasjs/dev&#x27;</span>
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">generateFaasTypes</span>({ <span class="hljs-attr">root</span>: process.<span class="hljs-title function_">cwd</span>() })
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">output</span>, result.<span class="hljs-property">routeCount</span>, result.<span class="hljs-property">jobCount</span>)
+</code></pre>
+<p>Do not edit <code>src/.faasjs/types.d.ts</code> manually.</p>
+<h2 id="validation" tabindex="-1">Validation</h2>
+<ul>
+<li>generate a job-only project successfully; an API file is not required</li>
+<li>reject duplicate job paths such as <code>reports.job.ts</code> and <code>reports/index.job.ts</code></li>
+<li>typecheck one valid enqueue and assert unknown paths or incorrect params fail compilation</li>
+<li>run discovery with the production root and assert the generated paths match the registry keys</li>
+<li>regenerate after path topology changes and confirm stale paths disappear</li>
+</ul>
+</div></div>
+          </div>
+          
+        </main>
+      </div>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

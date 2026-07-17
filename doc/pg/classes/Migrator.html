@@ -62,7 +62,8 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/">@faasjs/pg</a> / Migrator</p>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/pg/">Documents</a> / <a href="/doc/pg/"><strong>@faasjs/pg</strong></a></p>
+<p><a href="/doc/pg/">@faasjs/pg</a> / Migrator</p>
 <h1 id="class%3A-migrator" tabindex="-1">Class: Migrator</h1>
 <p>The <code>Migrator</code> class is responsible for handling database migrations.
 It provides methods to check migration status, apply migrations, and roll back migrations.</p>
@@ -97,7 +98,7 @@ executed inside <code>SchemaBuilder.run()</code> transactions.</p>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="down()" tabindex="-1">down()</h3>
 <blockquote>
-<p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Rolls back the last applied migration by calling its <code>down</code> function.</p>
 <p>If no migration history exists or the matching migration file is missing, the
@@ -107,7 +108,7 @@ method logs and returns without modifying the tracking table.</p>
 <p>A rejected promise if the rollback fails.</p>
 <h3 id="migrate()" tabindex="-1">migrate()</h3>
 <blockquote>
-<p><strong>migrate</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>migrate</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Runs all pending migration files in lexical order.</p>
 <p>Each migration file is loaded dynamically and its <code>up</code> function is invoked
@@ -126,7 +127,7 @@ the method logs and returns without throwing.</p>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="up()" tabindex="-1">up()</h3>
 <blockquote>
-<p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Runs the next pending migration, if one exists.</p>
 <p>The &quot;next&quot; file is the first lexical filename greater than the latest recorded

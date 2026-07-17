@@ -62,7 +62,8 @@
         <aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><div class="vp-navbar-item"><a class="auto-link route-link" href="/" aria-label="Home">Home</a></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Learn"><span class="title">Learn</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Learn"><span class="title">Learn</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/guidelines/" aria-label="Guide">Guide</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link route-link-active" href="/doc/" aria-label="Documents">Documents</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/tree/main/templates" aria-label="Templates" rel="noopener noreferrer" target="_blank">Templates</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CHANGELOG.html" aria-label="Changelog">Changelog</a></li><li class="vp-navbar-dropdown-item"><h4 class="vp-navbar-dropdown-subtitle"><span>Ecosystem</span></h4><ul class="vp-navbar-dropdown-subitem-wrapper"><li class="vp-navbar-dropdown-subitem"><a class="auto-link route-link" href="/doc/images/" aria-label="Docker Images">Docker Images</a></li></ul></li></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper mobile"><button class="vp-navbar-dropdown-title" type="button" aria-label="Community"><span class="title">Community</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="Community"><span class="title">Community</span><span class="right arrow"></span></button><ul class="vp-navbar-dropdown"><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/faasjs/faasjs/" aria-label="Github" rel="noopener noreferrer" target="_blank">Github</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/CONTRIBUTING.html" aria-label="Contributing">Contributing</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link external-link" href="https://github.com/sponsors/faasjs" aria-label="Sponsor" rel="noopener noreferrer" target="_blank">Sponsor</a></li><li class="vp-navbar-dropdown-item"><a class="auto-link route-link" href="/SECURITY.html" aria-label="Security">Security</a></li></ul></div></div></nav></aside>
         <main class="vp-page">
           <div vp-content>
-            <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/">@faasjs/core</a> / Session</p>
+            <div id="content"><div class="theme-default-content"><p><a href="/doc/core/">Documents</a> / <a href="/doc/core/"><strong>@faasjs/core</strong></a></p>
+<p><a href="/doc/core/">@faasjs/core</a> / Session</p>
 <h1 id="class%3A-session%3Cs%2C-c%3E" tabindex="-1">Class: Session&lt;S, C&gt;</h1>
 <p>Encrypted session storage backed by a signed cookie.</p>
 <h2 id="example" tabindex="-1">Example</h2>
@@ -89,7 +90,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new Session</strong>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>cookie</code>, <code>config</code>, <code>secrets?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>new Session</strong>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>cookie</code>, <code>config</code>, <code>secrets?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Create a session helper bound to a cookie store.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
@@ -109,7 +110,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="decode()" tabindex="-1">decode()</h3>
 <blockquote>
-<p><strong>decode</strong>&lt;<code>TData</code>&gt;&gt;&gt;&gt;&gt;(<code>text</code>): <a href="/doc/core/type-aliases/SessionContent.html"><code>SessionContent</code></a> | <code>TData</code></p>
+<p><strong>decode</strong>&lt;<code>TData</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>text</code>): <a href="/doc/core/type-aliases/SessionContent.html"><code>SessionContent</code></a> | <code>TData</code></p>
 </blockquote>
 <p>Decode and verify a session cookie value.</p>
 <h4 id="type-parameters-1" tabindex="-1">Type Parameters</h4>
@@ -142,7 +143,7 @@ because <code>decode()</code> parses decrypted content with <code>JSON.parse</co
 <p>Encoded cookie value.</p>
 <h3 id="fork()" tabindex="-1">fork()</h3>
 <blockquote>
-<p><strong>fork</strong>(<code>cookie</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>fork</strong>(<code>cookie</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Clone the session helper for a forked cookie store.</p>
 <h4 id="parameters-3" tabindex="-1">Parameters</h4>
@@ -181,7 +182,7 @@ because <code>decode()</code> parses decrypted content with <code>JSON.parse</co
 <p>Stored session value, or <code>undefined</code> when absent.</p>
 <h3 id="update()" tabindex="-1">update()</h3>
 <blockquote>
-<p><strong>update</strong>(): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>update</strong>(): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Persist pending in-memory changes back to the session cookie.</p>
 <h4 id="returns-6" tabindex="-1">Returns</h4>
@@ -189,7 +190,7 @@ because <code>decode()</code> parses decrypted content with <code>JSON.parse</co
 <p>Current session helper for chaining.</p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
-<p><strong>write</strong>(<code>key</code>, <code>value?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>write</strong>(<code>key</code>, <code>value?</code>): <code>Session</code>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Set or remove a session value in memory.</p>
 <h4 id="parameters-6" tabindex="-1">Parameters</h4>
@@ -210,7 +211,7 @@ because <code>decode()</code> parses decrypted content with <code>JSON.parse</co
 <p>Normalized session config with derived defaults.</p>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>
-<p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code> | <code>number</code>&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code> | <code>number</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Decoded session values for the current request.</p>
 </div></div>

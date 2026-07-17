@@ -64,7 +64,7 @@
           <div vp-content>
             <div id="content"><div class="theme-default-content"><h1 id="changelog" tabindex="-1">Changelog</h1>
 <p>FaasJS use <a href="https://semver.org/" target="_blank" rel="noopener noreferrer" class="external-link">Semantic Versioning</a>.</p>
-<h2 id="unreleased" tabindex="-1">Unreleased</h2>
+<p><a href="https://github.com/faasjs/faasjs/compare/v8.0.0-beta.43...v8.0.0-beta.44" target="_blank" rel="noopener noreferrer" class="external-link"><code>v8.0.0-beta.44 (2026-07-17)</code></a></p>
 <ul>
 <li>
 <p><code>@faasjs/ant-design</code></p>
@@ -94,9 +94,15 @@
 </ul>
 </li>
 <li>
+<p><code>@faasjs/docgen</code></p>
+<ul>
+<li>[Fix] Run TypeDoc from the docgen workspace with the repository's shared options so API documentation generation resolves its bundled dependencies consistently.</li>
+</ul>
+</li>
+<li>
 <p><code>@faasjs/jobs</code></p>
 <ul>
-<li>[Break] Require generated job paths and explicit schema-typed params when calling <code>enqueueJob</code>.</li>
+<li>[Break] Require generated job paths and explicit schema-typed params when calling <code>enqueueJob</code>, and declare <code>@faasjs/types</code> as a peer dependency.</li>
 <li>[Feature] Allow <code>enqueueJob</code> to reuse an explicit PostgreSQL client or transaction through its <code>client</code> option.</li>
 <li>[Fix] Correct single-value cron steps and day-of-month/day-of-week matching, and fail expired jobs that have exhausted their attempts.</li>
 </ul>
@@ -119,6 +125,7 @@
 <p><code>@faasjs/react</code></p>
 <ul>
 <li>[Break] Rename <code>createWindowStates</code> to <code>createProxyStates</code> and rename the related <code>WindowState*</code> types to <code>ProxyState*</code> while replacing window events with Proxy-backed external stores.</li>
+<li>[Fix] Declare React 19 as a peer dependency.</li>
 <li>[Fix] Merge request headers case-insensitively, propagate configured base URLs, and reject non-successful streaming responses consistently.</li>
 <li>[Fix] Keep state and splitting-context hooks stable when keys or context membership change.</li>
 </ul>
@@ -126,6 +133,7 @@
 <li>
 <p><code>@faasjs/types</code></p>
 <ul>
+<li>[Break] Enable <code>erasableSyntaxOnly</code> in the shared base TypeScript config and make the React and build configs inherit from it.</li>
 <li>[Feature] Add generated job declaration merging with <code>FaasJobs</code>, <code>FaasJobPaths</code>, <code>FaasJobParams</code>, and <code>InferFaasJob</code>.</li>
 </ul>
 </li>
