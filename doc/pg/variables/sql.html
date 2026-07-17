@@ -82,10 +82,13 @@ to bound parameters; never concatenate runtime input into the static template te
 <h4 id="returns" tabindex="-1">Returns</h4>
 <p><a href="/doc/pg/type-aliases/SqlReference.html"><code>SqlReference</code></a></p>
 <h2 id="example" tabindex="-1">Example</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> client.<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;jobs&#x27;</span>).<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, id).<span class="hljs-title function_">update</span>({
-  <span class="hljs-attr">attempts</span>: sql<span class="hljs-string">`<span class="hljs-subst">${sql.ref(<span class="hljs-string">&#x27;attempts&#x27;</span>)}</span> + <span class="hljs-subst">${<span class="hljs-number">1</span>}</span>`</span>,
-  <span class="hljs-attr">updated_at</span>: sql<span class="hljs-string">`NOW()`</span>,
-})
+<pre><code class="hljs language-ts"><span class="hljs-keyword">await</span> client
+  .<span class="hljs-title function_">query</span>(<span class="hljs-string">&#x27;jobs&#x27;</span>)
+  .<span class="hljs-title function_">where</span>(<span class="hljs-string">&#x27;id&#x27;</span>, id)
+  .<span class="hljs-title function_">update</span>({
+    <span class="hljs-attr">attempts</span>: sql<span class="hljs-string">`<span class="hljs-subst">${sql.ref(<span class="hljs-string">&#x27;attempts&#x27;</span>)}</span> + <span class="hljs-subst">${<span class="hljs-number">1</span>}</span>`</span>,
+    <span class="hljs-attr">updated_at</span>: sql<span class="hljs-string">`NOW()`</span>,
+  })
 </code></pre>
 </div></div>
           </div>

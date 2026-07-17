@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/ant-design/">Documents</a> / <a href="/doc/ant-design/">@faasjs/ant-design</a> / TableProps</p>
 <h1 id="type-alias%3A-tableprops%3Ct%2C-extendtypes%3E" tabindex="-1">Type Alias: TableProps&lt;T, ExtendTypes&gt;</h1>
 <blockquote>
-<p><strong>TableProps</strong>&lt;<code>T</code>, <code>ExtendTypes</code>&gt; = <code>object</code> &amp; <code>AntdTableProps</code>&lt;<code>T</code>&gt;</p>
+<p><strong>TableProps</strong>&lt;<code>T</code>, <code>ExtendTypes</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code> &amp; <code>AntdTableProps</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Props for the FaasJS Ant Design <a href="/doc/ant-design/functions/Table.html">Table</a> component.</p>
 <h2 id="type-declaration" tabindex="-1">Type Declaration</h2>
@@ -78,7 +78,7 @@
 <p>[<code>key</code>: <code>string</code>]: <a href="/doc/ant-design/type-aliases/ExtendTableTypeProps.html"><code>ExtendTableTypeProps</code></a>&lt;<code>any</code>&gt;</p>
 <h3 id="faasdata%3F" tabindex="-1">faasData?</h3>
 <blockquote>
-<p><code>optional</code> <strong>faasData?</strong>: <a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>any</code>&gt;</p>
+<p><code>optional</code> <strong>faasData?</strong>: <a href="/doc/ant-design/interfaces/FaasDataWrapperProps.html"><code>FaasDataWrapperProps</code></a>&lt;<code>any</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Request config used to fetch table data before rendering.</p>
 <p>A plain array response is rendered directly. A paginated list response should
@@ -109,11 +109,11 @@ to <code>reload()</code>. Without this handler, the raw Ant Design table state i
 <p><code>object</code></p>
 <h5 id="extra-1" tabindex="-1">extra</h5>
 <blockquote>
-<p><strong>extra</strong>: <code>TableCurrentDataSource</code>&lt;<code>T</code>&gt;</p>
+<p><strong>extra</strong>: <code>TableCurrentDataSource</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <h5 id="filters-1" tabindex="-1">filters</h5>
 <blockquote>
-<p><strong>filters</strong>: <code>Record</code>&lt;<code>string</code>, <code>FilterValue</code> | <code>null</code>&gt;</p>
+<p><strong>filters</strong>: <code>Record</code>&lt;<code>string</code>, <code>FilterValue</code> | <code>null</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <h5 id="pagination-1" tabindex="-1">pagination</h5>
 <blockquote>
@@ -121,7 +121,7 @@ to <code>reload()</code>. Without this handler, the raw Ant Design table state i
 </blockquote>
 <h5 id="sorter-1" tabindex="-1">sorter</h5>
 <blockquote>
-<p><strong>sorter</strong>: <code>SorterResult</code>&lt;<code>T</code>&gt; | <code>SorterResult</code>&lt;<code>T</code>&gt;[]</p>
+<p><strong>sorter</strong>: <code>SorterResult</code>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; | <code>SorterResult</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;[]</p>
 </blockquote>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
 <h3 id="t" tabindex="-1">T</h3>

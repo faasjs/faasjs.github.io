@@ -97,7 +97,7 @@ executed inside <code>SchemaBuilder.run()</code> transactions.</p>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="down()" tabindex="-1">down()</h3>
 <blockquote>
-<p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
+<p><strong>down</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Rolls back the last applied migration by calling its <code>down</code> function.</p>
 <p>If no migration history exists or the matching migration file is missing, the
@@ -107,7 +107,7 @@ method logs and returns without modifying the tracking table.</p>
 <p>A rejected promise if the rollback fails.</p>
 <h3 id="migrate()" tabindex="-1">migrate()</h3>
 <blockquote>
-<p><strong>migrate</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
+<p><strong>migrate</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Runs all pending migration files in lexical order.</p>
 <p>Each migration file is loaded dynamically and its <code>up</code> function is invoked
@@ -126,7 +126,7 @@ the method logs and returns without throwing.</p>
 <p><code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 <h3 id="up()" tabindex="-1">up()</h3>
 <blockquote>
-<p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;</p>
+<p><strong>up</strong>(): <code>Promise</code>&lt;<code>undefined</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Runs the next pending migration, if one exists.</p>
 <p>The &quot;next&quot; file is the first lexical filename greater than the latest recorded

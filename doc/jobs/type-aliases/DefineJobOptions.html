@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / DefineJobOptions</p>
 <h1 id="type-alias%3A-definejoboptions%3Ctschema%2C-tcontext%2C-tresult%3E" tabindex="-1">Type Alias: DefineJobOptions&lt;TSchema, TContext, TResult&gt;</h1>
 <blockquote>
-<p><strong>DefineJobOptions</strong>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt; = <code>object</code></p>
+<p><strong>DefineJobOptions</strong>&lt;<code>TSchema</code>, <code>TContext</code>, <code>TResult</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Options for <a href="/doc/jobs/functions/defineJob.html">defineJob</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -78,12 +78,12 @@
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="cron%3F" tabindex="-1">cron?</h3>
 <blockquote>
-<p><code>optional</code> <strong>cron?</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobParams.html"><code>DefineJobParams</code></a>&lt;<code>TSchema</code>&gt;&gt;[]</p>
+<p><code>optional</code> <strong>cron?</strong>: <a href="/doc/jobs/type-aliases/JobCron.html"><code>JobCron</code></a>&lt;<a href="/doc/jobs/type-aliases/DefineJobParams.html"><code>DefineJobParams</code></a>&lt;<code>TSchema</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]</p>
 </blockquote>
 <p>Cron rules that trigger scheduled invocations of this job.</p>
 <h3 id="handler" tabindex="-1">handler</h3>
 <blockquote>
-<p><strong>handler</strong>: (<code>data</code>) =&gt; <code>TResult</code> | <code>Promise</code>&lt;<code>TResult</code>&gt;</p>
+<p><strong>handler</strong>: (<code>data</code>) =&gt; <code>TResult</code> | <code>Promise</code>&lt;<code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>The job handler function.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>

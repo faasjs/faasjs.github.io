@@ -99,7 +99,7 @@ server.<span class="hljs-title function_">listen</span>()
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="close()" tabindex="-1">close()</h3>
 <blockquote>
-<p><strong>close</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><strong>close</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Close the server and wait for active requests to finish.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
@@ -107,7 +107,7 @@ server.<span class="hljs-title function_">listen</span>()
 <p>Promise that resolves after sockets, requests, and transports stop.</p>
 <h3 id="handle()" tabindex="-1">handle()</h3>
 <blockquote>
-<p><strong>handle</strong>(<code>req</code>, <code>res</code>, <code>options?</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><strong>handle</strong>(<code>req</code>, <code>res</code>, <code>options?</code>): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Handle a single incoming HTTP request.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
@@ -135,7 +135,7 @@ server.<span class="hljs-title function_">listen</span>()
 <p>When the server is already running.</p>
 <h3 id="middleware()" tabindex="-1">middleware()</h3>
 <blockquote>
-<p><strong>middleware</strong>(<code>req</code>, <code>res</code>, <code>next</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
+<p><strong>middleware</strong>(<code>req</code>, <code>res</code>, <code>next</code>): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Express-style middleware wrapper that delegates to <a href="#handle">Server.handle</a>.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>

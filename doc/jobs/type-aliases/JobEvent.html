@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/jobs/">Documents</a> / <a href="/doc/jobs/">@faasjs/jobs</a> / JobEvent</p>
 <h1 id="type-alias%3A-jobevent%3Ctschema%3E" tabindex="-1">Type Alias: JobEvent&lt;TSchema&gt;</h1>
 <blockquote>
-<p><strong>JobEvent</strong>&lt;<code>TSchema</code>&gt; = <code>object</code></p>
+<p><strong>JobEvent</strong>&lt;<code>TSchema</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Runtime event passed to the underlying job function.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -79,12 +79,12 @@
 <p>Current execution attempt. Defaults to <code>1</code> when omitted.</p>
 <h3 id="job%3F" tabindex="-1">job?</h3>
 <blockquote>
-<p><code>optional</code> <strong>job?</strong>: <code>Partial</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;</p>
+<p><code>optional</code> <strong>job?</strong>: <code>Partial</code>&lt;<a href="/doc/jobs/type-aliases/JobRecord.html"><code>JobRecord</code></a>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Job metadata. Defaults are filled when omitted, which keeps direct job tests small.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
-<p><code>optional</code> <strong>params?</strong>: <code>TSchema</code> <em>extends</em> <code>ZodType</code> ? <code>ZodInfer</code>&lt;<code>TSchema</code>&gt; : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;</p>
+<p><code>optional</code> <strong>params?</strong>: <code>TSchema</code> <em>extends</em> <code>ZodType</code> ? <code>ZodInfer</code>&lt;<code>TSchema</code>&gt; &gt; &gt; &gt; &gt; : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Raw params passed to the job. They are validated before <code>handler</code> receives <code>params</code>.</p>
 </div></div>

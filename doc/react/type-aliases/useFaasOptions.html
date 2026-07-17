@@ -65,7 +65,7 @@
             <div id="content"><div class="theme-default-content"><p><a href="/doc/react/">Documents</a> / <a href="/doc/react/">@faasjs/react</a> / UseFaasOptions</p>
 <h1 id="type-alias%3A-usefaasoptions%3Cpath%3E" tabindex="-1">Type Alias: UseFaasOptions&lt;Path&gt;</h1>
 <blockquote>
-<p><strong>UseFaasOptions</strong>&lt;<code>Path</code>&gt; = <code>object</code></p>
+<p><strong>UseFaasOptions</strong>&lt;<code>Path</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Options that customize the <a href="/doc/react/functions/useFaas.html">useFaas</a> request lifecycle.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -80,7 +80,7 @@
 <p>Base URL override used for this request lifecycle.</p>
 <h3 id="data%3F" tabindex="-1">data?</h3>
 <blockquote>
-<p><code>optional</code> <strong>data?</strong>: <code>FaasData</code>&lt;<code>Path</code>&gt;</p>
+<p><code>optional</code> <strong>data?</strong>: <code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Controlled data value used instead of internal hook state.</p>
 <h3 id="debounce%3F" tabindex="-1">debounce?</h3>
@@ -90,7 +90,7 @@
 <p>Milliseconds to wait before sending the latest request.</p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
-<p><code>optional</code> <strong>params?</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt;</p>
+<p><code>optional</code> <strong>params?</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Controlled params override sent with the request without mutating local params state.</p>
 <h3 id="polling%3F" tabindex="-1">polling?</h3>
@@ -100,7 +100,7 @@
 <p>Milliseconds to wait after each completed request before refreshing data in the background.</p>
 <h3 id="setdata%3F" tabindex="-1">setData?</h3>
 <blockquote>
-<p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>setData?</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>FaasData</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Controlled setter paired with <code>data</code>.</p>
 <h3 id="skip%3F" tabindex="-1">skip?</h3>
