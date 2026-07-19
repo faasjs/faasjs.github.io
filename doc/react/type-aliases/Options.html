@@ -79,7 +79,7 @@ customizing request behavior, adding request hooks, and overriding defaults.</p>
 <p>Base URL override for the current request; it also selects the registered React client.</p>
 <h3 id="beforerequest%3F" tabindex="-1">beforeRequest?</h3>
 <blockquote>
-<p><code>optional</code> <strong>beforeRequest?</strong>: (<code>{     action,     params,     options,     headers,   }</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>beforeRequest?</strong>: (<code>{     action,     params,     options,     headers,   }</code>) =&gt; <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Async hook called after default and per-request options are merged, but before
 mock resolution or the final network/custom request dispatch.</p>
@@ -103,11 +103,11 @@ headers,
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="headers%3F" tabindex="-1">headers?</h3>
 <blockquote>
-<p><code>optional</code> <strong>headers?</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>headers?</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <h3 id="request%3F" tabindex="-1">request?</h3>
 <blockquote>
-<p><code>optional</code> <strong>request?</strong>: (<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>request?</strong>: (<code>url</code>, <code>options</code>) =&gt; <code>Promise</code>&lt;<a href="/doc/react/classes/Response.html"><code>Response</code></a>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Custom request implementation used instead of native <code>fetch</code> when no global
 mock is active.</p>

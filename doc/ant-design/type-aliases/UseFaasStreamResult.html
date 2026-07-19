@@ -66,7 +66,7 @@
 <p><a href="/doc/ant-design/">@faasjs/ant-design</a> / UseFaasStreamResult</p>
 <h1 id="type-alias%3A-usefaasstreamresult%3Cpath%3E" tabindex="-1">Type Alias: UseFaasStreamResult&lt;Path&gt;</h1>
 <blockquote>
-<p><strong>UseFaasStreamResult</strong>&lt;<code>Path</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
+<p><strong>UseFaasStreamResult</strong>&lt;<code>Path</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Result returned by <a href="/doc/ant-design/functions/useFaasStream.html">useFaasStream</a>.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>
@@ -96,7 +96,7 @@
 <p>Whether the hook is currently waiting for stream data and should block the main UI.</p>
 <h3 id="params" tabindex="-1">params</h3>
 <blockquote>
-<p><strong>params</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>params</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Params used for the most recent request attempt.</p>
 <h3 id="refreshing" tabindex="-1">refreshing</h3>
@@ -106,7 +106,7 @@
 <p>Whether a background stream refresh is currently in flight.</p>
 <h3 id="reload" tabindex="-1">reload</h3>
 <blockquote>
-<p><strong>reload</strong>: (<code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>reload</strong>: (<code>params?</code>, <code>options?</code>) =&gt; <code>Promise</code>&lt;<code>string</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Trigger a new streaming request with optional params.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
@@ -124,17 +124,17 @@
 <p>Number of times <code>reload()</code> or polling has triggered a new request.</p>
 <h3 id="setdata" tabindex="-1">setData</h3>
 <blockquote>
-<p><strong>setData</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>setData</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Controlled or internal setter for the accumulated text.</p>
 <h3 id="seterror" tabindex="-1">setError</h3>
 <blockquote>
-<p><strong>setError</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>setError</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Setter for the last stream error.</p>
 <h3 id="setloading" tabindex="-1">setLoading</h3>
 <blockquote>
-<p><strong>setLoading</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>boolean</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>setLoading</strong>: <code>React.Dispatch</code>&lt;<code>React.SetStateAction</code>&lt;<code>boolean</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Setter for the loading flag.</p>
 </div></div>

@@ -66,7 +66,7 @@
 <p><a href="/doc/ant-design/">@faasjs/ant-design</a> / FormFaasProps</p>
 <h1 id="type-alias%3A-formfaasprops%3Cvalues%2C-path%3E" tabindex="-1">Type Alias: FormFaasProps&lt;Values, Path&gt;</h1>
 <blockquote>
-<p><strong>FormFaasProps</strong>&lt;<code>Values</code>, <code>Path</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
+<p><strong>FormFaasProps</strong>&lt;<code>Values</code>, <code>Path</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Configures FaasJS-backed form submission for create/update/delete style actions.</p>
 <p>The submitted payload starts from the current form values, optionally passes
@@ -118,14 +118,14 @@ before calling <code>faas(action, payload)</code>.</p>
 <p><code>void</code></p>
 <h3 id="params%3F" tabindex="-1">params?</h3>
 <blockquote>
-<p><code>optional</code> <strong>params?</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; | ((<code>values</code>) =&gt; <code>FaasParams</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;)</p>
+<p><code>optional</code> <strong>params?</strong>: <code>FaasParams</code>&lt;<code>Path</code>&gt; &gt; &gt; &gt; &gt; | ((<code>values</code>) =&gt; <code>FaasParams</code>&lt;<code>Path</code>&gt;&gt;&gt;&gt;&gt;)</p>
 </blockquote>
 <p>Extra static params or a factory that receives transformed form values.</p>
 <p>Returned keys are merged over the form values, so they can provide IDs or
 route metadata for update/delete flows.</p>
 <h3 id="transformvalues%3F" tabindex="-1">transformValues?</h3>
 <blockquote>
-<p><code>optional</code> <strong>transformValues?</strong>: (<code>values</code>) =&gt; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; | <code>Promise</code>&lt;<code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><code>optional</code> <strong>transformValues?</strong>: (<code>values</code>) =&gt; <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt; &gt; &gt; &gt; &gt; | <code>Promise</code>&lt;<code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Transformer applied before <code>params</code> are merged and before the FaasJS request is fired.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>

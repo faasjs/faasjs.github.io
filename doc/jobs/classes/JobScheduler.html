@@ -99,7 +99,7 @@ scheduler.<span class="hljs-title function_">start</span>()
 <p>The scheduler instance (for chaining).</p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
-<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Stop the scheduler loop. Waits for the current tick to complete
 before resolving.</p>
@@ -107,7 +107,7 @@ before resolving.</p>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <h3 id="tick()" tabindex="-1">tick()</h3>
 <blockquote>
-<p><strong>tick</strong>(<code>now?</code>): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>tick</strong>(<code>now?</code>): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Execute one scheduling tick: evaluate all cron rules against the
 current minute and enqueue matching jobs. No-op if a tick is

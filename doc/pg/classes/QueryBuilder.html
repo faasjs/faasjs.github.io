@@ -87,7 +87,7 @@ and should be reserved for trusted SQL controlled by the application.</p>
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new QueryBuilder</strong>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>client</code>, <code>table</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>new QueryBuilder</strong>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;(<code>client</code>, <code>table</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
 <h5 id="client" tabindex="-1">client</h5>
@@ -101,7 +101,7 @@ and should be reserved for trusted SQL controlled by the application.</p>
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="count()" tabindex="-1">count()</h3>
 <blockquote>
-<p><strong>count</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>count</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Executes a SQL query to count the number of rows in the specified table.</p>
 <h4 id="returns-1" tabindex="-1">Returns</h4>
@@ -126,7 +126,7 @@ and should be reserved for trusted SQL controlled by the application.</p>
 </code></pre>
 <h3 id="first()" tabindex="-1">first()</h3>
 <blockquote>
-<p><strong>first</strong>(): <code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>first</strong>(): <code>Promise</code>&lt;<code>TResult</code> <em>extends</em> <code>U</code>[] ? <code>U</code> : <code>TResult</code> | <code>null</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Executes the query and returns the first matching row, or <code>null</code> if no rows match.</p>
 <p>Automatically applies <code>LIMIT 1</code> to the query.</p>
@@ -135,7 +135,7 @@ and should be reserved for trusted SQL controlled by the application.</p>
 <p>The first row of the result set, or <code>null</code>.</p>
 <h3 id="forupdate()" tabindex="-1">forUpdate()</h3>
 <blockquote>
-<p><strong>forUpdate</strong>(<code>options?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>forUpdate</strong>(<code>options?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Locks selected rows with <code>FOR UPDATE</code> until the current transaction ends.</p>
 <p><code>of</code> identifiers are escaped. <code>noWait</code> fails immediately when a row is already
@@ -157,7 +157,7 @@ an explicit transaction.</p>
 </code></pre>
 <h3 id="insert()" tabindex="-1">insert()</h3>
 <blockquote>
-<p><strong>insert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
+<p><strong>insert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
 </blockquote>
 <p>Inserts one or more rows into the table.</p>
 <p>For multi-row inserts, the keys of the first row define the inserted columns.
@@ -194,7 +194,7 @@ inserted rows should be returned.</p>
 <h3 id="join()" tabindex="-1">join()</h3>
 <h4 id="call-signature" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds an INNER JOIN clause.</p>
 <p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
@@ -214,7 +214,7 @@ overload validates that the operator is a normal comparison operator.</p>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-1" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>join</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds an INNER JOIN clause.</p>
 <p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
@@ -237,7 +237,7 @@ overload validates that the operator is a normal comparison operator.</p>
 <h3 id="leftjoin()" tabindex="-1">leftJoin()</h3>
 <h4 id="call-signature-2" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds a LEFT JOIN clause.</p>
 <p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
@@ -257,7 +257,7 @@ overload validates that the operator is a normal comparison operator.</p>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h4 id="call-signature-3" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>leftJoin</strong>(<code>table</code>, <code>left</code>, <code>operator</code>, <code>right</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds a LEFT JOIN clause.</p>
 <p>Join operands are escaped as identifiers unless provided as trusted <code>RawSql</code> fragments.
@@ -279,7 +279,7 @@ overload validates that the operator is a normal comparison operator.</p>
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="limit()" tabindex="-1">limit()</h3>
 <blockquote>
-<p><strong>limit</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>limit</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Sets the limit value for the query.</p>
 <p>The value is bound as a parameter when SQL is generated.</p>
@@ -294,7 +294,7 @@ overload validates that the operator is a normal comparison operator.</p>
 </code></pre>
 <h3 id="offset()" tabindex="-1">offset()</h3>
 <blockquote>
-<p><strong>offset</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>offset</strong>(<code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Sets the offset value for the query.</p>
 <p>The value is bound as a parameter when SQL is generated.</p>
@@ -309,7 +309,7 @@ overload validates that the operator is a normal comparison operator.</p>
 </code></pre>
 <h3 id="orderby()" tabindex="-1">orderBy()</h3>
 <blockquote>
-<p><strong>orderBy</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>direction?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orderBy</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>direction?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Sets the order by column and direction for the query.</p>
 <p>Direction must be one of <a href="/doc/pg/type-aliases/QueryOrderDirections.html">QueryOrderDirections</a>; invalid directions throw
@@ -331,7 +331,7 @@ before SQL is generated.</p>
 </code></pre>
 <h3 id="orderbyraw()" tabindex="-1">orderByRaw()</h3>
 <blockquote>
-<p><strong>orderByRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orderByRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to ORDER BY with parameter bindings.</p>
 <p>The SQL fragment is inserted as-is. Use <code>?</code> placeholders for values and pass
@@ -348,7 +348,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 <h3 id="orwhere()" tabindex="-1">orWhere()</h3>
 <h4 id="call-signature-4" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -373,7 +373,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h4 id="call-signature-5" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -398,7 +398,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h4 id="call-signature-6" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -420,7 +420,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h4 id="call-signature-7" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -445,7 +445,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h4 id="call-signature-8" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -470,7 +470,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h4 id="call-signature-9" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhere</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies an OR WHERE condition to the query builder.</p>
 <p>The same operator rules as <a href="#where">where</a> apply, but the condition is joined with
@@ -492,7 +492,7 @@ matching <code>params</code>; do not interpolate user input into <code>sql</code
 </code></pre>
 <h3 id="orwhereraw()" tabindex="-1">orWhereRaw()</h3>
 <blockquote>
-<p><strong>orWhereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>orWhereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to the WHERE clause using OR with parameter bindings.</p>
 <p>The SQL fragment is inserted as-is inside parentheses. Use <code>?</code> placeholders for
@@ -508,7 +508,7 @@ values and pass matching <code>params</code>; do not interpolate user input into
 <p><code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;</p>
 <h3 id="pluck()" tabindex="-1">pluck()</h3>
 <blockquote>
-<p><strong>pluck</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>): <code>Promise</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
+<p><strong>pluck</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>): <code>Promise</code>&lt;<a href="/doc/pg/type-aliases/ColumnValue.html"><code>ColumnValue</code></a>&lt;<code>T</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
 </blockquote>
 <p>Asynchronously retrieves the values of a specified column from the database.</p>
 <h4 id="type-parameters-9" tabindex="-1">Type Parameters</h4>
@@ -527,7 +527,7 @@ values and pass matching <code>params</code>; do not interpolate user input into
 </code></pre>
 <h3 id="select()" tabindex="-1">select()</h3>
 <blockquote>
-<p><strong>select</strong>&lt;<code>ColumnNames</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(...<code>columns</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <a href="/doc/pg/type-aliases/InferTResult.html"><code>InferTResult</code></a>&lt;<code>T</code>, <code>ColumnNames</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
+<p><strong>select</strong>&lt;<code>ColumnNames</code>&gt;&gt;&gt;&gt;&gt;(...<code>columns</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <a href="/doc/pg/type-aliases/InferTResult.html"><code>InferTResult</code></a>&lt;<code>T</code>, <code>ColumnNames</code>&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
 </blockquote>
 <p>Selects specific columns for the query.</p>
 <p>Calling <code>select()</code> with no columns leaves the current selection unchanged. A
@@ -551,7 +551,7 @@ use <code>jsonb_build_object</code> and default their alias to the source JSON c
 </code></pre>
 <h3 id="then()" tabindex="-1">then()</h3>
 <blockquote>
-<p><strong>then</strong>&lt;<code>TResult1</code>, <code>TResult2</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>onfulfilled?</code>, <code>onrejected?</code>): <code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>then</strong>&lt;<code>TResult1</code>, <code>TResult2</code>&gt;&gt;&gt;&gt;&gt;(<code>onfulfilled?</code>, <code>onrejected?</code>): <code>Promise</code>&lt;<code>TResult1</code> | <code>TResult2</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Makes the QueryBuilder thenable — calling <code>await builder</code> implicitly executes the query.</p>
 <p>This is why <code>await client.query('users').where('id', id)</code> returns rows without
@@ -591,7 +591,7 @@ those placeholders into <code>postgres.js</code> template parameters at executio
 </blockquote>
 <h3 id="update()" tabindex="-1">update()</h3>
 <blockquote>
-<p><strong>update</strong>&lt;<code>Returning</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
+<p><strong>update</strong>&lt;<code>Returning</code>&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options?</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
 </blockquote>
 <p>Updates records in the table with the specified values and returns the updated records.</p>
 <p>Values and WHERE operands are parameterized. A WHERE clause is required to
@@ -620,7 +620,7 @@ reduce accidental full-table updates.</p>
 </code></pre>
 <h3 id="updatejson()" tabindex="-1">updateJson()</h3>
 <blockquote>
-<p><strong>updateJson</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
+<p><strong>updateJson</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>Promise</code>&lt;<code>any</code>[]&gt;</p>
 </blockquote>
 <p>Atomically updates a JSON/JSONB column using the <code>||</code> merge operator,
 avoiding read-modify-write race conditions.</p>
@@ -644,7 +644,7 @@ object is bound as a parameter.</p>
 </code></pre>
 <h3 id="upsert()" tabindex="-1">upsert()</h3>
 <blockquote>
-<p><strong>upsert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
+<p><strong>upsert</strong>&lt;<code>FirstValue</code>, <code>Returning</code>&gt;&gt;&gt;&gt;&gt;(<code>values</code>, <code>options</code>): <code>Promise</code>&lt;<code>Returning</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;[] : <code>Returning</code>[<code>number</code>] <em>extends</em> keyof <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; ? <code>Pick</code>&lt;<a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;, <code>any</code>[<code>any</code>]&gt;[] : <code>Record</code>&lt;<code>string</code>, <code>any</code>&gt;&gt;&gt;&gt;&gt;[]&gt;</p>
 </blockquote>
 <p>Inserts or updates records in the database table.</p>
 <p>Values are parameterized. Conflict and returning columns are escaped as identifiers,
@@ -681,7 +681,7 @@ and omitted <code>update</code> defaults to every non-conflict column from the f
 <h3 id="where()" tabindex="-1">where()</h3>
 <h4 id="call-signature-10" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value?</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -714,7 +714,7 @@ not bind a value.</p>
 </code></pre>
 <h4 id="call-signature-11" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -747,7 +747,7 @@ not bind a value.</p>
 </code></pre>
 <h4 id="call-signature-12" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -777,7 +777,7 @@ not bind a value.</p>
 </code></pre>
 <h4 id="call-signature-13" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -810,7 +810,7 @@ not bind a value.</p>
 </code></pre>
 <h4 id="call-signature-14" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>operator</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -843,7 +843,7 @@ not bind a value.</p>
 </code></pre>
 <h4 id="call-signature-15" tabindex="-1">Call Signature</h4>
 <blockquote>
-<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>where</strong>&lt;<code>C</code>&gt;&gt;&gt;&gt;&gt;(<code>column</code>, <code>value</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Applies a WHERE condition to the query builder.</p>
 <p>Passing <code>(column, value)</code> uses <code>=</code>. Passing <code>(column, operator, value)</code> requires
@@ -873,7 +873,7 @@ not bind a value.</p>
 </code></pre>
 <h3 id="whereraw()" tabindex="-1">whereRaw()</h3>
 <blockquote>
-<p><strong>whereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>whereRaw</strong>(<code>sql</code>, ...<code>params</code>): <code>QueryBuilder</code>&lt;<code>T</code>, <code>TResult</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Adds a raw SQL expression to the WHERE clause with parameter bindings.</p>
 <p>The SQL fragment is inserted as-is inside parentheses. Use <code>?</code> placeholders for

@@ -66,7 +66,7 @@
 <p><a href="/doc/pg/">@faasjs/pg</a> / JsonSelectField</p>
 <h1 id="type-alias%3A-jsonselectfield%3Ct%3E" tabindex="-1">Type Alias: JsonSelectField&lt;T&gt;</h1>
 <blockquote>
-<p><strong>JsonSelectField</strong>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
+<p><strong>JsonSelectField</strong>&lt;<code>T</code>&gt; &gt; &gt; &gt; &gt; = <code>object</code></p>
 </blockquote>
 <p>Select a subset of fields from a JSON or JSONB column.</p>
 <p>Used by <a href="/doc/pg/classes/QueryBuilder.html#select">QueryBuilder.select</a> to emit <code>jsonb_build_object(...)</code> for a
@@ -83,12 +83,12 @@ typed JSON column while keeping the result row narrowed to the selected keys.</p
 <p>Optional result alias. Defaults to the source column name.</p>
 <h3 id="column" tabindex="-1">column</h3>
 <blockquote>
-<p><strong>column</strong>: <code>JsonbColumns</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>column</strong>: <code>JsonbColumns</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>JSON/JSONB column whose fields should be projected.</p>
 <h3 id="fields" tabindex="-1">fields</h3>
 <blockquote>
-<p><strong>fields</strong>: <code>JsonbFields</code>&lt;<code>T</code>, <code>JsonbColumns</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]</p>
+<p><strong>fields</strong>: <code>JsonbFields</code>&lt;<code>T</code>, <code>JsonbColumns</code>&lt;<code>T</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;[]</p>
 </blockquote>
 <p>Field names to include from the JSON/JSONB column.</p>
 </div></div>

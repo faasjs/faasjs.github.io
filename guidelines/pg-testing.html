@@ -73,7 +73,7 @@
 </ul>
 <h2 id="default-workflow" tabindex="-1">Default Workflow</h2>
 <ol>
-<li>Prefer <code>PgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap, starts PGlite on the first <code>await getClient()</code>, runs migrations, backfills <code>DATABASE_URL</code>, and clears table contents before later tests in the same file. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
+<li>Prefer <code>PgVitestPlugin()</code> so Vitest registers a lazy temporary database bootstrap. The first database-using file builds one migrated PGlite snapshot for the test project, every database-using file starts an isolated clone, and later tests in the same file receive cleared tables. The helper also backfills <code>DATABASE_URL</code>. In mixed workspaces, keep PG-backed tests in a Node project because the plugin skips <code>jsdom</code> and <code>happy-dom</code> projects.</li>
 <li>Use <code>await getClient()</code> to seed data and run assertions so app code and tests share the same async bootstrap path.</li>
 <li>Add only the suite-specific setup or fixtures that the plugin does not already provide.</li>
 <li>Pair runtime assertions with <code>expectTypeOf(...)</code> when query inference, declaration merging, or shared wrappers affect types.</li>
@@ -162,15 +162,18 @@
 </ul>
 <h3 id="4.-keep-tests-isolated-even-when-the-plugin-resets-data" tabindex="-1">4. Keep tests isolated even when the plugin resets data</h3>
 <ul>
-<li>Prefer <code>PgVitestPlugin()</code> to reset rows automatically before each test.</li>
+<li>Prefer <code>PgVitestPlugin()</code> to give each database-using test file an isolated PGlite clone and reset rows automatically before each later test in that file.</li>
+<li>Treat migration-defined schema and seed data as the only shared starting state. Do not depend on rows, sequences, or schema changes created by another test file or test case.</li>
 <li>Create extra tables, seed data, or temp folders explicitly when a suite goes beyond the default migrations.</li>
 <li>Do not rely on hidden state from another test file or case.</li>
 </ul>
 <h3 id="5.-use-%40faasjs%2Fpg-dev-through-the-vitest-plugin" tabindex="-1">5. Use <code>@faasjs/pg-dev</code> through the Vitest plugin</h3>
 <ul>
 <li>Prefer <code>PgVitestPlugin()</code> for workspace test runs.</li>
+<li>Let the plugin prepend its run-scoped global setup and generated setup module; existing <code>globalSetup</code> and <code>setupFiles</code> entries are preserved.</li>
 <li>PG-backed runtime tests are still Node runtime tests. Prefer the regular <code>node</code> project, but if only that subset needs project-level setup, use a node-scoped project name such as <code>node-pg</code> instead of a standalone runtime bucket like <code>pg</code>.</li>
 <li>In tests, let the plugin lazy-bootstrap the default client through <code>await getClient()</code>. If a suite also reads <code>process.env.DATABASE_URL</code> directly, trigger the bootstrap with <code>await getClient()</code> first.</li>
+<li>Expect migrations to run once when the first database is requested, not during Vitest configuration. Watch reruns invalidate the snapshot so changed migrations are applied on the next bootstrap.</li>
 <li>Reach for <code>createClient(process.env.DATABASE_URL, options)</code> only when a suite genuinely needs custom <code>postgres.js</code> options or an extra connection after the bootstrap URL exists.</li>
 <li>Keep lower-level database bootstrapping internal to the test support layer; public examples should only show the plugin.</li>
 </ul>
@@ -188,7 +191,8 @@
 <li>tests live close to the feature area that changed</li>
 <li>mixed workspaces keep PG-backed tests in a Node project because browser-like projects are skipped</li>
 <li>pg-backed runtime tests stay in a node-scoped project (<code>node</code> or <code>node-pg</code>) in mixed workspaces</li>
-<li>suites either rely on the plugin reset or clean up their own extra setup</li>
+<li>suites rely on per-file database clones and per-test row resets without sharing test-created state</li>
+<li>suites clean up extra tables, seed data, or temp folders beyond the plugin defaults</li>
 <li>validation commands match the change surface</li>
 </ul>
 </div></div>

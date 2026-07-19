@@ -124,7 +124,7 @@ process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 <p><code>void</code></p>
 <h3 id="flush()" tabindex="-1">flush()</h3>
 <blockquote>
-<p><strong>flush</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>flush</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Flush the current message buffer through every registered handler.</p>
 <p>Concurrent callers wait for the active flush to finish. If no handlers are registered, the transport clears
@@ -171,7 +171,7 @@ transport from a clean state.</p>
 <p><code>void</code></p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
-<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Stop periodic flushing and drain any buffered messages.</p>
 <p>After <code>stop()</code>, call <code>register()</code> or <code>config()</code> before expecting new
@@ -194,7 +194,7 @@ inserted messages to be accepted again.</p>
 <h2 id="properties" tabindex="-1">Properties</h2>
 <h3 id="handlers" tabindex="-1">handlers</h3>
 <blockquote>
-<p><strong>handlers</strong>: <code>Map</code>&lt;<code>string</code>, <a href="/doc/node-utils/type-aliases/TransportHandler.html"><code>TransportHandler</code></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>handlers</strong>: <code>Map</code>&lt;<code>string</code>, <a href="/doc/node-utils/type-aliases/TransportHandler.html"><code>TransportHandler</code></a>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Registered flush handlers keyed by name.</p>
 <h3 id="messages" tabindex="-1">messages</h3>

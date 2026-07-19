@@ -66,7 +66,7 @@
 <p><a href="/doc/pg/">@faasjs/pg</a> / InferTResult</p>
 <h1 id="type-alias%3A-infertresult%3Ctname%2C-columnnames%3E" tabindex="-1">Type Alias: InferTResult&lt;TName, ColumnNames&gt;</h1>
 <blockquote>
-<p><strong>InferTResult</strong>&lt;<code>TName</code>, <code>ColumnNames</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; = <code>ColumnNames</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>TName</code>&gt; &gt; &gt; &gt; &gt; &gt; &gt; : <code>MergeTypes</code>&lt;<code>{ [K in keyof ColumnNames]: InferColumnType&lt;TName, ColumnNames[K]&gt; }</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>InferTResult</strong>&lt;<code>TName</code>, <code>ColumnNames</code>&gt; &gt; &gt; &gt; &gt; = <code>ColumnNames</code> <em>extends</em> [<code>&quot;*&quot;</code>] ? <a href="/doc/pg/type-aliases/TableType.html"><code>TableType</code></a>&lt;<code>TName</code>&gt; &gt; &gt; &gt; &gt; : <code>MergeTypes</code>&lt;<code>{ [K in keyof ColumnNames]: InferColumnType&lt;TName, ColumnNames[K]&gt; }</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Infers the result row type for a SELECT query based on the table name and selected columns.</p>
 <h2 id="type-parameters" tabindex="-1">Type Parameters</h2>

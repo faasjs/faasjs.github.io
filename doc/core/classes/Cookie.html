@@ -87,7 +87,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <h2 id="constructors" tabindex="-1">Constructors</h2>
 <h3 id="constructor" tabindex="-1">Constructor</h3>
 <blockquote>
-<p><strong>new Cookie</strong>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;(<code>config</code>, <code>logger?</code>, <code>options?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>new Cookie</strong>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;(<code>config</code>, <code>logger?</code>, <code>options?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Create a cookie manager.</p>
 <h4 id="parameters" tabindex="-1">Parameters</h4>
@@ -107,7 +107,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="fork()" tabindex="-1">fork()</h3>
 <blockquote>
-<p><strong>fork</strong>(<code>logger?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>fork</strong>(<code>logger?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Clone the cookie manager while reusing normalized config and secrets.</p>
 <h4 id="parameters-1" tabindex="-1">Parameters</h4>
@@ -131,7 +131,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 </blockquote>
 <h3 id="invoke()" tabindex="-1">invoke()</h3>
 <blockquote>
-<p><strong>invoke</strong>(<code>cookie</code>, <code>logger</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>invoke</strong>(<code>cookie</code>, <code>logger</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Load request cookies and bootstrap the related session state.</p>
 <h4 id="parameters-2" tabindex="-1">Parameters</h4>
@@ -158,7 +158,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Decoded cookie value for the current request.</p>
 <h3 id="write()" tabindex="-1">write()</h3>
 <blockquote>
-<p><strong>write</strong>(<code>key</code>, <code>value</code>, <code>opts?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>write</strong>(<code>key</code>, <code>value</code>, <code>opts?</code>): <code>Cookie</code>&lt;<code>C</code>, <code>S</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Queue a cookie write or removal for the outgoing response.</p>
 <h4 id="parameters-4" tabindex="-1">Parameters</h4>
@@ -199,7 +199,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Normalized cookie configuration with defaults applied.</p>
 <h3 id="content" tabindex="-1">content</h3>
 <blockquote>
-<p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>content</strong>: <code>Record</code>&lt;<code>string</code>, <code>string</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Parsed cookie key-value pairs for the current request.</p>
 <h3 id="logger-1" tabindex="-1">logger</h3>
@@ -209,7 +209,7 @@ cookie.<span class="hljs-title function_">headers</span>()
 <p>Optional logger used for warnings and debug output.</p>
 <h3 id="session" tabindex="-1">session</h3>
 <blockquote>
-<p><strong>session</strong>: <a href="/doc/core/classes/Session.html"><code>Session</code></a>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>session</strong>: <a href="/doc/core/classes/Session.html"><code>Session</code></a>&lt;<code>S</code>, <code>C</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Session helper bound to this cookie store.</p>
 </div></div>

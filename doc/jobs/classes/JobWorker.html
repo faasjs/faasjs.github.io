@@ -94,7 +94,7 @@ worker.<span class="hljs-title function_">start</span>()
 <h2 id="methods" tabindex="-1">Methods</h2>
 <h3 id="poll()" tabindex="-1">poll()</h3>
 <blockquote>
-<p><strong>poll</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>poll</strong>(): <code>Promise</code>&lt;<code>number</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Execute one polling cycle: claim up to <code>concurrency</code> pending jobs
 and run their handlers. No-op if a poll is already in progress.
@@ -112,7 +112,7 @@ Handler failures are recorded in PostgreSQL and retried or marked failed.</p>
 <p>The worker instance (for chaining).</p>
 <h3 id="stop()" tabindex="-1">stop()</h3>
 <blockquote>
-<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</p>
+<p><strong>stop</strong>(): <code>Promise</code>&lt;<code>void</code>&gt;&gt;&gt;&gt;&gt;</p>
 </blockquote>
 <p>Stop the polling loop. Waits for the current poll to complete
 before resolving.</p>
